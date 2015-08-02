@@ -1,11 +1,11 @@
 
- <!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>tags | ideas into codes</title>
+    <title>search | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
@@ -14,13 +14,13 @@
     
     <meta name="description">
 <meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta property="og:title" content="search">
+<meta property="og:url" content="http://yoursite.com/search/index.html">
 <meta property="og:site_name" content="ideas into codes">
 <meta property="og:description">
-<meta property="og:updated_time" content="2015-08-01T07:48:45.000Z">
+<meta property="og:updated_time" content="2015-08-02T01:58:35.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="search">
 <meta name="twitter:description">
 
     
@@ -71,21 +71,46 @@
 
       </header>
       <div id="container">
-          
-<div class="archive-title" >
-<h2 class="tag-icon">标签</h2>
+        
+<div  id="container" class="page">
+  <div id="st-results-container" style="width:80%">正在加载搜索结果，请稍等。</div>
+  <style>.st-result-text {
+  background: #fafafa;
+  display: block;
+  border-left: 0.5em solid #ccc;
+  -webkit-transition: border-left 0.45s;
+  -moz-transition: border-left 0.45s;
+  -o-transition: border-left 0.45s;
+  -ms-transition: border-left 0.45s;
+  transition: border-left 0.45s;
+  padding: 0.5em;
+}
+@media only screen and (min-width: 768px) {
+  .st-result-text {
+    padding: 1em;
+  }
+}
+.st-result-text:hover {
+  border-left: 0.5em solid #ea6753;
+}
+.st-result-text h3 a{
+  color: #2ca6cb;
+  line-height: 1.5;
+  font-size: 22px;
+}
+.st-snippet em {
+  font-weight: bold;
+  color: #ea6753;
+}</style>
 
-<a data-src="/tags/xxx/" href="#xxx" title="xxx">xxx<sup>1</sup></a>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v1/st.js','_st');
 
-<a data-src="/tags/博客/" href="#博客" title="博客">博客<sup>3</sup></a>
-
-<a data-src="/tags/文章/" href="#文章" title="文章">文章<sup>3</sup></a>
-
-</div>
-<div id="main" class="archive-part">
-<div class="all-list-box"></div>
-</div>
-
+  _st('install','vFmYG2ZLAiTvJ8vyggQN');
+</script>
 
 
 
@@ -183,24 +208,6 @@ $(document).ready(function(){
 
 
 
-
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var list    = $('.archive-title a'),
-      box     = $('.all-list-box'),
-      first   = $('.archive-title a:first-of-type');
-      box.load(first.attr('data-src').toString()+' #archive-page');
-      first.addClass('current');
-  list.each(function(){
-    $(this).click(function(){
-      var listSrc=$(this).attr('data-src').toString()+' #archive-page';
-      box.load(listSrc);
-      list.removeClass('current');
-      $(this).addClass('current');
-     });  
-    });
-  }); 
-</script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">

@@ -12,19 +12,19 @@
     
 
     
-    <meta name="description" content="Pyscopg是在python中应用最为广泛的Postgresql适配器，Psycopg2是对libpq的封装，其中大部分的代码是C写的(主要运行于CPython解释器上)，性能较高高且线程安全。
-基本用法：123456789101112131415161718192021222324252627282930313233343536373839#encoding: utf-8import psyc">
+    <meta name="description" content="Pyscopg是在python中应用最为广泛的Postgresql适配器，Psycopg2是对libpq的封装，其中大部分的代码是C写的(主要运行于CPython解释器上)，性能较高且线程安全。
+基本用法：123456789101112131415161718192021222324252627282930313233343536373839#encoding: utf-8import psyco">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Psycopg的基本用法">
-<meta property="og:url" content="http://yoursite.com/2015/08/03/Psycopg的基本用法/index.html">
+<meta property="og:url" content="http://yoursite.com/2015/08/06/Psycopg的基本用法/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="Pyscopg是在python中应用最为广泛的Postgresql适配器，Psycopg2是对libpq的封装，其中大部分的代码是C写的(主要运行于CPython解释器上)，性能较高高且线程安全。
-基本用法：123456789101112131415161718192021222324252627282930313233343536373839#encoding: utf-8import psyc">
-<meta property="og:updated_time" content="2015-08-03T13:18:23.000Z">
+<meta property="og:description" content="Pyscopg是在python中应用最为广泛的Postgresql适配器，Psycopg2是对libpq的封装，其中大部分的代码是C写的(主要运行于CPython解释器上)，性能较高且线程安全。
+基本用法：123456789101112131415161718192021222324252627282930313233343536373839#encoding: utf-8import psyco">
+<meta property="og:updated_time" content="2015-08-06T15:22:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Psycopg的基本用法">
-<meta name="twitter:description" content="Pyscopg是在python中应用最为广泛的Postgresql适配器，Psycopg2是对libpq的封装，其中大部分的代码是C写的(主要运行于CPython解释器上)，性能较高高且线程安全。
-基本用法：123456789101112131415161718192021222324252627282930313233343536373839#encoding: utf-8import psyc">
+<meta name="twitter:description" content="Pyscopg是在python中应用最为广泛的Postgresql适配器，Psycopg2是对libpq的封装，其中大部分的代码是C写的(主要运行于CPython解释器上)，性能较高且线程安全。
+基本用法：123456789101112131415161718192021222324252627282930313233343536373839#encoding: utf-8import psyco">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -80,14 +80,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/08/03/Psycopg的基本用法/" title="Psycopg的基本用法" itemprop="url">Psycopg的基本用法</a>
+      <a href="/2015/08/06/Psycopg的基本用法/" title="Psycopg的基本用法" itemprop="url">Psycopg的基本用法</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-08-03T13:18:23.000Z" itemprop="datePublished"> 发表于 2015-08-03</time>
+    <time datetime="2015-08-06T15:22:10.000Z" itemprop="datePublished"> 发表于 2015-08-06</time>
     
   </p>
 </header>
@@ -100,7 +100,7 @@
 		
 		</div>
 		
-		<p><strong>Pyscopg</strong>是在python中应用最为广泛的Postgresql适配器，Psycopg2是对<a href="http://www.postgresql.org/docs/current/static/libpq.html" target="_blank" rel="external">libpq</a>的封装，其中大部分的代码是C写的(主要运行于CPython解释器上)，性能较高高且线程安全。</p>
+		<p><strong>Pyscopg</strong>是在python中应用最为广泛的Postgresql适配器，Psycopg2是对<a href="http://www.postgresql.org/docs/current/static/libpq.html" target="_blank" rel="external">libpq</a>的封装，其中大部分的代码是C写的(主要运行于CPython解释器上)，性能较高且线程安全。</p>
 <p>基本用法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#encoding: utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> psycopg2</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 建立数据库连接(session)</span></span><br><span class="line">    conn = psycopg2.connect(database=<span class="string">"postgres"</span>, user=<span class="string">"postgres"</span>, password=<span class="string">""</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 打开一个游标</span></span><br><span class="line">    cursor = conn.cursor()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 查询</span></span><br><span class="line">    cursor.execute(<span class="string">"select sno, sname from students"</span>)</span><br><span class="line">    <span class="keyword">print</span> cursor.fetchall()</span><br><span class="line">    <span class="comment">#[('111', 'xiao'), ('112', 'hua'), ('113', 'zhou'), ('114', 'li'), ('115', 'jie')]</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 参数查询</span></span><br><span class="line">    cursor.execute(<span class="string">"select sno, sname from students where scname = any(%s)"</span>, ([<span class="string">"1班"</span>, <span class="string">"2班"</span>],))</span><br><span class="line">    <span class="keyword">for</span> stu <span class="keyword">in</span> cursor:</span><br><span class="line">        <span class="keyword">print</span> stu</span><br><span class="line">    <span class="comment">#('111', 'xiao')</span></span><br><span class="line">    <span class="comment">#('112', 'hua')</span></span><br><span class="line">    <span class="comment">#('113', 'zhou')</span></span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 插入</span></span><br><span class="line">    cursor.execute(<span class="string">"insert into students values(%s, %s, %s, %s, %s)"</span>, [<span class="number">116</span>, <span class="string">'hello'</span>, <span class="number">37</span>, <span class="number">5</span>, <span class="string">'2班'</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 插入(named arguments)</span></span><br><span class="line">    cursor.execute(</span><br><span class="line">        <span class="string">"insert into students values(%(sno)s, %(sname)s, %(sage)s, %(scid)s, %(scname)s)"</span>,</span><br><span class="line">        &#123;<span class="string">'sno'</span>: <span class="number">117</span>, <span class="string">'sname'</span>:<span class="string">'haha'</span>, <span class="string">'sage'</span>: <span class="number">30</span>, <span class="string">'scid'</span>: <span class="number">15</span>, <span class="string">'scname'</span>: <span class="string">'3班'</span>&#125;</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 事务提交</span></span><br><span class="line">    conn.commit()    </span><br><span class="line">    <span class="comment"># 关闭游标</span></span><br><span class="line">    cursor.close() </span><br><span class="line">    <span class="comment"># 关闭连接</span></span><br><span class="line">    conn.close()</span><br></pre></td></tr></table></figure></p>
 <p>由以上代码可见,psycopg为python提供了很方便的操作接口，比如所有的数据类型(包括日期、数组)都统一用%s来表示，psycopg会自动转成数据库对应的类型。</p>
 <hr>
@@ -137,7 +137,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/08/03/Psycopg的基本用法/" data-title="Psycopg的基本用法 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/08/06/Psycopg的基本用法/" data-title="Psycopg的基本用法 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -152,9 +152,9 @@
  
 
 <div class="next">
-<a href="/2015/08/02/javascript中的instanceof与typeof/"  title="javascript中的instanceof与typeof">
+<a href="/2015/08/06/Python中的常量/"  title="Python中的常量">
  <strong>下一篇：</strong><br/> 
- <span>javascript中的instanceof与typeof
+ <span>Python中的常量
 </span>
 </a>
 </div>
@@ -183,7 +183,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>1</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>2</sup></a></li>
 		  
 		
 		  
@@ -200,15 +200,15 @@
 		<ul class="clearfix">
 		
 			
+				<li><a href="/tags/python/" title="python">python<sup>2</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/javascript/" title="javascript">javascript<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/数据库/" title="数据库">数据库<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/python/" title="python">python<sup>1</sup></a></li>
 			
 		
 		</ul>

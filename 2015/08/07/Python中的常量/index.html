@@ -15,10 +15,10 @@
     <meta name="description" content="Python中没有提供原生的常量(const)，大概是因为它是动态语言，不像C或java，python没有编译过程，对于常量这种特性，检查起来有点费劲。不过倒是有个约定，全部用大写字母定义的变量，应该被视为常量。不过约定毕竟是约定，未从代码上进行限制，为了解决这个问题，activestate code上有人实现了一种方案，定义代码如下：1234567891011#const.pyclass _co">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python中的常量">
-<meta property="og:url" content="http://yoursite.com/2015/08/06/Python中的常量/index.html">
+<meta property="og:url" content="http://yoursite.com/2015/08/07/Python中的常量/index.html">
 <meta property="og:site_name" content="ideas into codes">
 <meta property="og:description" content="Python中没有提供原生的常量(const)，大概是因为它是动态语言，不像C或java，python没有编译过程，对于常量这种特性，检查起来有点费劲。不过倒是有个约定，全部用大写字母定义的变量，应该被视为常量。不过约定毕竟是约定，未从代码上进行限制，为了解决这个问题，activestate code上有人实现了一种方案，定义代码如下：1234567891011#const.pyclass _co">
-<meta property="og:updated_time" content="2015-08-06T15:28:37.000Z">
+<meta property="og:updated_time" content="2015-08-07T11:59:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python中的常量">
 <meta name="twitter:description" content="Python中没有提供原生的常量(const)，大概是因为它是动态语言，不像C或java，python没有编译过程，对于常量这种特性，检查起来有点费劲。不过倒是有个约定，全部用大写字母定义的变量，应该被视为常量。不过约定毕竟是约定，未从代码上进行限制，为了解决这个问题，activestate code上有人实现了一种方案，定义代码如下：1234567891011#const.pyclass _co">
@@ -77,21 +77,32 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/08/06/Python中的常量/" title="Python中的常量" itemprop="url">Python中的常量</a>
+      <a href="/2015/08/07/Python中的常量/" title="Python中的常量" itemprop="url">Python中的常量</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-08-06T15:28:37.000Z" itemprop="datePublished"> 发表于 2015-08-06</time>
+    <time datetime="2015-08-07T11:59:13.000Z" itemprop="datePublished"> 发表于 2015-08-07</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>
+		
 		<p>Python中没有提供原生的常量(const)，大概是因为它是动态语言，不像C或java，python没有编译过程，对于常量这种特性，检查起来有点费劲。不过倒是有个约定，全部用<strong>大写字母</strong>定义的变量，应该被视为常量。<br>不过约定毕竟是约定，未从代码上进行限制，为了解决这个问题，<a href="http://code.activestate.com/recipes/65207-constants-in-python/" target="_blank" rel="external">activestate code</a>上有人实现了一种方案，定义代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#const.py</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_const</span>:</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">ConstError</span><span class="params">(TypeError)</span>:</span><span class="keyword">pass</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__setattr__</span><span class="params">(self, name, value)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.__dict__.has_key(name):</span><br><span class="line">            <span class="keyword">raise</span> self.ConstError, <span class="string">"can't rebind const (%s)"</span>%name</span><br><span class="line">        self.__dict__[name] = value</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.modules[__name__] = _const()</span><br></pre></td></tr></table></figure></p>
 <p>使用代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> const        </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    const.x = <span class="string">"hello"</span></span><br><span class="line">    <span class="keyword">print</span> const.x   <span class="comment"># hello</span></span><br><span class="line">    const.x = <span class="string">"world"</span>   <span class="comment"># const.ConstError: can't rebind const (x)</span></span><br><span class="line">    <span class="keyword">print</span> const.x</span><br></pre></td></tr></table></figure></p>
+<p>其中：<br>1、<code>__setattr__</code>与<code>__dict__</code>用来改变class属性添加或修改的时的行为，比如对老师的工资进行设置的同时检查是否低于4000，低于4000的话，自动设为4000，代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__setattr__</span><span class="params">(self, key, value)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> key == <span class="string">"salary"</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                value = float(value)</span><br><span class="line">                <span class="keyword">if</span> value &lt; <span class="number">4000</span>:</span><br><span class="line">                    value = <span class="number">4000</span></span><br><span class="line">            <span class="keyword">except</span> ValueError:</span><br><span class="line">                value = <span class="number">4000</span></span><br><span class="line">        </span><br><span class="line">        self.__dict__[key] = value</span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    t = Teacher()</span><br><span class="line">    t.name = <span class="string">"MR.z"</span></span><br><span class="line">    t.salary = <span class="number">3000</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">print</span> t.name, t.salary  <span class="comment"># MR.z 4000</span></span><br></pre></td></tr></table></figure></p>
+<p>其中<code>__dict__</code>存储了当前对象的所有属性，<code>__setattr__</code>相当于重载了<code>.</code>访问符(<code>__setitem__</code>相当于重载了<code>[]</code>运算符)，在执行语句<code>t.name = MR.Z</code>时，<code>__setattr__</code>函数被自动触发执行，这里有个地方需要注意，在<code>__setattr__</code>函数内部，不要直接调用诸如<code>self.name = MR.Z</code>这样的语句，因为这同样会触发<code>__setattr__</code>函数，这样就变成了对<code>__setattr__</code>无限递归调用了。</p>
+<p>2、<code>sys.modules</code>的用法。刚开始我也有点晕，运行起来看了一下大概知道怎么回事了。其中<code>__name__</code>表示当前module的名字，一般就是当前py文件的名字，默认情况下<code>sys.modules[__name__]</code>指向的时当前模块(像是一个命名空间)，在这里我们人为将其值改为了_const对象，那在执行<code>import</code>时，引入就不是module而是一个对象了。代码如下：<br>未改变<code>sys.modules[__name__]</code>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#ces.py</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">hello</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.msg = <span class="string">"hello"</span></span><br><span class="line"></span><br><span class="line">xxx = <span class="string">"hello world"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#demo.py</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> ces</span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">print</span> sys.modules[<span class="string">"ces"</span>]  <span class="comment">#&lt;module 'ces' from '/root/workspace/pythonDemo/ces.py'&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>改变<code>sys.modules[__name__]</code>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#ces.py</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">hello</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.msg = <span class="string">"hello"</span></span><br><span class="line"></span><br><span class="line">xxx = <span class="string">"hello world"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.modules[__name__] = hello()</span><br><span class="line"></span><br><span class="line"><span class="comment">#demo.py</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> ces</span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">print</span> sys.modules[<span class="string">"ces"</span>]  <span class="comment">#&lt;ces.hello instance at 0xb76f950c&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>参考：<a href="http://code.activestate.com/recipes/65207-constants-in-python/" target="_blank" rel="external">activestate code</a></p>
   
 	</div>
@@ -115,7 +126,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/08/06/Python中的常量/" data-title="Python中的常量 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/08/07/Python中的常量/" data-title="Python中的常量 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -143,6 +154,13 @@
 
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ 
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -269,6 +287,8 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });

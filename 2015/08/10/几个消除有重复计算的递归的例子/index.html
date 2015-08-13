@@ -12,20 +12,20 @@
     
 
     
-    <meta name="description" content="今天遇到了一个老问题：n阶楼梯可以一次走1阶、2阶或3阶，问总共有多少种走法？，这个问题一直觉得很easy，可以借助公式s(n)=s(n-1)+s(n-2)+s(n3)用递归解决，仔细一想，还是想当然了，递归会造成大量的重复计算，如下图：
-对于这个问题的正确的解法应该是用循环从1到n求解，而不是用递归从n到1。类似的问题还有斐波那契数列以及小偷问题用这种循环的方法的算法代码如下：123456789">
+    <meta name="description" content="今天遇到了一个老问题：n阶楼梯可以一次走1阶、2阶或3阶，问总共有多少种走法？，这个问题一直觉得很easy，可以借助公式s(n)=s(n-1)+s(n-2)+s(n-3)用递归解决，仔细一想，还是想当然了，递归会造成大量的重复计算，如下图：
+对于这个问题的正确的解法应该是用循环从1到n求解，而不是用递归从n到1。类似的问题还有斐波那契数列以及小偷问题用这种循环的方法的算法代码如下：12345678">
 <meta property="og:type" content="article">
 <meta property="og:title" content="几个消除有重复计算的递归的例子">
 <meta property="og:url" content="http://yoursite.com/2015/08/10/几个消除有重复计算的递归的例子/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="今天遇到了一个老问题：n阶楼梯可以一次走1阶、2阶或3阶，问总共有多少种走法？，这个问题一直觉得很easy，可以借助公式s(n)=s(n-1)+s(n-2)+s(n3)用递归解决，仔细一想，还是想当然了，递归会造成大量的重复计算，如下图：
-对于这个问题的正确的解法应该是用循环从1到n求解，而不是用递归从n到1。类似的问题还有斐波那契数列以及小偷问题用这种循环的方法的算法代码如下：123456789">
+<meta property="og:description" content="今天遇到了一个老问题：n阶楼梯可以一次走1阶、2阶或3阶，问总共有多少种走法？，这个问题一直觉得很easy，可以借助公式s(n)=s(n-1)+s(n-2)+s(n-3)用递归解决，仔细一想，还是想当然了，递归会造成大量的重复计算，如下图：
+对于这个问题的正确的解法应该是用循环从1到n求解，而不是用递归从n到1。类似的问题还有斐波那契数列以及小偷问题用这种循环的方法的算法代码如下：12345678">
 <meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/digui.png">
-<meta property="og:updated_time" content="2015-08-11T14:32:45.000Z">
+<meta property="og:updated_time" content="2015-08-13T13:57:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="几个消除有重复计算的递归的例子">
-<meta name="twitter:description" content="今天遇到了一个老问题：n阶楼梯可以一次走1阶、2阶或3阶，问总共有多少种走法？，这个问题一直觉得很easy，可以借助公式s(n)=s(n-1)+s(n-2)+s(n3)用递归解决，仔细一想，还是想当然了，递归会造成大量的重复计算，如下图：
-对于这个问题的正确的解法应该是用循环从1到n求解，而不是用递归从n到1。类似的问题还有斐波那契数列以及小偷问题用这种循环的方法的算法代码如下：123456789">
+<meta name="twitter:description" content="今天遇到了一个老问题：n阶楼梯可以一次走1阶、2阶或3阶，问总共有多少种走法？，这个问题一直觉得很easy，可以借助公式s(n)=s(n-1)+s(n-2)+s(n-3)用递归解决，仔细一想，还是想当然了，递归会造成大量的重复计算，如下图：
+对于这个问题的正确的解法应该是用循环从1到n求解，而不是用递归从n到1。类似的问题还有斐波那契数列以及小偷问题用这种循环的方法的算法代码如下：12345678">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -94,14 +94,14 @@
 </header>
 	<div class="article-content">
 		
-		<p>今天遇到了一个老问题：<code>n阶楼梯可以一次走1阶、2阶或3阶，问总共有多少种走法？</code>，这个问题一直觉得很easy，可以借助公式<code>s(n)=s(n-1)+s(n-2)+s(n3)</code>用递归解决，仔细一想，还是想当然了，递归会造成大量的重复计算，如下图：<br><img src="http://7xktxu.com1.z0.glb.clouddn.com/digui.png" alt=""></p>
+		<p>今天遇到了一个老问题：<code>n阶楼梯可以一次走1阶、2阶或3阶，问总共有多少种走法？</code>，这个问题一直觉得很easy，可以借助公式<code>s(n)=s(n-1)+s(n-2)+s(n-3)</code>用递归解决，仔细一想，还是想当然了，递归会造成大量的重复计算，如下图：<br><img src="http://7xktxu.com1.z0.glb.clouddn.com/digui.png" alt=""></p>
 <p>对于这个问题的正确的解法应该是<strong>用循环从1到n求解，而不是用递归从n到1</strong>。类似的问题还有<a href="http://baike.baidu.com/link?url=FSiOwV6nZ69CSxGdvupsmf5lQNx3nZIwMlSgYjTozhBdPVqYXkm33YzKa3BcWYDylWs6F2koN-Lp22TXZbUuI_" target="_blank" rel="external">斐波那契数列</a>以及<a href="https://leetcode.com/problems/house-robber/" target="_blank" rel="external">小偷问题</a><br>用这种循环的方法的算法代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="comment"># @param &#123;integer[]&#125; nums</span></span><br><span class="line">    <span class="comment"># @return &#123;integer&#125;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rob</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        size = len(nums)</span><br><span class="line">        <span class="keyword">if</span> size &lt; <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> size == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> size == <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> max(nums[<span class="number">0</span>], nums[<span class="number">1</span>])</span><br><span class="line">        </span><br><span class="line">        p = nums[<span class="number">0</span>]</span><br><span class="line">        q = max(nums[<span class="number">0</span>], nums[<span class="number">1</span>])</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> index <span class="keyword">in</span> range(<span class="number">2</span>, size):</span><br><span class="line">            tmp = max(p + nums[index], q)</span><br><span class="line">            p = q</span><br><span class="line">            q = tmp</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> q</span><br></pre></td></tr></table></figure></p>
-<p>这种问题好在可以找到一个明确的递推公式，对于递推公式不好找的问题可以考虑<strong>分治</strong>求解。如下面这个问题：<br>给定一个计算式，求出所有可能结合方式的元算结果。<br>例1：<br>输入：”2-1-1”<br>则可能的结合方式：</p>
+<p>这种问题好在可以找到一个明确的递推公式，对于递推公式不好找的问题可以考虑<strong>分治</strong>求解。如下面这个问题：<br>给定一个计算式，求出所有可能结合方式的元算结果。<br>例1：<br>输入：<code>2-1-1</code><br>则可能的结合方式：</p>
 <blockquote>
 <p>((2-1)-1) = 0<br>(2-(1-1)) = 2</p>
 </blockquote>
 <p>输出：<code>[0, 2]</code></p>
-<p>例2：<br>输入：”2<em>3-4</em>5”<br>则可能的结合方式：</p>
+<p>例2：<br>输入：<code>2*3-4*5</code><br>则可能的结合方式：</p>
 <blockquote>
 <p>(2<em>(3-(4</em>5))) = -34<br>((2<em>3)-(4</em>5)) = -14<br>((2<em>(3-4))</em>5) = -10<br>(2<em>((3-4)</em>5)) = -10<br>(((2<em>3)-4)</em>5) = 10</p>
 </blockquote>

@@ -5,26 +5,43 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>Django由数据库生成model | ideas into codes</title>
+    <title>awk处理空格分隔符 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="运行命令：1python manage.py inspectdb [ &amp;gt; models.py ]
-即可生成对应数据库表(默认为settings.py中的default数据库，可以加–database参数来指定)的model class，&amp;gt; models.py可将生成的python代码直接重定向到文件中，如果不加该选项，将直接显示在当前窗口中，另外，该命令不支持生成部分指定表，运行一次就">
+    <meta name="description" content="例1
+awk默认的分割符为空格，此时行首的空格可以自动忽略，但当显式标明空格为分割符或为分割符号之一时，行首的空格就不能被忽略了。针对以上问题可以考虑使用一下代码：1awk -F &amp;#39;|&amp;#39; &amp;#39;&amp;#123;gsub(/\s*/,&amp;#34;&amp;#34;);print $1;&amp;#125;&amp;#39; input.txt
+此时输出结果为：
+
+111112113114115116
+
+关于g">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Django由数据库生成model">
-<meta property="og:url" content="http://yoursite.com/2015/08/14/Django由数据库生成model/index.html">
+<meta property="og:title" content="awk处理空格分隔符">
+<meta property="og:url" content="http://yoursite.com/2015/08/18/awk处理空格分隔符/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="运行命令：1python manage.py inspectdb [ &amp;gt; models.py ]
-即可生成对应数据库表(默认为settings.py中的default数据库，可以加–database参数来指定)的model class，&amp;gt; models.py可将生成的python代码直接重定向到文件中，如果不加该选项，将直接显示在当前窗口中，另外，该命令不支持生成部分指定表，运行一次就">
-<meta property="og:updated_time" content="2015-08-14T15:29:40.000Z">
+<meta property="og:description" content="例1
+awk默认的分割符为空格，此时行首的空格可以自动忽略，但当显式标明空格为分割符或为分割符号之一时，行首的空格就不能被忽略了。针对以上问题可以考虑使用一下代码：1awk -F &amp;#39;|&amp;#39; &amp;#39;&amp;#123;gsub(/\s*/,&amp;#34;&amp;#34;);print $1;&amp;#125;&amp;#39; input.txt
+此时输出结果为：
+
+111112113114115116
+
+关于g">
+<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/awk_input.png">
+<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/awk_input_2.png">
+<meta property="og:updated_time" content="2015-08-18T12:14:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Django由数据库生成model">
-<meta name="twitter:description" content="运行命令：1python manage.py inspectdb [ &amp;gt; models.py ]
-即可生成对应数据库表(默认为settings.py中的default数据库，可以加–database参数来指定)的model class，&amp;gt; models.py可将生成的python代码直接重定向到文件中，如果不加该选项，将直接显示在当前窗口中，另外，该命令不支持生成部分指定表，运行一次就">
+<meta name="twitter:title" content="awk处理空格分隔符">
+<meta name="twitter:description" content="例1
+awk默认的分割符为空格，此时行首的空格可以自动忽略，但当显式标明空格为分割符或为分割符号之一时，行首的空格就不能被忽略了。针对以上问题可以考虑使用一下代码：1awk -F &amp;#39;|&amp;#39; &amp;#39;&amp;#123;gsub(/\s*/,&amp;#34;&amp;#34;);print $1;&amp;#125;&amp;#39; input.txt
+此时输出结果为：
+
+111112113114115116
+
+关于g">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -80,25 +97,31 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/08/14/Django由数据库生成model/" title="Django由数据库生成model" itemprop="url">Django由数据库生成model</a>
+      <a href="/2015/08/18/awk处理空格分隔符/" title="awk处理空格分隔符" itemprop="url">awk处理空格分隔符</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-08-13T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-08-14</time>
+    <time datetime="2015-08-17T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-08-18</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>运行命令：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py inspectdb [ &gt; models.py ]</span><br></pre></td></tr></table></figure></p>
-<p>即可生成对应数据库表(默认为settings.py中的default数据库，可以加–database参数来指定)的model class，<code>&gt; models.py</code>可将生成的python代码直接重定向到文件中，如果不加该选项，将直接显示在当前窗口中，另外，该命令不支持生成部分指定表，运行一次就会把所有的表的model class全部输出出来。<br>假如有如下一个表：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> soildata</span><br><span class="line">(</span><br><span class="line">  <span class="keyword">sid</span> <span class="built_in">character</span> <span class="built_in">varying</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  stype <span class="built_in">character</span> <span class="built_in">varying</span>(<span class="number">32</span>),</span><br><span class="line">  pos geometry,</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> soildata_pkey PRIMARY <span class="keyword">KEY</span> (<span class="keyword">sid</span>),</span><br><span class="line"><span class="keyword">WITH</span> (</span><br><span class="line">  OIDS=<span class="literal">FALSE</span></span><br><span class="line">);</span></span><br><span class="line"><span class="operator"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> soildata</span><br><span class="line">  OWNER <span class="keyword">TO</span> postgres;</span></span><br></pre></td></tr></table></figure></p>
-<p>运行<code>python manage.py inspectdb</code>后，可在当前窗口看到其对应的model class:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Soildata</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    sid = models.CharField(primary_key=<span class="keyword">True</span>, max_length=<span class="number">32</span>)</span><br><span class="line">    stype = models.CharField(max_length=<span class="number">32</span>, blank=<span class="keyword">True</span>)</span><br><span class="line">    pos = models.GeometryField(blank=<span class="keyword">True</span>, null=<span class="keyword">True</span>)</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        managed = <span class="keyword">False</span></span><br><span class="line">        db_table = <span class="string">'soildata'</span></span><br></pre></td></tr></table></figure></p>
-<p>Soildata中的<code>managed = False</code>表示该表不再由Django管理( <code>managed = False</code> in the model’s Meta class tells Django not to manage each table’s creation, modification, and deletion)。</p>
-<p>除此之外，还有几个地方需要注意：<br>1、如果出现了Django中不支持的字段类型，统一用<code>TextField</code>代替表示，并在其后添加注释:<code>This field type is a guess</code>。<br>2、如果数据库中的字段名为python中的保留字，则在django中会以添加后缀<code>_field</code>的方式表示，比如字段名<code>for</code>，则生成models中class的字段名为<code>for_field</code>，并通过<code>db_column</code>来绑定数据库，并添加注释<code>Field renamed because it was a Python reserved word</code>。<br>3、数据库中的复杂限制条件不会出现在models中的class中，比如字段的取值范围。</p>
-<p>参考：<br><a href="https://docs.djangoproject.com/en/1.8/ref/django-admin/#django-admin-inspectdb" target="_blank" rel="external">django-admin inspectdb</a></p>
+		<p><strong>例1</strong><br><img src="http://7xktxu.com1.z0.glb.clouddn.com/awk_input.png" alt="第一列前面有一个空格，其他列用|与制表符分割"></p>
+<p>awk默认的分割符为空格，此时行首的空格可以自动忽略，但当显式标明空格为分割符或为分割符号之一时，行首的空格就不能被忽略了。针对以上问题可以考虑使用一下代码：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#39;|&#39; &#39;&#123;gsub(/\s*/,&#34;&#34;);print $1;&#125;&#39; input.txt</span><br></pre></td></tr></table></figure></p>
+<p>此时输出结果为：</p>
+<blockquote>
+<p>111<br>112<br>113<br>114<br>115<br>116</p>
+</blockquote>
+<p>关于gsub:</p>
+<blockquote>
+<p>gsub(r, s [, t])<br>For  each substring matching the regular expression r in the string t, substitute the string s, and return the num‐<br>                               ber of substitutions.  If t is not supplied, use $0.  An &amp; in the replacement text is replaced with the  text  that<br>                               was  actually  matched.  Use \&amp; to get a literal &amp;.  (This must be typed as “\&amp;”; see GAWK: Effective AWK Program‐<br>                               ming for a fuller discussion of the rules for &amp;’s and backslashes in the replacement text  of  sub(),  gsub(),  and<br>                               gensub().)</p>
+</blockquote>
+<p><strong>例2</strong><br><img src="http://7xktxu.com1.z0.glb.clouddn.com/awk_input_2.png" alt=""><br>以上文本是运行<code>ifconfig lo</code>得到的，通过awk命令得到<code>127.0.0.1</code>。<br>命令如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifocnfig lo | awk -F &#39;[ :]&#39; &#39;NR==2&#123;gsub(/^\s*/,&#34;&#34;);print $2&#125;&#39;</span><br></pre></td></tr></table></figure></p>
+<p>当文本的行首有空格或分隔符中包含空格的时候，与其想方设法的去匹配，不如直接删除然后再做操作。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -106,13 +129,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/python/">python</a>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/inspectdb/">inspectdb</a>
+  <span></span> <a href="/tags/awk/">awk</a>
   </div>
 
 </div>
@@ -121,7 +144,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/08/14/Django由数据库生成model/" data-title="Django由数据库生成model | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/08/18/awk处理空格分隔符/" data-title="awk处理空格分隔符 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -134,19 +157,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/08/15/sed&awk输出偶数(奇数)行/" title="sed/awk输出偶数(奇数)行">
-  <strong>上一篇：</strong><br/>
-  <span>
-  sed/awk输出偶数(奇数)行</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/08/10/python中的类变量与实例变量及作用域问题/"  title="python中的类变量与实例变量及作用域问题">
+<a href="/2015/08/15/Django中model字段的验证/"  title="Django中model字段的验证">
  <strong>下一篇：</strong><br/> 
- <span>python中的类变量与实例变量及作用域问题
+ <span>Django中model字段的验证
 </span>
 </a>
 </div>

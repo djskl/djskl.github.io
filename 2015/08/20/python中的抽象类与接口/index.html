@@ -1,0 +1,460 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>python中的抽象类与接口 | ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="python本身并不支持抽象类或接口，如果想让一个方法必须在子类中实现，可以通过抛出NotImplementedError进行限制，这样如果子类没有覆盖这个方法而直接调用，就会抛出这个异常。
+这种方式仅对方法进行限制，但包含这种方法的类仍然是普通类，还可以实例化成对象，并不是抽象类，感觉还是不够严格。abc模块为在python中实现抽象类提供了支持。
+
+class abc.ABCMeta&amp;emsp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python中的抽象类与接口">
+<meta property="og:url" content="http://yoursite.com/2015/08/20/python中的抽象类与接口/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="python本身并不支持抽象类或接口，如果想让一个方法必须在子类中实现，可以通过抛出NotImplementedError进行限制，这样如果子类没有覆盖这个方法而直接调用，就会抛出这个异常。
+这种方式仅对方法进行限制，但包含这种方法的类仍然是普通类，还可以实例化成对象，并不是抽象类，感觉还是不够严格。abc模块为在python中实现抽象类提供了支持。
+
+class abc.ABCMeta&amp;emsp">
+<meta property="og:updated_time" content="2015-08-20T12:16:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python中的抽象类与接口">
+<meta name="twitter:description" content="python本身并不支持抽象类或接口，如果想让一个方法必须在子类中实现，可以通过抛出NotImplementedError进行限制，这样如果子类没有覆盖这个方法而直接调用，就会抛出这个异常。
+这种方式仅对方法进行限制，但包含这种方法的类仍然是普通类，还可以实例化成对象，并不是抽象类，感觉还是不够严格。abc模块为在python中实现抽象类提供了支持。
+
+class abc.ABCMeta&amp;emsp">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">君子食无求饱 居无求安 敏于事而慎于言 就有道而正焉 可谓好学也已</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/08/20/python中的抽象类与接口/" title="python中的抽象类与接口" itemprop="url">python中的抽象类与接口</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2015-08-19T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-08-20</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<p>python本身并不支持抽象类或接口，如果想让一个方法必须在子类中实现，可以通过抛出<code>NotImplementedError</code>进行限制，这样如果子类没有覆盖这个方法而直接调用，就会抛出这个异常。</p>
+<p>这种方式仅对方法进行限制，但包含这种方法的类仍然是普通类，还可以实例化成对象，并不是抽象类，感觉还是不够严格。<a href="https://hg.python.org/cpython/file/2.7/Lib/abc.py" target="_blank" rel="external">abc</a>模块为在python中实现抽象类提供了支持。</p>
+<blockquote>
+<p><strong>class abc.ABCMeta</strong><br>&emsp;Metaclass for defining Abstract Base Classes (ABCs)<br>&emsp;用来定义抽象类的metaclass (<a href="http://blog.jobbole.com/21351/" target="_blank" rel="external">深刻理解Python中的metaclass</a>)。<br>&emsp;Use this metaclass to create an ABC. An ABC can be subclassed directly, and then acts as a mix-in class. You can also register unrelated concrete classes (even built-in classes) and unrelated ABCs as “virtual subclasses” – these and their descendants will be considered subclasses of the registering ABC by the built-in issubclass() function, but the registering ABC won’t show up in their MRO (Method Resolution Order) nor will method implementations defined by the registering ABC be callable (not even via super()).<br>可以用这个metaclass来创建一个抽象类(ABC)。ABC可以被直接被继承为<strong>混合类</strong>(有普通方法也有抽象方法)。也可以将不相关的具体类(甚至内置类)或不相关的ABC类注册为“虚拟子类” ： 这些虚拟子类调用issubclass会返回True，但这些虚拟子类中不包含抽象父类中的方法。</p>
+<p><strong>abc.abstractmethod(function)</strong><br>&emsp;A decorator indicating abstract methods.<br>&emsp;将一个方法装饰为抽象方法<br>&emsp;Using this decorator requires that the class’s metaclass is ABCMeta or is derived from it. A class that has a metaclass derived from ABCMeta cannot be instantiated unless all of its abstract methods and properties are overridden. The abstract methods can be called using any of the normal ‘super’ call mechanisms.<br>这个装饰器只能在抽象类(__metaclass=ABCMeta)或抽象类的子类中使用。如果有抽象方法没被实现，就不能实例成对象。不过<strong>抽象方法可以有函数体</strong>，且可以在子类中调用。</p>
+<p><strong>abc.abstractproperty([fget[, fset[, fdel[, doc]]]])</strong><br>&emsp;A subclass of the built-in property(), indicating an abstract property.<br>&emsp;内置函数property函数的子类，表示被修饰的属性为抽象属性，其他与abstractmethod一样。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>:</span></span><br><span class="line">    __metaclass__=ABCMeta</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, age)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">showInfo</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"%s: %s"</span>%(self.name, self.age)</span><br><span class="line">    </span><br><span class="line"><span class="decorator">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">showCourses</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"------courses------"</span></span><br><span class="line">        </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pupil</span><span class="params">(Student)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">showCourses</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(Pupil, self).showCourses()</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"chinese, math"</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Middler</span><span class="params">(Student)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">showCourses</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(Middler, self).showCourses()</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"chinese, math, English, Chemistry"</span></span><br></pre></td></tr></table></figure>
+<p>测试代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">s = Student()</span><br><span class="line"><span class="comment">#TypeError: Can't instantiate abstract class Student with abstract methods showCourses</span></span><br><span class="line"></span><br><span class="line">st1 = Pupil(<span class="string">"xiaoming"</span>, <span class="number">8</span>)</span><br><span class="line">st1.showInfo() <span class="comment">#xiaoming: 8</span></span><br><span class="line">st1.showCourses()</span><br><span class="line"><span class="comment">#------courses------</span></span><br><span class="line"><span class="comment">#chinese, math</span></span><br><span class="line">     </span><br><span class="line">st2 = Middler(<span class="string">"lily"</span>, <span class="number">15</span>)</span><br><span class="line">st2.showInfo() <span class="comment">#lily: 15</span></span><br><span class="line">st2.showCourses()</span><br><span class="line"><span class="comment">#------courses------</span></span><br><span class="line"><span class="comment">#chinese, math, English, Chemistry</span></span><br></pre></td></tr></table></figure></p>
+<p>以上为基本用法，再进一步看一下。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyABC</span>:</span></span><br><span class="line">    __metaclass__ = ABCMeta</span><br><span class="line">    </span><br><span class="line"><span class="decorator">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">abstract_method</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    </span><br><span class="line"><span class="decorator">    @abstractproperty</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">abstract_property</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">print</span> MyABC.abstract_method.__isabstractmethod__</span><br><span class="line">    <span class="comment">#True</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">print</span> MyABC.abstract_property.__isabstractmethod__</span><br><span class="line">    <span class="comment">#True</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">print</span> MyABC.__abstractmethods__</span><br><span class="line">    <span class="comment">#frozenset(['abstract_method', 'abstract_property'])</span></span><br></pre></td></tr></table></figure></p>
+<p>由上述代码可知，其实abstract_property与abstract_method本质都是一样的，都是抽象方法。抽象类中有个属性<code>__abstractmethods__</code>(普通类中没有这个属性)，abstractmethod/abstractproperty所修饰的方法和属性会自动添加到这个属性里，当子类把这个属性中的所有抽象方法和属性都实现了的时候才可以实例化对象。</p>
+<p>上述中的abstract_property只是一个只读属性，再看一下可读写的abstractproperty:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyABC</span>:</span></span><br><span class="line">    __metaclass__ = ABCMeta</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getx</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._x</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setx</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        self._x = value</span><br><span class="line">    </span><br><span class="line">    x = abstractproperty(getx, setx)</span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">print</span> MyABC.getx.__isabstractmethod__</span><br><span class="line">    <span class="comment">#AttributeError: 'function' object has no attribute '__isabstractmethod__'</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">print</span> MyABC.setx.__isabstractmethod__</span><br><span class="line">    <span class="comment">#AttributeError: 'function' object has no attribute '__isabstractmethod__'</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">print</span> MyABC.x.__isabstractmethod__  <span class="comment">#True</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">print</span> MyABC.__abstractmethods__ <span class="comment">#frozenset(['x'])</span></span><br></pre></td></tr></table></figure></p>
+<p>参考：<br><a href="https://docs.python.org/2/library/abc.html" target="_blank" rel="external">abc — Abstract Base Classes</a><br><a href="http://stackoverflow.com/questions/14441619/actual-difference-in-implementing-overriding-using-abstractproperty-and-abstra" target="_blank" rel="external">Actual difference in implementing/overriding using @abstractproperty and @abstractmethod</a><br><a href="http://www.programcreek.com/python/example/15569/abc.abstractproperty" target="_blank" rel="external">Python Code Examples abc.abstractproperty</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/python/">python</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/oop/">oop</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2015/08/20/python中的抽象类与接口/" data-title="python中的抽象类与接口 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/08/18/awk处理空格分隔符/"  title="awk处理空格分隔符">
+ <strong>下一篇：</strong><br/> 
+ <span>awk处理空格分隔符
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','vFmYG2ZLAiTvJ8vyggQN','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

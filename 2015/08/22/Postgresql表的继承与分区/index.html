@@ -1,0 +1,459 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>Postgresql表的继承与分区 | ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="在Postgresql中，可以通过表的继承可以将一个逻辑表的不同数据放到不同分区上，用起来比较方便。示例表：12345678910111213141516171819202122232425262728293031-- 父表CREATE TABLE students(  sno character varying(32) NOT NULL,   --学号  sname character vary">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Postgresql表的继承与分区">
+<meta property="og:url" content="http://yoursite.com/2015/08/22/Postgresql表的继承与分区/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="在Postgresql中，可以通过表的继承可以将一个逻辑表的不同数据放到不同分区上，用起来比较方便。示例表：12345678910111213141516171819202122232425262728293031-- 父表CREATE TABLE students(  sno character varying(32) NOT NULL,   --学号  sname character vary">
+<meta property="og:updated_time" content="2015-08-22T02:41:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Postgresql表的继承与分区">
+<meta name="twitter:description" content="在Postgresql中，可以通过表的继承可以将一个逻辑表的不同数据放到不同分区上，用起来比较方便。示例表：12345678910111213141516171819202122232425262728293031-- 父表CREATE TABLE students(  sno character varying(32) NOT NULL,   --学号  sname character vary">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">君子食无求饱 居无求安 敏于事而慎于言 就有道而正焉 可谓好学也已</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/08/22/Postgresql表的继承与分区/" title="Postgresql表的继承与分区" itemprop="url">Postgresql表的继承与分区</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2015-08-21T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-08-22</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<p>在Postgresql中，可以通过表的继承可以将一个逻辑表的不同数据放到不同分区上，用起来比较方便。<br>示例表：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 父表</span></span><br><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> students</span><br><span class="line">(</span><br><span class="line">  sno <span class="built_in">character</span> <span class="built_in">varying</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,   <span class="comment">--学号</span></span><br><span class="line">  sname <span class="built_in">character</span> <span class="built_in">varying</span>(<span class="number">64</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>, <span class="comment">--姓名</span></span><br><span class="line">  sage <span class="built_in">integer</span>, <span class="comment">--年龄</span></span><br><span class="line">  <span class="keyword">CONSTRAINT</span> students_new_pkey PRIMARY <span class="keyword">KEY</span> (sno)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">--按年龄，分为10个子表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> students_00_10</span><br><span class="line">(</span><br><span class="line">  <span class="comment">-- 父表中的字段可以被自动继承，但主键需要重新定义</span></span><br><span class="line">  <span class="keyword">CONSTRAINT</span> students_00_10_pkey PRIMARY <span class="keyword">KEY</span> (sno),</span><br><span class="line">  <span class="comment">-- 限定此表中的数据条件(0&lt;sage&lt;11)</span></span><br><span class="line">  <span class="keyword">CONSTRAINT</span> students_00_10_sage_check <span class="keyword">CHECK</span> (sage &lt; <span class="number">11</span> <span class="keyword">AND</span> sage &gt; <span class="number">0</span>)</span><br><span class="line">)INHERITS (students)</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> students_10_20</span><br><span class="line">(</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> students_10_20_pkey PRIMARY <span class="keyword">KEY</span> (sno),</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> students_10_20_sage_check <span class="keyword">CHECK</span> (sage &lt; <span class="number">21</span> <span class="keyword">AND</span> sage &gt; <span class="number">10</span>)</span><br><span class="line">)INHERITS (students)</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> students_90_100</span><br><span class="line">(</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> students_90_100_pkey PRIMARY <span class="keyword">KEY</span> (sno),</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> students_90_100_sage_check <span class="keyword">CHECK</span> (sage &lt; <span class="number">101</span> <span class="keyword">AND</span> sage &gt; <span class="number">90</span>)</span><br><span class="line">)INHERITS (students)</span></span><br></pre></td></tr></table></figure></p>
+<p>继承于某个表的子表可以自动拥有父表的所有字段，也可以增加自定义的字段，对父表的查询会自动查询其所有的子表(反之不行，查子表不会去查父表)，同样对父表的update/delete/truncate也会作用到相关的子表上，但insert不行，插入父表的数据不会自动重定向到子表，需要借助<code>trigger</code>或<code>rule</code>，以下是重定向插入的trigger：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">--触发器函数</span><br><span class="line">CREATE OR REPLACE FUNCTION insert_new_student()</span><br><span class="line">  RETURNS trigger AS</span><br><span class="line">$BODY$</span><br><span class="line">begin</span><br><span class="line">	if (NEW.sage &gt; 0 and NEW.sage &lt; 11) then</span><br><span class="line">		insert into students_00_10 values(NEW.*);</span><br><span class="line">	elsif (NEW.sage &gt; 10 and NEW.sage &lt; 21) then</span><br><span class="line">		insert into students_10_20 values(NEW.*);</span><br><span class="line">	......</span><br><span class="line">	elsif (NEW.sage &gt; 90 and NEW.sage &lt; 101) then</span><br><span class="line">		insert into students_90_100 values(NEW.*);</span><br><span class="line">	else</span><br><span class="line">		RAISE EXCEPTION 'sage out of range. Fix the insert_new_student() function!';  </span><br><span class="line">	end if;</span><br><span class="line">	return NULL;</span><br><span class="line">end;</span><br><span class="line">$BODY$</span><br><span class="line">  LANGUAGE plpgsql VOLATILE</span><br><span class="line">  </span><br><span class="line"> --添加触发器</span><br><span class="line"> CREATE TRIGGER insert_trigger</span><br><span class="line">  BEFORE INSERT</span><br><span class="line">  ON students</span><br><span class="line">  FOR EACH ROW</span><br><span class="line">  EXECUTE PROCEDURE insert_new_student();</span><br></pre></td></tr></table></figure></p>
+<p>注意，为了防止在父表中也插入数据，触发器函数需要返回<code>null</code>，且需要<code>before</code>触发。</p>
+<p>下面向表<code>students</code>中插入100万条数据，插入代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> psycopg2, random</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    conn = psycopg2.connect(database=<span class="string">""</span>, user=<span class="string">"postgres"</span>, password=<span class="string">""</span>)</span><br><span class="line">    cursor = conn.cursor()</span><br><span class="line">    insert_sql = <span class="string">"insert into students values(%s, %s, %s)"</span></span><br><span class="line">    idx = <span class="number">0</span></span><br><span class="line">    alts = [chr(x) <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">97</span>, <span class="number">123</span>)]</span><br><span class="line">    <span class="keyword">while</span> idx &lt; <span class="number">1000000</span>:</span><br><span class="line">        x1, x2, x3 = random.randint(<span class="number">0</span>, <span class="number">25</span>), random.randint(<span class="number">0</span>, <span class="number">25</span>), random.randint(<span class="number">0</span>, <span class="number">25</span>)</span><br><span class="line">        sname = <span class="string">""</span>.join([alts[x1], alts[x2], alts[x3]])</span><br><span class="line">        sage = random.randint(<span class="number">1</span>, <span class="number">99</span>)</span><br><span class="line">        cursor.execute(insert_sql, [idx, sname, sage])</span><br><span class="line">        idx += <span class="number">1</span></span><br><span class="line">    conn.commit()</span><br><span class="line">    cursor.close()</span><br><span class="line">    conn.close()</span><br></pre></td></tr></table></figure></p>
+<p>先看一下数据分布情况<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">select <span class="keyword">p</span>.relname, <span class="keyword">count</span>(st.sno) <span class="keyword">from</span> students <span class="keyword">as</span> st, pg_class <span class="keyword">as</span> <span class="keyword">p</span> <span class="keyword">where</span> <span class="keyword">p</span>.<span class="keyword">oid</span> = st.tableoid <span class="keyword">group</span> <span class="keyword">by</span> <span class="keyword">p</span>.relname;</span></span><br><span class="line"></span><br><span class="line">     relname     | count  </span><br><span class="line"><span class="comment">-----------------+--------</span></span><br><span class="line"> students_20_30  | 102063</span><br><span class="line"> students_30_40  | 101167</span><br><span class="line"> students_70_80  | 101077</span><br><span class="line"> students_60_70  | 101407</span><br><span class="line"> students_40_50  | 100684</span><br><span class="line"> students_90_100 |  90973</span><br><span class="line"> students_80_90  | 100524</span><br><span class="line"> students_00_10  | 100611</span><br><span class="line"> students_50_60  | 100699</span><br><span class="line"> students_10_20  | 100795</span><br><span class="line">(10 rows)</span><br></pre></td></tr></table></figure></p>
+<p>数据全在子表中，且各个子表中的数据分布基本均匀。再验证一下父表中是否真的为空：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">select * <span class="keyword">from</span> <span class="keyword">only</span> students;</span></span><br><span class="line"></span><br><span class="line"> sno | sname | sage </span><br><span class="line"><span class="comment">-----+-------+------</span></span><br><span class="line">(<span class="operator">0 <span class="keyword">rows</span>)</span></span><br></pre></td></tr></table></figure></p>
+<p><code>only</code>关键字可以将操作限定在父表上。</p>
+<p>那么再看一下，这种分区的方式是否会影响查询的性能。建立一个普通的表，包含同样的数据：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> students_normal <span class="keyword">as</span> select * <span class="keyword">from</span> students;</span></span><br></pre></td></tr></table></figure></p>
+<p>执行以下两条sql语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">select * <span class="keyword">from</span> students <span class="keyword">where</span> sname <span class="keyword">like</span> <span class="string">'z%'</span>;</span></span><br><span class="line"><span class="operator">select * <span class="keyword">from</span> students_normal <span class="keyword">where</span> sname <span class="keyword">like</span> <span class="string">'z%'</span>;</span></span><br></pre></td></tr></table></figure></p>
+<p>语句1和语句2分别执行5次，查询时间都在<code>740ms</code>左右，说明继承分区表不会影响查询性能。<br>接下来，再看一下分区表独特的分区优势:<code>约束排除(Constraint exclusion)</code>，如果没有约束排除，查询分区表时会扫描所有表，加上约束排除，可以先确定具体的子表再查询，在某些场景下可以大幅提高查询速度。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">select * <span class="keyword">from</span> students <span class="keyword">where</span> sage &lt; <span class="number">21</span> <span class="keyword">and</span> sage &gt; <span class="number">10</span>;</span></span><br></pre></td></tr></table></figure></p>
+<p>上述命令执行5次，时间稳定在<code>1950ms</code>左右。下面加上约束排除再执行：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">SET</span> constraint_exclusion = <span class="keyword">on</span>;</span></span><br><span class="line"><span class="operator">select * <span class="keyword">from</span> students <span class="keyword">where</span> sage &lt; <span class="number">21</span> <span class="keyword">and</span> sage &gt; <span class="number">10</span>;</span></span><br></pre></td></tr></table></figure></p>
+<p>上面的命令执行20次，第一次耗时<code>1000ms</code>左右，第二次<code>550ms</code>左右，然后接下来两次<code>300ms</code>，再接下来的查询就稳定在<code>150ms</code>了，当改变sage的范围再查询时，时间就稳定在<code>150ms</code>了。<br>由此可见，加上约束排除(查询条件有分区字段)，查询确实提速不少。</p>
+<p>参考：<br><a href="http://www.cnblogs.com/stephen-liu74/archive/2012/04/27/2291814.html" target="_blank" rel="external">PostgreSQL学习手册(表的继承和分区)</a><br><a href="http://my.oschina.net/lianshunke/blog/205296" target="_blank" rel="external">PostgreSQL从继承到分区</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数据库/">数据库</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/分区表/">分区表</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2015/08/22/Postgresql表的继承与分区/" data-title="Postgresql表的继承与分区 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/08/20/python中的抽象类与接口/"  title="python中的抽象类与接口">
+ <strong>下一篇：</strong><br/> 
+ <span>python中的抽象类与接口
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','vFmYG2ZLAiTvJ8vyggQN','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

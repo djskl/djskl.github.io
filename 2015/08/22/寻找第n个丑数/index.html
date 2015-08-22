@@ -26,7 +26,7 @@ ugly">
 假定现在已知前n个丑数是uglys(n)，则可以通过以下算法求第n+1丑数:
 
 ugly">
-<meta property="og:updated_time" content="2015-08-22T12:43:30.000Z">
+<meta property="og:updated_time" content="2015-08-22T12:46:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="寻找第n个丑数">
 <meta name="twitter:description" content="因子只包含2、3或5的数叫做丑数，1也是丑数，前10个丑数是`1, 2, 3, 4, 5, 6, 8, 9, 10, 12。写一个程序，寻找第n个丑数。
@@ -106,9 +106,9 @@ ugly">
 <p><strong>思路</strong><br>最简单粗暴的算法就是从1开始，遍历所有自然数，对每个数都判断一下是不是丑数，直到找到第n个丑数，但这样会有很多无谓的判断，我们可以找一个办法，只找丑数。</p>
 <p>假定现在已知前<code>n</code>个丑数是<code>uglys(n)</code>，则可以通过以下算法求第<code>n+1</code>丑数:</p>
 <blockquote>
-<p>uglys_2 = x<em>2, 其中x in uglys(n) 且x</em>2为第一个大于uglys[n]的数</p>
-<p>uglys_3 = y<em>3, 其中y in uglys(n) 且y</em>3为第一个大于uglys[n]的数</p>
-<p>uglys_5 = z<em>5, 其中z in uglys(n) 且z</em>5为第一个大于uglys[n]的数</p>
+<p>uglys_2 = x*2, 其中x in uglys(n) 且x*2为第一个大于uglys[n]的数</p>
+<p>uglys_3 = y*3, 其中y in uglys(n) 且y*3为第一个大于uglys[n]的数</p>
+<p>uglys_5 = z*5, 其中z in uglys(n) 且z*5为第一个大于uglys[n]的数</p>
 <p>uglys[n+1] = min(uglys_2, uglys_3, uglys_5)</p>
 </blockquote>
 <p>这样的话，问题的关键就在于怎样尽快找到x, y, z。比较简单粗暴的办法是遍历所有的<code>uglys(n)</code>，每个数都分别乘以<code>2,3,5</code>，然后判断是否大于<code>uglys[n]</code>。但这样还是有很多无谓的计算，比如<code>1*2</code>这样的从第3个开始就没必要再计算判断了，我们可以增加3个状态，记录下上次的<code>x, y, z</code>，但这样在第<code>n+1</code>次寻找时，还得找到<code>x, y, z</code>的位置才能往后遍历，所以不如直接记住它们的位置。完整代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nthUglyNumber</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        nth = [<span class="number">1</span>]</span><br><span class="line">        kth = <span class="number">1</span></span><br><span class="line">        ugly = <span class="keyword">None</span></span><br><span class="line">        p1 = p2 = p3 = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> kth &lt; n:</span><br><span class="line">            ugly = min(nth[p1]*<span class="number">2</span>, nth[p2]*<span class="number">3</span>, nth[p3]*<span class="number">5</span>)</span><br><span class="line">            nth.append(ugly)</span><br><span class="line">            kth += <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">#更新p1, p2, p3的位置</span></span><br><span class="line">            <span class="keyword">while</span> nth[p1]*<span class="number">2</span> &lt;= ugly:</span><br><span class="line">                p1 += <span class="number">1</span></span><br><span class="line">                </span><br><span class="line">            <span class="keyword">while</span> nth[p2]*<span class="number">3</span> &lt;= ugly:</span><br><span class="line">                p2 += <span class="number">1</span></span><br><span class="line">                </span><br><span class="line">            <span class="keyword">while</span> nth[p3]*<span class="number">5</span> &lt;= ugly:</span><br><span class="line">                p3 += <span class="number">1</span>            </span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> ugly</span><br></pre></td></tr></table></figure></p>

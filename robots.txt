@@ -1,2 +1,0 @@
-User-agent: *
-Sitemap: http://1988zxh.com/sitemap.xml

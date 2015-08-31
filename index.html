@@ -74,15 +74,58 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/27/文本倒置(sed)/" title="文本倒置(sed)" itemprop="url">
+    <a href="/2015/08/31/请求参数解析QueryDict/" title="请求参数解析QueryDict" itemprop="url">
   
-    <h1 itemprop="name">文本倒置(sed)</h1>
+    <h1 itemprop="name">请求参数解析QueryDict</h1>
     
      
-           <p itemprop="description" >123456&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;1-3米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a</p>
+           <p itemprop="description" >今天遇到了一个奇怪的问题：通过ajax向后台传json时，在解析参数后得到的是{key: [value]}，而不是{key: value}。请求参数解析函数如下：12345def get_params(request):    a = &amp;#123;&amp;#125;    a.upda</p>
         
     
-    <time datetime="2015-08-26T16:00:00.000Z" itemprop="datePublished">2015-08-27</time>
+    <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished">2015-08-31</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2015/08/31/数据库中的层次操作/" title="数据库中的层次操作" itemprop="url">
+  
+    <h1 itemprop="name">数据库中的层次操作</h1>
+    
+     
+           <p itemprop="description" >今天遇到了一个比较有意思的问题：有一个表结构如下所示：12345id, pid, name1, 10, hello10, -1, world2, 1, hehe...
+在这个表里，通过id和pid构成里一个森林，目前森林最多有4层。如下图所示意：其中绿色表示数据的分类，黄色表示具</p>
+        
+    
+    <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished">2015-08-31</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2015/08/31/MediaQueries实现CSS动态调整/" title="MediaQueries实现CSS动态调整" itemprop="url">
+  
+    <h1 itemprop="name">MediaQueries实现CSS动态调整</h1>
+    
+     
+           <p itemprop="description" >在CSS3中引入了一种叫作Media Queries的东西，可以根据媒体的类型及某些条件，应用相对应的样式。
+平时用的比较多的是根据不同屏幕宽度来应用不同的CSS，当然除屏幕宽度之外，还可以指定媒体类型，比如电脑(screen)，手机、平板等便携设备(handled)。
+使用说明</p>
+        
+    
+    <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished">2015-08-31</time>
   </a>
 </section>
 
@@ -100,6 +143,26 @@
     
      
            <p itemprop="description" >方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#1</p>
+        
+    
+    <time datetime="2015-08-26T16:00:00.000Z" itemprop="datePublished">2015-08-27</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2015/08/27/文本倒置(sed)/" title="文本倒置(sed)" itemprop="url">
+  
+    <h1 itemprop="name">文本倒置(sed)</h1>
+    
+     
+           <p itemprop="description" >123456&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;1-3米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a</p>
         
     
     <time datetime="2015-08-26T16:00:00.000Z" itemprop="datePublished">2015-08-27</time>
@@ -134,12 +197,13 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/22/Postgresql表的继承与分区/" title="Postgresql表的继承与分区" itemprop="url">
+    <a href="/2015/08/22/寻找第n个丑数/" title="寻找第n个丑数" itemprop="url">
   
-    <h1 itemprop="name">Postgresql表的继承与分区</h1>
+    <h1 itemprop="name">寻找第n个丑数</h1>
     
      
-           <p itemprop="description" >在Postgresql中，可以通过表的继承可以将一个逻辑表的不同数据放到不同分区上，用起来比较方便。示例表：12345678910111213141516171819202122232425262728293031-- 父表CREATE TABLE students(  sno </p>
+           <p itemprop="description" >因子只包含2、3或5的数叫做丑数，1也是丑数，前10个丑数是`1, 2, 3, 4, 5, 6, 8, 9, 10, 12。写一个程序，寻找第n个丑数。
+思路最简单粗暴的算法就是从1开始，遍历所有自然数，对每个数都判断一下是不是丑数，直到找到第n个丑数，但这样会有很多无谓的判断，</p>
         
     
     <time datetime="2015-08-21T16:00:00.000Z" itemprop="datePublished">2015-08-22</time>
@@ -154,13 +218,12 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/22/寻找第n个丑数/" title="寻找第n个丑数" itemprop="url">
+    <a href="/2015/08/22/Postgresql表的继承与分区/" title="Postgresql表的继承与分区" itemprop="url">
   
-    <h1 itemprop="name">寻找第n个丑数</h1>
+    <h1 itemprop="name">Postgresql表的继承与分区</h1>
     
      
-           <p itemprop="description" >因子只包含2、3或5的数叫做丑数，1也是丑数，前10个丑数是`1, 2, 3, 4, 5, 6, 8, 9, 10, 12。写一个程序，寻找第n个丑数。
-思路最简单粗暴的算法就是从1开始，遍历所有自然数，对每个数都判断一下是不是丑数，直到找到第n个丑数，但这样会有很多无谓的判断，</p>
+           <p itemprop="description" >在Postgresql中，可以通过表的继承可以将一个逻辑表的不同数据放到不同分区上，用起来比较方便。示例表：12345678910111213141516171819202122232425262728293031-- 父表CREATE TABLE students(  sno </p>
         
     
     <time datetime="2015-08-21T16:00:00.000Z" itemprop="datePublished">2015-08-22</time>
@@ -214,69 +277,6 @@ awk默认的分割符为空格，此时行首的空格可以自动忽略，但�
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/08/15/sed和awk输出偶数和奇数行/" title="sed和awk输出奇偶数行" itemprop="url">
-  
-    <h1 itemprop="name">sed和awk输出奇偶数行</h1>
-    
-     
-           <p itemprop="description" >实验文本
-
-[root@localhost ~]# cat pets.txtThis is my cat  my cat’s name is bettyThis is my dog  my dog’s name is frankThis is my fish  my fish’s</p>
-        
-    
-    <time datetime="2015-08-14T16:00:00.000Z" itemprop="datePublished">2015-08-15</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/08/15/Django中model字段的验证/" title="Django中model字段的验证" itemprop="url">
-  
-    <h1 itemprop="name">Django中model字段的验证</h1>
-    
-     
-           <p itemprop="description" >本文介绍两种验证model字段的方法。这两种方法都需要显式的调用full_clean来验证，用户对字段赋予非法数值时不会自动报错，同样full_clean也不会在save函数中被自动调用，也就是说如果一个字段被赋予了一个非法值，完全可以被保存到数据库中(前提是数据库中没有定义相应</p>
-        
-    
-    <time datetime="2015-08-14T16:00:00.000Z" itemprop="datePublished">2015-08-15</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/08/14/Django由数据库生成model/" title="Django由数据库生成model" itemprop="url">
-  
-    <h1 itemprop="name">Django由数据库生成model</h1>
-    
-     
-           <p itemprop="description" >运行命令：1python manage.py inspectdb [ &amp;gt; models.py ]
-即可生成对应数据库表(默认为settings.py中的default数据库，可以加–database参数来指定)的model class，&amp;gt; models.py可将生成的</p>
-        
-    
-    <time datetime="2015-08-13T16:00:00.000Z" itemprop="datePublished">2015-08-14</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -295,7 +295,7 @@ awk默认的分割符为空格，此时行首的空格可以自动忽略，但�
 		<ul>
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>8</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>9</sup></a></li>
 		  
 		
 		  
@@ -303,11 +303,11 @@ awk默认的分割符为空格，此时行首的空格可以自动忽略，但�
 		  
 		
 		  
-			<li><a href="/categories/前端/" title="前端">前端<sup>2</sup></a></li>
+			<li><a href="/categories/前端/" title="前端">前端<sup>3</sup></a></li>
 		  
 		
 		  
-			<li><a href="/categories/数据库/" title="数据库">数据库<sup>1</sup></a></li>
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>2</sup></a></li>
 		  
 		
 		  

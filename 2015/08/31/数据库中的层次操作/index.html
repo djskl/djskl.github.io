@@ -5,35 +5,27 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>寻找第n个丑数 | ideas into codes</title>
+    <title>数据库中的层次操作 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="因子只包含2、3或5的数叫做丑数，1也是丑数，前10个丑数是`1, 2, 3, 4, 5, 6, 8, 9, 10, 12。写一个程序，寻找第n个丑数。
-思路最简单粗暴的算法就是从1开始，遍历所有自然数，对每个数都判断一下是不是丑数，直到找到第n个丑数，但这样会有很多无谓的判断，我们可以找一个办法，只找丑数。
-假定现在已知前n个丑数是uglys(n)，则可以通过以下算法求第n+1丑数:
-
-ugly">
+    <meta name="description" content="今天遇到了一个比较有意思的问题：有一个表结构如下所示：12345id, pid, name1, 10, hello10, -1, world2, 1, hehe...
+在这个表里，通过id和pid构成里一个森林，目前森林最多有4层。如下图所示意：其中绿色表示数据的分类，黄色表示具体的数据，现在的需求是只维持两级目录，把红色圈起来的那一层删掉，然后它下面的数据挂到它所属的类别上。首先，先建了一个表，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="寻找第n个丑数">
-<meta property="og:url" content="http://1988zxh.com/2015/08/22/寻找第n个丑数/index.html">
+<meta property="og:title" content="数据库中的层次操作">
+<meta property="og:url" content="http://1988zxh.com/2015/08/31/数据库中的层次操作/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="因子只包含2、3或5的数叫做丑数，1也是丑数，前10个丑数是`1, 2, 3, 4, 5, 6, 8, 9, 10, 12。写一个程序，寻找第n个丑数。
-思路最简单粗暴的算法就是从1开始，遍历所有自然数，对每个数都判断一下是不是丑数，直到找到第n个丑数，但这样会有很多无谓的判断，我们可以找一个办法，只找丑数。
-假定现在已知前n个丑数是uglys(n)，则可以通过以下算法求第n+1丑数:
-
-ugly">
-<meta property="og:updated_time" content="2015-08-22T12:46:33.000Z">
+<meta property="og:description" content="今天遇到了一个比较有意思的问题：有一个表结构如下所示：12345id, pid, name1, 10, hello10, -1, world2, 1, hehe...
+在这个表里，通过id和pid构成里一个森林，目前森林最多有4层。如下图所示意：其中绿色表示数据的分类，黄色表示具体的数据，现在的需求是只维持两级目录，把红色圈起来的那一层删掉，然后它下面的数据挂到它所属的类别上。首先，先建了一个表，">
+<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/senlin.png">
+<meta property="og:updated_time" content="2015-08-31T12:12:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="寻找第n个丑数">
-<meta name="twitter:description" content="因子只包含2、3或5的数叫做丑数，1也是丑数，前10个丑数是`1, 2, 3, 4, 5, 6, 8, 9, 10, 12。写一个程序，寻找第n个丑数。
-思路最简单粗暴的算法就是从1开始，遍历所有自然数，对每个数都判断一下是不是丑数，直到找到第n个丑数，但这样会有很多无谓的判断，我们可以找一个办法，只找丑数。
-假定现在已知前n个丑数是uglys(n)，则可以通过以下算法求第n+1丑数:
-
-ugly">
+<meta name="twitter:title" content="数据库中的层次操作">
+<meta name="twitter:description" content="今天遇到了一个比较有意思的问题：有一个表结构如下所示：12345id, pid, name1, 10, hello10, -1, world2, 1, hehe...
+在这个表里，通过id和pid构成里一个森林，目前森林最多有4层。如下图所示意：其中绿色表示数据的分类，黄色表示具体的数据，现在的需求是只维持两级目录，把红色圈起来的那一层删掉，然后它下面的数据挂到它所属的类别上。首先，先建了一个表，">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -88,34 +80,22 @@ ugly">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/08/22/寻找第n个丑数/" title="寻找第n个丑数" itemprop="url">寻找第n个丑数</a>
+      <a href="/2015/08/31/数据库中的层次操作/" title="数据库中的层次操作" itemprop="url">数据库中的层次操作</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-08-21T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-08-22</time>
+    <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-08-31</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>因子只包含2、3或5的数叫做<code>丑数</code>，1也是丑数，前10个丑数是<code>`1, 2, 3, 4, 5, 6, 8, 9, 10, 12</code>。写一个程序，寻找第n个丑数。</p>
-<p><strong>思路</strong><br>最简单粗暴的算法就是从1开始，遍历所有自然数，对每个数都判断一下是不是丑数，直到找到第n个丑数，但这样会有很多无谓的判断，我们可以找一个办法，只找丑数。</p>
-<p>假定现在已知前<code>n</code>个丑数是<code>uglys(n)</code>，则可以通过以下算法求第<code>n+1</code>丑数:</p>
-<blockquote>
-<p>uglys_2 = x*2, 其中x in uglys(n) 且x*2为第一个大于uglys[n]的数</p>
-<p>uglys_3 = y*3, 其中y in uglys(n) 且y*3为第一个大于uglys[n]的数</p>
-<p>uglys_5 = z*5, 其中z in uglys(n) 且z*5为第一个大于uglys[n]的数</p>
-<p>uglys[n+1] = min(uglys_2, uglys_3, uglys_5)</p>
-</blockquote>
-<p>这样的话，问题的关键就在于怎样尽快找到x, y, z。比较简单粗暴的办法是遍历所有的<code>uglys(n)</code>，每个数都分别乘以<code>2,3,5</code>，然后判断是否大于<code>uglys[n]</code>。但这样还是有很多无谓的计算，比如<code>1*2</code>这样的从第3个开始就没必要再计算判断了，我们可以增加3个状态，记录下上次的<code>x, y, z</code>，但这样在第<code>n+1</code>次寻找时，还得找到<code>x, y, z</code>的位置才能往后遍历，所以不如直接记住它们的位置。完整代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nthUglyNumber</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        nth = [<span class="number">1</span>]</span><br><span class="line">        kth = <span class="number">1</span></span><br><span class="line">        ugly = <span class="keyword">None</span></span><br><span class="line">        p1 = p2 = p3 = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> kth &lt; n:</span><br><span class="line">            ugly = min(nth[p1]*<span class="number">2</span>, nth[p2]*<span class="number">3</span>, nth[p3]*<span class="number">5</span>)</span><br><span class="line">            nth.append(ugly)</span><br><span class="line">            kth += <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">#更新p1, p2, p3的位置</span></span><br><span class="line">            <span class="keyword">while</span> nth[p1]*<span class="number">2</span> &lt;= ugly:</span><br><span class="line">                p1 += <span class="number">1</span></span><br><span class="line">                </span><br><span class="line">            <span class="keyword">while</span> nth[p2]*<span class="number">3</span> &lt;= ugly:</span><br><span class="line">                p2 += <span class="number">1</span></span><br><span class="line">                </span><br><span class="line">            <span class="keyword">while</span> nth[p3]*<span class="number">5</span> &lt;= ugly:</span><br><span class="line">                p3 += <span class="number">1</span>            </span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> ugly</span><br></pre></td></tr></table></figure></p>
-<p>这类问题可以归结为<code>已知前n个元素的信息，确定第n+k个元素的信息</code>，像这种问题如果直接推断<code>n+k</code>比较困难，可以首先尝试从第<code>n</code>个推第<code>n+1</code>个，一直推到<code>n+k</code>个。类似的问题还有一个：</p>
-<blockquote>
-<p>现在有n个数据，确定一个算法来找到这个n个数据中的最大值和最小值，且能快速的找到第n+k个数据。</p>
-</blockquote>
-<p>这样如果通过n直接找n+k有点困难，但如果通过n找n+1，相对来说就简单了，找到前n个数中的最大最小值，还要快速更新，可以考虑使用二叉排序树，这个自己写有点复杂，好在python提供了现成的<a href="https://github.com/djskl/bintrees" target="_blank" rel="external">模块</a>，其中实现了平衡二叉树，红黑树，用起来比较方便。</p>
+		<p>今天遇到了一个比较有意思的问题：<br>有一个表结构如下所示：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">id, pid, name</span><br><span class="line"><span class="number">1</span>, <span class="number">10</span>, hello</span><br><span class="line"><span class="number">10</span>, -<span class="number">1</span>, world</span><br><span class="line"><span class="number">2</span>, <span class="number">1</span>, hehe</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>在这个表里，通过<code>id</code>和<code>pid</code>构成里一个森林，目前森林最多有4层。如下图所示意：<br><img src="http://7xktxu.com1.z0.glb.clouddn.com/senlin.png" alt=""><br>其中绿色表示数据的分类，黄色表示具体的数据，现在的需求是只维持两级目录，把红色圈起来的那一层删掉，然后它下面的数据挂到它所属的类别上。<br>首先，先建了一个表，把红色圈起来的数据先找出来：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> to_delete <span class="keyword">as</span></span><br><span class="line">    select * </span><br><span class="line">    <span class="keyword">from</span> prodcuts <span class="keyword">as</span> p1, products <span class="keyword">as</span> p2</span><br><span class="line">    <span class="keyword">where</span> p1.<span class="keyword">id</span> = p2.pid <span class="keyword">and</span> p1.pid <span class="keyword">not</span> <span class="keyword">in</span> (</span><br><span class="line">        select <span class="keyword">id</span> <span class="keyword">from</span> products</span><br><span class="line">        <span class="keyword">where</span> pid = -<span class="number">1</span>);</span></span><br></pre></td></tr></table></figure></p>
+<p>然后，更新一下这些节点下的数据的信息：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#更新数据名称，把删除的目录的名称加到数据的前面</span><br><span class="line"><span class="operator"><span class="keyword">update</span> products <span class="keyword">set</span> <span class="keyword">name</span> = td.<span class="keyword">name</span>||<span class="keyword">name</span> <span class="keyword">from</span> to_delete <span class="keyword">where</span> products.pid = to_delete.<span class="keyword">id</span>;</span></span><br><span class="line">#更新数据的pid</span><br><span class="line"><span class="operator"><span class="keyword">update</span> products <span class="keyword">set</span> pid = td.pid <span class="keyword">from</span> to_delete <span class="keyword">where</span> products.pid = to_delete.<span class="keyword">id</span>;</span></span><br><span class="line">#删除红色目录</span><br><span class="line"><span class="operator"><span class="keyword">delete</span> <span class="keyword">from</span> products <span class="keyword">where</span> <span class="keyword">id</span> <span class="keyword">in</span> (select <span class="keyword">id</span> <span class="keyword">from</span> to_delete);</span></span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -123,7 +103,7 @@ ugly">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/算法/">算法</a>
+  <a class="article-category-link" href="/categories/数据库/">数据库</a>
 </div>
 
 
@@ -133,7 +113,7 @@ ugly">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/08/22/寻找第n个丑数/" data-title="寻找第n个丑数 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/08/31/数据库中的层次操作/" data-title="数据库中的层次操作 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -147,18 +127,18 @@ ugly">
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/08/24/python中装饰器的使用/" title="python中装饰器的使用">
+ <a href="/2015/08/31/请求参数解析QueryDict/" title="请求参数解析QueryDict">
   <strong>上一篇：</strong><br/>
   <span>
-  python中装饰器的使用</span>
+  请求参数解析QueryDict</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/08/22/Postgresql表的继承与分区/"  title="Postgresql表的继承与分区">
+<a href="/2015/08/31/MediaQueries实现CSS动态调整/"  title="MediaQueries实现CSS动态调整">
  <strong>下一篇：</strong><br/> 
- <span>Postgresql表的继承与分区
+ <span>MediaQueries实现CSS动态调整
 </span>
 </a>
 </div>

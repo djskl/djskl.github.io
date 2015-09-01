@@ -74,6 +74,26 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2015/09/01/try_finally中的return/" title="try_finally中的return" itemprop="url">
+  
+    <h1 itemprop="name">try_finally中的return</h1>
+    
+     
+           <p itemprop="description" >看以下代码：12345678910111213141516171819class MyClz:    def __init__(self):        self.x = 10myobj = MyClz()print &quot;one&quot;, myobj.x, id(myobj)def f</p>
+        
+    
+    <time datetime="2015-08-31T16:00:00.000Z" itemprop="datePublished">2015-09-01</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2015/08/31/请求参数解析QueryDict/" title="请求参数解析QueryDict" itemprop="url">
   
     <h1 itemprop="name">请求参数解析QueryDict</h1>
@@ -137,12 +157,12 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/27/javascript传递默认参数/" title="javascript传递默认参数" itemprop="url">
+    <a href="/2015/08/27/文本倒置(sed)/" title="文本倒置(sed)" itemprop="url">
   
-    <h1 itemprop="name">javascript传递默认参数</h1>
+    <h1 itemprop="name">文本倒置(sed)</h1>
     
      
-           <p itemprop="description" >方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#1</p>
+           <p itemprop="description" >123456&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;1-3米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a</p>
         
     
     <time datetime="2015-08-26T16:00:00.000Z" itemprop="datePublished">2015-08-27</time>
@@ -157,12 +177,12 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/27/文本倒置(sed)/" title="文本倒置(sed)" itemprop="url">
+    <a href="/2015/08/27/javascript传递默认参数/" title="javascript传递默认参数" itemprop="url">
   
-    <h1 itemprop="name">文本倒置(sed)</h1>
+    <h1 itemprop="name">javascript传递默认参数</h1>
     
      
-           <p itemprop="description" >123456&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;1-3米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a</p>
+           <p itemprop="description" >方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#1</p>
         
     
     <time datetime="2015-08-26T16:00:00.000Z" itemprop="datePublished">2015-08-27</time>
@@ -197,13 +217,12 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/22/寻找第n个丑数/" title="寻找第n个丑数" itemprop="url">
+    <a href="/2015/08/22/Postgresql表的继承与分区/" title="Postgresql表的继承与分区" itemprop="url">
   
-    <h1 itemprop="name">寻找第n个丑数</h1>
+    <h1 itemprop="name">Postgresql表的继承与分区</h1>
     
      
-           <p itemprop="description" >因子只包含2、3或5的数叫做丑数，1也是丑数，前10个丑数是`1, 2, 3, 4, 5, 6, 8, 9, 10, 12。写一个程序，寻找第n个丑数。
-思路最简单粗暴的算法就是从1开始，遍历所有自然数，对每个数都判断一下是不是丑数，直到找到第n个丑数，但这样会有很多无谓的判断，</p>
+           <p itemprop="description" >在Postgresql中，可以通过表的继承可以将一个逻辑表的不同数据放到不同分区上，用起来比较方便。示例表：12345678910111213141516171819202122232425262728293031-- 父表CREATE TABLE students(  sno </p>
         
     
     <time datetime="2015-08-21T16:00:00.000Z" itemprop="datePublished">2015-08-22</time>
@@ -218,12 +237,13 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/22/Postgresql表的继承与分区/" title="Postgresql表的继承与分区" itemprop="url">
+    <a href="/2015/08/22/寻找第n个丑数/" title="寻找第n个丑数" itemprop="url">
   
-    <h1 itemprop="name">Postgresql表的继承与分区</h1>
+    <h1 itemprop="name">寻找第n个丑数</h1>
     
      
-           <p itemprop="description" >在Postgresql中，可以通过表的继承可以将一个逻辑表的不同数据放到不同分区上，用起来比较方便。示例表：12345678910111213141516171819202122232425262728293031-- 父表CREATE TABLE students(  sno </p>
+           <p itemprop="description" >因子只包含2、3或5的数叫做丑数，1也是丑数，前10个丑数是`1, 2, 3, 4, 5, 6, 8, 9, 10, 12。写一个程序，寻找第n个丑数。
+思路最简单粗暴的算法就是从1开始，遍历所有自然数，对每个数都判断一下是不是丑数，直到找到第n个丑数，但这样会有很多无谓的判断，</p>
         
     
     <time datetime="2015-08-21T16:00:00.000Z" itemprop="datePublished">2015-08-22</time>
@@ -256,30 +276,9 @@
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/08/18/awk处理空格分隔符/" title="awk处理空格分隔符" itemprop="url">
-  
-    <h1 itemprop="name">awk处理空格分隔符</h1>
-    
-     
-           <p itemprop="description" >例1
-awk默认的分割符为空格，此时行首的空格可以自动忽略，但当显式标明空格为分割符或为分割符号之一时，行首的空格就不能被忽略了。针对以上问题可以考虑使用一下代码：1awk -F &amp;#39;|&amp;#39; &amp;#39;&amp;#123;gsub(/\s*/,&amp;#34;&amp;#34;);prin</p>
-        
-    
-    <time datetime="2015-08-17T16:00:00.000Z" itemprop="datePublished">2015-08-18</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
@@ -295,7 +294,7 @@ awk默认的分割符为空格，此时行首的空格可以自动忽略，但�
 		<ul>
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>9</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>10</sup></a></li>
 		  
 		
 		  

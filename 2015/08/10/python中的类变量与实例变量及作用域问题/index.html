@@ -18,7 +18,7 @@
 <meta property="og:url" content="http://1988zxh.com/2015/08/10/python中的类变量与实例变量及作用域问题/index.html">
 <meta property="og:site_name" content="ideas into codes">
 <meta property="og:description" content="关于类变量与实例变量的疑惑主要是：类变量是不是被其所有实例对象共享的？，测试代码：123456789101112131415class MyClz(object):          foo = 0        def __init__(self, val):        self.bar = val        if __name__ == &quot;__main__&quot;:        clz1">
-<meta property="og:updated_time" content="2015-08-11T13:39:45.000Z">
+<meta property="og:updated_time" content="2015-09-09T13:53:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python中的类变量与实例变量及作用域问题">
 <meta name="twitter:description" content="关于类变量与实例变量的疑惑主要是：类变量是不是被其所有实例对象共享的？，测试代码：123456789101112131415class MyClz(object):          foo = 0        def __init__(self, val):        self.bar = val        if __name__ == &quot;__main__&quot;:        clz1">
@@ -111,7 +111,8 @@
 <blockquote>
 <p>UnboundLocalError: local variable ‘x’ referenced before assignment</p>
 </blockquote>
-<p>原因是：如果内部函数有引用外部函数的同名变量或者全局变量,并且对这个变量有修改.那么python会认为它是一个局部变量,又因为内部函数_func中没有x的定义，所以报错。</p>
+<p>原因是：如果内部函数有引用外部同名变量或者全局变量,则被引用变量在该函数体内是<strong>只读</strong>的，如果试图改变其值，python会认为这是一个新的变量。除上述例子外，一个比较常犯的错误是在内部函数里修改外部数组，如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parent_func</span><span class="params">()</span>:</span></span><br><span class="line">    arry = [<span class="string">'hello'</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_inner_func</span><span class="params">()</span>:</span></span><br><span class="line">        arry.append(<span class="string">'world'</span>)</span><br><span class="line">        </span><br><span class="line">    _inner_func()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">print</span> arry</span><br></pre></td></tr></table></figure></p>
+<p>在执行<code>parent_func()</code>时，同样会报错，道理是一样的。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -181,7 +182,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/linux-C/" title="linux/C">linux/C<sup>1</sup></a></li>
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>1</sup></a></li>
 		  
 		
 		  

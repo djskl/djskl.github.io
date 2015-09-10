@@ -5,23 +5,43 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>javascript中的instanceof与typeof | ideas into codes</title>
+    <title>awk处理空格分隔符 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="在 JavaScript 中，判断一个变量的类型尝尝会用 typeof 运算符，在使用 typeof 运算符时采用引用类型存储值会出现一个问题，无论引用的是什么类型的对象，它都返回object。ECMAScript 引入了另一个 Java 运算符 instanceof 来解决这个问题。instanceof 运算符与 typeof 运算符相似，用于识别正在处理的对象的类型。与 typeof方法不同的">
+    <meta name="description" content="例1
+awk默认的分割符为空格，此时行首的空格可以自动忽略，但当显式标明空格为分割符或为分割符号之一时，行首的空格就不能被忽略了。针对以上问题可以考虑使用一下代码：1awk -F &amp;#39;|&amp;#39; &amp;#39;&amp;#123;gsub(/\s*/,&amp;#34;&amp;#34;);print $1;&amp;#125;&amp;#39; input.txt
+此时输出结果为：
+
+111112113114115116
+
+关于g">
 <meta property="og:type" content="article">
-<meta property="og:title" content="javascript中的instanceof与typeof">
-<meta property="og:url" content="http://1988zxh.com/2015/08/02/javascript中的instanceof与typeof/index.html">
+<meta property="og:title" content="awk处理空格分隔符">
+<meta property="og:url" content="http://1988zxh.com/2015/03/18/awk处理空格分隔符/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="在 JavaScript 中，判断一个变量的类型尝尝会用 typeof 运算符，在使用 typeof 运算符时采用引用类型存储值会出现一个问题，无论引用的是什么类型的对象，它都返回object。ECMAScript 引入了另一个 Java 运算符 instanceof 来解决这个问题。instanceof 运算符与 typeof 运算符相似，用于识别正在处理的对象的类型。与 typeof方法不同的">
-<meta property="og:updated_time" content="2015-08-15T06:14:12.000Z">
+<meta property="og:description" content="例1
+awk默认的分割符为空格，此时行首的空格可以自动忽略，但当显式标明空格为分割符或为分割符号之一时，行首的空格就不能被忽略了。针对以上问题可以考虑使用一下代码：1awk -F &amp;#39;|&amp;#39; &amp;#39;&amp;#123;gsub(/\s*/,&amp;#34;&amp;#34;);print $1;&amp;#125;&amp;#39; input.txt
+此时输出结果为：
+
+111112113114115116
+
+关于g">
+<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/awk_input.png">
+<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/awk_input_2.png">
+<meta property="og:updated_time" content="2015-09-10T12:48:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="javascript中的instanceof与typeof">
-<meta name="twitter:description" content="在 JavaScript 中，判断一个变量的类型尝尝会用 typeof 运算符，在使用 typeof 运算符时采用引用类型存储值会出现一个问题，无论引用的是什么类型的对象，它都返回object。ECMAScript 引入了另一个 Java 运算符 instanceof 来解决这个问题。instanceof 运算符与 typeof 运算符相似，用于识别正在处理的对象的类型。与 typeof方法不同的">
+<meta name="twitter:title" content="awk处理空格分隔符">
+<meta name="twitter:description" content="例1
+awk默认的分割符为空格，此时行首的空格可以自动忽略，但当显式标明空格为分割符或为分割符号之一时，行首的空格就不能被忽略了。针对以上问题可以考虑使用一下代码：1awk -F &amp;#39;|&amp;#39; &amp;#39;&amp;#123;gsub(/\s*/,&amp;#34;&amp;#34;);print $1;&amp;#125;&amp;#39; input.txt
+此时输出结果为：
+
+111112113114115116
+
+关于g">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -76,64 +96,31 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/08/02/javascript中的instanceof与typeof/" title="javascript中的instanceof与typeof" itemprop="url">javascript中的instanceof与typeof</a>
+      <a href="/2015/03/18/awk处理空格分隔符/" title="awk处理空格分隔符" itemprop="url">awk处理空格分隔符</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-08-01T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-08-02</time>
+    <time datetime="2015-03-17T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-03-18</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>在 JavaScript 中，判断一个变量的类型尝尝会用 typeof 运算符，在使用 typeof 运算符时采用引用类型存储值会出现一个问题，无论引用的是什么类型的对象，它都返回<strong>object</strong>。ECMAScript 引入了另一个 Java 运算符 instanceof 来解决这个问题。instanceof 运算符与 typeof 运算符相似，用于识别正在处理的对象的类型。与 typeof方法不同的是，instanceof方法要求开发者明确地确认对象为某特定类型。</p>
-<pre><code><span class="comment">// 判断 foo 是否是 Foo 类的实例 , 并且是否是其父类型的实例  </span>
-<span class="function"><span class="keyword">function</span> <span class="title">Aoo</span>(<span class="params"></span>)</span>{}   
-<span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>{}   
-Foo.prototype = <span class="keyword">new</span> Aoo();<span class="comment">//JavaScript 原型继承  </span>
-
-<span class="keyword">var</span> foo = <span class="keyword">new</span> Foo();   
-<span class="built_in">console</span>.log(foo <span class="keyword">instanceof</span> Foo)<span class="comment">//true   </span>
-<span class="built_in">console</span>.log(foo <span class="keyword">instanceof</span> Aoo)<span class="comment">//true  </span>
-</code></pre><p>是不是还有点多态的感觉？看了上面的代码示例，是不是觉得 instanceof 操作符很简单，下面来看点复杂的用法。</p>
-<pre><code><span class="built_in">console</span>.log(<span class="built_in">Object</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span>);<span class="comment">//true</span>
-<span class="built_in">console</span>.log(<span class="built_in">Function</span> <span class="keyword">instanceof</span> <span class="built_in">Function</span>);<span class="comment">//true</span>
-<span class="built_in">console</span>.log(<span class="built_in">Number</span> <span class="keyword">instanceof</span> <span class="built_in">Number</span>);<span class="comment">//false</span>
-<span class="built_in">console</span>.log(<span class="built_in">String</span> <span class="keyword">instanceof</span> <span class="built_in">String</span>);<span class="comment">//false</span>
-<span class="built_in">console</span>.log(<span class="built_in">Function</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span>);<span class="comment">//true</span>
-<span class="built_in">console</span>.log(Foo <span class="keyword">instanceof</span> <span class="built_in">Function</span>);<span class="comment">//true</span>
-<span class="built_in">console</span>.log(Foo <span class="keyword">instanceof</span> Foo);<span class="comment">//false  </span>
-</code></pre><p>好，问题来了，instanceof是怎样操作左操作数和右操作数的呢？</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">instance_of</span><span class="params">(L, R)</span> </span>{<span class="comment">//L 表示左表达式，R 表示右表达式  </span>
-  <span class="keyword">var</span> O = R.prototype;<span class="comment">// 取 R 的显示原型  </span>
-  L = L.__proto__;<span class="comment">// 取 L 的隐式原型  </span>
-  <span class="keyword">while</span> (<span class="literal">true</span>) {   
-    <span class="keyword">if</span> (L === <span class="literal">null</span>)   
-      <span class="keyword">return</span> <span class="literal">false</span>;   
-    <span class="keyword">if</span> (O === L)<span class="comment">// 这里重点：当 O 严格等于 L 时，返回 true   </span>
-      <span class="keyword">return</span> <span class="literal">true</span>;   
-    L = L.__proto__;   
-  }   
- }  
-</code></pre><p>从上面的代码可以看出，其实严格来说js里是没有类型的，判断左操作数是不是右操作数类型的变量就是沿着左操作数的<strong>proto</strong>指针找上去，看看是不是指向里，右操作数的原型(即R.prototype)。</p>
-<p>每个对象都有一个<strong>proto</strong>指针，指向它的原型对象(所继承的父类)，函数也是对象，但函数除了作为执行过程外，还可以作为构造函数来生成对象，所以它还有一个prototype指针，指向它所生成的对象的原型。如果x的<strong>proto</strong>(一层层的往上找)指针与y的prototype(仅一层)指到了一个地方，就说明x是y类型的变量。</p>
-<pre><code>&gt;&gt;x={}  
-<span class="built_in">Object</span> {}  
-&gt;&gt;x.__proto__  
-<span class="built_in">Object</span> {}  
-&gt;&gt;f=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{}  
-<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>{}  
-&gt;&gt;f.__proto__  
-<span class="function"><span class="keyword">function</span> <span class="title">Empty</span>(<span class="params"></span>) </span>{}  
-&gt;&gt;f.__proto__.__proto__.__proto__  
-<span class="literal">null</span>  
-&gt;&gt;f.__proto__.__proto__  
-<span class="built_in">Object</span> {}  
-</code></pre><p>所有对象都是Object.prototype的后代，其中普通对象是儿子级别的，<strong>proto</strong>指针一下就指到了，函数对象是它的孙子级的，其<strong>proto</strong>指针指向的是Function.prototype，Function.prototype.<strong>proto</strong>指向才是Object.prototype。</p>
-<p>参考：<a href="http://www.ibm.com/developerworks/cn/web/1306_jiangjj_jsinstanceof/" target="_blank" rel="external">JavaScript instanceof 运算符深入剖析</a></p>
+		<p><strong>例1</strong><br><img src="http://7xktxu.com1.z0.glb.clouddn.com/awk_input.png" alt="第一列前面有一个空格，其他列用|与制表符分割"></p>
+<p>awk默认的分割符为空格，此时行首的空格可以自动忽略，但当显式标明空格为分割符或为分割符号之一时，行首的空格就不能被忽略了。针对以上问题可以考虑使用一下代码：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#39;|&#39; &#39;&#123;gsub(/\s*/,&#34;&#34;);print $1;&#125;&#39; input.txt</span><br></pre></td></tr></table></figure></p>
+<p>此时输出结果为：</p>
+<blockquote>
+<p>111<br>112<br>113<br>114<br>115<br>116</p>
+</blockquote>
+<p>关于gsub:</p>
+<blockquote>
+<p>gsub(r, s [, t])<br>For  each substring matching the regular expression r in the string t, substitute the string s, and return the num‐<br>                               ber of substitutions.  If t is not supplied, use $0.  An &amp; in the replacement text is replaced with the  text  that<br>                               was  actually  matched.  Use \&amp; to get a literal &amp;.  (This must be typed as “\&amp;”; see GAWK: Effective AWK Program‐<br>                               ming for a fuller discussion of the rules for &amp;’s and backslashes in the replacement text  of  sub(),  gsub(),  and<br>                               gensub().)</p>
+</blockquote>
+<p><strong>例2</strong><br><img src="http://7xktxu.com1.z0.glb.clouddn.com/awk_input_2.png" alt=""><br>以上文本是运行<code>ifconfig lo</code>得到的，通过awk命令得到<code>127.0.0.1</code>。<br>命令如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifocnfig lo | awk -F &#39;[ :]&#39; &#39;NR==2&#123;gsub(/^\s*/,&#34;&#34;);print $2&#125;&#39;</span><br></pre></td></tr></table></figure></p>
+<p>当文本的行首有空格或分隔符中包含空格的时候，与其想方设法的去匹配，不如直接删除然后再做操作。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -141,9 +128,14 @@ Foo.prototype = <span class="keyword">new</span> Aoo();<span class="comment">//J
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/前端/">前端</a>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
 </div>
 
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/awk/">awk</a>
+  </div>
 
 </div>
 
@@ -151,7 +143,7 @@ Foo.prototype = <span class="keyword">new</span> Aoo();<span class="comment">//J
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/08/02/javascript中的instanceof与typeof/" data-title="javascript中的instanceof与typeof | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/03/18/awk处理空格分隔符/" data-title="awk处理空格分隔符 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -165,18 +157,18 @@ Foo.prototype = <span class="keyword">new</span> Aoo();<span class="comment">//J
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/08/03/Psycopg的基本用法/" title="Psycopg的基本用法">
+ <a href="/2015/03/27/文本倒置(sed)/" title="文本倒置(sed)">
   <strong>上一篇：</strong><br/>
   <span>
-  Psycopg的基本用法</span>
+  文本倒置(sed)</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/07/10/C程序的存储空间布局/"  title="C程序的存储空间布局">
+<a href="/2015/03/15/sed和awk输出偶数和奇数行/"  title="sed和awk输出奇偶数行">
  <strong>下一篇：</strong><br/> 
- <span>C程序的存储空间布局
+ <span>sed和awk输出奇偶数行
 </span>
 </a>
 </div>

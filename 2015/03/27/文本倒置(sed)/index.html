@@ -5,43 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>awk处理空格分隔符 | ideas into codes</title>
+    <title>文本倒置(sed) | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="例1
-awk默认的分割符为空格，此时行首的空格可以自动忽略，但当显式标明空格为分割符或为分割符号之一时，行首的空格就不能被忽略了。针对以上问题可以考虑使用一下代码：1awk -F &amp;#39;|&amp;#39; &amp;#39;&amp;#123;gsub(/\s*/,&amp;#34;&amp;#34;);print $1;&amp;#125;&amp;#39; input.txt
-此时输出结果为：
-
-111112113114115116
-
-关于g">
+    <meta name="description" content="123456&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;1-3米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;3-10米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="awk处理空格分隔符">
-<meta property="og:url" content="http://1988zxh.com/2015/08/18/awk处理空格分隔符/index.html">
+<meta property="og:title" content="文本倒置(sed)">
+<meta property="og:url" content="http://1988zxh.com/2015/03/27/文本倒置(sed)/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="例1
-awk默认的分割符为空格，此时行首的空格可以自动忽略，但当显式标明空格为分割符或为分割符号之一时，行首的空格就不能被忽略了。针对以上问题可以考虑使用一下代码：1awk -F &amp;#39;|&amp;#39; &amp;#39;&amp;#123;gsub(/\s*/,&amp;#34;&amp;#34;);print $1;&amp;#125;&amp;#39; input.txt
-此时输出结果为：
-
-111112113114115116
-
-关于g">
-<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/awk_input.png">
-<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/awk_input_2.png">
-<meta property="og:updated_time" content="2015-08-18T12:14:43.000Z">
+<meta property="og:description" content="123456&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;1-3米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;3-10米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;">
+<meta property="og:updated_time" content="2015-09-10T12:49:13.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="awk处理空格分隔符">
-<meta name="twitter:description" content="例1
-awk默认的分割符为空格，此时行首的空格可以自动忽略，但当显式标明空格为分割符或为分割符号之一时，行首的空格就不能被忽略了。针对以上问题可以考虑使用一下代码：1awk -F &amp;#39;|&amp;#39; &amp;#39;&amp;#123;gsub(/\s*/,&amp;#34;&amp;#34;);print $1;&amp;#125;&amp;#39; input.txt
-此时输出结果为：
-
-111112113114115116
-
-关于g">
+<meta name="twitter:title" content="文本倒置(sed)">
+<meta name="twitter:description" content="123456&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;1-3米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;3-10米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -96,31 +76,21 @@ awk默认的分割符为空格，此时行首的空格可以自动忽略，但�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/08/18/awk处理空格分隔符/" title="awk处理空格分隔符" itemprop="url">awk处理空格分隔符</a>
+      <a href="/2015/03/27/文本倒置(sed)/" title="文本倒置(sed)" itemprop="url">文本倒置(sed)</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-08-17T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-08-18</time>
+    <time datetime="2015-03-26T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-03-27</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p><strong>例1</strong><br><img src="http://7xktxu.com1.z0.glb.clouddn.com/awk_input.png" alt="第一列前面有一个空格，其他列用|与制表符分割"></p>
-<p>awk默认的分割符为空格，此时行首的空格可以自动忽略，但当显式标明空格为分割符或为分割符号之一时，行首的空格就不能被忽略了。针对以上问题可以考虑使用一下代码：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#39;|&#39; &#39;&#123;gsub(/\s*/,&#34;&#34;);print $1;&#125;&#39; input.txt</span><br></pre></td></tr></table></figure></p>
-<p>此时输出结果为：</p>
-<blockquote>
-<p>111<br>112<br>113<br>114<br>115<br>116</p>
-</blockquote>
-<p>关于gsub:</p>
-<blockquote>
-<p>gsub(r, s [, t])<br>For  each substring matching the regular expression r in the string t, substitute the string s, and return the num‐<br>                               ber of substitutions.  If t is not supplied, use $0.  An &amp; in the replacement text is replaced with the  text  that<br>                               was  actually  matched.  Use \&amp; to get a literal &amp;.  (This must be typed as “\&amp;”; see GAWK: Effective AWK Program‐<br>                               ming for a fuller discussion of the rules for &amp;’s and backslashes in the replacement text  of  sub(),  gsub(),  and<br>                               gensub().)</p>
-</blockquote>
-<p><strong>例2</strong><br><img src="http://7xktxu.com1.z0.glb.clouddn.com/awk_input_2.png" alt=""><br>以上文本是运行<code>ifconfig lo</code>得到的，通过awk命令得到<code>127.0.0.1</code>。<br>命令如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifocnfig lo | awk -F &#39;[ :]&#39; &#39;NR==2&#123;gsub(/^\s*/,&#34;&#34;);print $2&#125;&#39;</span><br></pre></td></tr></table></figure></p>
-<p>当文本的行首有空格或分隔符中包含空格的时候，与其想方设法的去匹配，不如直接删除然后再做操作。</p>
+		<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0)"</span>&gt;</span>1-3米<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0)"</span>&gt;</span>3-10米<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0)"</span>&gt;</span>10-30米<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0)"</span>&gt;</span>30-100米<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0)"</span>&gt;</span>100-500米<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0)"</span>&gt;</span>500米-1KM<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这是同事给我写的代码，写法上就不管了，我想做的是把那串空格放到后面。一行一行的复制觉得有点麻烦，于是想到sed命令：<br><code>sed -r &#39;s/((&amp;nbsp;)+)(&lt;a.*a&gt;)/\3\1/g&#39; codes</code><br>写的时候，晕了，把<code>&amp;nbsp;</code>当成了一个字符，直接写成了<code>&amp;nbsp;+</code>，浪费了不少时间。<br>这里有个多层括号的问题，括号的顺序应该从左到右数，不管是否嵌套。比如：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# echo &#39;1212123456&#39; | sed -r &#39;s/((12)+)((34)(56))/\1,\2,\3,\4,\5/g&#39;&#10;121212,12,3456,34,56</span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -132,18 +102,13 @@ awk默认的分割符为空格，此时行首的空格可以自动忽略，但�
 </div>
 
 
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/awk/">awk</a>
-  </div>
-
 </div>
 
 
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/08/18/awk处理空格分隔符/" data-title="awk处理空格分隔符 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/03/27/文本倒置(sed)/" data-title="文本倒置(sed) | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -157,18 +122,18 @@ awk默认的分割符为空格，此时行首的空格可以自动忽略，但�
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/08/20/python中的抽象类与接口/" title="python中的抽象类与接口">
+ <a href="/2015/04/03/Psycopg的基本用法/" title="Psycopg的基本用法">
   <strong>上一篇：</strong><br/>
   <span>
-  python中的抽象类与接口</span>
+  Psycopg的基本用法</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/08/15/sed和awk输出偶数和奇数行/"  title="sed和awk输出奇偶数行">
+<a href="/2015/03/18/awk处理空格分隔符/"  title="awk处理空格分隔符">
  <strong>下一篇：</strong><br/> 
- <span>sed和awk输出奇偶数行
+ <span>awk处理空格分隔符
 </span>
 </a>
 </div>

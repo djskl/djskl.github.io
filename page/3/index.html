@@ -74,15 +74,15 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/07/10/C程序的存储空间布局/" title="C程序的存储空间布局" itemprop="url">
+    <a href="/2015/04/10/python中的类变量与实例变量及作用域问题/" title="python中的类变量与实例变量及作用域问题" itemprop="url">
   
-    <h1 itemprop="name">C程序的存储空间布局</h1>
+    <h1 itemprop="name">python中的类变量与实例变量及作用域问题</h1>
     
      
-           <p itemprop="description" >一个C程序在编译成目标文件，会分为代码段(text)、数据段(data)、BSS段(Block Started by Symbol)。程序加载到内存后，除text、data、BSS段外还有堆、栈以及环境变量段。如下图所示：在上图中右侧运行时区域的最上方还应该有程序运行的环境变量的</p>
+           <p itemprop="description" >关于类变量与实例变量的疑惑主要是：类变量是不是被其所有实例对象共享的？，测试代码：123456789101112131415class MyClz(object):          foo = 0        def __init__(self, val):        s</p>
         
     
-    <time datetime="2015-07-09T16:00:00.000Z" itemprop="datePublished">2015-07-10</time>
+    <time datetime="2015-04-09T16:00:00.000Z" itemprop="datePublished">2015-04-10</time>
   </a>
 </section>
 
@@ -94,17 +94,16 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/06/17/MediaQueries实现CSS动态调整/" title="MediaQueries实现CSS动态调整" itemprop="url">
+    <a href="/2015/04/03/Psycopg的基本用法/" title="Psycopg的基本用法" itemprop="url">
   
-    <h1 itemprop="name">MediaQueries实现CSS动态调整</h1>
+    <h1 itemprop="name">Psycopg的基本用法</h1>
     
      
-           <p itemprop="description" >在CSS3中引入了一种叫作Media Queries的东西，可以根据媒体的类型及某些条件，应用相对应的样式。
-平时用的比较多的是根据不同屏幕宽度来应用不同的CSS，当然除屏幕宽度之外，还可以指定媒体类型，比如电脑(screen)，手机、平板等便携设备(handled)。
-使用说明</p>
+           <p itemprop="description" >Pyscopg是在python中应用最为广泛的Postgresql适配器，Psycopg2是对libpq的封装，其中大部分的代码是C写的(主要运行于CPython解释器上)，性能较高且线程安全。
+基本用法：1234567891011121314151617181920212223</p>
         
     
-    <time datetime="2015-06-16T16:00:00.000Z" itemprop="datePublished">2015-06-17</time>
+    <time datetime="2015-04-02T16:00:00.000Z" itemprop="datePublished">2015-04-03</time>
   </a>
 </section>
 
@@ -116,15 +115,15 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/06/17/javascript传递默认参数/" title="javascript传递默认参数" itemprop="url">
+    <a href="/2015/03/27/文本倒置(sed)/" title="文本倒置(sed)" itemprop="url">
   
-    <h1 itemprop="name">javascript传递默认参数</h1>
+    <h1 itemprop="name">文本倒置(sed)</h1>
     
      
-           <p itemprop="description" >方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#1</p>
+           <p itemprop="description" >123456&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;1-3米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a</p>
         
     
-    <time datetime="2015-06-16T16:00:00.000Z" itemprop="datePublished">2015-06-17</time>
+    <time datetime="2015-03-26T16:00:00.000Z" itemprop="datePublished">2015-03-27</time>
   </a>
 </section>
 
@@ -136,15 +135,16 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/05/10/空间数据的插入与查询(Django+Postgis)/" title="空间数据的插入与查询(Django+Postgis)" itemprop="url">
+    <a href="/2015/03/18/awk处理空格分隔符/" title="awk处理空格分隔符" itemprop="url">
   
-    <h1 itemprop="name">空间数据的插入与查询(Django+Postgis)</h1>
+    <h1 itemprop="name">awk处理空格分隔符</h1>
     
      
-           <p itemprop="description" >建表：123456789101112CREATE TABLE soildata(  sid character varying(32) NOT NULL,  stype character varying(32),  pos geometry,  CONSTRAINT soild</p>
+           <p itemprop="description" >例1
+awk默认的分割符为空格，此时行首的空格可以自动忽略，但当显式标明空格为分割符或为分割符号之一时，行首的空格就不能被忽略了。针对以上问题可以考虑使用一下代码：1awk -F &amp;#39;|&amp;#39; &amp;#39;&amp;#123;gsub(/\s*/,&amp;#34;&amp;#34;);prin</p>
         
     
-    <time datetime="2015-05-09T16:00:00.000Z" itemprop="datePublished">2015-05-10</time>
+    <time datetime="2015-03-17T16:00:00.000Z" itemprop="datePublished">2015-03-18</time>
   </a>
 </section>
 
@@ -156,15 +156,17 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/05/09/fedora通过logrotate管理日志/" title="fedora通过logrotate管理日志" itemprop="url">
+    <a href="/2015/03/15/sed和awk输出偶数和奇数行/" title="sed和awk输出奇偶数行" itemprop="url">
   
-    <h1 itemprop="name">fedora通过logrotate管理日志</h1>
+    <h1 itemprop="name">sed和awk输出奇偶数行</h1>
     
      
-           <p itemprop="description" >logrotate  is  designed to ease administration of systems that generate large numbers of log files.  It allows automatic rotation, compressi</p>
+           <p itemprop="description" >实验文本
+
+[root@localhost ~]# cat pets.txtThis is my cat  my cat’s name is bettyThis is my dog  my dog’s name is frankThis is my fish  my fish’s</p>
         
     
-    <time datetime="2015-05-08T16:00:00.000Z" itemprop="datePublished">2015-05-09</time>
+    <time datetime="2015-03-14T16:00:00.000Z" itemprop="datePublished">2015-03-15</time>
   </a>
 </section>
 
@@ -176,15 +178,15 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/05/03/Python中socket编程简介/" title="Python中socket编程简介" itemprop="url">
+    <a href="/2015/03/07/javascript中的instanceof与typeof/" title="javascript中的instanceof与typeof" itemprop="url">
   
-    <h1 itemprop="name">Python中socket编程简介</h1>
+    <h1 itemprop="name">javascript中的instanceof与typeof</h1>
     
      
-           <p itemprop="description" >服务段代码：1234567891011121314151617181920212223#encoding:utf-8import socket             if __name__ == &quot;__main__&quot;:    #def __init__(self, family</p>
+           <p itemprop="description" >在 JavaScript 中，判断一个变量的类型尝尝会用 typeof 运算符，在使用 typeof 运算符时采用引用类型存储值会出现一个问题，无论引用的是什么类型的对象，它都返回object。ECMAScript 引入了另一个 Java 运算符 instanceof 来解决这个</p>
         
     
-    <time datetime="2015-05-02T16:00:00.000Z" itemprop="datePublished">2015-05-03</time>
+    <time datetime="2015-03-06T16:00:00.000Z" itemprop="datePublished">2015-03-07</time>
   </a>
 </section>
 

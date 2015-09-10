@@ -74,26 +74,6 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/09/07/C程序的存储空间布局/" title="C程序的存储空间布局" itemprop="url">
-  
-    <h1 itemprop="name">C程序的存储空间布局</h1>
-    
-     
-           <p itemprop="description" >一个C程序在编译成目标文件，会分为代码段(text)、数据段(data)、BSS段(Block Started by Symbol)。程序加载到内存后，除text、data、BSS段外还有堆、栈以及环境变量段。如下图所示：在上图中右侧运行时区域的最上方还应该有程序运行的环境变量的</p>
-        
-    
-    <time datetime="2015-09-06T16:00:00.000Z" itemprop="datePublished">2015-09-07</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
     <a href="/2015/09/04/Django使用redis缓存服务/" title="Django使用redis缓存服务" itemprop="url">
   
     <h1 itemprop="name">Django使用redis缓存服务</h1>
@@ -154,14 +134,12 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/31/MediaQueries实现CSS动态调整/" title="MediaQueries实现CSS动态调整" itemprop="url">
+    <a href="/2015/08/31/请求参数解析QueryDict/" title="请求参数解析QueryDict" itemprop="url">
   
-    <h1 itemprop="name">MediaQueries实现CSS动态调整</h1>
+    <h1 itemprop="name">请求参数解析QueryDict</h1>
     
      
-           <p itemprop="description" >在CSS3中引入了一种叫作Media Queries的东西，可以根据媒体的类型及某些条件，应用相对应的样式。
-平时用的比较多的是根据不同屏幕宽度来应用不同的CSS，当然除屏幕宽度之外，还可以指定媒体类型，比如电脑(screen)，手机、平板等便携设备(handled)。
-使用说明</p>
+           <p itemprop="description" >今天遇到了一个奇怪的问题：通过ajax向后台传json时，在解析参数后得到的是{key: [value]}，而不是{key: value}。请求参数解析函数如下：12345def get_params(request):    a = &amp;#123;&amp;#125;    a.upda</p>
         
     
     <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished">2015-08-31</time>
@@ -197,52 +175,12 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/31/请求参数解析QueryDict/" title="请求参数解析QueryDict" itemprop="url">
-  
-    <h1 itemprop="name">请求参数解析QueryDict</h1>
-    
-     
-           <p itemprop="description" >今天遇到了一个奇怪的问题：通过ajax向后台传json时，在解析参数后得到的是{key: [value]}，而不是{key: value}。请求参数解析函数如下：12345def get_params(request):    a = &amp;#123;&amp;#125;    a.upda</p>
-        
-    
-    <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished">2015-08-31</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
     <a href="/2015/08/27/文本倒置(sed)/" title="文本倒置(sed)" itemprop="url">
   
     <h1 itemprop="name">文本倒置(sed)</h1>
     
      
            <p itemprop="description" >123456&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;1-3米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a</p>
-        
-    
-    <time datetime="2015-08-26T16:00:00.000Z" itemprop="datePublished">2015-08-27</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/08/27/javascript传递默认参数/" title="javascript传递默认参数" itemprop="url">
-  
-    <h1 itemprop="name">javascript传递默认参数</h1>
-    
-     
-           <p itemprop="description" >方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#1</p>
         
     
     <time datetime="2015-08-26T16:00:00.000Z" itemprop="datePublished">2015-08-27</time>
@@ -274,6 +212,68 @@
 
 
 
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2015/08/22/寻找第n个丑数/" title="寻找第n个丑数" itemprop="url">
+  
+    <h1 itemprop="name">寻找第n个丑数</h1>
+    
+     
+           <p itemprop="description" >因子只包含2、3或5的数叫做丑数，1也是丑数，前10个丑数是`1, 2, 3, 4, 5, 6, 8, 9, 10, 12。写一个程序，寻找第n个丑数。
+思路最简单粗暴的算法就是从1开始，遍历所有自然数，对每个数都判断一下是不是丑数，直到找到第n个丑数，但这样会有很多无谓的判断，</p>
+        
+    
+    <time datetime="2015-08-21T16:00:00.000Z" itemprop="datePublished">2015-08-22</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2015/08/22/Postgresql表的继承与分区/" title="Postgresql表的继承与分区" itemprop="url">
+  
+    <h1 itemprop="name">Postgresql表的继承与分区</h1>
+    
+     
+           <p itemprop="description" >在Postgresql中，可以通过表的继承可以将一个逻辑表的不同数据放到不同分区上，用起来比较方便。示例表：12345678910111213141516171819202122232425262728293031-- 父表CREATE TABLE students(  sno </p>
+        
+    
+    <time datetime="2015-08-21T16:00:00.000Z" itemprop="datePublished">2015-08-22</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2015/08/20/python中的抽象类与接口/" title="python中的抽象类与接口" itemprop="url">
+  
+    <h1 itemprop="name">python中的抽象类与接口</h1>
+    
+     
+           <p itemprop="description" >python本身并不支持抽象类或接口，如果想让一个方法必须在子类中实现，可以通过抛出NotImplementedError进行限制，这样如果子类没有覆盖这个方法而直接调用，就会抛出这个异常。
+这种方式仅对方法进行限制，但包含这种方法的类仍然是普通类，还可以实例化成对象，并不是抽象</p>
+        
+    
+    <time datetime="2015-08-19T16:00:00.000Z" itemprop="datePublished">2015-08-20</time>
+  </a>
+</section>
+
+
+
+
+
+
 
   <nav id="page-nav" class="clearfix unexpand">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -296,7 +296,7 @@
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>12</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>14</sup></a></li>
 		  
 		
 		  
@@ -313,6 +313,10 @@
 		
 		  
 			<li><a href="/categories/算法/" title="算法">算法<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>1</sup></a></li>
 		  
 		
 		</ul>

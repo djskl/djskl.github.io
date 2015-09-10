@@ -5,26 +5,29 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>javascript传递默认参数 | ideas into codes</title>
+    <title>MediaQueries实现CSS动态调整 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#125;    ....&amp;#125;
-arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arg">
+    <meta name="description" content="在CSS3中引入了一种叫作Media Queries的东西，可以根据媒体的类型及某些条件，应用相对应的样式。
+平时用的比较多的是根据不同屏幕宽度来应用不同的CSS，当然除屏幕宽度之外，还可以指定媒体类型，比如电脑(screen)，手机、平板等便携设备(handled)。
+使用说明如下：123456789101112131415161718192021222324&amp;lt;html&amp;gt;&amp;lt;he">
 <meta property="og:type" content="article">
-<meta property="og:title" content="javascript传递默认参数">
-<meta property="og:url" content="http://1988zxh.com/2015/08/27/javascript传递默认参数/index.html">
+<meta property="og:title" content="MediaQueries实现CSS动态调整">
+<meta property="og:url" content="http://1988zxh.com/2015/06/17/MediaQueries实现CSS动态调整/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#125;    ....&amp;#125;
-arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arg">
-<meta property="og:updated_time" content="2015-08-27T11:20:00.000Z">
+<meta property="og:description" content="在CSS3中引入了一种叫作Media Queries的东西，可以根据媒体的类型及某些条件，应用相对应的样式。
+平时用的比较多的是根据不同屏幕宽度来应用不同的CSS，当然除屏幕宽度之外，还可以指定媒体类型，比如电脑(screen)，手机、平板等便携设备(handled)。
+使用说明如下：123456789101112131415161718192021222324&amp;lt;html&amp;gt;&amp;lt;he">
+<meta property="og:updated_time" content="2015-09-10T12:30:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="javascript传递默认参数">
-<meta name="twitter:description" content="方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#125;    ....&amp;#125;
-arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arg">
+<meta name="twitter:title" content="MediaQueries实现CSS动态调整">
+<meta name="twitter:description" content="在CSS3中引入了一种叫作Media Queries的东西，可以根据媒体的类型及某些条件，应用相对应的样式。
+平时用的比较多的是根据不同屏幕宽度来应用不同的CSS，当然除屏幕宽度之外，还可以指定媒体类型，比如电脑(screen)，手机、平板等便携设备(handled)。
+使用说明如下：123456789101112131415161718192021222324&amp;lt;html&amp;gt;&amp;lt;he">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -79,23 +82,26 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/08/27/javascript传递默认参数/" title="javascript传递默认参数" itemprop="url">javascript传递默认参数</a>
+      <a href="/2015/06/17/MediaQueries实现CSS动态调整/" title="MediaQueries实现CSS动态调整" itemprop="url">MediaQueries实现CSS动态调整</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-08-26T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-08-27</time>
+    <time datetime="2015-06-16T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-06-17</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>方式1：借助函数内置变量<code>arguments</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params">x, _def</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">arguments</span>[<span class="number">1</span>] == <span class="literal">undefined</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> _def = default_value;</span><br><span class="line">    &#125;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arguments类似数组但不是数组，支持下标访问，也有length属性，但没有push/pop这些方法。</p>
-<p>方式2：<code>typeof(x) == &quot;undefined&quot;</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params">x, _def</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span>(_def) == <span class="string">"undefined"</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> _def = default_value;</span><br><span class="line">    &#125;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这个比较简单直接一点，需要注意的是，不能直接<code>_def == undefined</code>，js和其他语言一样，不能操作未声明/定义的变量。</p>
+		<p>在CSS3中引入了一种叫作<a href="http://www.w3.org/TR/css3-mediaqueries/" target="_blank" rel="external">Media Queries</a>的东西，可以根据媒体的类型及某些条件，应用相对应的样式。</p>
+<p>平时用的比较多的是根据不同屏幕宽度来应用不同的CSS，当然除屏幕宽度之外，还可以指定媒体类型，比如电脑(screen)，手机、平板等便携设备(handled)。</p>
+<p>使用说明如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css"></span><br><span class="line">    	<span class="class">.font-clz</span><span class="rules">&#123;</span><br><span class="line">    		<span class="rule"><span class="attribute">color</span>:<span class="value"> red</span></span>;</span><br><span class="line">    		<span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">18px</span></span></span>;	</span><br><span class="line">    	&#125;</span></span><br><span class="line">    	</span><br><span class="line">    	<span class="at_rule">@<span class="keyword">media</span> screen and (max-width:<span class="number">1000px</span>)</span>&#123;</span><br><span class="line">    		<span class="class">.font-clz</span><span class="rules">&#123;</span><br><span class="line">    			<span class="rule"><span class="attribute">color</span>:<span class="value"> green</span></span>;</span><br><span class="line">    			<span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">28px</span></span></span>;	</span><br><span class="line">    		&#125;</span>		</span><br><span class="line">    	&#125;</span><br><span class="line">    	</span><br><span class="line">    </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"font-clz"</span>&gt;</span>hello,world<span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在该代码中，默认的字体样式是<code>red;18px</code>，但当屏幕小于1000px时，字体样式会变为<code>green;28px</code>。<br>在这里，<code>@media</code>默认的媒体类型就是screen，所以也可以直接简写为：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> @media (max-width:1000px)&#123;</span><br><span class="line">    .font-clz&#123;</span><br><span class="line">        color: green;</span><br><span class="line">        font-size: 28px;    </span><br><span class="line">    &#125;       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中，<code>max-width</code>表示小于指定宽度时应该应用的样式，<code>min-width</code>就表示大于指定宽度时应该应用的样式，也可以指定一个范围，比如<code>@media (min-width:500px) and (max-width:1000px)</code>表示介于500px到1000px之间应该应用的样式。</p>
+<p>除了在<code>style</code>中定义外，还可以通过<code>link</code>标签引入：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">   	<span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"large_screen.css"</span> <span class="attribute">media</span>=<span class="value">"screen and (min-width:1200px)"</span>&gt;</span></span><br><span class="line">   	</span><br><span class="line">   	<span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"small_screen.css"</span> <span class="attribute">media</span>=<span class="value">"screen and (max-width:1200px)"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">   	<span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">   		<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"font-clz"</span>&gt;</span>hello,world<span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">   	<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>参考：<br><a href="http://www.cnblogs.com/mofish/archive/2012/05/23/2515218.html" target="_blank" rel="external">响应式web设计之CSS3 Media Queries</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries" target="_blank" rel="external">CSS media queries</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -113,7 +119,7 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/08/27/javascript传递默认参数/" data-title="javascript传递默认参数 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/06/17/MediaQueries实现CSS动态调整/" data-title="MediaQueries实现CSS动态调整 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -127,18 +133,18 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/08/27/文本倒置(sed)/" title="文本倒置(sed)">
+ <a href="/2015/07/10/C程序的存储空间布局/" title="C程序的存储空间布局">
   <strong>上一篇：</strong><br/>
   <span>
-  文本倒置(sed)</span>
+  C程序的存储空间布局</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/08/24/python中装饰器的使用/"  title="python中装饰器的使用">
+<a href="/2015/06/17/javascript传递默认参数/"  title="javascript传递默认参数">
  <strong>下一篇：</strong><br/> 
- <span>python中装饰器的使用
+ <span>javascript传递默认参数
 </span>
 </a>
 </div>
@@ -164,7 +170,7 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>12</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>14</sup></a></li>
 		  
 		
 		  
@@ -181,6 +187,10 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 		
 		  
 			<li><a href="/categories/算法/" title="算法">算法<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>1</sup></a></li>
 		  
 		
 		</ul>

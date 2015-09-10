@@ -74,15 +74,15 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/06/slots的用法及注意事项/" title="slots的用法及注意事项" itemprop="url">
+    <a href="/2015/07/10/C程序的存储空间布局/" title="C程序的存储空间布局" itemprop="url">
   
-    <h1 itemprop="name">slots的用法及注意事项</h1>
+    <h1 itemprop="name">C程序的存储空间布局</h1>
     
      
-           <p itemprop="description" >前几天在看Psycopg时，发现可以通过指定cursor_factory = DictCursor来将查询结果由元组变为字典，觉得挺有意思，然后看了一下源码，原来这种字典式的返回值靠的主要是DictRow，代码如下：1234567891011121314151617181920c</p>
+           <p itemprop="description" >一个C程序在编译成目标文件，会分为代码段(text)、数据段(data)、BSS段(Block Started by Symbol)。程序加载到内存后，除text、data、BSS段外还有堆、栈以及环境变量段。如下图所示：在上图中右侧运行时区域的最上方还应该有程序运行的环境变量的</p>
         
     
-    <time datetime="2015-08-05T16:00:00.000Z" itemprop="datePublished">2015-08-06</time>
+    <time datetime="2015-07-09T16:00:00.000Z" itemprop="datePublished">2015-07-10</time>
   </a>
 </section>
 
@@ -94,7 +94,109 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/04/Python中的常量/" title="Python中的常量" itemprop="url">
+    <a href="/2015/06/17/MediaQueries实现CSS动态调整/" title="MediaQueries实现CSS动态调整" itemprop="url">
+  
+    <h1 itemprop="name">MediaQueries实现CSS动态调整</h1>
+    
+     
+           <p itemprop="description" >在CSS3中引入了一种叫作Media Queries的东西，可以根据媒体的类型及某些条件，应用相对应的样式。
+平时用的比较多的是根据不同屏幕宽度来应用不同的CSS，当然除屏幕宽度之外，还可以指定媒体类型，比如电脑(screen)，手机、平板等便携设备(handled)。
+使用说明</p>
+        
+    
+    <time datetime="2015-06-16T16:00:00.000Z" itemprop="datePublished">2015-06-17</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2015/06/17/javascript传递默认参数/" title="javascript传递默认参数" itemprop="url">
+  
+    <h1 itemprop="name">javascript传递默认参数</h1>
+    
+     
+           <p itemprop="description" >方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#1</p>
+        
+    
+    <time datetime="2015-06-16T16:00:00.000Z" itemprop="datePublished">2015-06-17</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2015/05/10/空间数据的插入与查询(Django+Postgis)/" title="空间数据的插入与查询(Django+Postgis)" itemprop="url">
+  
+    <h1 itemprop="name">空间数据的插入与查询(Django+Postgis)</h1>
+    
+     
+           <p itemprop="description" >建表：123456789101112CREATE TABLE soildata(  sid character varying(32) NOT NULL,  stype character varying(32),  pos geometry,  CONSTRAINT soild</p>
+        
+    
+    <time datetime="2015-05-09T16:00:00.000Z" itemprop="datePublished">2015-05-10</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2015/05/09/fedora通过logrotate管理日志/" title="fedora通过logrotate管理日志" itemprop="url">
+  
+    <h1 itemprop="name">fedora通过logrotate管理日志</h1>
+    
+     
+           <p itemprop="description" >logrotate  is  designed to ease administration of systems that generate large numbers of log files.  It allows automatic rotation, compressi</p>
+        
+    
+    <time datetime="2015-05-08T16:00:00.000Z" itemprop="datePublished">2015-05-09</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2015/05/03/Python中socket编程简介/" title="Python中socket编程简介" itemprop="url">
+  
+    <h1 itemprop="name">Python中socket编程简介</h1>
+    
+     
+           <p itemprop="description" >服务段代码：1234567891011121314151617181920212223#encoding:utf-8import socket             if __name__ == &quot;__main__&quot;:    #def __init__(self, family</p>
+        
+    
+    <time datetime="2015-05-02T16:00:00.000Z" itemprop="datePublished">2015-05-03</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2014/12/06/Python中的常量/" title="Python中的常量" itemprop="url">
   
     <h1 itemprop="name">Python中的常量</h1>
     
@@ -102,48 +204,7 @@
            <p itemprop="description" >Python中没有提供原生的常量(const)，大概是因为它是动态语言，不像C或java，python没有编译过程，对于常量这种特性，检查起来有点费劲。不过倒是有个约定，全部用大写字母定义的变量，应该被视为常量。不过约定毕竟是约定，未从代码上进行限制，为了解决这个问题，activ</p>
         
     
-    <time datetime="2015-08-03T16:00:00.000Z" itemprop="datePublished">2015-08-04</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/08/03/Psycopg的基本用法/" title="Psycopg的基本用法" itemprop="url">
-  
-    <h1 itemprop="name">Psycopg的基本用法</h1>
-    
-     
-           <p itemprop="description" >Pyscopg是在python中应用最为广泛的Postgresql适配器，Psycopg2是对libpq的封装，其中大部分的代码是C写的(主要运行于CPython解释器上)，性能较高且线程安全。
-基本用法：1234567891011121314151617181920212223</p>
-        
-    
-    <time datetime="2015-08-02T16:00:00.000Z" itemprop="datePublished">2015-08-03</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/08/02/javascript中的instanceof与typeof/" title="javascript中的instanceof与typeof" itemprop="url">
-  
-    <h1 itemprop="name">javascript中的instanceof与typeof</h1>
-    
-     
-           <p itemprop="description" >在 JavaScript 中，判断一个变量的类型尝尝会用 typeof 运算符，在使用 typeof 运算符时采用引用类型存储值会出现一个问题，无论引用的是什么类型的对象，它都返回object。ECMAScript 引入了另一个 Java 运算符 instanceof 来解决这个</p>
-        
-    
-    <time datetime="2015-08-01T16:00:00.000Z" itemprop="datePublished">2015-08-02</time>
+    <time datetime="2014-12-05T16:00:00.000Z" itemprop="datePublished">2014-12-06</time>
   </a>
 </section>
 
@@ -174,7 +235,7 @@
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>12</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>14</sup></a></li>
 		  
 		
 		  
@@ -191,6 +252,10 @@
 		
 		  
 			<li><a href="/categories/算法/" title="算法">算法<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>1</sup></a></li>
 		  
 		
 		</ul>

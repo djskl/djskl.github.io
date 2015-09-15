@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://1988zxh.com/2015/07/04/Django%E4%BD%BF%E7%94%A8redis%E7%BC%93%E5%AD%98%E6%9C%8D%E5%8A%A1/</loc>
+    <lastmod>2015-09-15T12:22:45.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://1988zxh.com/2015/09/13/python%E4%B8%AD%E7%9A%84metaclass%E5%8F%8A%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2015-09-13T01:36:06.000Z</lastmod>
   </url>
@@ -79,11 +84,6 @@
   <url>
     <loc>http://1988zxh.com/2015/05/03/Python%E4%B8%ADsocket%E7%BC%96%E7%A8%8B%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2015-09-10T12:10:28.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://1988zxh.com/2015/09/04/Django%E4%BD%BF%E7%94%A8redis%E7%BC%93%E5%AD%98%E6%9C%8D%E5%8A%A1/</loc>
-    <lastmod>2015-09-05T00:08:50.000Z</lastmod>
   </url>
   
   <url>

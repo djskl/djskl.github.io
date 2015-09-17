@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>python中的metaclass及单例模式 | ideas into codes</title>
+    <title>python中的metaclass及其应用 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
@@ -19,8 +19,8 @@ type(类名, 父类的元组（针对继承的情况，可以为空），包含�
 
 12345class Foo():    passclas">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python中的metaclass及单例模式">
-<meta property="og:url" content="http://1988zxh.com/2015/09/13/python中的metaclass及单例模式/index.html">
+<meta property="og:title" content="python中的metaclass及其应用">
+<meta property="og:url" content="http://1988zxh.com/2015/09/13/python中的metaclass及其应用/index.html">
 <meta property="og:site_name" content="ideas into codes">
 <meta property="og:description" content="在python中，类也是对象，一种可以创建其他对象的对象。类的定义本身就是一个对象的创建过程，默认情况下，普通的类由type类创建，从用户的角度来看，普通对象的创建通过init函数初始化，而类的创建则是通过new函数初始化。
 看type的构造函数：
@@ -28,9 +28,9 @@ type(类名, 父类的元组（针对继承的情况，可以为空），包含�
 type(类名, 父类的元组（针对继承的情况，可以为空），包含属性的字典（名称和值）)
 
 12345class Foo():    passclas">
-<meta property="og:updated_time" content="2015-09-13T01:36:06.000Z">
+<meta property="og:updated_time" content="2015-09-17T11:14:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python中的metaclass及单例模式">
+<meta name="twitter:title" content="python中的metaclass及其应用">
 <meta name="twitter:description" content="在python中，类也是对象，一种可以创建其他对象的对象。类的定义本身就是一个对象的创建过程，默认情况下，普通的类由type类创建，从用户的角度来看，普通对象的创建通过init函数初始化，而类的创建则是通过new函数初始化。
 看type的构造函数：
 
@@ -91,7 +91,7 @@ type(类名, 父类的元组（针对继承的情况，可以为空），包含�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/09/13/python中的metaclass及单例模式/" title="python中的metaclass及单例模式" itemprop="url">python中的metaclass及单例模式</a>
+      <a href="/2015/09/13/python中的metaclass及其应用/" title="python中的metaclass及其应用" itemprop="url">python中的metaclass及其应用</a>
   </h1>
   <p class="article-author">By
        
@@ -124,6 +124,8 @@ type(类名, 父类的元组（针对继承的情况，可以为空），包含�
 <p>接下来，我们可以借用<code>__metaclass__</code>中的<code>__call__</code>函数来实现单例模式：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span><span class="params">(type)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, bases, attrs)</span>:</span></span><br><span class="line">        super(Singleton, self).__init__(name, bases, attrs)</span><br><span class="line">        self._instance = <span class="keyword">None</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self._instance <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            self._instance = super(Singleton, self).__call__(*args, **kw)</span><br><span class="line">        <span class="keyword">return</span> self._instance</span><br><span class="line">        </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClz</span><span class="params">(object)</span>:</span></span><br><span class="line">    __metaclass__ = Singleton</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.x = <span class="number">0</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    m1 = MyClz()</span><br><span class="line">    m2 = MyClz()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">print</span> id(m1), id(m2)</span><br></pre></td></tr></table></figure></p>
 <p>输出：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3076855820</span> <span class="number">3076855820</span></span><br></pre></td></tr></table></figure></p>
 <p>由以上输出可以看出，此时的m1, m2是指向了同一块内存，这是名副其实的同一个对象。</p>
+<p>再看一个例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">VehicleMetaClass</span><span class="params">(type)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, name, bases, attrs)</span>:</span></span><br><span class="line">        clz = super(VehicleMetaClass, cls).__new__(cls, name, bases, attrs)</span><br><span class="line">        class_key = clz.getKey()</span><br><span class="line">        MyContext.handlers[class_key] = clz</span><br><span class="line">        <span class="keyword">return</span> clz</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyContext</span>:</span></span><br><span class="line">    handlers = &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#other codes</span></span><br><span class="line">        </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span><span class="params">(object)</span>:</span></span><br><span class="line">    __metaclass__ = VehicleMetaClass</span><br><span class="line">    </span><br><span class="line"><span class="decorator">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getKey</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"car"</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"This is a Car"</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#other codes</span></span><br><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bike</span><span class="params">(object)</span>:</span></span><br><span class="line">    __metaclass__ = VehicleMetaClass</span><br><span class="line">    </span><br><span class="line"><span class="decorator">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getKey</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"bike"</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"This is a Bike"</span></span><br><span class="line">    <span class="comment">#other codes</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">print</span> MyContext.handlers</span><br><span class="line">    </span><br><span class="line">    Car = MyContext.handlers[<span class="string">'car'</span>]</span><br><span class="line">    </span><br><span class="line">    mycar = Car()</span><br><span class="line">    </span><br><span class="line">    mycar.show()</span><br></pre></td></tr></table></figure></p>
+<p>通过这种方式很轻松的实现了一种类注册的方法。</p>
 <p><strong>参考</strong>:<br><a href="http://blog.jobbole.com/21351/" target="_blank" rel="external">深刻理解Python中的元类(metaclass)</a><br><a href="http://blog.csdn.net/karldoenitz/article/details/23467221" target="_blank" rel="external">python学习教程（十三）python实现单例模式 </a></p>
   
 	</div>
@@ -142,7 +144,7 @@ type(类名, 父类的元组（针对继承的情况，可以为空），包含�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/09/13/python中的metaclass及单例模式/" data-title="python中的metaclass及单例模式 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/09/13/python中的metaclass及其应用/" data-title="python中的metaclass及其应用 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -185,7 +187,7 @@ type(类名, 父类的元组（针对继承的情况，可以为空），包含�
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>15</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>16</sup></a></li>
 		  
 		
 		  

@@ -2,13 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://1988zxh.com/2015/07/04/Django%E4%BD%BF%E7%94%A8redis%E7%BC%93%E5%AD%98%E6%9C%8D%E5%8A%A1/</loc>
-    <lastmod>2015-09-15T12:22:45.000Z</lastmod>
+    <loc>http://1988zxh.com/2015/09/13/python%E4%B8%AD%E7%9A%84metaclass%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</loc>
+    <lastmod>2015-09-17T11:14:20.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/09/13/python%E4%B8%AD%E7%9A%84metaclass%E5%8F%8A%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2015-09-13T01:36:06.000Z</lastmod>
+    <loc>http://1988zxh.com/2015/06/28/python%E4%B8%AD%E7%9A%84%E7%94%9F%E6%88%90%E5%99%A8/</loc>
+    <lastmod>2015-09-17T10:55:04.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://1988zxh.com/2015/07/04/Django%E4%BD%BF%E7%94%A8redis%E7%BC%93%E5%AD%98%E6%9C%8D%E5%8A%A1/</loc>
+    <lastmod>2015-09-15T12:22:45.000Z</lastmod>
   </url>
   
   <url>

@@ -95,6 +95,32 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2015/09/19/python中的and、or运算/" title="python中的and、or运算" itemprop="url">
+  
+    <h1 itemprop="name">python中的and、or运算</h1>
+    
+     
+           <p itemprop="description" >受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。规则如下：
+
+and运算：无假值则返回最后一个真值，有假值返回第一个假值or运算：无真值则返回最后一个假值，有真值则返回第一个真值
+
+所谓的假值是指：
+
+1、None2、False</p>
+        
+    
+    <time datetime="2015-09-18T16:00:00.000Z" itemprop="datePublished">2015-09-19</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2015/09/13/python中的metaclass及其应用/" title="python中的metaclass及其应用" itemprop="url">
   
     <h1 itemprop="name">python中的metaclass及其应用</h1>
@@ -158,12 +184,13 @@ type(类名, 父类的元组</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/31/请求参数解析QueryDict/" title="请求参数解析QueryDict" itemprop="url">
+    <a href="/2015/08/31/数据库中的层次操作/" title="数据库中的层次操作" itemprop="url">
   
-    <h1 itemprop="name">请求参数解析QueryDict</h1>
+    <h1 itemprop="name">数据库中的层次操作</h1>
     
      
-           <p itemprop="description" >今天遇到了一个奇怪的问题：通过ajax向后台传json时，在解析参数后得到的是{key: [value]}，而不是{key: value}。请求参数解析函数如下：12345def get_params(request):    a = &amp;#123;&amp;#125;    a.upda</p>
+           <p itemprop="description" >今天遇到了一个比较有意思的问题：有一个表结构如下所示：12345id, pid, name1, 10, hello10, -1, world2, 1, hehe...
+在这个表里，通过id和pid构成里一个森林，目前森林最多有4层。如下图所示意：其中绿色表示数据的分类，黄色表示具</p>
         
     
     <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished">2015-08-31</time>
@@ -178,13 +205,12 @@ type(类名, 父类的元组</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/31/数据库中的层次操作/" title="数据库中的层次操作" itemprop="url">
+    <a href="/2015/08/31/请求参数解析QueryDict/" title="请求参数解析QueryDict" itemprop="url">
   
-    <h1 itemprop="name">数据库中的层次操作</h1>
+    <h1 itemprop="name">请求参数解析QueryDict</h1>
     
      
-           <p itemprop="description" >今天遇到了一个比较有意思的问题：有一个表结构如下所示：12345id, pid, name1, 10, hello10, -1, world2, 1, hehe...
-在这个表里，通过id和pid构成里一个森林，目前森林最多有4层。如下图所示意：其中绿色表示数据的分类，黄色表示具</p>
+           <p itemprop="description" >今天遇到了一个奇怪的问题：通过ajax向后台传json时，在解析参数后得到的是{key: [value]}，而不是{key: value}。请求参数解析函数如下：12345def get_params(request):    a = &amp;#123;&amp;#125;    a.upda</p>
         
     
     <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished">2015-08-31</time>
@@ -219,27 +245,6 @@ type(类名, 父类的元组</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/22/寻找第n个丑数/" title="寻找第n个丑数" itemprop="url">
-  
-    <h1 itemprop="name">寻找第n个丑数</h1>
-    
-     
-           <p itemprop="description" >因子只包含2、3或5的数叫做丑数，1也是丑数，前10个丑数是`1, 2, 3, 4, 5, 6, 8, 9, 10, 12。写一个程序，寻找第n个丑数。
-思路最简单粗暴的算法就是从1开始，遍历所有自然数，对每个数都判断一下是不是丑数，直到找到第n个丑数，但这样会有很多无谓的判断，</p>
-        
-    
-    <time datetime="2015-08-21T16:00:00.000Z" itemprop="datePublished">2015-08-22</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
     <a href="/2015/08/22/Postgresql表的继承与分区/" title="Postgresql表的继承与分区" itemprop="url">
   
     <h1 itemprop="name">Postgresql表的继承与分区</h1>
@@ -260,16 +265,16 @@ type(类名, 父类的元组</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/14/Django由数据库生成model/" title="Django由数据库生成model" itemprop="url">
+    <a href="/2015/08/22/寻找第n个丑数/" title="寻找第n个丑数" itemprop="url">
   
-    <h1 itemprop="name">Django由数据库生成model</h1>
+    <h1 itemprop="name">寻找第n个丑数</h1>
     
      
-           <p itemprop="description" >运行命令：1python manage.py inspectdb [ &amp;gt; models.py ]
-即可生成对应数据库表(默认为settings.py中的default数据库，可以加–database参数来指定)的model class，&amp;gt; models.py可将生成的</p>
+           <p itemprop="description" >因子只包含2、3或5的数叫做丑数，1也是丑数，前10个丑数是`1, 2, 3, 4, 5, 6, 8, 9, 10, 12。写一个程序，寻找第n个丑数。
+思路最简单粗暴的算法就是从1开始，遍历所有自然数，对每个数都判断一下是不是丑数，直到找到第n个丑数，但这样会有很多无谓的判断，</p>
         
     
-    <time datetime="2015-08-13T16:00:00.000Z" itemprop="datePublished">2015-08-14</time>
+    <time datetime="2015-08-21T16:00:00.000Z" itemprop="datePublished">2015-08-22</time>
   </a>
 </section>
 
@@ -280,7 +285,7 @@ type(类名, 父类的元组</p>
 
 
   <nav id="page-nav" class="clearfix unexpand">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
@@ -300,7 +305,7 @@ type(类名, 父类的元组</p>
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>17</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>18</sup></a></li>
 		  
 		
 		  

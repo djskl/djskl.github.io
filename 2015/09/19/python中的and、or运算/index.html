@@ -5,23 +5,47 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>文本倒置(sed) | ideas into codes</title>
+    <title>python中的and、or运算 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="123456&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;1-3米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;3-10米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;">
+    <meta name="description" content="受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。规则如下：
+
+and运算：无假值则返回最后一个真值，有假值返回第一个假值or运算：无真值则返回最后一个假值，有真值则返回第一个真值
+
+所谓的假值是指：
+
+1、None2、False3、数字04、空序列或空字典5、定义了nonzero或len()函数且返回False或0的对象
+
+除以上情况外，都属于真">
 <meta property="og:type" content="article">
-<meta property="og:title" content="文本倒置(sed)">
-<meta property="og:url" content="http://1988zxh.com/2015/03/27/文本倒置(sed)/index.html">
+<meta property="og:title" content="python中的and、or运算">
+<meta property="og:url" content="http://1988zxh.com/2015/09/19/python中的and、or运算/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="123456&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;1-3米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;3-10米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;">
-<meta property="og:updated_time" content="2015-09-10T12:49:13.000Z">
+<meta property="og:description" content="受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。规则如下：
+
+and运算：无假值则返回最后一个真值，有假值返回第一个假值or运算：无真值则返回最后一个假值，有真值则返回第一个真值
+
+所谓的假值是指：
+
+1、None2、False3、数字04、空序列或空字典5、定义了nonzero或len()函数且返回False或0的对象
+
+除以上情况外，都属于真">
+<meta property="og:updated_time" content="2015-09-19T04:58:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="文本倒置(sed)">
-<meta name="twitter:description" content="123456&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;1-3米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;3-10米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;">
+<meta name="twitter:title" content="python中的and、or运算">
+<meta name="twitter:description" content="受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。规则如下：
+
+and运算：无假值则返回最后一个真值，有假值返回第一个假值or运算：无真值则返回最后一个假值，有真值则返回第一个真值
+
+所谓的假值是指：
+
+1、None2、False3、数字04、空序列或空字典5、定义了nonzero或len()函数且返回False或0的对象
+
+除以上情况外，都属于真">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -76,21 +100,28 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/03/27/文本倒置(sed)/" title="文本倒置(sed)" itemprop="url">文本倒置(sed)</a>
+      <a href="/2015/09/19/python中的and、or运算/" title="python中的and、or运算" itemprop="url">python中的and、or运算</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-03-26T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-03-27</time>
+    <time datetime="2015-09-18T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-09-19</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0)"</span>&gt;</span>1-3米<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0)"</span>&gt;</span>3-10米<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0)"</span>&gt;</span>10-30米<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0)"</span>&gt;</span>30-100米<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0)"</span>&gt;</span>100-500米<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0)"</span>&gt;</span>500米-1KM<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这是同事给我写的代码，写法上就不管了，我想做的是把那串空格放到后面。一行一行的复制觉得有点麻烦，于是想到sed命令：<br><code>sed -r &#39;s/((&amp;nbsp;)+)(&lt;a.*a&gt;)/\3\1/g&#39; codes</code><br>写的时候，晕了，把<code>&amp;nbsp;</code>当成了一个字符，直接写成了<code>&amp;nbsp;+</code>，浪费了不少时间。<br>这里有个多层括号的问题，括号的顺序应该从左到右数，不管是否嵌套。比如：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# echo &#39;1212123456&#39; | sed -r &#39;s/((12)+)((34)(56))/\1,\2,\3,\4,\5/g&#39;&#10;121212,12,3456,34,56</span><br></pre></td></tr></table></figure></p>
+		<p>受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。<br>规则如下：</p>
+<blockquote>
+<p>and运算：无假值则返回最后一个真值，有假值返回第一个假值<br>or运算：无真值则返回最后一个假值，有真值则返回第一个真值</p>
+</blockquote>
+<p>所谓的<code>假值</code>是指：</p>
+<blockquote>
+<p>1、None<br>2、False<br>3、数字0<br>4、空序列或空字典<br>5、定义了<strong><strong>nonzero</strong></strong>或<strong><strong>len()</strong></strong>函数且返回False或0的对象</p>
+</blockquote>
+<p>除以上情况外，都属于<code>真值</code>。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">'a'</span> <span class="keyword">and</span> <span class="string">'b'</span> <span class="keyword">and</span> <span class="string">'c'</span></span><br><span class="line"><span class="string">'c'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">'a'</span> <span class="keyword">and</span> <span class="string">''</span> <span class="keyword">and</span> <span class="string">'c'</span></span><br><span class="line"><span class="string">''</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">'a'</span> <span class="keyword">or</span> <span class="string">''</span> <span class="keyword">or</span> <span class="string">'c'</span></span><br><span class="line"><span class="string">'a'</span></span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -98,7 +129,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/shell/">shell</a>
+  <a class="article-category-link" href="/categories/python/">python</a>
 </div>
 
 
@@ -108,7 +139,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/03/27/文本倒置(sed)/" data-title="文本倒置(sed) | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/09/19/python中的and、or运算/" data-title="python中的and、or运算 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -122,18 +153,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/04/03/Psycopg的基本用法/" title="Psycopg的基本用法">
+ <a href="/2015/09/19/Django compressor使用简介/" title="Django compressor使用简介">
   <strong>上一篇：</strong><br/>
   <span>
-  Psycopg的基本用法</span>
+  Django compressor使用简介</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/03/18/awk处理空格分隔符/"  title="awk处理空格分隔符">
+<a href="/2015/09/13/python中的metaclass及其应用/"  title="python中的metaclass及其应用">
  <strong>下一篇：</strong><br/> 
- <span>awk处理空格分隔符
+ <span>python中的metaclass及其应用
 </span>
 </a>
 </div>

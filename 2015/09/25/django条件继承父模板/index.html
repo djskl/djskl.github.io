@@ -5,47 +5,27 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>python中的and、or运算 | ideas into codes</title>
+    <title>django条件继承父模板 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。规则如下：
-
-and运算：无假值则返回最后一个真值，有假值返回第一个假值or运算：无真值则返回最后一个假值，有真值则返回第一个真值
-
-所谓的假值是指：
-
-1、None2、False3、数字04、空序列或空字典5、定义了nonzero或len()函数且返回False或0的对象
-
-除以上情况外，都属于真">
+    <meta name="description" content="为了复用文件管理页面，我们网站中的文件选择框改为了window.open的弹出页面，由此产生了一个问题：文件管理本身就是一个单独的页面，有顶部导航栏，也有底部的版权说明等信息，然而在其他页面上弹出时，头尾的导航栏、版权等信息就不需要了，只要保留核心的文件选择部分。按代码复用原则，应该把与文件操作相关的js/html代码提取出来让各个页面共享使用，然后不同页面的不同样式可以通过模板继承来实现。
+现在">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python中的and、or运算">
-<meta property="og:url" content="http://1988zxh.com/2015/09/19/python中的and、or运算/index.html">
+<meta property="og:title" content="django条件继承父模板">
+<meta property="og:url" content="http://1988zxh.com/2015/09/25/django条件继承父模板/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。规则如下：
-
-and运算：无假值则返回最后一个真值，有假值返回第一个假值or运算：无真值则返回最后一个假值，有真值则返回第一个真值
-
-所谓的假值是指：
-
-1、None2、False3、数字04、空序列或空字典5、定义了nonzero或len()函数且返回False或0的对象
-
-除以上情况外，都属于真">
-<meta property="og:updated_time" content="2015-09-19T04:58:16.000Z">
+<meta property="og:description" content="为了复用文件管理页面，我们网站中的文件选择框改为了window.open的弹出页面，由此产生了一个问题：文件管理本身就是一个单独的页面，有顶部导航栏，也有底部的版权说明等信息，然而在其他页面上弹出时，头尾的导航栏、版权等信息就不需要了，只要保留核心的文件选择部分。按代码复用原则，应该把与文件操作相关的js/html代码提取出来让各个页面共享使用，然后不同页面的不同样式可以通过模板继承来实现。
+现在">
+<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/djangoyesno.png">
+<meta property="og:updated_time" content="2015-09-25T16:10:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python中的and、or运算">
-<meta name="twitter:description" content="受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。规则如下：
-
-and运算：无假值则返回最后一个真值，有假值返回第一个假值or运算：无真值则返回最后一个假值，有真值则返回第一个真值
-
-所谓的假值是指：
-
-1、None2、False3、数字04、空序列或空字典5、定义了nonzero或len()函数且返回False或0的对象
-
-除以上情况外，都属于真">
+<meta name="twitter:title" content="django条件继承父模板">
+<meta name="twitter:description" content="为了复用文件管理页面，我们网站中的文件选择框改为了window.open的弹出页面，由此产生了一个问题：文件管理本身就是一个单独的页面，有顶部导航栏，也有底部的版权说明等信息，然而在其他页面上弹出时，头尾的导航栏、版权等信息就不需要了，只要保留核心的文件选择部分。按代码复用原则，应该把与文件操作相关的js/html代码提取出来让各个页面共享使用，然后不同页面的不同样式可以通过模板继承来实现。
+现在">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -100,28 +80,26 @@ and运算：无假值则返回最后一个真值，有假值返回第一个假�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/09/19/python中的and、or运算/" title="python中的and、or运算" itemprop="url">python中的and、or运算</a>
+      <a href="/2015/09/25/django条件继承父模板/" title="django条件继承父模板" itemprop="url">django条件继承父模板</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-09-18T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-09-19</time>
+    <time datetime="2015-09-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-09-25</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。<br>规则如下：</p>
-<blockquote>
-<p>and运算：无假值则返回最后一个真值，有假值返回第一个假值<br>or运算：无真值则返回最后一个假值，有真值则返回第一个真值</p>
-</blockquote>
-<p>所谓的<code>假值</code>是指：</p>
-<blockquote>
-<p>1、None<br>2、False<br>3、数字0<br>4、空序列或空字典<br>5、定义了<strong><strong>nonzero</strong></strong>或<strong><strong>len()</strong></strong>函数且返回False或0的对象</p>
-</blockquote>
-<p>除以上情况外，都属于<code>真值</code>。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">'a'</span> <span class="keyword">and</span> <span class="string">'b'</span> <span class="keyword">and</span> <span class="string">'c'</span></span><br><span class="line"><span class="string">'c'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">'a'</span> <span class="keyword">and</span> <span class="string">''</span> <span class="keyword">and</span> <span class="string">'c'</span></span><br><span class="line"><span class="string">''</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">'a'</span> <span class="keyword">or</span> <span class="string">''</span> <span class="keyword">or</span> <span class="string">'c'</span></span><br><span class="line"><span class="string">'a'</span></span><br></pre></td></tr></table></figure></p>
+		<p>为了复用文件管理页面，我们网站中的文件选择框改为了window.open的弹出页面，由此产生了一个问题：文件管理本身就是一个单独的页面，有顶部导航栏，也有底部的版权说明等信息，然而在其他页面上弹出时，头尾的导航栏、版权等信息就不需要了，只要保留核心的文件选择部分。按代码复用原则，应该把与文件操作相关的js/html代码提取出来让各个页面共享使用，然后不同页面的不同样式可以通过模板继承来实现。</p>
+<p>现在问题来了，应该<strong>如何根据不同的条件来决定当前页面继承哪个模板</strong>？</p>
+<p>当时首先想到的是将文件页面定义为<strong>_files.html</strong>，将不同的父模板定义为<strong>_base1.html, _base2.html</strong>页面，然后在各自的<strong>index.html</strong>通过<strong>extends</strong>标签与<strong>include</strong>标签来组合。<br>结果，尝试了一下，不行，他俩是不能一块使用的，<strong>extends</strong>只认自己定义子标签，在它看来<strong>include</strong>是它需要辨识的标签，而不是include进来的内容。更详细的讨论<a href="http://stackoverflow.com/questions/1408925/django-templates-include-and-extends" target="_blank" rel="external">django templates: include and extends</a>。</p>
+<p>然后想到可以在python代码通过变量指定需要继承的模板：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% extends template_var %&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中，template_var即是在python代码里定义的标示变量。<br>除此之外还是可以借助过滤器：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% extends status|yesno:<span class="string">"base1.html,base2.html,default.html"</span> %&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果<code>status</code>的值为真，则取<code>base1.html</code>作为父模板，为假则取<code>base2.html</code>，如果为<code>none</code>，则取<code>default.html</code><br>关于<code>yesno</code>标签的说明如下：<br><img src="http://7xktxu.com1.z0.glb.clouddn.com/djangoyesno.png" alt=""></p>
+<p><strong>参考</strong><br><a href="https://docs.djangoproject.com/en/1.8/ref/templates/builtins/#yesno" target="_blank" rel="external">yesno过滤器</a><br><a href="http://stackoverflow.com/questions/1408925/django-templates-include-and-extends" target="_blank" rel="external">django templates: include and extends</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -139,7 +117,7 @@ and运算：无假值则返回最后一个真值，有假值返回第一个假�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/09/19/python中的and、or运算/" data-title="python中的and、or运算 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/09/25/django条件继承父模板/" data-title="django条件继承父模板 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -152,19 +130,11 @@ and运算：无假值则返回最后一个真值，有假值返回第一个假�
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/09/19/Django compressor使用简介/" title="Django compressor使用简介">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Django compressor使用简介</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/09/13/python中的metaclass及其应用/"  title="python中的metaclass及其应用">
+<a href="/2015/09/19/Django compressor使用简介/"  title="Django compressor使用简介">
  <strong>下一篇：</strong><br/> 
- <span>python中的metaclass及其应用
+ <span>Django compressor使用简介
 </span>
 </a>
 </div>

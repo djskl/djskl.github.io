@@ -5,23 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>slots的用法及注意事项 | ideas into codes</title>
+    <title>python中的条件变量 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="前几天在看Psycopg时，发现可以通过指定cursor_factory = DictCursor来将查询结果由元组变为字典，觉得挺有意思，然后看了一下源码，原来这种字典式的返回值靠的主要是DictRow，代码如下：1234567891011121314151617181920class DictRow(list):    &quot;&quot;&quot;A row object that allow by-column-">
+    <meta name="description" content="条件变量相对于普通的锁优势在于为已获得锁的线程提供了主动阻塞自己(wait)、唤醒别人(notify/notifyall)的操作。123456789101112131415161718192021222324252627282930import threadingimport loggingfrom time import sleepc_lock = threading.Condition()lo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="slots的用法及注意事项">
-<meta property="og:url" content="http://1988zxh.com/2015/08/06/slots的用法及注意事项/index.html">
+<meta property="og:title" content="python中的条件变量">
+<meta property="og:url" content="http://1988zxh.com/2015/05/03/python中的条件变量/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="前几天在看Psycopg时，发现可以通过指定cursor_factory = DictCursor来将查询结果由元组变为字典，觉得挺有意思，然后看了一下源码，原来这种字典式的返回值靠的主要是DictRow，代码如下：1234567891011121314151617181920class DictRow(list):    &quot;&quot;&quot;A row object that allow by-column-">
-<meta property="og:updated_time" content="2015-08-15T02:39:31.000Z">
+<meta property="og:description" content="条件变量相对于普通的锁优势在于为已获得锁的线程提供了主动阻塞自己(wait)、唤醒别人(notify/notifyall)的操作。123456789101112131415161718192021222324252627282930import threadingimport loggingfrom time import sleepc_lock = threading.Condition()lo">
+<meta property="og:updated_time" content="2015-09-26T09:22:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="slots的用法及注意事项">
-<meta name="twitter:description" content="前几天在看Psycopg时，发现可以通过指定cursor_factory = DictCursor来将查询结果由元组变为字典，觉得挺有意思，然后看了一下源码，原来这种字典式的返回值靠的主要是DictRow，代码如下：1234567891011121314151617181920class DictRow(list):    &quot;&quot;&quot;A row object that allow by-column-">
+<meta name="twitter:title" content="python中的条件变量">
+<meta name="twitter:description" content="条件变量相对于普通的锁优势在于为已获得锁的线程提供了主动阻塞自己(wait)、唤醒别人(notify/notifyall)的操作。123456789101112131415161718192021222324252627282930import threadingimport loggingfrom time import sleepc_lock = threading.Condition()lo">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -76,37 +76,25 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/08/06/slots的用法及注意事项/" title="slots的用法及注意事项" itemprop="url">slots的用法及注意事项</a>
+      <a href="/2015/05/03/python中的条件变量/" title="python中的条件变量" itemprop="url">python中的条件变量</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-08-05T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-08-06</time>
+    <time datetime="2015-05-02T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-05-03</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>前几天在看<code>Psycopg</code>时，发现可以通过指定<code>cursor_factory = DictCursor</code>来将查询结果由元组变为字典，觉得挺有意思，然后看了一下源码，原来这种字典式的返回值靠的主要是<code>DictRow</code>，代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DictRow</span><span class="params">(list)</span>:</span></span><br><span class="line">    <span class="string">"""A row object that allow by-column-name access to data."""</span></span><br><span class="line"></span><br><span class="line">    __slots__ = (<span class="string">'_index'</span>,)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, cursor)</span>:</span></span><br><span class="line">        self._index = cursor.index</span><br><span class="line">        self[:] = [<span class="keyword">None</span>] * len(cursor.description)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> isinstance(x, (int, slice)):</span><br><span class="line">            x = self._index[x]</span><br><span class="line">        <span class="keyword">return</span> list.__getitem__(self, x)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__setitem__</span><span class="params">(self, x, v)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> isinstance(x, (int, slice)):</span><br><span class="line">            x = self._index[x]</span><br><span class="line">        list.__setitem__(self, x, v)</span><br><span class="line">        </span><br><span class="line">        ...</span><br></pre></td></tr></table></figure></p>
-<p>cursor查询的结果即可以通过下标访问也可以通过字段名访问，靠的就是重载<code>[]</code>，即方法:<code>__setitem__</code>与<code>__getitem__</code>，其中有个<code>_index</code>属性，建立了下标与字段名的映射。<br>下面介绍一下代码里<code>__slots__</code>的用法。<br>官方说法：</p>
+		<p>条件变量相对于普通的锁优势在于为<strong>已获得锁</strong>的线程提供了<strong>主动阻塞自己(wait)</strong>、<strong>唤醒别人(notify/notifyall)</strong>的操作。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"></span><br><span class="line">c_lock = threading.Condition()</span><br><span class="line"></span><br><span class="line">logging.basicConfig(format=<span class="string">'%(asctime)s %(message)s'</span>, datefmt=<span class="string">"%H:%M:%S"</span>, level=logging.DEBUG)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_dosth</span><span class="params">()</span>:</span></span><br><span class="line">    c_lock.acquire()</span><br><span class="line">    logging.debug(<span class="string">"%s 阻塞了"</span>, threading.current_thread().getName())</span><br><span class="line">    c_lock.wait()</span><br><span class="line">    logging.debug(<span class="string">"%s 被唤醒"</span>, threading.current_thread().getName())</span><br><span class="line">    </span><br><span class="line">    logging.debug(<span class="string">"%s 开始干活"</span>, threading.current_thread().getName())</span><br><span class="line">    sleep(<span class="number">3</span>)</span><br><span class="line">    logging.debug(<span class="string">"%s 干完了"</span>, threading.current_thread().getName())</span><br><span class="line">    </span><br><span class="line">    c_lock.release()</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_wake</span><span class="params">()</span>:</span></span><br><span class="line">    sleep(<span class="number">3</span>)</span><br><span class="line">    c_lock.acquire()</span><br><span class="line">    c_lock.notify(<span class="number">2</span>)</span><br><span class="line">    c_lock.release()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">for</span> idx <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">        threading.Thread(target=_dosth).start()</span><br><span class="line">    threading.Thread(target=_wake).start()</span><br></pre></td></tr></table></figure></p>
+<p>输出：</p>
 <blockquote>
-<p>If defined in a new-style class, <code>__slots__</code> reserves space for the declared variables and prevents the automatic creation of <code>__dict__</code> and <code>__weakref__</code> for each instance.</p>
+<p>17:11:54 Thread-1 阻塞了<br>17:11:54 Thread-2 阻塞了<br>17:11:54 Thread-3 阻塞了<br>17:11:54 Thread-4 阻塞了<br>17:11:54 Thread-5 阻塞了<br>17:11:57 Thread-2 被唤醒<br>17:11:57 Thread-2 开始干活<br>17:12:00 Thread-2 干完了<br>17:12:00 Thread-1 被唤醒<br>17:12:00 Thread-1 开始干活<br>17:12:03 Thread-1 干完了</p>
 </blockquote>
-<p>如果在新式类中定义了<code>__slots__</code>，那么在类的实例中就没有<code>__dict__</code>与<code>__weakref__</code>了，这样做的好处：</p>
-<blockquote>
-<p>By default, instances of both old and new-style classes have a dictionary for attribute storage. This wastes space for objects having very few instance variables. The space consumption can become acute when creating large numbers of instances.</p>
-</blockquote>
-<p>定义了<code>__slots__</code>后，类的实例中没有<code>__dict__</code>了，不再允许用户自由添加属性，这样可以节约内存，特别是当实例数量非常多时(&gt;1000)。<br><a href="http://tech.oyster.com/save-ram-with-python-slots/" target="_blank" rel="external">这篇文章</a>就提到，他们通过使用<code>__slots__</code>将内存从25G降到了16G，节省了9G。回到我们的<code>DictRow</code>,在从数据库里读记录的时候，一次读几千条的情况并不罕见，所以加上这个<code>__slots__</code>还是很有必要的。</p>
-<p><strong>`</strong>slots<strong>`</strong>使用注意事项:</p>
-<ul>
-<li>只在新式类中起作用。定义class的时候要继承object,即<code>class MyClz(object):pass</code></li>
-<li>赋值。可以是字符串或字符串序列(迭代器)，甚至<code>__dict__</code>。</li>
-<li>继承问题。父类中的<code>__slots__</code>可以被继承中到子类中，前提是子类也定义了<code>__slots__</code>，否则子类中还是有<code>__dict__</code>属性；另外，如果父类中没有定义<code>__slots__</code>，而子类中定义了，这种方式是白费劲，因为父类的<code>__dict__</code>还是会被继承到子类中。</li>
-<li>如果实例的数量不多，最好不要使用<code>__slots__</code>。</li>
-</ul>
-<p>参考：<br><a href="https://docs.python.org/2/reference/datamodel.html" target="_blank" rel="external">slots</a><br><a href="http://tech.oyster.com/save-ram-with-python-slots/" target="_blank" rel="external">Saving 9 GB of RAM with Python’s slots</a><br><a href="http://stackoverflow.com/questions/472000/python-slots" target="_blank" rel="external">what is the purpose of slots</a></p>
+<p>1、调用wait的线程会主动释放自己已获得的锁，然后阻塞在当前锁上，等待其他线程通过notify/notifyall唤醒。<br>2、只有已获得锁的线程才有资格调用wait/notify/notifyall。<br>3、调用wait被阻塞的线程在被唤醒时，直接从wait函数返回，然后逐个进入临界区开始干活（此时临界区始终还是只有一个线程）。<br>4、条件变量也是基于互斥锁的，默认是可重入锁，可选择的锁只有threading.Lock与threading.RLock，不能用信号量(semaphore)。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -124,7 +112,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/08/06/slots的用法及注意事项/" data-title="slots的用法及注意事项 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/05/03/python中的条件变量/" data-title="python中的条件变量 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -138,18 +126,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/08/09/寻找二叉树中最近的公共祖先/" title="寻找二叉树中最近的公共祖先">
+ <a href="/2015/05/03/Python中socket编程简介/" title="Python中socket编程简介">
   <strong>上一篇：</strong><br/>
   <span>
-  寻找二叉树中最近的公共祖先</span>
+  Python中socket编程简介</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/07/10/C程序的存储空间布局/"  title="C程序的存储空间布局">
+<a href="/2015/04/10/python中的类变量与实例变量及作用域问题/"  title="python中的类变量与实例变量及作用域问题">
  <strong>下一篇：</strong><br/> 
- <span>C程序的存储空间布局
+ <span>python中的类变量与实例变量及作用域问题
 </span>
 </a>
 </div>

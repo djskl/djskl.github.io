@@ -18,7 +18,7 @@
 <meta property="og:url" content="http://1988zxh.com/2015/05/03/python中的条件变量/index.html">
 <meta property="og:site_name" content="ideas into codes">
 <meta property="og:description" content="条件变量相对于普通的锁优势在于为已获得锁的线程提供了主动阻塞自己(wait)、唤醒别人(notify/notifyall)的操作。123456789101112131415161718192021222324252627282930import threadingimport loggingfrom time import sleepc_lock = threading.Condition()lo">
-<meta property="og:updated_time" content="2015-09-26T09:22:42.000Z">
+<meta property="og:updated_time" content="2015-09-26T09:31:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python中的条件变量">
 <meta name="twitter:description" content="条件变量相对于普通的锁优势在于为已获得锁的线程提供了主动阻塞自己(wait)、唤醒别人(notify/notifyall)的操作。123456789101112131415161718192021222324252627282930import threadingimport loggingfrom time import sleepc_lock = threading.Condition()lo">
@@ -94,7 +94,7 @@
 <blockquote>
 <p>17:11:54 Thread-1 阻塞了<br>17:11:54 Thread-2 阻塞了<br>17:11:54 Thread-3 阻塞了<br>17:11:54 Thread-4 阻塞了<br>17:11:54 Thread-5 阻塞了<br>17:11:57 Thread-2 被唤醒<br>17:11:57 Thread-2 开始干活<br>17:12:00 Thread-2 干完了<br>17:12:00 Thread-1 被唤醒<br>17:12:00 Thread-1 开始干活<br>17:12:03 Thread-1 干完了</p>
 </blockquote>
-<p>1、调用wait的线程会主动释放自己已获得的锁，然后阻塞在当前锁上，等待其他线程通过notify/notifyall唤醒。<br>2、只有已获得锁的线程才有资格调用wait/notify/notifyall。<br>3、调用wait被阻塞的线程在被唤醒时，直接从wait函数返回，然后逐个进入临界区开始干活（此时临界区始终还是只有一个线程）。<br>4、条件变量也是基于互斥锁的，默认是可重入锁，可选择的锁只有threading.Lock与threading.RLock，不能用信号量(semaphore)。</p>
+<p>1、调用wait的线程会主动释放自己已获得的锁，然后阻塞在当前锁上，等待其他线程通过notify/notifyall唤醒。<br>2、只有已获得锁的线程才有资格调用wait/notify/notifyall。<br>3、调用wait被阻塞的线程在被唤醒时，直接从wait函数返回，然后逐个进入临界区开始干活（此时临界区始终还是只有一个线程）。<br>4、notify(n)可以指定同时被唤醒的阻塞线程的个数。<br>5、条件变量也是基于互斥锁的，默认是可重入锁，可选择的锁只有threading.Lock与threading.RLock，不能用信号量(semaphore)。</p>
   
 	</div>
 		<footer class="article-footer clearfix">

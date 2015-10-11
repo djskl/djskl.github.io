@@ -5,35 +5,29 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>sed和awk输出奇偶数行 | ideas into codes</title>
+    <title>python中的反斜杠 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="实验文本
+    <meta name="description" content="以下引自：Lexical analysis / String literals
 
-[root@localhost ~]# cat pets.txtThis is my cat  my cat’s name is bettyThis is my dog  my dog’s name is frankThis is my fish  my fish’s name is georgeThis is my goat  my goat’s name is adam
-
-sed命">
+When an ‘r’ or ‘R’ prefix is present, a character following a backslash is included in the string without change, and all backslashes are left in the string. F">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sed和awk输出奇偶数行">
-<meta property="og:url" content="http://1988zxh.com/2015/03/15/sed和awk输出偶数和奇数行/index.html">
+<meta property="og:title" content="python中的反斜杠">
+<meta property="og:url" content="http://1988zxh.com/2015/10/11/python中的反斜杠/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="实验文本
+<meta property="og:description" content="以下引自：Lexical analysis / String literals
 
-[root@localhost ~]# cat pets.txtThis is my cat  my cat’s name is bettyThis is my dog  my dog’s name is frankThis is my fish  my fish’s name is georgeThis is my goat  my goat’s name is adam
-
-sed命">
-<meta property="og:updated_time" content="2015-09-10T12:48:55.000Z">
+When an ‘r’ or ‘R’ prefix is present, a character following a backslash is included in the string without change, and all backslashes are left in the string. F">
+<meta property="og:updated_time" content="2015-10-11T01:23:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sed和awk输出奇偶数行">
-<meta name="twitter:description" content="实验文本
+<meta name="twitter:title" content="python中的反斜杠">
+<meta name="twitter:description" content="以下引自：Lexical analysis / String literals
 
-[root@localhost ~]# cat pets.txtThis is my cat  my cat’s name is bettyThis is my dog  my dog’s name is frankThis is my fish  my fish’s name is georgeThis is my goat  my goat’s name is adam
-
-sed命">
+When an ‘r’ or ‘R’ prefix is present, a character following a backslash is included in the string without change, and all backslashes are left in the string. F">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -88,50 +82,31 @@ sed命">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/03/15/sed和awk输出偶数和奇数行/" title="sed和awk输出奇偶数行" itemprop="url">sed和awk输出奇偶数行</a>
+      <a href="/2015/10/11/python中的反斜杠/" title="python中的反斜杠" itemprop="url">python中的反斜杠</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-03-14T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-03-15</time>
+    <time datetime="2015-10-10T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-10-11</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p><strong>实验文本</strong></p>
+		<p>以下引自：<a href="https://docs.python.org/2/reference/lexical_analysis.html#string-literals" target="_blank" rel="external">Lexical analysis / String literals</a></p>
 <blockquote>
-<p>[root@localhost ~]# cat pets.txt<br>This is my cat<br>  my cat’s name is betty<br>This is my dog<br>  my dog’s name is frank<br>This is my fish<br>  my fish’s name is george<br>This is my goat<br>  my goat’s name is adam</p>
+<p>When an ‘r’ or ‘R’ prefix is present, a character following a backslash is included in the string without change, and all backslashes are left in the string. For example, the string literal r”\n” consists of two characters: a backslash and a lowercase ‘n’. String quotes can be escaped with a backslash, but the backslash remains in the string; for example, r”\”” is a valid string literal consisting of two characters: a backslash and a double quote; r”\” is not a valid string literal (even a raw string cannot end in an odd number of backslashes). Specifically, a raw string cannot end in a single backslash (since the backslash would escape the following quote character). Note also that a single backslash followed by a newline is interpreted as those two characters as part of the string, not as a line continuation.</p>
 </blockquote>
-<p><strong>sed命令</strong><br><strong>方式1</strong></p>
+<p>如果字符串以<code>r</code>或<code>R</code> (raw)开始，则反斜杠后跟的字符会以原始形式出现在字符串中：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#62;&#62;&#62; print &#39;\\&#39;&#10;\&#10;&#62;&#62;&#62; print r&#39;\\&#39;&#10;\\&#10;&#62;&#62;&#62; print &#39;\n&#39;&#10;#&#27492;&#22788;&#26377;2&#20010;&#31354;&#34892;&#10;&#10;&#62;&#62;&#62; print r&#39;\n&#39;&#10;\n&#10;&#62;&#62;&#62; print &#39;\&#39;&#39;&#10;&#39;&#10;&#62;&#62;&#62; print r&#39;\&#39;&#39;&#10;\&#39;&#10;&#62;&#62;&#62; print r&#39;\&#39;&#10;  File &#34;&#60;stdin&#62;&#34;, line 1&#10;    print r&#39;\&#39;&#10;             ^&#10;SyntaxError: EOL while scanning string literal</span><br></pre></td></tr></table></figure></p>
+<p><code>r</code>首先是消除了反斜杠转义意义，然后将反斜杠后的字符以原始形式加入到字符串中。</p>
+<p>在正则表达式中，如果要匹配反斜杠，需要用<code>\\</code>，如果前缀不是<code>r</code>，则经过python一转义，在正则表达式里就剩一个<code>\</code>了，为了转义这两个<code>\\</code>，需要用4个<code>\\\\</code>，此时可用r<code>\\</code>来表示<code>\\\\</code>。</p>
+<p>以下引自<a href="https://docs.python.org/2/library/re.html#module-re" target="_blank" rel="external">re — Regular expression operations</a></p>
 <blockquote>
-<p>[root@localhost ~]# sed ‘n;p’ pets.txt -n  #输出偶数行<br>[root@localhost ~]# sed ‘p;n’ pets.txt -n   #输出奇数行</p>
+<p>Regular expressions use the backslash character (‘\’) to indicate special forms or to allow special characters to be used without invoking their special meaning. This collides with Python’s usage of the same character for the same purpose in string literals; for example, to match a literal backslash, one might have to write ‘\\‘ as the pattern string, because the regular expression must be \, and each backslash must be expressed as \ inside a regular Python string literal.</p>
+<p>The solution is to use Python’s raw string notation for regular expression patterns; backslashes are not handled in any special way in a string literal prefixed with ‘r’. So r”\n” is a two-character string containing ‘\’ and ‘n’, while “\n” is a one-character string containing a newline. Usually patterns will be expressed in Python code using this raw string notation.</p>
 </blockquote>
-<p><strong>解析</strong><br>sed命令执行时将文本<code>逐行</code>读到模式空间(pattern space)中，然后进行处理，结束后输出处理结果并清空模式空间，然后再读取下一行，如此循环直接全部处理结束。<br>如果添加了<code>n</code>或<code>N</code>命令，除当前行外，下一行也会被读取到模式空间中，不同的是：<code>n</code>读取后，忽略当前行，处理下一行，<code>N</code>读取后，会将当前行与下一行当作一行来处理。<br>下面看一个<code>N</code>的<a href="http://coolshell.cn/articles/9104.html" target="_blank" rel="external">例子</a>：</p>
-<blockquote>
-<p>[root@localhost ~]# sed ‘N;s/my/your/1’ pets.txt<br>This is your cat<br>  my cat’s name is betty<br>This is your dog<br>  my dog’s name is frank<br>This is your fish<br>  my fish’s name is george<br>This is your goat<br>  my goat’s name is adam</p>
-<p>[root@localhost ~]# sed ‘N;s/\n/,/‘ pets.txt<br>This is my cat,  my cat’s name is betty<br>This is my dog,  my dog’s name is frank<br>This is my fish,  my fish’s name is george<br>This is my goat,  my goat’s name is adam</p>
-</blockquote>
-<p><strong>方式2</strong></p>
-<blockquote>
-<p>[root@localhost ~]# sed ‘0~2p’ pets.txt -n #输出偶数行<br>[root@localhost ~]# sed ‘1~2p’ pets.txt -n  #输出奇数行</p>
-</blockquote>
-<p><strong>解析</strong></p>
-<blockquote>
-<p>first~step<br>Match every step’th line starting with line first.  For example, ``sed -n 1~2p’’ will print all the odd-numbered lines in the  input stream, and the address 2~5 will match every fifth line, starting with the second.  first can be zero; in this case, sed operates as if it were equal to step.</p>
-</blockquote>
-<p>以上出自<code>man sed</code></p>
-<p><strong>awk命令</strong><br>这个就比较简单了，比较直接的方式如下：</p>
-<blockquote>
-<p>[root@localhost ~]#awk ‘!(NR%2)’ pets.txt  #输出偶数行<br>[root@localhost ~]# awk ‘NR%2’ pets.txt     #输出奇数行</p>
-</blockquote>
-<p>以上代码等同于：</p>
-<blockquote>
-<p>[root@localhost ~]#awk ‘{if(NR%2 == 0){print}}’ pets.txt   #输出偶数行<br>[root@localhost ~]# awk ‘{if(NR%2 == 1){print;}}’ pets.txt  #输出奇数行</p>
-</blockquote>
-<p><strong>参考</strong><br><a href="http://coolshell.cn/articles/9104.html" target="_blank" rel="external">sed 简明教程</a><br><a href="http://www.cnblogs.com/fhefh/archive/2011/11/14/2248942.html" target="_blank" rel="external">linux：sed高级命令之n、N</a><br><a href="http://blog.chinaunix.net/uid-10540984-id-316081.html" target="_blank" rel="external">awk &amp; sed之奇数行与偶数行的打印</a><br><a href="http://bbs.linuxtone.org/thread-16543-1-1.html" target="_blank" rel="external">awk 输出奇数行 不理解 </a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -139,14 +114,9 @@ sed命">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/shell/">shell</a>
+  <a class="article-category-link" href="/categories/python/">python</a>
 </div>
 
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/awk/">awk</a><a href="/tags/sed/">sed</a>
-  </div>
 
 </div>
 
@@ -154,7 +124,7 @@ sed命">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/03/15/sed和awk输出偶数和奇数行/" data-title="sed和awk输出奇偶数行 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/10/11/python中的反斜杠/" data-title="python中的反斜杠 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -168,18 +138,18 @@ sed命">
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/03/18/awk处理空格分隔符/" title="awk处理空格分隔符">
+ <a href="/2015/10/11/Django通过一次性链接激活用户/" title="Django通过一次性链接激活用户">
   <strong>上一篇：</strong><br/>
   <span>
-  awk处理空格分隔符</span>
+  Django通过一次性链接激活用户</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/03/07/javascript中的instanceof与typeof/"  title="javascript中的instanceof与typeof">
+<a href="/2015/09/25/django条件继承父模板/"  title="django条件继承父模板">
  <strong>下一篇：</strong><br/> 
- <span>javascript中的instanceof与typeof
+ <span>django条件继承父模板
 </span>
 </a>
 </div>

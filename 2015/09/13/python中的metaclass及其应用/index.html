@@ -12,31 +12,31 @@
     
 
     
-    <meta name="description" content="在python中，类也是对象，一种可以创建其他对象的对象。类的定义本身就是一个对象的创建过程，默认情况下，普通的类由type类创建，从用户的角度来看，普通对象的创建通过init函数初始化，而类的创建则是通过new函数初始化。
+    <meta name="description" content="在python中，类也是对象，一种可以创建其他对象的对象。类的定义本身就是一个对象的创建过程，默认情况下，普通的类由type类创建，从用户的角度来看，普通对象的创建通过__init__函数初始化，而类的创建则是通过__new__函数初始化。
 看type的构造函数：
 
 type(类名, 父类的元组（针对继承的情况，可以为空），包含属性的字典（名称和值）)
 
-12345class Foo():    passclas">
+12345class Foo():">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python中的metaclass及其应用">
 <meta property="og:url" content="http://1988zxh.com/2015/09/13/python中的metaclass及其应用/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="在python中，类也是对象，一种可以创建其他对象的对象。类的定义本身就是一个对象的创建过程，默认情况下，普通的类由type类创建，从用户的角度来看，普通对象的创建通过init函数初始化，而类的创建则是通过new函数初始化。
+<meta property="og:description" content="在python中，类也是对象，一种可以创建其他对象的对象。类的定义本身就是一个对象的创建过程，默认情况下，普通的类由type类创建，从用户的角度来看，普通对象的创建通过__init__函数初始化，而类的创建则是通过__new__函数初始化。
 看type的构造函数：
 
 type(类名, 父类的元组（针对继承的情况，可以为空），包含属性的字典（名称和值）)
 
-12345class Foo():    passclas">
-<meta property="og:updated_time" content="2015-09-17T11:14:20.000Z">
+12345class Foo():">
+<meta property="og:updated_time" content="2015-10-19T15:10:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python中的metaclass及其应用">
-<meta name="twitter:description" content="在python中，类也是对象，一种可以创建其他对象的对象。类的定义本身就是一个对象的创建过程，默认情况下，普通的类由type类创建，从用户的角度来看，普通对象的创建通过init函数初始化，而类的创建则是通过new函数初始化。
+<meta name="twitter:description" content="在python中，类也是对象，一种可以创建其他对象的对象。类的定义本身就是一个对象的创建过程，默认情况下，普通的类由type类创建，从用户的角度来看，普通对象的创建通过__init__函数初始化，而类的创建则是通过__new__函数初始化。
 看type的构造函数：
 
 type(类名, 父类的元组（针对继承的情况，可以为空），包含属性的字典（名称和值）)
 
-12345class Foo():    passclas">
+12345class Foo():">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -104,19 +104,19 @@ type(类名, 父类的元组（针对继承的情况，可以为空），包含�
 </header>
 	<div class="article-content">
 		
-		<p>在python中，类也是对象，一种可以创建其他对象的对象。类的定义本身就是一个对象的创建过程，默认情况下，普通的类由<strong>type</strong>类创建，从用户的角度来看，普通对象的创建通过<strong><strong>init</strong></strong>函数初始化，而类的创建则是通过<strong><strong>new</strong></strong>函数初始化。</p>
+		<p>在python中，类也是对象，一种可以创建其他对象的对象。类的定义本身就是一个对象的创建过程，默认情况下，普通的类由<code>type</code>类创建，从用户的角度来看，普通对象的创建通过<code>__init__</code>函数初始化，而类的创建则是通过<code>__new__</code>函数初始化。</p>
 <p>看type的构造函数：</p>
 <blockquote>
 <p>type(类名, 父类的元组（针对继承的情况，可以为空），包含属性的字典（名称和值）)</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ChildFoo</span><span class="params">(Foo)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
 <p>相当于：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Foo = type(<span class="string">'Foo'</span>, (), &#123;&#125;)</span><br><span class="line">ChildFoo = type(<span class="string">'Foo'</span>, (Foo,), &#123;&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>type是默认的创建类的类，我们也可以通过<strong><strong>metaclass</strong></strong>自己指定。<br>比如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UpperAttrMetaclass</span><span class="params">(type)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, name, bases, dct)</span>:</span></span><br><span class="line">        attrs = ((name, value) <span class="keyword">for</span> name, value <span class="keyword">in</span> dct.items() <span class="keyword">if</span> <span class="keyword">not</span> name.startswith(<span class="string">'__'</span>))</span><br><span class="line">        uppercase_attr = dict((name.upper(), value) <span class="keyword">for</span> name, value <span class="keyword">in</span> attrs)</span><br><span class="line">        clz = super(UpperAttrMetaclass, cls).__new__(cls, name, bases, uppercase_attr)</span><br><span class="line">        <span class="keyword">print</span> clz</span><br><span class="line">        <span class="keyword">return</span> clz</span><br><span class="line">        </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClz</span>:</span></span><br><span class="line">    __metaclass__ = UpperAttrMetaclass</span><br></pre></td></tr></table></figure></p>
+<p>type是默认的创建类的类，我们也可以通过<code>__metaclass__</code>自己指定。<br>比如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UpperAttrMetaclass</span><span class="params">(type)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, name, bases, dct)</span>:</span></span><br><span class="line">        attrs = ((name, value) <span class="keyword">for</span> name, value <span class="keyword">in</span> dct.items() <span class="keyword">if</span> <span class="keyword">not</span> name.startswith(<span class="string">'__'</span>))</span><br><span class="line">        uppercase_attr = dict((name.upper(), value) <span class="keyword">for</span> name, value <span class="keyword">in</span> attrs)</span><br><span class="line">        clz = super(UpperAttrMetaclass, cls).__new__(cls, name, bases, uppercase_attr)</span><br><span class="line">        <span class="keyword">print</span> clz</span><br><span class="line">        <span class="keyword">return</span> clz</span><br><span class="line">        </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClz</span>:</span></span><br><span class="line">    __metaclass__ = UpperAttrMetaclass</span><br></pre></td></tr></table></figure></p>
 <p>输出：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">__main__</span>.<span class="title">MyClz</span>'&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>可见<code>UpperAttrMetaclass</code>中的<strong><strong>new</strong></strong>函数在<code>MyClz</code>定义时自动被调用，且返回一个<code>改造</code>后的类。</p>
+<p>可见<code>UpperAttrMetaclass</code>中的<code>__new__</code>函数在<code>MyClz</code>定义时自动被调用，且返回一个<code>改造</code>后的类。</p>
 <p>再看：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClz</span>:</span></span><br><span class="line">    __metaclass__ = UpperAttrMetaclass</span><br><span class="line">    aa = <span class="number">10</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.x = <span class="string">"hello"</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    mc = MyClz()     </span><br><span class="line">    <span class="keyword">print</span> mc, dir(MyClz)</span><br></pre></td></tr></table></figure></p>
 <p>输出：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;class '__main__.MyClz'&gt;</span><br><span class="line">&lt;__main__.MyClz object at 0xb769392c&gt; ['AA', 'FUNC'...]</span><br></pre></td></tr></table></figure></p>
-<p><strong><strong>new</strong></strong>函数是在类定义的时候调用的，在通过<code>MyClz</code>创建对象时<strong><strong>new</strong></strong>函数不会再被调用了。创建对象时被调用的是<code>__call__</code>函数。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyMeta</span><span class="params">(type)</span>:</span> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, *args, **kw)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line">        </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClz</span>:</span></span><br><span class="line">    __metaclass__ = MyMeta</span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    mc = MyClz()     </span><br><span class="line">    <span class="keyword">print</span> mc</span><br></pre></td></tr></table></figure></p>
+<p><code>__new__</code>函数是在类定义的时候调用的，在通过<code>MyClz</code>创建对象时<code>__new__</code>函数不会再被调用了。创建对象时被调用的是<code>__call__</code>函数。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyMeta</span><span class="params">(type)</span>:</span> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, *args, **kw)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line">        </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClz</span>:</span></span><br><span class="line">    __metaclass__ = MyMeta</span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    mc = MyClz()     </span><br><span class="line">    <span class="keyword">print</span> mc</span><br></pre></td></tr></table></figure></p>
 <p>输出：</p>
 <blockquote>
 <p>None</p>
@@ -158,10 +158,10 @@ type(类名, 父类的元组（针对继承的情况，可以为空），包含�
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/09/19/python中的and、or运算/" title="python中的and、or运算">
+ <a href="/2015/09/19/Django compressor使用简介/" title="Django compressor使用简介">
   <strong>上一篇：</strong><br/>
   <span>
-  python中的and、or运算</span>
+  Django compressor使用简介</span>
 </a>
 </div>
 
@@ -195,7 +195,7 @@ type(类名, 父类的元组（针对继承的情况，可以为空），包含�
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>23</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>25</sup></a></li>
 		  
 		
 		  

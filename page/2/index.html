@@ -74,15 +74,15 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/31/请求参数解析QueryDict/" title="请求参数解析QueryDict" itemprop="url">
+    <a href="/2015/09/01/try_finally中的return/" title="try_finally中的return" itemprop="url">
   
-    <h1 itemprop="name">请求参数解析QueryDict</h1>
+    <h1 itemprop="name">try_finally中的return</h1>
     
      
-           <p itemprop="description" >今天遇到了一个奇怪的问题：通过ajax向后台传json时，在解析参数后得到的是{key: [value]}，而不是{key: value}。请求参数解析函数如下：12345def get_params(request):    a = &amp;#123;&amp;#125;    a.upda</p>
+           <p itemprop="description" >看以下代码：12345678910111213141516171819class MyClz:    def __init__(self):        self.x = 10myobj = MyClz()print &quot;one&quot;, myobj.x, id(myobj)def f</p>
         
     
-    <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished">2015-08-31</time>
+    <time datetime="2015-08-31T16:00:00.000Z" itemprop="datePublished">2015-09-01</time>
   </a>
 </section>
 
@@ -101,6 +101,26 @@
      
            <p itemprop="description" >今天遇到了一个比较有意思的问题：有一个表结构如下所示：12345id, pid, name1, 10, hello10, -1, world2, 1, hehe...
 在这个表里，通过id和pid构成里一个森林，目前森林最多有4层。如下图所示意：其中绿色表示数据的分类，黄色表示具</p>
+        
+    
+    <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished">2015-08-31</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2015/08/31/请求参数解析QueryDict/" title="请求参数解析QueryDict" itemprop="url">
+  
+    <h1 itemprop="name">请求参数解析QueryDict</h1>
+    
+     
+           <p itemprop="description" >今天遇到了一个奇怪的问题：通过ajax向后台传json时，在解析参数后得到的是{key: [value]}，而不是{key: value}。请求参数解析函数如下：12345def get_params(request):    a = &amp;#123;&amp;#125;    a.upda</p>
         
     
     <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished">2015-08-31</time>
@@ -257,26 +277,6 @@
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/07/10/C程序的存储空间布局/" title="C程序的存储空间布局" itemprop="url">
-  
-    <h1 itemprop="name">C程序的存储空间布局</h1>
-    
-     
-           <p itemprop="description" >一个C程序在编译成目标文件，会分为代码段(text)、数据段(data)、BSS段(Block Started by Symbol)。程序加载到内存后，除text、data、BSS段外还有堆、栈以及环境变量段。如下图所示：在上图中右侧运行时区域的最上方还应该有程序运行的环境变量的</p>
-        
-    
-    <time datetime="2015-07-09T16:00:00.000Z" itemprop="datePublished">2015-07-10</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
@@ -315,7 +315,7 @@
 		  
 		
 		  
-			<li><a href="/categories/算法/" title="算法">算法<sup>4</sup></a></li>
+			<li><a href="/categories/算法/" title="算法">算法<sup>5</sup></a></li>
 		  
 		
 		  

@@ -5,29 +5,32 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>MediaQueries实现CSS动态调整 | ideas into codes</title>
+    <title>LeetCode之Single Number II | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="在CSS3中引入了一种叫作Media Queries的东西，可以根据媒体的类型及某些条件，应用相对应的样式。
-平时用的比较多的是根据不同屏幕宽度来应用不同的CSS，当然除屏幕宽度之外，还可以指定媒体类型，比如电脑(screen)，手机、平板等便携设备(handled)。
-使用说明如下：123456789101112131415161718192021222324&amp;lt;html&amp;gt;&amp;lt;he">
+    <meta name="description" content="问题：
+
+Given an array of integers, every element appears three times except for one. Find that single one.
+Note:Your algorithm should have a linear runtime complexity. Could you implement it without usi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MediaQueries实现CSS动态调整">
-<meta property="og:url" content="http://1988zxh.com/2015/06/17/MediaQueries实现CSS动态调整/index.html">
+<meta property="og:title" content="LeetCode之Single Number II">
+<meta property="og:url" content="http://1988zxh.com/2015/10/21/LeetCode之Single Number II/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="在CSS3中引入了一种叫作Media Queries的东西，可以根据媒体的类型及某些条件，应用相对应的样式。
-平时用的比较多的是根据不同屏幕宽度来应用不同的CSS，当然除屏幕宽度之外，还可以指定媒体类型，比如电脑(screen)，手机、平板等便携设备(handled)。
-使用说明如下：123456789101112131415161718192021222324&amp;lt;html&amp;gt;&amp;lt;he">
-<meta property="og:updated_time" content="2015-09-10T12:30:07.000Z">
+<meta property="og:description" content="问题：
+
+Given an array of integers, every element appears three times except for one. Find that single one.
+Note:Your algorithm should have a linear runtime complexity. Could you implement it without usi">
+<meta property="og:updated_time" content="2015-10-21T13:51:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MediaQueries实现CSS动态调整">
-<meta name="twitter:description" content="在CSS3中引入了一种叫作Media Queries的东西，可以根据媒体的类型及某些条件，应用相对应的样式。
-平时用的比较多的是根据不同屏幕宽度来应用不同的CSS，当然除屏幕宽度之外，还可以指定媒体类型，比如电脑(screen)，手机、平板等便携设备(handled)。
-使用说明如下：123456789101112131415161718192021222324&amp;lt;html&amp;gt;&amp;lt;he">
+<meta name="twitter:title" content="LeetCode之Single Number II">
+<meta name="twitter:description" content="问题：
+
+Given an array of integers, every element appears three times except for one. Find that single one.
+Note:Your algorithm should have a linear runtime complexity. Could you implement it without usi">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -82,26 +85,28 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/06/17/MediaQueries实现CSS动态调整/" title="MediaQueries实现CSS动态调整" itemprop="url">MediaQueries实现CSS动态调整</a>
+      <a href="/2015/10/21/LeetCode之Single Number II/" title="LeetCode之Single Number II" itemprop="url">LeetCode之Single Number II</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-06-16T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-06-17</time>
+    <time datetime="2015-10-20T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-10-21</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>在CSS3中引入了一种叫作<a href="http://www.w3.org/TR/css3-mediaqueries/" target="_blank" rel="external">Media Queries</a>的东西，可以根据媒体的类型及某些条件，应用相对应的样式。</p>
-<p>平时用的比较多的是根据不同屏幕宽度来应用不同的CSS，当然除屏幕宽度之外，还可以指定媒体类型，比如电脑(screen)，手机、平板等便携设备(handled)。</p>
-<p>使用说明如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css"></span><br><span class="line">    	<span class="class">.font-clz</span><span class="rules">&#123;</span><br><span class="line">    		<span class="rule"><span class="attribute">color</span>:<span class="value"> red</span></span>;</span><br><span class="line">    		<span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">18px</span></span></span>;	</span><br><span class="line">    	&#125;</span></span><br><span class="line">    	</span><br><span class="line">    	<span class="at_rule">@<span class="keyword">media</span> screen and (max-width:<span class="number">1000px</span>)</span>&#123;</span><br><span class="line">    		<span class="class">.font-clz</span><span class="rules">&#123;</span><br><span class="line">    			<span class="rule"><span class="attribute">color</span>:<span class="value"> green</span></span>;</span><br><span class="line">    			<span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">28px</span></span></span>;	</span><br><span class="line">    		&#125;</span>		</span><br><span class="line">    	&#125;</span><br><span class="line">    	</span><br><span class="line">    </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"font-clz"</span>&gt;</span>hello,world<span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>在该代码中，默认的字体样式是<code>red;18px</code>，但当屏幕小于1000px时，字体样式会变为<code>green;28px</code>。<br>在这里，<code>@media</code>默认的媒体类型就是screen，所以也可以直接简写为：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> @media (max-width:1000px)&#123;</span><br><span class="line">    .font-clz&#123;</span><br><span class="line">        color: green;</span><br><span class="line">        font-size: 28px;    </span><br><span class="line">    &#125;       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>其中，<code>max-width</code>表示小于指定宽度时应该应用的样式，<code>min-width</code>就表示大于指定宽度时应该应用的样式，也可以指定一个范围，比如<code>@media (min-width:500px) and (max-width:1000px)</code>表示介于500px到1000px之间应该应用的样式。</p>
-<p>除了在<code>style</code>中定义外，还可以通过<code>link</code>标签引入：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">   	<span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"large_screen.css"</span> <span class="attribute">media</span>=<span class="value">"screen and (min-width:1200px)"</span>&gt;</span></span><br><span class="line">   	</span><br><span class="line">   	<span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"small_screen.css"</span> <span class="attribute">media</span>=<span class="value">"screen and (max-width:1200px)"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">   	<span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">   		<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"font-clz"</span>&gt;</span>hello,world<span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">   	<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>参考：<br><a href="http://www.cnblogs.com/mofish/archive/2012/05/23/2515218.html" target="_blank" rel="external">响应式web设计之CSS3 Media Queries</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries" target="_blank" rel="external">CSS media queries</a></p>
+		<p>问题：</p>
+<blockquote>
+<p>Given an array of integers, every element appears three times except for one. Find that single one.</p>
+<p><strong>Note</strong>:<br>Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory? </p>
+</blockquote>
+<p>这个题的基本思路是：将所有的数转为二进制，统计各个位上1出现的次数，然后对这些次数分别对3取模，剩下的数即为所求。</p>
+<p><strong>方法1：申请1个长度为32(整型占4个字节，32位)的数组，用该数组模拟二进制</strong>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_positive_single</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        rst = <span class="number">0</span></span><br><span class="line">        bits = [<span class="number">0</span>]*<span class="number">32</span></span><br><span class="line">        <span class="keyword">for</span> idx <span class="keyword">in</span> range(<span class="number">32</span>):</span><br><span class="line">            <span class="keyword">for</span> idy <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">                bits[idx] += nums[idy] &amp; <span class="number">1</span></span><br><span class="line">                nums[idy] = nums[idy] &gt;&gt; <span class="number">1</span></span><br><span class="line">            bits[idx] %= <span class="number">3</span></span><br><span class="line">            rst |= bits[idx] &lt;&lt; idx</span><br><span class="line">        <span class="keyword">return</span> rst</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        <span class="string">"""</span><br><span class="line">        :type nums: List[int]</span><br><span class="line">        :rtype: int</span><br><span class="line">        """</span></span><br><span class="line">        _pos_nums = [num <span class="keyword">for</span> num <span class="keyword">in</span> nums <span class="keyword">if</span> num &gt;=<span class="number">0</span> ]</span><br><span class="line">        _neg_nums = [-num <span class="keyword">for</span> num <span class="keyword">in</span> nums <span class="keyword">if</span> num &lt; <span class="number">0</span>]</span><br><span class="line">         </span><br><span class="line">        rst1 = self._positive_single(_pos_nums)</span><br><span class="line">         </span><br><span class="line">        rst2 = self._positive_single(_neg_nums)</span><br><span class="line">         </span><br><span class="line">        <span class="keyword">return</span> rst1 <span class="keyword">or</span> -rst2</span><br></pre></td></tr></table></figure></p>
+<p><strong>方法2：借助3个临时变量x, y, z分别代表只出现一次的1的分布情况，只出现两次的1的分布情况，以及只出现三次的1的分布情况，这样可以通过x, y来推断z，反过来再通过z把x, y中累计出现三次的1置为0，这样最后的x即为所求</strong>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        <span class="string">"""</span><br><span class="line">        :type nums: List[int]</span><br><span class="line">        :rtype: int</span><br><span class="line">        """</span></span><br><span class="line">        ones = twos = threes = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            twos |= ones&amp;num</span><br><span class="line">            ones ^= num</span><br><span class="line">            threes = ones &amp; twos</span><br><span class="line">            </span><br><span class="line">            ones &amp;= ~threes</span><br><span class="line">            twos &amp;= ~threes</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> ones</span><br></pre></td></tr></table></figure></p>
+<p><strong>参考</strong>:<br><a href="http://blog.csdn.net/jiadebin890724/article/details/23306837" target="_blank" rel="external">LeetCode || Single Number II </a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -109,7 +114,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/前端/">前端</a>
+  <a class="article-category-link" href="/categories/算法/">算法</a>
 </div>
 
 
@@ -119,7 +124,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/06/17/MediaQueries实现CSS动态调整/" data-title="MediaQueries实现CSS动态调整 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/10/21/LeetCode之Single Number II/" data-title="LeetCode之Single Number II | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -132,19 +137,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/06/17/javascript传递默认参数/" title="javascript传递默认参数">
-  <strong>上一篇：</strong><br/>
-  <span>
-  javascript传递默认参数</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/06/15/Django中model字段的验证/"  title="Django中model字段的验证">
+<a href="/2015/10/20/LeetCode之Repeated DNA Sequences/"  title="LeetCode之Repeated DNA Sequences">
  <strong>下一篇：</strong><br/> 
- <span>Django中model字段的验证
+ <span>LeetCode之Repeated DNA Sequences
 </span>
 </a>
 </div>

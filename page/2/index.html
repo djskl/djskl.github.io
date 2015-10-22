@@ -74,6 +74,26 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2015/09/03/python函数使用数组默认参数的陷阱/" title="python函数使用数组默认参数的陷阱" itemprop="url">
+  
+    <h1 itemprop="name">python函数使用数组默认参数的陷阱</h1>
+    
+     
+           <p itemprop="description" >12345678910def foo(lst = []):    lst.append(&quot;a&quot;)       return lstif __name__ == &quot;__main__&quot;:        lst1 = foo()        print lst1          #</p>
+        
+    
+    <time datetime="2015-09-02T16:00:00.000Z" itemprop="datePublished">2015-09-03</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2015/09/01/try_finally中的return/" title="try_finally中的return" itemprop="url">
   
     <h1 itemprop="name">try_finally中的return</h1>
@@ -94,13 +114,12 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/31/数据库中的层次操作/" title="数据库中的层次操作" itemprop="url">
+    <a href="/2015/08/31/请求参数解析QueryDict/" title="请求参数解析QueryDict" itemprop="url">
   
-    <h1 itemprop="name">数据库中的层次操作</h1>
+    <h1 itemprop="name">请求参数解析QueryDict</h1>
     
      
-           <p itemprop="description" >今天遇到了一个比较有意思的问题：有一个表结构如下所示：12345id, pid, name1, 10, hello10, -1, world2, 1, hehe...
-在这个表里，通过id和pid构成里一个森林，目前森林最多有4层。如下图所示意：其中绿色表示数据的分类，黄色表示具</p>
+           <p itemprop="description" >今天遇到了一个奇怪的问题：通过ajax向后台传json时，在解析参数后得到的是{key: [value]}，而不是{key: value}。请求参数解析函数如下：12345def get_params(request):    a = &amp;#123;&amp;#125;    a.upda</p>
         
     
     <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished">2015-08-31</time>
@@ -115,12 +134,13 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/31/请求参数解析QueryDict/" title="请求参数解析QueryDict" itemprop="url">
+    <a href="/2015/08/31/数据库中的层次操作/" title="数据库中的层次操作" itemprop="url">
   
-    <h1 itemprop="name">请求参数解析QueryDict</h1>
+    <h1 itemprop="name">数据库中的层次操作</h1>
     
      
-           <p itemprop="description" >今天遇到了一个奇怪的问题：通过ajax向后台传json时，在解析参数后得到的是{key: [value]}，而不是{key: value}。请求参数解析函数如下：12345def get_params(request):    a = &amp;#123;&amp;#125;    a.upda</p>
+           <p itemprop="description" >今天遇到了一个比较有意思的问题：有一个表结构如下所示：12345id, pid, name1, 10, hello10, -1, world2, 1, hehe...
+在这个表里，通过id和pid构成里一个森林，目前森林最多有4层。如下图所示意：其中绿色表示数据的分类，黄色表示具</p>
         
     
     <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished">2015-08-31</time>
@@ -257,26 +277,6 @@
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/08/06/slots的用法及注意事项/" title="slots的用法及注意事项" itemprop="url">
-  
-    <h1 itemprop="name">slots的用法及注意事项</h1>
-    
-     
-           <p itemprop="description" >前几天在看Psycopg时，发现可以通过指定cursor_factory = DictCursor来将查询结果由元组变为字典，觉得挺有意思，然后看了一下源码，原来这种字典式的返回值靠的主要是DictRow，代码如下：1234567891011121314151617181920c</p>
-        
-    
-    <time datetime="2015-08-05T16:00:00.000Z" itemprop="datePublished">2015-08-06</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
@@ -299,7 +299,7 @@
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>24</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>25</sup></a></li>
 		  
 		
 		  

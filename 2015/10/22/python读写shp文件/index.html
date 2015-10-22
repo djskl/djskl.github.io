@@ -5,23 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>Python中socket编程简介 | ideas into codes</title>
+    <title>python读写shp文件 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="服务段代码：1234567891011121314151617181920212223#encoding:utf-8import socket             if __name__ == &quot;__main__&quot;:    #def __init__(self, family=AF_INET, type=SOCK_STREAM, proto=0, _sock=None)    server_s">
+    <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849from osgeo import ogrimport os# Get a Layer&apos;s ExtentinShapefile = &quot;states.shp&quot;inDriver = ogr.GetDriverByName(&quot;E">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python中socket编程简介">
-<meta property="og:url" content="http://1988zxh.com/2015/05/03/Python中socket编程简介/index.html">
+<meta property="og:title" content="python读写shp文件">
+<meta property="og:url" content="http://1988zxh.com/2015/10/22/python读写shp文件/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="服务段代码：1234567891011121314151617181920212223#encoding:utf-8import socket             if __name__ == &quot;__main__&quot;:    #def __init__(self, family=AF_INET, type=SOCK_STREAM, proto=0, _sock=None)    server_s">
-<meta property="og:updated_time" content="2015-09-10T12:10:28.000Z">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849from osgeo import ogrimport os# Get a Layer&apos;s ExtentinShapefile = &quot;states.shp&quot;inDriver = ogr.GetDriverByName(&quot;E">
+<meta property="og:updated_time" content="2015-10-22T13:12:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python中socket编程简介">
-<meta name="twitter:description" content="服务段代码：1234567891011121314151617181920212223#encoding:utf-8import socket             if __name__ == &quot;__main__&quot;:    #def __init__(self, family=AF_INET, type=SOCK_STREAM, proto=0, _sock=None)    server_s">
+<meta name="twitter:title" content="python读写shp文件">
+<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849from osgeo import ogrimport os# Get a Layer&apos;s ExtentinShapefile = &quot;states.shp&quot;inDriver = ogr.GetDriverByName(&quot;E">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -76,33 +76,22 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/05/03/Python中socket编程简介/" title="Python中socket编程简介" itemprop="url">Python中socket编程简介</a>
+      <a href="/2015/10/22/python读写shp文件/" title="python读写shp文件" itemprop="url">python读写shp文件</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-05-02T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-05-03</time>
+    <time datetime="2015-10-21T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-10-22</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>服务段代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#encoding:utf-8</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line">             </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment">#def __init__(self, family=AF_INET, type=SOCK_STREAM, proto=0, _sock=None)</span></span><br><span class="line">    server_socket = socket.socket()</span><br><span class="line">    server_socket.bind((<span class="string">''</span>, <span class="number">8888</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"TCP服务器启动。。。"</span></span><br><span class="line">    </span><br><span class="line">    server_socket.listen(<span class="number">5</span>)</span><br><span class="line">    conn, addr = server_socket.accept()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">print</span> addr</span><br><span class="line">    </span><br><span class="line">    data = conn.recv(<span class="number">1024</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> data:</span><br><span class="line">        <span class="keyword">print</span> data</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"empty data"</span></span><br><span class="line">    </span><br><span class="line">    conn.close()</span><br></pre></td></tr></table></figure></p>
-<p>客户端代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    socket = socket.socket()</span><br><span class="line">    socket.connect((<span class="string">'127.0.0.1'</span>, <span class="number">8888</span>))</span><br><span class="line">    sleep(<span class="number">5</span>)</span><br><span class="line">    socket.sendall(<span class="string">"hello"</span>)</span><br><span class="line">    socket.close()</span><br></pre></td></tr></table></figure></p>
-<p><strong>几点说明</strong>： </p>
-<ol>
-<li>bind((host, port))：host是客户端连接本socket时需要使用的ip地址，一个主机上可能有多个ip地址，比如最简单的127.0.0.1与192.168.16.122都是指向本机的IP地址，如果绑定的是127.0.0.1，其他人就不能连接到你的机器上了，如果绑定的是192.168.16.122，同一个局域网中的其他用户也可以连接当前的机器上。如果host为””或”0.0.0.0”，则可以监听该机器上所有的ip地址。</li>
-<li>listen / recv 函数会使当前程序阻塞</li>
-</ol>
-<p><strong>程序输出</strong>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">TCP服务器启动。。。</span><br><span class="line">(<span class="string">'127.0.0.1'</span>, <span class="number">45685</span>)</span><br><span class="line">hello</span><br></pre></td></tr></table></figure></p>
-<p>看看操作系统中的tcp连接：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># netstat -apnt | awk '$4 ~ /45808/ || $4 ~ /8888/ || NR == 2'</span></span><br><span class="line">Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    </span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">8888</span>            <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:*               LISTEN      <span class="number">26042</span>/python        </span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8888</span>          <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">45808</span>         ESTABLISHED <span class="number">26042</span>/python        </span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">45808</span>         <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8888</span>          ESTABLISHED <span class="number">26072</span>/python</span><br></pre></td></tr></table></figure></p>
-<p>由上面的输出可以看出：</p>
-<p>服务器端的TCP在8888端口上监听其他机器上TCP的连接请求，如果有连接请求来了之后，就通过本机的8888端口与客户端的ip/端口建立一个TCP连接，客户端的端口不需要指定，是由程序自动生成的。</p>
-<p>另外，进程的socket可以在proc/fd目录中查看：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost]# cd /proc/26042/fd&#10;[root@localhost]# ll&#10;total 0&#10;lr-x------ 1 root root 64 May 24 11:31 0 -&#62; pipe:[767662]&#10;l-wx------ 1 root root 64 May 24 11:31 1 -&#62; pipe:[767663]&#10;l-wx------ 1 root root 64 May 24 11:31 2 -&#62; pipe:[767664]&#10;lrwx------ 1 root root 64 May 24 11:31 3 -&#62; socket:[767667]&#10;lrwx------ 1 root root 64 May 24 11:31 4 -&#62; socket:[767668]</span><br></pre></td></tr></table></figure></p>
-<p>由上面的输出可以看出，服务器端的这个进程有两个socket，一个是监听的socket，另一个是已建立的tcp连接的socket。</p>
-<p>另，注意：socket后中括号的number不是端口号，是inode号。</p>
+		<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> osgeo <span class="keyword">import</span> ogr</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get a Layer's Extent</span></span><br><span class="line">inShapefile = <span class="string">"states.shp"</span></span><br><span class="line">inDriver = ogr.GetDriverByName(<span class="string">"ESRI Shapefile"</span>)</span><br><span class="line">inDataSource = inDriver.Open(inShapefile, <span class="number">0</span>)</span><br><span class="line">inLayer = inDataSource.GetLayer()</span><br><span class="line">extent = inLayer.GetExtent()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a Polygon from the extent tuple</span></span><br><span class="line">ring = ogr.Geometry(ogr.wkbLinearRing)</span><br><span class="line">ring.AddPoint(extent[<span class="number">0</span>],extent[<span class="number">2</span>])</span><br><span class="line">ring.AddPoint(extent[<span class="number">1</span>], extent[<span class="number">2</span>])</span><br><span class="line">ring.AddPoint(extent[<span class="number">1</span>], extent[<span class="number">3</span>])</span><br><span class="line">ring.AddPoint(extent[<span class="number">0</span>], extent[<span class="number">3</span>])</span><br><span class="line">ring.AddPoint(extent[<span class="number">0</span>],extent[<span class="number">2</span>])</span><br><span class="line">poly = ogr.Geometry(ogr.wkbPolygon)</span><br><span class="line">poly.AddGeometry(ring)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者通过WKT直接生成</span></span><br><span class="line">geom = ogr.CreateGeometryFromWkt(_wkt)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Save extent to a new Shapefile</span></span><br><span class="line">outShapefile = <span class="string">"states_extent.shp"</span></span><br><span class="line">outDriver = ogr.GetDriverByName(<span class="string">"ESRI Shapefile"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove output shapefile if it already exists</span></span><br><span class="line"><span class="keyword">if</span> os.path.exists(outShapefile):</span><br><span class="line">    outDriver.DeleteDataSource(outShapefile)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the output shapefile</span></span><br><span class="line">outDataSource = outDriver.CreateDataSource(outShapefile)</span><br><span class="line">outLayer = outDataSource.CreateLayer(<span class="string">"states_extent"</span>, geom_type=ogr.wkbPolygon)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add an ID field</span></span><br><span class="line">idField = ogr.FieldDefn(<span class="string">"id"</span>, ogr.OFTInteger)</span><br><span class="line">outLayer.CreateField(idField)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the feature and set values</span></span><br><span class="line">featureDefn = outLayer.GetLayerDefn()</span><br><span class="line">feature = ogr.Feature(featureDefn)</span><br><span class="line">feature.SetGeometry(poly)</span><br><span class="line">feature.SetField(<span class="string">"id"</span>, <span class="number">1</span>)</span><br><span class="line">outLayer.CreateFeature(feature)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Close DataSource</span></span><br><span class="line">inDataSource.Destroy()</span><br><span class="line">outDataSource.Destroy()</span><br></pre></td></tr></table></figure>
+<p>在这里空间数据结构仍是layer&gt;feature&gt;Geometry&gt;Polygon/LineString/Point</p>
+<p><strong>参考</strong>：<br><a href="https://pcjericks.github.io/py-gdalogr-cookbook/vector_layers.html#create-a-new-layer-from-the-extent-of-an-existing-layer" target="_blank" rel="external">Create a new Layer from the extent of an existing Layer</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -120,7 +109,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/05/03/Python中socket编程简介/" data-title="Python中socket编程简介 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/10/22/python读写shp文件/" data-title="python读写shp文件 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -133,19 +122,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/05/03/python中的条件变量/" title="python中的条件变量">
-  <strong>上一篇：</strong><br/>
-  <span>
-  python中的条件变量</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/04/10/python中的类变量与实例变量及作用域问题/"  title="python中的类变量与实例变量及作用域问题">
+<a href="/2015/10/21/LeetCode之Single Number II/"  title="LeetCode之Single Number II">
  <strong>下一篇：</strong><br/> 
- <span>python中的类变量与实例变量及作用域问题
+ <span>LeetCode之Single Number II
 </span>
 </a>
 </div>

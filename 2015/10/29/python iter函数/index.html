@@ -5,27 +5,29 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>django条件继承父模板 | ideas into codes</title>
+    <title>python iter函数 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="为了复用文件管理页面，我们网站中的文件选择框改为了window.open的弹出页面，由此产生了一个问题：文件管理本身就是一个单独的页面，有顶部导航栏，也有底部的版权说明等信息，然而在其他页面上弹出时，头尾的导航栏、版权等信息就不需要了，只要保留核心的文件选择部分。按代码复用原则，应该把与文件操作相关的js/html代码提取出来让各个页面共享使用，然后不同页面的不同样式可以通过模板继承来实现。
-现在">
+    <meta name="description" content="iter(o[, sentinel])
+
+Return an iterator object. The first argument is interpreted very differently depending on the presence of the second argument. Without a second argument, o must be a collection o">
 <meta property="og:type" content="article">
-<meta property="og:title" content="django条件继承父模板">
-<meta property="og:url" content="http://1988zxh.com/2015/09/25/django条件继承父模板/index.html">
+<meta property="og:title" content="python iter函数">
+<meta property="og:url" content="http://1988zxh.com/2015/10/29/python iter函数/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="为了复用文件管理页面，我们网站中的文件选择框改为了window.open的弹出页面，由此产生了一个问题：文件管理本身就是一个单独的页面，有顶部导航栏，也有底部的版权说明等信息，然而在其他页面上弹出时，头尾的导航栏、版权等信息就不需要了，只要保留核心的文件选择部分。按代码复用原则，应该把与文件操作相关的js/html代码提取出来让各个页面共享使用，然后不同页面的不同样式可以通过模板继承来实现。
-现在">
-<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/djangoyesno.png">
-<meta property="og:updated_time" content="2015-09-25T16:10:07.000Z">
+<meta property="og:description" content="iter(o[, sentinel])
+
+Return an iterator object. The first argument is interpreted very differently depending on the presence of the second argument. Without a second argument, o must be a collection o">
+<meta property="og:updated_time" content="2015-10-29T10:24:47.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="django条件继承父模板">
-<meta name="twitter:description" content="为了复用文件管理页面，我们网站中的文件选择框改为了window.open的弹出页面，由此产生了一个问题：文件管理本身就是一个单独的页面，有顶部导航栏，也有底部的版权说明等信息，然而在其他页面上弹出时，头尾的导航栏、版权等信息就不需要了，只要保留核心的文件选择部分。按代码复用原则，应该把与文件操作相关的js/html代码提取出来让各个页面共享使用，然后不同页面的不同样式可以通过模板继承来实现。
-现在">
+<meta name="twitter:title" content="python iter函数">
+<meta name="twitter:description" content="iter(o[, sentinel])
+
+Return an iterator object. The first argument is interpreted very differently depending on the presence of the second argument. Without a second argument, o must be a collection o">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -80,26 +82,28 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/09/25/django条件继承父模板/" title="django条件继承父模板" itemprop="url">django条件继承父模板</a>
+      <a href="/2015/10/29/python iter函数/" title="python iter函数" itemprop="url">python iter函数</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-09-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-09-25</time>
+    <time datetime="2015-10-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-10-29</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>为了复用文件管理页面，我们网站中的文件选择框改为了window.open的弹出页面，由此产生了一个问题：文件管理本身就是一个单独的页面，有顶部导航栏，也有底部的版权说明等信息，然而在其他页面上弹出时，头尾的导航栏、版权等信息就不需要了，只要保留核心的文件选择部分。按代码复用原则，应该把与文件操作相关的js/html代码提取出来让各个页面共享使用，然后不同页面的不同样式可以通过模板继承来实现。</p>
-<p>现在问题来了，应该<strong>如何根据不同的条件来决定当前页面继承哪个模板</strong>？</p>
-<p>当时首先想到的是将文件页面定义为<strong>_files.html</strong>，将不同的父模板定义为<strong>_base1.html, _base2.html</strong>页面，然后在各自的<strong>index.html</strong>通过<strong>extends</strong>标签与<strong>include</strong>标签来组合。<br>结果，尝试了一下，不行，他俩是不能一块使用的，<strong>extends</strong>只认自己定义子标签，在它看来<strong>include</strong>是它需要辨识的标签，而不是include进来的内容。更详细的讨论<a href="http://stackoverflow.com/questions/1408925/django-templates-include-and-extends" target="_blank" rel="external">django templates: include and extends</a>。</p>
-<p>然后想到可以在python代码通过变量指定需要继承的模板：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% extends template_var %&#125;</span><br></pre></td></tr></table></figure></p>
-<p>其中，template_var即是在python代码里定义的标示变量。<br>除此之外还是可以借助过滤器：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% extends status|yesno:<span class="string">"base1.html,base2.html,default.html"</span> %&#125;</span><br></pre></td></tr></table></figure></p>
-<p>如果<code>status</code>的值为真，则取<code>base1.html</code>作为父模板，为假则取<code>base2.html</code>，如果为<code>none</code>，则取<code>default.html</code><br>关于<code>yesno</code>标签的说明如下：<br><img src="http://7xktxu.com1.z0.glb.clouddn.com/djangoyesno.png" alt=""></p>
-<p><strong>参考</strong><br><a href="https://docs.djangoproject.com/en/1.8/ref/templates/builtins/#yesno" target="_blank" rel="external">yesno过滤器</a><br><a href="http://stackoverflow.com/questions/1408925/django-templates-include-and-extends" target="_blank" rel="external">django templates: include and extends</a></p>
+		<blockquote>
+<p><strong>iter(o[, sentinel])</strong></p>
+<blockquote>
+<p>Return an iterator object. The first argument is interpreted very differently depending on the presence of the second argument. Without a second argument, o must be a collection object which supports the iteration protocol (the <code>__iter__()</code> method), or it must support the sequence protocol (the <code>__getitem__()</code> method with integer arguments starting at 0). If it does not support either of those protocols, TypeError is raised. If the second argument, sentinel, is given, then o must be a callable object. The iterator created in this case will call o with no arguments for each call to its next() method; if the value returned is equal to sentinel, StopIteration will be raised, otherwise the value will be returned.</p>
+<p>One useful application of the second form of iter() is to read lines of a file until a certain line is reached. The following example reads a file until the readline() method returns an empty string:</p>
+</blockquote>
+</blockquote>
+<p>调用该函数返回一个迭代器对象。第一个参数的意义取决于是否提供第二个参数。如果没有第二个参数，第一个参数必须是可迭代的对象(实现了<code>__iter__()</code>方法)，或者是序列对象(实现了<code>__getitem__()</code>方法，可以从下标0开始访问)，否则调用iter函数会抛出TypeError异常。如果提供了第二个参数，sentinel(哨兵),第一个参数必须是可调用(callable)的，每调用一次next()，都会去执行一次第一个callable参数，直到其返回值等于哨兵的值，然后抛出StopIteration。</p>
+<p>一个有用的场景按行读取一个文件：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">'mydata.txt'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> iter(fp.readline, <span class="string">''</span>):</span><br><span class="line">        process_line(line)</span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -117,7 +121,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/09/25/django条件继承父模板/" data-title="django条件继承父模板 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/10/29/python iter函数/" data-title="python iter函数 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,19 +134,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/10/11/Django通过一次性链接激活用户/" title="Django通过一次性链接激活用户">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Django通过一次性链接激活用户</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/09/19/Django compressor使用简介/"  title="Django compressor使用简介">
+<a href="/2015/10/28/subprocess使用简介/"  title="subprocess使用简介">
  <strong>下一篇：</strong><br/> 
- <span>Django compressor使用简介
+ <span>subprocess使用简介
 </span>
 </a>
 </div>

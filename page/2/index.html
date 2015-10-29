@@ -74,6 +74,29 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2015/09/13/python中的metaclass及其应用/" title="python中的metaclass及其应用" itemprop="url">
+  
+    <h1 itemprop="name">python中的metaclass及其应用</h1>
+    
+     
+           <p itemprop="description" >在python中，类也是对象，一种可以创建其他对象的对象。类的定义本身就是一个对象的创建过程，默认情况下，普通的类由type类创建，从用户的角度来看，普通对象的创建通过__init__函数初始化，而类的创建则是通过__new__函数初始化。
+看type的构造函数：
+
+type(类</p>
+        
+    
+    <time datetime="2015-09-12T16:00:00.000Z" itemprop="datePublished">2015-09-13</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2015/09/03/python函数使用数组默认参数的陷阱/" title="python函数使用数组默认参数的陷阱" itemprop="url">
   
     <h1 itemprop="name">python函数使用数组默认参数的陷阱</h1>
@@ -114,12 +137,13 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/31/请求参数解析QueryDict/" title="请求参数解析QueryDict" itemprop="url">
+    <a href="/2015/08/31/数据库中的层次操作/" title="数据库中的层次操作" itemprop="url">
   
-    <h1 itemprop="name">请求参数解析QueryDict</h1>
+    <h1 itemprop="name">数据库中的层次操作</h1>
     
      
-           <p itemprop="description" >今天遇到了一个奇怪的问题：通过ajax向后台传json时，在解析参数后得到的是{key: [value]}，而不是{key: value}。请求参数解析函数如下：12345def get_params(request):    a = &amp;#123;&amp;#125;    a.upda</p>
+           <p itemprop="description" >今天遇到了一个比较有意思的问题：有一个表结构如下所示：12345id, pid, name1, 10, hello10, -1, world2, 1, hehe...
+在这个表里，通过id和pid构成里一个森林，目前森林最多有4层。如下图所示意：其中绿色表示数据的分类，黄色表示具</p>
         
     
     <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished">2015-08-31</time>
@@ -134,13 +158,12 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/31/数据库中的层次操作/" title="数据库中的层次操作" itemprop="url">
+    <a href="/2015/08/31/请求参数解析QueryDict/" title="请求参数解析QueryDict" itemprop="url">
   
-    <h1 itemprop="name">数据库中的层次操作</h1>
+    <h1 itemprop="name">请求参数解析QueryDict</h1>
     
      
-           <p itemprop="description" >今天遇到了一个比较有意思的问题：有一个表结构如下所示：12345id, pid, name1, 10, hello10, -1, world2, 1, hehe...
-在这个表里，通过id和pid构成里一个森林，目前森林最多有4层。如下图所示意：其中绿色表示数据的分类，黄色表示具</p>
+           <p itemprop="description" >今天遇到了一个奇怪的问题：通过ajax向后台传json时，在解析参数后得到的是{key: [value]}，而不是{key: value}。请求参数解析函数如下：12345def get_params(request):    a = &amp;#123;&amp;#125;    a.upda</p>
         
     
     <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished">2015-08-31</time>
@@ -255,31 +278,9 @@
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/08/09/寻找二叉树中最近的公共祖先/" title="寻找二叉树中最近的公共祖先" itemprop="url">
-  
-    <h1 itemprop="name">寻找二叉树中最近的公共祖先</h1>
-    
-     
-           <p itemprop="description" >问题描述：
-
-给定一棵二叉树，找出任意两个节点的最低公共祖先。树中节点的定义如下：123456# Definition for a binary tree node.class TreeNode:    def __init__(self, x):        self.val</p>
-        
-    
-    <time datetime="2015-08-08T16:00:00.000Z" itemprop="datePublished">2015-08-09</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
-    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
   </nav>
 
 </div>
@@ -299,7 +300,7 @@
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>25</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>26</sup></a></li>
 		  
 		
 		  

@@ -5,32 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>LeetCode之Single Number II | ideas into codes</title>
+    <title>greenlet简介 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="问题：
-
-Given an array of integers, every element appears three times except for one. Find that single one.
-Note:Your algorithm should have a linear runtime complexity. Could you implement it without usi">
+    <meta name="description" content="简介greenlet是CPython的扩展模块，属于Stackless的山寨(加强版的CPython)，其中提供了微线程tasklet的概念，所谓的微线程，也可以说是”伪线程”，实际上是协程，即协作的例程(函数?)。区别与普通函数的地方在于，协程在运行期间可以被打断，然后(自动)保存当前的状态信息，转去执行其他协程，下次被调用的时候可以接着当前的断点继续往下执行，区别线程的地方在于，协程的切换都用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode之Single Number II">
-<meta property="og:url" content="http://1988zxh.com/2015/10/21/LeetCode之Single Number II/index.html">
+<meta property="og:title" content="greenlet简介">
+<meta property="og:url" content="http://1988zxh.com/2015/10/31/greenlet简介/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="问题：
-
-Given an array of integers, every element appears three times except for one. Find that single one.
-Note:Your algorithm should have a linear runtime complexity. Could you implement it without usi">
-<meta property="og:updated_time" content="2015-10-21T13:51:10.000Z">
+<meta property="og:description" content="简介greenlet是CPython的扩展模块，属于Stackless的山寨(加强版的CPython)，其中提供了微线程tasklet的概念，所谓的微线程，也可以说是”伪线程”，实际上是协程，即协作的例程(函数?)。区别与普通函数的地方在于，协程在运行期间可以被打断，然后(自动)保存当前的状态信息，转去执行其他协程，下次被调用的时候可以接着当前的断点继续往下执行，区别线程的地方在于，协程的切换都用">
+<meta property="og:updated_time" content="2015-11-14T04:04:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode之Single Number II">
-<meta name="twitter:description" content="问题：
-
-Given an array of integers, every element appears three times except for one. Find that single one.
-Note:Your algorithm should have a linear runtime complexity. Could you implement it without usi">
+<meta name="twitter:title" content="greenlet简介">
+<meta name="twitter:description" content="简介greenlet是CPython的扩展模块，属于Stackless的山寨(加强版的CPython)，其中提供了微线程tasklet的概念，所谓的微线程，也可以说是”伪线程”，实际上是协程，即协作的例程(函数?)。区别与普通函数的地方在于，协程在运行期间可以被打断，然后(自动)保存当前的状态信息，转去执行其他协程，下次被调用的时候可以接着当前的断点继续往下执行，区别线程的地方在于，协程的切换都用">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -85,28 +76,29 @@ Note:Your algorithm should have a linear runtime complexity. Could you implement
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/21/LeetCode之Single Number II/" title="LeetCode之Single Number II" itemprop="url">LeetCode之Single Number II</a>
+      <a href="/2015/10/31/greenlet简介/" title="greenlet简介" itemprop="url">greenlet简介</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-20T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-10-21</time>
+    <time datetime="2015-10-30T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-10-31</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>问题：</p>
+		<p><strong>简介</strong><br><code>greenlet</code>是CPython的扩展模块，属于Stackless的<code>山寨</code>(加强版的CPython)，其中提供了微线程<code>tasklet</code>的概念，所谓的微线程，也可以说是”伪线程”，实际上是<code>协程</code>，即协作的例程(函数?)。区别与普通函数的地方在于，协程在运行期间可以被打断，然后(自动)保存当前的状态信息，转去执行其他协程，下次被调用的时候可以接着当前的断点继续往下执行，区别线程的地方在于，协程的切换都用户显示控制，不关操作系统的事，。</p>
+<p>在greenlets中，协程的切换有点像函数执行栈帧的弹入弹出：栈低是最初调用的函数，栈顶是当前被<code>阻塞</code>的<code>greenlet</code>，在栈帧之间跳来跳去的执行，就实现了greenlet的调度(switch)。此处区别与stackless比较明显的一点是，Stackless自己有类似操作系统的调度系统，执行schedule函数即可挂起当前的tasklet，转去执行<code>其他</code>的tasklet，而greenlet必须指明这个<code>其他</code>具体是哪一个。</p>
+<p><strong>例子</strong><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from greenlet import greenlet&#10;&#10;def test1():&#10;    print 12&#10;    gr2.switch()&#10;    print 34&#10;&#10;def test2():&#10;    print 56&#10;    gr1.switch()&#10;    print 78&#10;&#10;gr1 = greenlet(test1)&#10;gr2 = greenlet(test2)&#10;gr1.switch()</span><br></pre></td></tr></table></figure></p>
+<p>输出：</p>
 <blockquote>
-<p>Given an array of integers, every element appears three times except for one. Find that single one.</p>
-<p><strong>Note</strong>:<br>Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory? </p>
+<p>21<br>56<br>34</p>
 </blockquote>
-<p>这个题的基本思路是：将所有的数转为二进制，统计各个位上1出现的次数，然后对这些次数分别对3取模，剩下的数即为所求。</p>
-<p><strong>方法1：申请1个长度为32(整型占4个字节，32位)的数组，用该数组模拟二进制</strong>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_positive_single</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        rst = <span class="number">0</span></span><br><span class="line">        bits = [<span class="number">0</span>]*<span class="number">32</span></span><br><span class="line">        <span class="keyword">for</span> idx <span class="keyword">in</span> range(<span class="number">32</span>):</span><br><span class="line">            <span class="keyword">for</span> idy <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">                bits[idx] += nums[idy] &amp; <span class="number">1</span></span><br><span class="line">                nums[idy] = nums[idy] &gt;&gt; <span class="number">1</span></span><br><span class="line">            bits[idx] %= <span class="number">3</span></span><br><span class="line">            rst |= bits[idx] &lt;&lt; idx</span><br><span class="line">        <span class="keyword">return</span> rst</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        <span class="string">"""</span><br><span class="line">        :type nums: List[int]</span><br><span class="line">        :rtype: int</span><br><span class="line">        """</span></span><br><span class="line">        _pos_nums = [num <span class="keyword">for</span> num <span class="keyword">in</span> nums <span class="keyword">if</span> num &gt;=<span class="number">0</span> ]</span><br><span class="line">        _neg_nums = [-num <span class="keyword">for</span> num <span class="keyword">in</span> nums <span class="keyword">if</span> num &lt; <span class="number">0</span>]</span><br><span class="line">         </span><br><span class="line">        rst1 = self._positive_single(_pos_nums)</span><br><span class="line">         </span><br><span class="line">        rst2 = self._positive_single(_neg_nums)</span><br><span class="line">         </span><br><span class="line">        <span class="keyword">return</span> rst1 <span class="keyword">or</span> -rst2</span><br></pre></td></tr></table></figure></p>
-<p><strong>方法2：借助3个临时变量x, y, z分别代表只出现一次的1的分布情况，只出现两次的1的分布情况，以及只出现三次的1的分布情况，这样可以通过x, y来推断z，反过来再通过z把x, y中累计出现三次的1置为0，这样最后的x即为所求</strong>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        <span class="string">"""</span><br><span class="line">        :type nums: List[int]</span><br><span class="line">        :rtype: int</span><br><span class="line">        """</span></span><br><span class="line">        ones = twos = threes = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            twos |= ones&amp;num</span><br><span class="line">            ones ^= num</span><br><span class="line">            threes = ones &amp; twos</span><br><span class="line">            </span><br><span class="line">            ones &amp;= ~threes</span><br><span class="line">            twos &amp;= ~threes</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> ones</span><br></pre></td></tr></table></figure></p>
-<p><strong>参考</strong>:<br><a href="http://blog.csdn.net/jiadebin890724/article/details/23306837" target="_blank" rel="external">LeetCode || Single Number II </a></p>
+<p>注意函数test2中的78不会输出。</p>
+<p>再来一个例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> greenlet <span class="keyword">import</span> greenlet</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">genlet</span><span class="params">(greenlet)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, *args, **kwds)</span>:</span></span><br><span class="line">        self.args = args</span><br><span class="line">        self.kwds = kwds</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        fn, = self.fn</span><br><span class="line">        fn(*self.args, **self.kwds)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">next</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.parent = greenlet.getcurrent()</span><br><span class="line">        result = self.switch()</span><br><span class="line">        <span class="keyword">if</span> self:</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> StopIteration</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Yield</span><span class="params">(value)</span>:</span></span><br><span class="line">    g = greenlet.getcurrent()</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> isinstance(g, genlet):</span><br><span class="line">        <span class="keyword">if</span> g <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> RuntimeError(<span class="string">'yield outside a genlet'</span>)</span><br><span class="line">        g = g.parent</span><br><span class="line">    g.parent.switch(value)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generator</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">generator</span><span class="params">(genlet)</span>:</span></span><br><span class="line">        fn = (func,)</span><br><span class="line">    <span class="keyword">return</span> generator</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">g</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">        Yield(i)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    seen = []            </span><br><span class="line">    g = generator(g)</span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">        gg = g(<span class="number">5</span>)</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> gg:</span><br><span class="line">            seen.append(j)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">print</span> seen      <span class="comment">#3 * [0, 0, 1, 1, 2, 2, 3, 3, 4, 4]</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>参考</strong><br><a href="https://greenlet.readthedocs.org/en/latest/" target="_blank" rel="external">greenlet: Lightweight concurrent programming</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -114,7 +106,7 @@ Note:Your algorithm should have a linear runtime complexity. Could you implement
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/算法/">算法</a>
+  <a class="article-category-link" href="/categories/python/">python</a>
 </div>
 
 
@@ -124,7 +116,7 @@ Note:Your algorithm should have a linear runtime complexity. Could you implement
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/10/21/LeetCode之Single Number II/" data-title="LeetCode之Single Number II | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/10/31/greenlet简介/" data-title="greenlet简介 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -138,18 +130,18 @@ Note:Your algorithm should have a linear runtime complexity. Could you implement
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/10/22/python读写shp文件/" title="python读写shp文件">
+ <a href="/2015/11/03/外部python脚本调用Django中的方法模型等/" title="外部python脚本调用Django中的方法、模型等">
   <strong>上一篇：</strong><br/>
   <span>
-  python读写shp文件</span>
+  外部python脚本调用Django中的方法、模型等</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/10/20/LeetCode之Repeated DNA Sequences/"  title="LeetCode之Repeated DNA Sequences">
+<a href="/2015/10/29/python iter函数/"  title="python iter函数">
  <strong>下一篇：</strong><br/> 
- <span>LeetCode之Repeated DNA Sequences
+ <span>python iter函数
 </span>
 </a>
 </div>

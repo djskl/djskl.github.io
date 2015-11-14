@@ -5,47 +5,26 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>python中的and、or运算 | ideas into codes</title>
+    <title>外部python脚本调用Django中的方法、模型等 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。规则如下：
-
-and运算：无假值则返回最后一个真值，有假值返回第一个假值or运算：无真值则返回最后一个假值，有真值则返回第一个真值
-
-所谓的假值是指：
-
-1、None2、False3、数字04、空序列或空字典5、定义了nonzero或len()函数且返回False或0的对象
-
-除以上情况外，都属于真">
+    <meta name="description" content="将Django项目加入到sys.path，然后通过os.environ设置一下环境变量DJANGO_SETTINGS_MODULE即可(Django工程不需要处于运行状态)。
+下面举个简单的例子：假如Django工程DjangoDemo中的myapp中的models.py有这么一个Model:123class Students(models.Model):    sno = models.Inte">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python中的and、or运算">
-<meta property="og:url" content="http://1988zxh.com/2015/09/19/python中的and、or运算/index.html">
+<meta property="og:title" content="外部python脚本调用Django中的方法、模型等">
+<meta property="og:url" content="http://1988zxh.com/2015/11/03/外部python脚本调用Django中的方法模型等/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。规则如下：
-
-and运算：无假值则返回最后一个真值，有假值返回第一个假值or运算：无真值则返回最后一个假值，有真值则返回第一个真值
-
-所谓的假值是指：
-
-1、None2、False3、数字04、空序列或空字典5、定义了nonzero或len()函数且返回False或0的对象
-
-除以上情况外，都属于真">
-<meta property="og:updated_time" content="2015-09-19T04:58:16.000Z">
+<meta property="og:description" content="将Django项目加入到sys.path，然后通过os.environ设置一下环境变量DJANGO_SETTINGS_MODULE即可(Django工程不需要处于运行状态)。
+下面举个简单的例子：假如Django工程DjangoDemo中的myapp中的models.py有这么一个Model:123class Students(models.Model):    sno = models.Inte">
+<meta property="og:updated_time" content="2015-11-06T14:44:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python中的and、or运算">
-<meta name="twitter:description" content="受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。规则如下：
-
-and运算：无假值则返回最后一个真值，有假值返回第一个假值or运算：无真值则返回最后一个假值，有真值则返回第一个真值
-
-所谓的假值是指：
-
-1、None2、False3、数字04、空序列或空字典5、定义了nonzero或len()函数且返回False或0的对象
-
-除以上情况外，都属于真">
+<meta name="twitter:title" content="外部python脚本调用Django中的方法、模型等">
+<meta name="twitter:description" content="将Django项目加入到sys.path，然后通过os.environ设置一下环境变量DJANGO_SETTINGS_MODULE即可(Django工程不需要处于运行状态)。
+下面举个简单的例子：假如Django工程DjangoDemo中的myapp中的models.py有这么一个Model:123class Students(models.Model):    sno = models.Inte">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -100,28 +79,22 @@ and运算：无假值则返回最后一个真值，有假值返回第一个假�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/09/19/python中的and、or运算/" title="python中的and、or运算" itemprop="url">python中的and、or运算</a>
+      <a href="/2015/11/03/外部python脚本调用Django中的方法模型等/" title="外部python脚本调用Django中的方法、模型等" itemprop="url">外部python脚本调用Django中的方法、模型等</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-09-18T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-09-19</time>
+    <time datetime="2015-11-02T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-03</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。<br>规则如下：</p>
-<blockquote>
-<p>and运算：无假值则返回最后一个真值，有假值返回第一个假值<br>or运算：无真值则返回最后一个假值，有真值则返回第一个真值</p>
-</blockquote>
-<p>所谓的<code>假值</code>是指：</p>
-<blockquote>
-<p>1、None<br>2、False<br>3、数字0<br>4、空序列或空字典<br>5、定义了<strong><strong>nonzero</strong></strong>或<strong><strong>len()</strong></strong>函数且返回False或0的对象</p>
-</blockquote>
-<p>除以上情况外，都属于<code>真值</code>。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">'a'</span> <span class="keyword">and</span> <span class="string">'b'</span> <span class="keyword">and</span> <span class="string">'c'</span></span><br><span class="line"><span class="string">'c'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">'a'</span> <span class="keyword">and</span> <span class="string">''</span> <span class="keyword">and</span> <span class="string">'c'</span></span><br><span class="line"><span class="string">''</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">'a'</span> <span class="keyword">or</span> <span class="string">''</span> <span class="keyword">or</span> <span class="string">'c'</span></span><br><span class="line"><span class="string">'a'</span></span><br></pre></td></tr></table></figure></p>
+		<p>将Django项目加入到<code>sys.path</code>，然后通过<code>os.environ</code>设置一下环境变量<code>DJANGO_SETTINGS_MODULE</code>即可(Django工程不需要处于运行状态)。</p>
+<p>下面举个简单的例子：<br>假如Django工程<code>DjangoDemo</code>中的<code>myapp</code>中的<code>models.py</code>有这么一个Model:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Students</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    sno = models.IntegerField(primary_key=<span class="keyword">True</span>)</span><br><span class="line">    sname = models.CharField(max_length=<span class="number">128</span>)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#62;&#62;&#62; import os, sys&#10;&#62;&#62;&#62; sys.path.append(r&#39;E:\python\DjangoDemo&#39;)&#10;&#62;&#62;&#62; os.environ[&#39;DJANGO_SETTINGS_MODULE&#39;]=&#39;DjangoDemo.settings&#39;&#10;&#62;&#62;&#62; from myapp.models import Students&#10;&#62;&#62;&#62; stu = Students()&#10;&#62;&#62;&#62; stu.sno = 1&#10;&#62;&#62;&#62; stu.sname= &#39;zxh&#39;&#10;&#62;&#62;&#62; stu.save()&#10;&#62;&#62;&#62; stu = Students()&#10;&#62;&#62;&#62; stu.sno = 234&#10;&#62;&#62;&#62; stu.sname = &#39;lijie&#39;&#10;&#62;&#62;&#62; stu.save()&#10;&#62;&#62;&#62; dao = Students.objects.all()&#10;&#62;&#62;&#62; dao&#10;[&#60;Students: Students object&#62;, &#60;Students: Students object&#62;]&#10;&#62;&#62;&#62; dao[0].sname&#10;u&#39;zxh&#39;&#10;&#62;&#62;&#62; dao[1].sname&#10;u&#39;lijie&#39;</span><br></pre></td></tr></table></figure>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -139,7 +112,7 @@ and运算：无假值则返回最后一个真值，有假值返回第一个假�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/09/19/python中的and、or运算/" data-title="python中的and、or运算 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/11/03/外部python脚本调用Django中的方法模型等/" data-title="外部python脚本调用Django中的方法、模型等 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -153,18 +126,18 @@ and运算：无假值则返回最后一个真值，有假值返回第一个假�
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/09/19/Django compressor使用简介/" title="Django compressor使用简介">
+ <a href="/2015/11/06/jquery_validate插件使用示例/" title="jquery validate插件使用示例">
   <strong>上一篇：</strong><br/>
   <span>
-  Django compressor使用简介</span>
+  jquery validate插件使用示例</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/09/13/python中的metaclass及其应用/"  title="python中的metaclass及其应用">
+<a href="/2015/10/29/python iter函数/"  title="python iter函数">
  <strong>下一篇：</strong><br/> 
- <span>python中的metaclass及其应用
+ <span>python iter函数
 </span>
 </a>
 </div>

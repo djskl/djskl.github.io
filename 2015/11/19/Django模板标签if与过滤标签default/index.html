@@ -5,47 +5,29 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>python中的and、or运算 | ideas into codes</title>
+    <title>Django模板标签if与过滤标签default | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。规则如下：
+    <meta name="description" content="这段时间好久不用Django中的模板标签了，乍一用感觉if与default有点乱，特此整理一下：
 
-and运算：无假值则返回最后一个真值，有假值返回第一个假值or运算：无真值则返回最后一个假值，有真值则返回第一个真值
-
-所谓的假值是指：
-
-1、None2、False3、数字04、空序列或空字典5、定义了nonzero或len()函数且返回False或0的对象
-
-除以上情况外，都属于真">
+if标签：除is外,支持==, not, !=, True/False的判断与python相同。12345678910111213141516171819202122232425262728293031&amp;gt;&amp;gt;&amp;gt; template=Template(&quot;&amp;#123;% if x != N">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python中的and、or运算">
-<meta property="og:url" content="http://1988zxh.com/2015/09/19/python中的and、or运算/index.html">
+<meta property="og:title" content="Django模板标签if与过滤标签default">
+<meta property="og:url" content="http://1988zxh.com/2015/11/19/Django模板标签if与过滤标签default/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。规则如下：
+<meta property="og:description" content="这段时间好久不用Django中的模板标签了，乍一用感觉if与default有点乱，特此整理一下：
 
-and运算：无假值则返回最后一个真值，有假值返回第一个假值or运算：无真值则返回最后一个假值，有真值则返回第一个真值
-
-所谓的假值是指：
-
-1、None2、False3、数字04、空序列或空字典5、定义了nonzero或len()函数且返回False或0的对象
-
-除以上情况外，都属于真">
-<meta property="og:updated_time" content="2015-09-19T04:58:16.000Z">
+if标签：除is外,支持==, not, !=, True/False的判断与python相同。12345678910111213141516171819202122232425262728293031&amp;gt;&amp;gt;&amp;gt; template=Template(&quot;&amp;#123;% if x != N">
+<meta property="og:updated_time" content="2015-11-19T14:50:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python中的and、or运算">
-<meta name="twitter:description" content="受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。规则如下：
+<meta name="twitter:title" content="Django模板标签if与过滤标签default">
+<meta name="twitter:description" content="这段时间好久不用Django中的模板标签了，乍一用感觉if与default有点乱，特此整理一下：
 
-and运算：无假值则返回最后一个真值，有假值返回第一个假值or运算：无真值则返回最后一个假值，有真值则返回第一个真值
-
-所谓的假值是指：
-
-1、None2、False3、数字04、空序列或空字典5、定义了nonzero或len()函数且返回False或0的对象
-
-除以上情况外，都属于真">
+if标签：除is外,支持==, not, !=, True/False的判断与python相同。12345678910111213141516171819202122232425262728293031&amp;gt;&amp;gt;&amp;gt; template=Template(&quot;&amp;#123;% if x != N">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -100,28 +82,34 @@ and运算：无假值则返回最后一个真值，有假值返回第一个假�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/09/19/python中的and、or运算/" title="python中的and、or运算" itemprop="url">python中的and、or运算</a>
+      <a href="/2015/11/19/Django模板标签if与过滤标签default/" title="Django模板标签if与过滤标签default" itemprop="url">Django模板标签if与过滤标签default</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-09-18T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-09-19</time>
+    <time datetime="2015-11-18T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-19</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。<br>规则如下：</p>
-<blockquote>
-<p>and运算：无假值则返回最后一个真值，有假值返回第一个假值<br>or运算：无真值则返回最后一个假值，有真值则返回第一个真值</p>
+		<p>这段时间好久不用Django中的模板标签了，乍一用感觉if与default有点乱，特此整理一下：</p>
+<ul>
+<li><strong>if标签</strong>：除<code>is</code>外,支持<code>==</code>, <code>not</code>, <code>!=</code>, True/False的判断与python相同。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>template=Template(<span class="string">"&#123;% if x != None %&#125;hello&#123;% endif %&#125;"</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>ctx = Context(&#123;<span class="string">"x"</span>:<span class="keyword">None</span>&#125;)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>template.render(ctx)</span><br><span class="line"><span class="string">u''</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>ctx = Context(&#123;<span class="string">"x"</span>:<span class="string">"x"</span>&#125;)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>template.render(ctx)</span><br><span class="line"><span class="string">u'hello'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>tmp = Template(<span class="string">"&#123;% if x == True %&#125;hello&#123;% endif %&#125;"</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>ctx = Context(&#123;<span class="string">"x"</span>: <span class="keyword">True</span>&#125;)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>tmp.render(ctx)</span><br><span class="line"><span class="string">u'hello'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>tmp = Template(<span class="string">"&#123;% if x %&#125;hello&#123;% endif %&#125;"</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>tmp.render(ctx)</span><br><span class="line"><span class="string">u'hello'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>tmp = Template(<span class="string">"&#123;% if x %&#125;hello&#123;%else%&#125;world&#123;% endif %&#125;"</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>ctx = Context(&#123;<span class="string">"x"</span>: <span class="string">""</span>&#125;)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>tmp.render(ctx)</span><br><span class="line"><span class="string">u'world'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>ctx = Context(&#123;<span class="string">"x"</span>: <span class="keyword">None</span>&#125;)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>tmp.render(ctx)</span><br><span class="line"><span class="string">u'world'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>tmp = Template(<span class="string">"&#123;% if x == None %&#125;hello&#123;%else%&#125;world&#123;% endif %&#125;"</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>tmp.render(ctx)</span><br><span class="line"><span class="string">u'hello'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>tmp = Template(<span class="string">"&#123;% if not x %&#125;hello&#123;%else%&#125;world&#123;% endif %&#125;"</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>tmp.render(ctx)</span><br><span class="line"><span class="string">u'hello'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>tmp = Template(<span class="string">"&#123;% if x is None %&#125;hello&#123;%else%&#125;world&#123;% endif %&#125;"</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  ...此处省略很多异常信息...</span><br><span class="line">TemplateSyntaxError: Unused <span class="string">'is'</span> at end of <span class="keyword">if</span> expression.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>还有2个<code>ifequal</code>, <code>ifnotequal</code>标签，效果等同于<code>if var == val</code>, <code>if var != val</code>，而且在后续版本中，这个两个标签会被屏弃。</p>
+<ul>
+<li><strong>var|default:”def”</strong>：此处官方文档是这么说的：<blockquote>
+<p>If value evaluates to False, uses the given default. Otherwise, uses the value.</p>
 </blockquote>
-<p>所谓的<code>假值</code>是指：</p>
-<blockquote>
-<p>1、None<br>2、False<br>3、数字0<br>4、空序列或空字典<br>5、定义了<strong><strong>nonzero</strong></strong>或<strong><strong>len()</strong></strong>函数且返回False或0的对象</p>
-</blockquote>
-<p>除以上情况外，都属于<code>真值</code>。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">'a'</span> <span class="keyword">and</span> <span class="string">'b'</span> <span class="keyword">and</span> <span class="string">'c'</span></span><br><span class="line"><span class="string">'c'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">'a'</span> <span class="keyword">and</span> <span class="string">''</span> <span class="keyword">and</span> <span class="string">'c'</span></span><br><span class="line"><span class="string">''</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">'a'</span> <span class="keyword">or</span> <span class="string">''</span> <span class="keyword">or</span> <span class="string">'c'</span></span><br><span class="line"><span class="string">'a'</span></span><br></pre></td></tr></table></figure></p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>template=Template(<span class="string">"&#123;&#123;x|default:'nothing'&#125;&#125;"</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>ctx = Context(&#123;<span class="string">"x"</span>:<span class="string">""</span>&#125;)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>template.render(ctx)</span><br><span class="line"><span class="string">u'nothing'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>ctx = Context(&#123;<span class="string">"x"</span>:[]&#125;)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>template.render(ctx)</span><br><span class="line"><span class="string">u'nothing'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>ctx = Context(&#123;<span class="string">"x"</span>:&#123;&#125;&#125;)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>template.render(ctx)</span><br><span class="line"><span class="string">u'nothing'</span></span><br></pre></td></tr></table></figure>
+<p>如果只针对None进行判断，可以使用<code>var|default_if_none:&quot;def&quot;</code></p>
+<p>参考：<br><a href="https://docs.djangoproject.com/en/1.8/ref/templates/builtins/#default" target="_blank" rel="external">Built-in template tags and filters</a><br><a href="http://stackoverflow.com/questions/4229327/django-templates-if-false" target="_blank" rel="external">Django templates: If false</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -129,7 +117,7 @@ and运算：无假值则返回最后一个真值，有假值返回第一个假�
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/python/">python</a>
+  <a class="article-category-link" href="/categories/前端/">前端</a>
 </div>
 
 
@@ -139,7 +127,7 @@ and运算：无假值则返回最后一个真值，有假值返回第一个假�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/09/19/python中的and、or运算/" data-title="python中的and、or运算 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/11/19/Django模板标签if与过滤标签default/" data-title="Django模板标签if与过滤标签default | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -152,19 +140,11 @@ and运算：无假值则返回最后一个真值，有假值返回第一个假�
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/09/19/Django compressor使用简介/" title="Django compressor使用简介">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Django compressor使用简介</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/09/13/python中的metaclass及其应用/"  title="python中的metaclass及其应用">
+<a href="/2015/11/14/nginx返回403错误/"  title="nginx返回403错误">
  <strong>下一篇：</strong><br/> 
- <span>python中的metaclass及其应用
+ <span>nginx返回403错误
 </span>
 </a>
 </div>

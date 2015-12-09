@@ -5,27 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>数据库中的层次操作 | ideas into codes</title>
+    <title>postgresql判断一个字段的是否为空 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="今天遇到了一个比较有意思的问题：有一个表结构如下所示：12345id, pid, name1, 10, hello10, -1, world2, 1, hehe...
-在这个表里，通过id和pid构成里一个森林，目前森林最多有4层。如下图所示意：其中绿色表示数据的分类，黄色表示具体的数据，现在的需求是只维持两级目录，把红色圈起来的那一层删掉，然后它下面的数据挂到它所属的类别上。首先，先建了一个表，">
+    <meta name="description" content="今天遇到一个问题，想要判断一条记录的某个字段是否是空值，一时不知道怎么办了，已为需要调用某个函数，搜了半天没搜到最后发现原来is null就可以，对于空字符串就不管用了，可以通过调用char_lengh获取其长度来判断。1234567891011121314151617181920212223242526272829303132#数据：#id | name#----------#1  |  zxh">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据库中的层次操作">
-<meta property="og:url" content="http://1988zxh.com/2015/08/31/数据库中的层次操作/index.html">
+<meta property="og:title" content="postgresql判断一个字段的是否为空">
+<meta property="og:url" content="http://1988zxh.com/2015/12/09/postgresql判断一个字段的是否为空/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="今天遇到了一个比较有意思的问题：有一个表结构如下所示：12345id, pid, name1, 10, hello10, -1, world2, 1, hehe...
-在这个表里，通过id和pid构成里一个森林，目前森林最多有4层。如下图所示意：其中绿色表示数据的分类，黄色表示具体的数据，现在的需求是只维持两级目录，把红色圈起来的那一层删掉，然后它下面的数据挂到它所属的类别上。首先，先建了一个表，">
-<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/senlin.png">
-<meta property="og:updated_time" content="2015-08-31T12:12:37.000Z">
+<meta property="og:description" content="今天遇到一个问题，想要判断一条记录的某个字段是否是空值，一时不知道怎么办了，已为需要调用某个函数，搜了半天没搜到最后发现原来is null就可以，对于空字符串就不管用了，可以通过调用char_lengh获取其长度来判断。1234567891011121314151617181920212223242526272829303132#数据：#id | name#----------#1  |  zxh">
+<meta property="og:updated_time" content="2015-12-09T12:59:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据库中的层次操作">
-<meta name="twitter:description" content="今天遇到了一个比较有意思的问题：有一个表结构如下所示：12345id, pid, name1, 10, hello10, -1, world2, 1, hehe...
-在这个表里，通过id和pid构成里一个森林，目前森林最多有4层。如下图所示意：其中绿色表示数据的分类，黄色表示具体的数据，现在的需求是只维持两级目录，把红色圈起来的那一层删掉，然后它下面的数据挂到它所属的类别上。首先，先建了一个表，">
+<meta name="twitter:title" content="postgresql判断一个字段的是否为空">
+<meta name="twitter:description" content="今天遇到一个问题，想要判断一条记录的某个字段是否是空值，一时不知道怎么办了，已为需要调用某个函数，搜了半天没搜到最后发现原来is null就可以，对于空字符串就不管用了，可以通过调用char_lengh获取其长度来判断。1234567891011121314151617181920212223242526272829303132#数据：#id | name#----------#1  |  zxh">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -80,22 +76,20 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/08/31/数据库中的层次操作/" title="数据库中的层次操作" itemprop="url">数据库中的层次操作</a>
+      <a href="/2015/12/09/postgresql判断一个字段的是否为空/" title="postgresql判断一个字段的是否为空" itemprop="url">postgresql判断一个字段的是否为空</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-08-31</time>
+    <time datetime="2015-12-08T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-12-09</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>今天遇到了一个比较有意思的问题：<br>有一个表结构如下所示：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">id, pid, name</span><br><span class="line"><span class="number">1</span>, <span class="number">10</span>, hello</span><br><span class="line"><span class="number">10</span>, -<span class="number">1</span>, world</span><br><span class="line"><span class="number">2</span>, <span class="number">1</span>, hehe</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
-<p>在这个表里，通过<code>id</code>和<code>pid</code>构成里一个森林，目前森林最多有4层。如下图所示意：<br><img src="http://7xktxu.com1.z0.glb.clouddn.com/senlin.png" alt=""><br>其中绿色表示数据的分类，黄色表示具体的数据，现在的需求是只维持两级目录，把红色圈起来的那一层删掉，然后它下面的数据挂到它所属的类别上。<br>首先，先建了一个表，把红色圈起来的数据先找出来：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> to_delete <span class="keyword">as</span></span><br><span class="line">    select * </span><br><span class="line">    <span class="keyword">from</span> prodcuts <span class="keyword">as</span> p1, products <span class="keyword">as</span> p2</span><br><span class="line">    <span class="keyword">where</span> p1.<span class="keyword">id</span> = p2.pid <span class="keyword">and</span> p1.pid <span class="keyword">not</span> <span class="keyword">in</span> (</span><br><span class="line">        select <span class="keyword">id</span> <span class="keyword">from</span> products</span><br><span class="line">        <span class="keyword">where</span> pid = -<span class="number">1</span>);</span></span><br></pre></td></tr></table></figure></p>
-<p>然后，更新一下这些节点下的数据的信息：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#更新数据名称，把删除的目录的名称加到数据的前面</span><br><span class="line"><span class="operator"><span class="keyword">update</span> products <span class="keyword">set</span> <span class="keyword">name</span> = td.<span class="keyword">name</span>||<span class="keyword">name</span> <span class="keyword">from</span> to_delete <span class="keyword">where</span> products.pid = to_delete.<span class="keyword">id</span>;</span></span><br><span class="line">#更新数据的pid</span><br><span class="line"><span class="operator"><span class="keyword">update</span> products <span class="keyword">set</span> pid = td.pid <span class="keyword">from</span> to_delete <span class="keyword">where</span> products.pid = to_delete.<span class="keyword">id</span>;</span></span><br><span class="line">#删除红色目录</span><br><span class="line"><span class="operator"><span class="keyword">delete</span> <span class="keyword">from</span> products <span class="keyword">where</span> <span class="keyword">id</span> <span class="keyword">in</span> (select <span class="keyword">id</span> <span class="keyword">from</span> to_delete);</span></span><br></pre></td></tr></table></figure></p>
+		<p>今天遇到一个问题，想要判断一条记录的某个字段是否是空值，一时不知道怎么办了，已为需要调用某个函数，搜了半天没搜到最后发现原来<code>is null</code>就可以，对于空字符串就不管用了，可以通过调用<code>char_lengh</code>获取其长度来判断。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#数据：</span><br><span class="line">#id | name</span><br><span class="line">#<span class="comment">----------</span></span><br><span class="line">#1  |  zxh</span><br><span class="line">#2  |  null</span><br><span class="line">#3  |  ''</span><br><span class="line"></span><br><span class="line">postgres=# <span class="operator">select <span class="keyword">name</span> <span class="keyword">is</span> <span class="literal">null</span> <span class="keyword">from</span> demo <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">1</span>;</span></span><br><span class="line"> ?column? </span><br><span class="line"><span class="comment">----------</span></span><br><span class="line"> f</span><br><span class="line">(1 row)</span><br><span class="line"></span><br><span class="line">postgres=# <span class="operator">select <span class="keyword">name</span> <span class="keyword">is</span> <span class="literal">null</span> <span class="keyword">from</span> demo <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">2</span>;</span></span><br><span class="line"> ?column? </span><br><span class="line"><span class="comment">----------</span></span><br><span class="line"> t</span><br><span class="line">(1 row)</span><br><span class="line"></span><br><span class="line">postgres=# <span class="operator">select <span class="keyword">name</span> <span class="keyword">is</span> <span class="literal">null</span> <span class="keyword">from</span> demo <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">3</span>;</span></span><br><span class="line"> ?column? </span><br><span class="line"><span class="comment">----------</span></span><br><span class="line"> f</span><br><span class="line">(1 row)</span><br><span class="line"></span><br><span class="line">postgres=# <span class="operator">select <span class="keyword">name</span>, <span class="keyword">char_length</span>(<span class="keyword">name</span>) <span class="keyword">from</span> demo;</span></span><br><span class="line"> name | char_length </span><br><span class="line"><span class="comment">------+-------------</span></span><br><span class="line"> zxh  |           3</span><br><span class="line">      |            </span><br><span class="line">      |           <span class="operator">0</span><br><span class="line">(<span class="number">3</span> <span class="keyword">rows</span>)</span></span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -113,7 +107,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/08/31/数据库中的层次操作/" data-title="数据库中的层次操作 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/12/09/postgresql判断一个字段的是否为空/" data-title="postgresql判断一个字段的是否为空 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -126,19 +120,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/08/31/请求参数解析QueryDict/" title="请求参数解析QueryDict">
-  <strong>上一篇：</strong><br/>
-  <span>
-  请求参数解析QueryDict</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/08/24/python中装饰器的使用/"  title="python中装饰器的使用">
+<a href="/2015/11/19/Django模板标签if与过滤标签default/"  title="Django模板标签if与过滤标签default">
  <strong>下一篇：</strong><br/> 
- <span>python中装饰器的使用
+ <span>Django模板标签if与过滤标签default
 </span>
 </a>
 </div>

@@ -5,23 +5,26 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>python读写shp文件 | ideas into codes</title>
+    <title>运行APUE程序 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849from osgeo import ogrimport os# Get a Layer&apos;s ExtentinShapefile = &quot;states.shp&quot;inDriver = ogr.GetDriverByName(&quot;E">
+    <meta name="description" content="APUE(Advanced Programming in the UNIX Environment)的作者提供了一个静态库，里面封装了一些好用的api。下面介绍以下如何在eclipse下使用这个库。
+1、下载源代码并编译生成静态库下载地址：http://www.apuebook.com/src.3e.tar.gz下载之后解压，会在当前文件夹下看到一个README文件，里面介绍了如何编译生成这个库，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python读写shp文件">
-<meta property="og:url" content="http://1988zxh.com/2015/10/22/python读写shp文件/index.html">
+<meta property="og:title" content="运行APUE程序">
+<meta property="og:url" content="http://1988zxh.com/2015/12/13/运行APUE程序/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849from osgeo import ogrimport os# Get a Layer&apos;s ExtentinShapefile = &quot;states.shp&quot;inDriver = ogr.GetDriverByName(&quot;E">
-<meta property="og:updated_time" content="2015-10-22T13:12:26.000Z">
+<meta property="og:description" content="APUE(Advanced Programming in the UNIX Environment)的作者提供了一个静态库，里面封装了一些好用的api。下面介绍以下如何在eclipse下使用这个库。
+1、下载源代码并编译生成静态库下载地址：http://www.apuebook.com/src.3e.tar.gz下载之后解压，会在当前文件夹下看到一个README文件，里面介绍了如何编译生成这个库，">
+<meta property="og:updated_time" content="2015-12-13T03:56:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python读写shp文件">
-<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849from osgeo import ogrimport os# Get a Layer&apos;s ExtentinShapefile = &quot;states.shp&quot;inDriver = ogr.GetDriverByName(&quot;E">
+<meta name="twitter:title" content="运行APUE程序">
+<meta name="twitter:description" content="APUE(Advanced Programming in the UNIX Environment)的作者提供了一个静态库，里面封装了一些好用的api。下面介绍以下如何在eclipse下使用这个库。
+1、下载源代码并编译生成静态库下载地址：http://www.apuebook.com/src.3e.tar.gz下载之后解压，会在当前文件夹下看到一个README文件，里面介绍了如何编译生成这个库，">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -76,22 +79,23 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/22/python读写shp文件/" title="python读写shp文件" itemprop="url">python读写shp文件</a>
+      <a href="/2015/12/13/运行APUE程序/" title="运行APUE程序" itemprop="url">运行APUE程序</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-21T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-10-22</time>
+    <time datetime="2015-12-12T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-12-13</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> osgeo <span class="keyword">import</span> ogr</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get a Layer's Extent</span></span><br><span class="line">inShapefile = <span class="string">"states.shp"</span></span><br><span class="line">inDriver = ogr.GetDriverByName(<span class="string">"ESRI Shapefile"</span>)</span><br><span class="line">inDataSource = inDriver.Open(inShapefile, <span class="number">0</span>)</span><br><span class="line">inLayer = inDataSource.GetLayer()</span><br><span class="line">extent = inLayer.GetExtent()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a Polygon from the extent tuple</span></span><br><span class="line">ring = ogr.Geometry(ogr.wkbLinearRing)</span><br><span class="line">ring.AddPoint(extent[<span class="number">0</span>],extent[<span class="number">2</span>])</span><br><span class="line">ring.AddPoint(extent[<span class="number">1</span>], extent[<span class="number">2</span>])</span><br><span class="line">ring.AddPoint(extent[<span class="number">1</span>], extent[<span class="number">3</span>])</span><br><span class="line">ring.AddPoint(extent[<span class="number">0</span>], extent[<span class="number">3</span>])</span><br><span class="line">ring.AddPoint(extent[<span class="number">0</span>],extent[<span class="number">2</span>])</span><br><span class="line">poly = ogr.Geometry(ogr.wkbPolygon)</span><br><span class="line">poly.AddGeometry(ring)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者通过WKT直接生成</span></span><br><span class="line">geom = ogr.CreateGeometryFromWkt(_wkt)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Save extent to a new Shapefile</span></span><br><span class="line">outShapefile = <span class="string">"states_extent.shp"</span></span><br><span class="line">outDriver = ogr.GetDriverByName(<span class="string">"ESRI Shapefile"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove output shapefile if it already exists</span></span><br><span class="line"><span class="keyword">if</span> os.path.exists(outShapefile):</span><br><span class="line">    outDriver.DeleteDataSource(outShapefile)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the output shapefile</span></span><br><span class="line">outDataSource = outDriver.CreateDataSource(outShapefile)</span><br><span class="line">outLayer = outDataSource.CreateLayer(<span class="string">"states_extent"</span>, geom_type=ogr.wkbPolygon)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add an ID field</span></span><br><span class="line">idField = ogr.FieldDefn(<span class="string">"id"</span>, ogr.OFTInteger)</span><br><span class="line">outLayer.CreateField(idField)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the feature and set values</span></span><br><span class="line">featureDefn = outLayer.GetLayerDefn()</span><br><span class="line">feature = ogr.Feature(featureDefn)</span><br><span class="line">feature.SetGeometry(poly)</span><br><span class="line">feature.SetField(<span class="string">"id"</span>, <span class="number">1</span>)</span><br><span class="line">outLayer.CreateFeature(feature)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Close DataSource</span></span><br><span class="line">inDataSource.Destroy()</span><br><span class="line">outDataSource.Destroy()</span><br></pre></td></tr></table></figure>
-<p>在这里空间数据结构仍是layer&gt;feature&gt;Geometry&gt;Polygon/LineString/Point</p>
-<p><strong>参考</strong>：<br><a href="https://pcjericks.github.io/py-gdalogr-cookbook/vector_layers.html#create-a-new-layer-from-the-extent-of-an-existing-layer" target="_blank" rel="external">Create a new Layer from the extent of an existing Layer</a></p>
+		<p>APUE(Advanced Programming in the UNIX Environment)的作者提供了一个静态库，里面封装了一些好用的api。下面介绍以下如何在eclipse下使用这个库。</p>
+<p><strong>1、下载源代码并编译生成静态库</strong><br>下载地址：<a href="http://www.apuebook.com/src.3e.tar.gz" target="_blank" rel="external">http://www.apuebook.com/src.3e.tar.gz</a><br>下载之后解压，会在当前文件夹下看到一个<code>README</code>文件，里面介绍了如何编译生成这个库，一般在当前文件夹下运行<code>make</code>命令就可以了。之后在文件夹<code>lib</code>下就可以静态库<code>libapue.a</code>了。</p>
+<p><strong>2、加载</strong><br>右键C/C++工程，<code>Properties</code> &gt;&gt; <code>C/C++ Build</code> &gt;&gt; <code>Settings</code> &gt;&gt; <code>Cross GCC Linker</code> &gt;&gt; <code>Miscellaneous</code> &gt;&gt; <code>Other objects</code>。点击旁边带绿色加号的图标，通过<code>File System</code>在弹出的文件选择对话框里选择<code>libapue.a</code>即可。</p>
+<p><strong>3、示例</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">"apue.h"</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">	err_sys(<span class="string">"hello, world"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//输出：hello, world: Success</span></span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -99,7 +103,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/python/">python</a>
+  <a class="article-category-link" href="/categories/linux-c/">linux/c</a>
 </div>
 
 
@@ -109,7 +113,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/10/22/python读写shp文件/" data-title="python读写shp文件 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/12/13/运行APUE程序/" data-title="运行APUE程序 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -122,19 +126,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/10/28/subprocess使用简介/" title="subprocess使用简介">
-  <strong>上一篇：</strong><br/>
-  <span>
-  subprocess使用简介</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/10/21/LeetCode之Single Number II/"  title="LeetCode之Single Number II">
+<a href="/2015/12/13/线段树及其应用/"  title="线段树及其应用">
  <strong>下一篇：</strong><br/> 
- <span>LeetCode之Single Number II
+ <span>线段树及其应用
 </span>
 </a>
 </div>

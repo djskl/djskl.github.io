@@ -1,0 +1,480 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>Python解决CERTIFICATE_VERIFY_FAILED问题 | ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="之前部署在某个机器上的系统一直正常运行，今天突然不能通过第三方帐号登陆了，看了下日志，报了以下错误：1urllib2.URLError: &amp;lt;urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:590)&amp;gt;
+SSL证书验证失败，当我试图在本机(python 2.7.5)重现时，发现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python解决CERTIFICATE_VERIFY_FAILED问题">
+<meta property="og:url" content="http://1988zxh.com/2015/12/11/Python解决CERTIFICATE_VERIFY_FAILED问题/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="之前部署在某个机器上的系统一直正常运行，今天突然不能通过第三方帐号登陆了，看了下日志，报了以下错误：1urllib2.URLError: &amp;lt;urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:590)&amp;gt;
+SSL证书验证失败，当我试图在本机(python 2.7.5)重现时，发现">
+<meta property="og:updated_time" content="2015-12-11T14:34:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python解决CERTIFICATE_VERIFY_FAILED问题">
+<meta name="twitter:description" content="之前部署在某个机器上的系统一直正常运行，今天突然不能通过第三方帐号登陆了，看了下日志，报了以下错误：1urllib2.URLError: &amp;lt;urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:590)&amp;gt;
+SSL证书验证失败，当我试图在本机(python 2.7.5)重现时，发现">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">芝兰生于深林 不以无人而不芳</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<span style="width:50px;display:inline-block;"></span>
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/11/Python解决CERTIFICATE_VERIFY_FAILED问题/" title="Python解决CERTIFICATE_VERIFY_FAILED问题" itemprop="url">Python解决CERTIFICATE_VERIFY_FAILED问题</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-10T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-12-11</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<p>之前部署在某个机器上的系统一直正常运行，今天突然不能通过第三方帐号登陆了，看了下日志，报了以下错误：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">urllib2<span class="class">.URLError</span>: &lt;urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl<span class="class">.c</span>:<span class="number">590</span>)&gt;</span><br></pre></td></tr></table></figure></p>
+<p>SSL证书验证失败，当我试图在本机(python 2.7.5)重现时，发现一切正常。<br>到网上搜了一下，原来是从python2.7.9开始，python会在建立HTTPS之前，自动验证数字证书，相关说明在<a href="https://www.python.org/dev/peps/pep-0476/" target="_blank" rel="external">PEP 0476</a>中。大体意思是说在python2.7.9之前的版本中，建立HTTPS之前是没有验证证书的，这显然是对不住HTTP<strong>S</strong>中的<strong>S(secure)</strong>的(不能防止中间人攻击)，于是乎现在就加上了这个验证。不过这个验证对取得权威CA证书的网站来说没事，会受影响的是那些使用不被主流认可的证书的网站。</p>
+<p>解决这个问题比较简单的解决办法是：<strong>取消验证</strong>：<br><figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib2, ssl</span><br><span class="line"><span class="comment"># This restores the same behavior as before.</span></span><br><span class="line">context = ssl._create_unverified_context()</span><br><span class="line">urllib.urlopen(<span class="string">"https://no-valid-cert"</span>, context=context)</span><br></pre></td></tr></table></figure></p>
+<p>因为统一登陆系统是我们单位自己的，那肯定是可信的，所以我们就采取了这种方式。</p>
+<p>除此之外可以将服务器端证书获取过来，加入到可信任的列表来解决。</p>
+<p><strong>当前数字证书的默认存储路径</strong>：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; ssl.<span class="function"><span class="title">get_default_verify_paths</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">DefaultVerifyPaths</span><span class="params">(cafile=<span class="string">'/etc/pki/tls/cert.pem'</span>, capath=<span class="string">'/etc/pki/tls/certs'</span>, openssl_cafile_env=<span class="string">'SSL_CERT_FILE'</span>, openssl_cafile=<span class="string">'/etc/pki/tls/cert.pem'</span>, openssl_capath_env=<span class="string">'SSL_CERT_DIR'</span>, openssl_capath=<span class="string">'/etc/pki/tls/certs'</span>)</span></span></span><br></pre></td></tr></table></figure></p>
+<p><strong>获取服务器端的证书</strong>:<br><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; <span class="comment">print</span> <span class="comment">ssl</span><span class="string">.</span><span class="comment">get_server_certificate(('ip地址'</span><span class="string">,</span> <span class="comment">443))</span></span><br><span class="line"><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">BEGIN</span> <span class="comment">CERTIFICATE</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span></span><br><span class="line"><span class="comment">MIIE0jCCA7qgAwIBAgIQRrUaEoRELneqLck0uS7BdDANBgkqhkiG9w0BAQUFADBM</span></span><br><span class="line"><span class="string">.</span><span class="string">.</span><span class="string">.</span><span class="comment">此处省略很多行</span><span class="string">.</span><span class="string">.</span><span class="string">.</span></span><br><span class="line"><span class="comment">OXu6WkKHXucAJjXCy</span><span class="literal">+</span><span class="comment">QUzOBjRzsGxs55Df53D8x6ew7gmP</span><span class="literal">+</span><span class="comment">EOqw=</span></span><br><span class="line"><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">END</span> <span class="comment">CERTIFICATE</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>将上述文件保存到PEM文件中</strong>:<br>比如网站域名为a.cn,将文件命名为a.cn.pem，将服务端证书复制到这个文件，然后放到目录<code>/etc/pki/tls/certs</code>下。</p>
+<p><strong>加载这个证书</strong>：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#只加载这一个证书</span><br><span class="line">&gt;&gt;&gt; import urllib2, ssl</span><br><span class="line">&gt;&gt;&gt; ctx = ssl.<span class="function"><span class="title">SSLContext</span><span class="params">(ssl.PROTOCOL_SSLv23)</span></span></span><br><span class="line">&gt;&gt;&gt; ctx.<span class="function"><span class="title">load_verify_locations</span><span class="params">(<span class="string">'/etc/pki/tls/certs/open.csdb.cn.pem'</span>)</span></span></span><br><span class="line">&gt;&gt;&gt; w = urllib2.<span class="function"><span class="title">urlopen</span><span class="params">(<span class="string">'https://a.cn'</span>, context=ctx)</span></span></span><br><span class="line">&gt;&gt;&gt; w.<span class="function"><span class="title">read</span><span class="params">()</span></span></span><br><span class="line"></span><br><span class="line">#加载所有默认证书</span><br><span class="line">&gt;&gt;&gt; import urllib2, ssl</span><br><span class="line">&gt;&gt;&gt; ctx = ssl.<span class="function"><span class="title">SSLContext</span><span class="params">(ssl.PROTOCOL_SSLv23)</span></span></span><br><span class="line">&gt;&gt;&gt; ctx.<span class="function"><span class="title">load_default_certs</span><span class="params">()</span></span></span><br><span class="line">&gt;&gt;&gt; w = urllib2.<span class="function"><span class="title">urlopen</span><span class="params">(<span class="string">'https://a.cn'</span>, context=ctx)</span></span></span><br><span class="line">&gt;&gt;&gt; w.<span class="function"><span class="title">read</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<p><strong>后记</strong><br>1、因为之前对这块不了解，接着这次机会学习了一下，以下是一些比较好的参考资料：</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Public-key_cryptography" target="_blank" rel="external">Public-key cryptography</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="external">SSL/TLS协议运行机制的概述</a></li>
+<li><a href="http://blog.jobbole.com/48369/" target="_blank" rel="external">HTTPS连接的前几毫秒发生了什么</a></li>
+<li><a href="http://www.kryptosx.info/archives/1082.html" target="_blank" rel="external">证书是如何打通信任链的？</a></li>
+</ul>
+<p>2、升级本机(Fedora22)的python(2.7.5~2.7.11)<br>系统默认的就是2.7.5，没法直接升级，需要从官网上下一个最新版，然后采用make方式安装，这样装下来，系统默认的还是2.7.5，eclipse中的也是2.7.5，使用2.7.11需要在终端运行<code>python2</code>。此处的坑是运行了python2后，方向键、home键都不好用了，按了这些键之后就会出现<code>^[[C^[[D</code>这样奇怪的字符，在<a href="http://www.zhihu.com/question/21518507" target="_blank" rel="external">网上</a>搜了一下，原来需要安装readline，安装之后需要重新编译安装python.<br>在安装readline时，用的是easy_install命令，中间提示某个库找不到，网上搜也没搜到，后来还是yum search解决的。。。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/python/">python</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://1988zxh.com/2015/12/11/Python解决CERTIFICATE_VERIFY_FAILED问题/" data-title="Python解决CERTIFICATE_VERIFY_FAILED问题 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/12/13/运行APUE程序/" title="运行APUE程序">
+  <strong>上一篇：</strong><br/>
+  <span>
+  运行APUE程序</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/12/09/postgresql判断一个字段的是否为空/"  title="postgresql判断一个字段的是否为空">
+ <strong>下一篇：</strong><br/> 
+ <span>postgresql判断一个字段的是否为空
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>30</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/装饰器/" title="装饰器">装饰器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','vFmYG2ZLAiTvJ8vyggQN','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

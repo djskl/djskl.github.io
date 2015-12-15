@@ -5,26 +5,29 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>javascript传递默认参数 | ideas into codes</title>
+    <title>LeetCode之Remove Duplicate Letters | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#125;    ....&amp;#125;
-arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arg">
+    <meta name="description" content="问题：
+
+Given a string which contains only lowercase letters, remove duplicate letters so that every letter appear once and only once. You must make sure your result is the smallest in lexicographical or">
 <meta property="og:type" content="article">
-<meta property="og:title" content="javascript传递默认参数">
-<meta property="og:url" content="http://1988zxh.com/2015/06/17/javascript传递默认参数/index.html">
+<meta property="og:title" content="LeetCode之Remove Duplicate Letters">
+<meta property="og:url" content="http://1988zxh.com/2015/12/15/LeetCode之Remove Duplicate Letters/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#125;    ....&amp;#125;
-arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arg">
-<meta property="og:updated_time" content="2015-09-10T12:29:25.000Z">
+<meta property="og:description" content="问题：
+
+Given a string which contains only lowercase letters, remove duplicate letters so that every letter appear once and only once. You must make sure your result is the smallest in lexicographical or">
+<meta property="og:updated_time" content="2015-12-15T13:38:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="javascript传递默认参数">
-<meta name="twitter:description" content="方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#125;    ....&amp;#125;
-arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arg">
+<meta name="twitter:title" content="LeetCode之Remove Duplicate Letters">
+<meta name="twitter:description" content="问题：
+
+Given a string which contains only lowercase letters, remove duplicate letters so that every letter appear once and only once. You must make sure your result is the smallest in lexicographical or">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -79,23 +82,28 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/06/17/javascript传递默认参数/" title="javascript传递默认参数" itemprop="url">javascript传递默认参数</a>
+      <a href="/2015/12/15/LeetCode之Remove Duplicate Letters/" title="LeetCode之Remove Duplicate Letters" itemprop="url">LeetCode之Remove Duplicate Letters</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-06-16T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-06-17</time>
+    <time datetime="2015-12-14T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-12-15</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>方式1：借助函数内置变量<code>arguments</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params">x, _def</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">arguments</span>[<span class="number">1</span>] == <span class="literal">undefined</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> _def = default_value;</span><br><span class="line">    &#125;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arguments类似数组但不是数组，支持下标访问，也有length属性，但没有push/pop这些方法。</p>
-<p>方式2：<code>typeof(x) == &quot;undefined&quot;</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params">x, _def</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span>(_def) == <span class="string">"undefined"</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> _def = default_value;</span><br><span class="line">    &#125;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这个比较简单直接一点，需要注意的是，不能直接<code>_def == undefined</code>，js和其他语言一样，不能操作未声明/定义的变量。</p>
+		<p><strong>问题</strong>：</p>
+<blockquote>
+<p>Given a string which contains only lowercase letters, remove duplicate letters so that every letter appear once and only once. You must make sure your result is the smallest in lexicographical order among all possible results.<br>比如：”bcabc” —&gt; “abc”; “cbacdcbc” —&gt; “acdb”</p>
+</blockquote>
+<p><strong>思路</strong>：<br>假设给定字符串中唯一元素的总个数为 <strong>N</strong>，则某个元素能不能出现在位置 <strong>x(x=1,2,3…)</strong>上，就看排在它后面的唯一元素的个数<strong>n</strong>是否满足 <strong>x + n &gt;= N</strong>，对于所有满足这个条件的字符<strong>c</strong>，选取一个字典序最小的，然后在令<strong>n = n - 1</strong>，选取下一个字符，直至<strong>n=0</strong>。</p>
+<p>基于以上思路的算法可以大体分为2步：<br>1、遍历一遍字符串，计算出每个位置到字符串末尾所包含的唯一元素的个数，得到个数数组<strong>occurs</strong>, 遍历结束后还可得到唯一元素总数<strong>N</strong>；<br>2、令<strong>n=N</strong>, 从头遍历<strong>occurs</strong>, 找到满足出现次数不小于<strong>n-1</strong>的且字典序最小的字符，然后令<strong>n=n-1</strong>，继续循环，直至<strong>n=-1</strong>。考虑到已选取的字符不会再次作为候选字符了，所以每选取一个都需要更新一下个数数组<strong>occurs</strong>。</p>
+<p>例子如下：<br><code>s = &quot;cbacdcbc&quot;</code>对应的个数数组如下：<br>|c|b|a|c|d|c|b|c|<br>|-|-|-|-|-|-|-|-|<br>|3|3|3|2|2|1|1|0|<br>第一次满足条件的是c, b, a，我们选取字典序最小的a，其次是c，考虑到c被选取之后就不能再被当作候选的字符了，所以d与b对应的个数都应该减1，如此循环。</p>
+<p>代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">removeDuplicateLetters</span><span class="params">(self, s)</span>:</span></span><br><span class="line">        <span class="string">"""</span><br><span class="line">        :type s: str</span><br><span class="line">        :rtype: str</span><br><span class="line">        """</span></span><br><span class="line">        uniques, size = set(), <span class="number">0</span></span><br><span class="line">        totals = len(s)</span><br><span class="line">        occurs = [<span class="number">0</span>]*totals</span><br><span class="line">        indexs = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> idx <span class="keyword">in</span> range(totals-<span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">            c = s[idx]</span><br><span class="line">            <span class="keyword">if</span> c <span class="keyword">in</span> uniques:</span><br><span class="line">                occurs[idx] = size-<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                indexs[c] = idx</span><br><span class="line">                occurs[idx] = size</span><br><span class="line">                uniques.add(c)</span><br><span class="line">                size += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        beg, k = <span class="number">0</span>, size-<span class="number">1</span></span><br><span class="line">        rst = []</span><br><span class="line">        choosen = set()</span><br><span class="line">        <span class="keyword">while</span> k &gt; -<span class="number">1</span>:</span><br><span class="line">            tmp = <span class="string">'z'</span></span><br><span class="line">            <span class="keyword">for</span> idx <span class="keyword">in</span> range(beg, totals):</span><br><span class="line">                <span class="keyword">if</span> occurs[idx] &gt;= k:</span><br><span class="line">                    <span class="keyword">if</span> s[idx] &lt; tmp <span class="keyword">and</span> s[idx] <span class="keyword">not</span> <span class="keyword">in</span> choosen:</span><br><span class="line">                        beg = idx</span><br><span class="line">                        tmp = s[idx]</span><br><span class="line">                        </span><br><span class="line">            rst.append(tmp)</span><br><span class="line">            choosen.add(tmp)</span><br><span class="line">            k -= <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">            end = indexs[tmp]</span><br><span class="line">            <span class="keyword">for</span> idx <span class="keyword">in</span> range(beg+<span class="number">1</span>, end):</span><br><span class="line">                occurs[idx] -= <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="string">""</span>.join(rst)</span><br></pre></td></tr></table></figure></p>
+<p><strong>后记</strong><br>这个问题尝试了3种不同的思路，搞了2个晚上，总共提交了8次才成功，而且才击败了百分之四十几的人，真是拖了后腿了。。。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -103,7 +111,7 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/前端/">前端</a>
+  <a class="article-category-link" href="/categories/算法/">算法</a>
 </div>
 
 
@@ -113,7 +121,7 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/06/17/javascript传递默认参数/" data-title="javascript传递默认参数 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/12/15/LeetCode之Remove Duplicate Letters/" data-title="LeetCode之Remove Duplicate Letters | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -126,19 +134,11 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/06/20/python中的抽象类与接口/" title="python中的抽象类与接口">
-  <strong>上一篇：</strong><br/>
-  <span>
-  python中的抽象类与接口</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/06/17/MediaQueries实现CSS动态调整/"  title="MediaQueries实现CSS动态调整">
+<a href="/2015/12/13/运行APUE程序/"  title="运行APUE程序">
  <strong>下一篇：</strong><br/> 
- <span>MediaQueries实现CSS动态调整
+ <span>运行APUE程序
 </span>
 </a>
 </div>

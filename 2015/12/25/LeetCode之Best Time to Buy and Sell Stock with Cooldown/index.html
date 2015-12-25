@@ -1,0 +1,492 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>LeetCode之Best Time to Buy and Sell Stock with Cooldown | ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="问题：
+
+Say you have an array for which the ith element is the price of a given stock on day i.
+
+Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode之Best Time to Buy and Sell Stock with Cooldown">
+<meta property="og:url" content="http://1988zxh.com/2015/12/25/LeetCode之Best Time to Buy and Sell Stock with Cooldown/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="问题：
+
+Say you have an array for which the ith element is the price of a given stock on day i.
+
+Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy">
+<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/ttt.png">
+<meta property="og:updated_time" content="2015-12-25T03:02:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LeetCode之Best Time to Buy and Sell Stock with Cooldown">
+<meta name="twitter:description" content="问题：
+
+Say you have an array for which the ith element is the price of a given stock on day i.
+
+Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">芝兰生于深林 不以无人而不芳</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<span style="width:50px;display:inline-block;"></span>
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/25/LeetCode之Best Time to Buy and Sell Stock with Cooldown/" title="LeetCode之Best Time to Buy and Sell Stock with Cooldown" itemprop="url">LeetCode之Best Time to Buy and Sell Stock with Cooldown</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-12-25</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<p><strong>问题</strong>：</p>
+<blockquote>
+<p>Say you have an array for which the ith element is the price of a given stock on day i.</p>
+</blockquote>
+<p>Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy one and sell one share of the stock multiple times) with the following restrictions:<br>1、You may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).<br>2、After you sell your stock, you cannot buy stock on next day. (ie, cooldown 1 day)<br><strong>Example:</strong></p>
+<blockquote>
+<p>prices = [1, 2, 3, 0, 2]<br>maxProfit = 3<br>transactions = [buy, sell, cooldown, buy, sell]</p>
+</blockquote>
+<p><strong>思路</strong>：<br>需要<code>冷静</code>的只有一种情况，即<code>连续4天出现涨-跌-涨的走势</code>，如下图这类模式：<br><img src="http://7xktxu.com1.z0.glb.clouddn.com/ttt.png" alt=""><br>假如只有这4天的话，第1天买了之后，接下来需要冷静的想一想，是在第2天卖还是第4天卖。在左图，第4天高于第2天，所以肯定在第4天卖，右图相反，第2天卖。但如果不只这4天的话，图中的第1天能不能买，还要看在它的前一天有没有发生交易(卖)。</p>
+<p>更一般的情况，问题可以简化为：<strong>连续4天出现涨-跌-涨的走势中的第3天是否应该买入？</strong></p>
+<p>如果第2天没有发生交易，那第3天肯定可以买，如果第2天发生交易了，此时需要分情况讨论：<br>1、第2天的股价高于第4天，那第3天就不用了买了；<br>2、第2天的股价低于第4天，那第2天发生的交易肯定可以放到第4天交易。此时还需要考虑：买入当天的最高收益是否是通过出售股票获得的？如果买入当天出售股票了，那今天的收益就是买入当天的收益加上，今天与买入当天的股票差价，如果买入当天没有出售股票，还需要看买入当天的前一天有没有发生交易，如果没有，可以加上当天的最大收益，否则需要加上买入当天前天的最大收益。</p>
+<p>//股票一直涨，不需要冷静，买！买！买！<br>max_profit(x) = max_profit(x-1) + prices[x] - prices[x-1]</p>
+<p>//股票跌了，不需要冷静，不能买<br>max_profit(x) = max_profit(x-1)</p>
+<p>//出现涨跌涨，前天没有发生交易(卖)<br>max_profit(x) = max_profit(x-2) + prices[x] - prices[x-1]</p>
+<p>//出现涨跌涨，前天发生交易(卖)，且买入当天也发生了交易(卖)<br>max_profit(x) = max_profit(buy) + prices[x] - prices[buy]</p>
+<p>//出现涨跌涨，前天发生交易(卖)，且买入当天及买入当天的前天都没有发生交易<br>max_profit(x) = max_profit(buy) + prices[x] - prices[buy]</p>
+<p>//出现涨跌涨，前天发生交易(卖)，且买入当天发生交易(卖)<br>max_profit(x) = max_profit(buy-2) + prices[x] - prices[buy]</p>
+<p>根据以上的讨论，我们需要记录3个信息：1、截至当天可以获得的最大收益；2、当天是否出售股票；3、如果当天出售股票了，股票是哪一天买入的。</p>
+<p><strong>代码如下：</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">            </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span><span class="params">(self, prices)</span>:</span></span><br><span class="line">        <span class="string">"""</span><br><span class="line">        :type prices: List[int]</span><br><span class="line">        :rtype: int</span><br><span class="line">        """</span></span><br><span class="line">        size = len(prices)</span><br><span class="line">        <span class="keyword">if</span> size &lt; <span class="number">4</span>:</span><br><span class="line">            pts, idx = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> idx &lt; size:</span><br><span class="line">                <span class="keyword">if</span> prices[idx] &gt; prices[idx-<span class="number">1</span>]:</span><br><span class="line">                    pts += prices[idx] - prices[idx-<span class="number">1</span>]</span><br><span class="line">                idx += <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> pts</span><br><span class="line">               </span><br><span class="line">        pts = [[<span class="number">0</span>,-<span class="number">1</span>,<span class="number">0</span>]]*size</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> prices[<span class="number">1</span>] &gt; prices[<span class="number">0</span>]:</span><br><span class="line">            pts[<span class="number">1</span>] = [prices[<span class="number">1</span>] - prices[<span class="number">0</span>], <span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> prices[<span class="number">2</span>] &lt;= prices[<span class="number">1</span>]:</span><br><span class="line">            pts[<span class="number">2</span>] = [pts[<span class="number">1</span>][<span class="number">0</span>], pts[<span class="number">1</span>][<span class="number">1</span>], <span class="number">0</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            pts[<span class="number">2</span>] = [prices[<span class="number">2</span>]-prices[<span class="number">1</span>]+pts[<span class="number">1</span>][<span class="number">0</span>], <span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line">        </span><br><span class="line">        idx = <span class="number">3</span></span><br><span class="line">        <span class="keyword">while</span> idx &lt; size:</span><br><span class="line">            pr = prices[idx]</span><br><span class="line">            <span class="keyword">if</span> pr &lt;= prices[idx-<span class="number">1</span>]:</span><br><span class="line">                pts[idx] = [pts[idx-<span class="number">1</span>][<span class="number">0</span>], pts[idx-<span class="number">1</span>][<span class="number">1</span>], <span class="number">0</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> prices[idx-<span class="number">1</span>] &lt; prices[idx-<span class="number">2</span>] <span class="keyword">and</span> prices[idx-<span class="number">2</span>] &gt; prices[idx-<span class="number">3</span>]:</span><br><span class="line">                    <span class="keyword">if</span> pts[idx-<span class="number">2</span>][<span class="number">2</span>] == <span class="number">0</span>:</span><br><span class="line">                        pts[idx] = [pts[idx-<span class="number">2</span>][<span class="number">0</span>]+pr-prices[idx-<span class="number">1</span>], idx-<span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        pt1 = [pts[idx-<span class="number">3</span>][<span class="number">0</span>] + pr - prices[idx-<span class="number">1</span>], idx-<span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line">                        </span><br><span class="line">                        <span class="keyword">if</span> prices[idx] &lt;= prices[idx-<span class="number">2</span>]:</span><br><span class="line">                            pt2 = [pts[idx-<span class="number">2</span>][<span class="number">0</span>], pts[idx-<span class="number">2</span>][<span class="number">1</span>], <span class="number">0</span>]</span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            buy = pts[idx-<span class="number">2</span>][<span class="number">1</span>]</span><br><span class="line">                            pt2 = [pr - prices[buy], buy, <span class="number">1</span>]</span><br><span class="line">                            </span><br><span class="line">                            <span class="keyword">if</span> pts[buy][<span class="number">2</span>] &gt; <span class="number">0</span>:</span><br><span class="line">                                pt2[<span class="number">0</span>] += pts[buy][<span class="number">0</span>]</span><br><span class="line">                                </span><br><span class="line">                            <span class="keyword">elif</span> buy &gt; <span class="number">1</span> <span class="keyword">and</span> pts[buy-<span class="number">1</span>][<span class="number">2</span>] == <span class="number">0</span>:</span><br><span class="line">                                pt2[<span class="number">0</span>] += pts[buy][<span class="number">0</span>]</span><br><span class="line">                            </span><br><span class="line">                            <span class="keyword">elif</span> buy &gt; <span class="number">2</span>:</span><br><span class="line">                                pt2[<span class="number">0</span>] += pts[buy-<span class="number">2</span>][<span class="number">0</span>]</span><br><span class="line">                            </span><br><span class="line">                        <span class="keyword">if</span> pt1[<span class="number">0</span>] &gt; pt2[<span class="number">0</span>]:</span><br><span class="line">                            pts[idx] = pt1</span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            pts[idx] = pt2</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    pts[idx] = [pts[idx-<span class="number">1</span>][<span class="number">0</span>]+pr-prices[idx-<span class="number">1</span>], idx-<span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line">            idx += <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> pts[-<span class="number">1</span>][<span class="number">0</span>]</span><br></pre></td></tr></table></figure></p>
+<p>几个比较特殊的测试用例：</p>
+<blockquote>
+<p>1、13, 92, 3, 8, 60, 52, 64, 8, 87, 77, 96, 70, 61<br>结果：219<br>2、70, 4, 83, 56, 94, 72, 78, 43, 2, 86, 65, 100<br>结果：188<br>3、0,58,15,21,7,11,41,12,96,83,77,47,62<br>结果：162<br>4、1,99,8,68,14,84<br>结果：168<br>5、1,3,5,4,3,7,6,9,2,4<br>结果：10</p>
+</blockquote>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/python/">python</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://1988zxh.com/2015/12/25/LeetCode之Best Time to Buy and Sell Stock with Cooldown/" data-title="LeetCode之Best Time to Buy and Sell Stock with Cooldown | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/12/19/不同文件大小对读取速率的影响/"  title="不同文件大小对读取速率的影响">
+ <strong>下一篇：</strong><br/> 
+ <span>不同文件大小对读取速率的影响
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/openlayers/" title="openlayers">openlayers<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>31</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/装饰器/" title="装饰器">装饰器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','vFmYG2ZLAiTvJ8vyggQN','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -15,7 +15,6 @@
     <meta name="description" content="问题：
 
 Say you have an array for which the ith element is the price of a given stock on day i.
-
 Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode之Best Time to Buy and Sell Stock with Cooldown">
@@ -24,16 +23,14 @@ Design an algorithm to find the maximum profit. You may complete as many transac
 <meta property="og:description" content="问题：
 
 Say you have an array for which the ith element is the price of a given stock on day i.
-
 Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy">
 <meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/ttt.png">
-<meta property="og:updated_time" content="2015-12-25T03:02:09.000Z">
+<meta property="og:updated_time" content="2015-12-25T03:08:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode之Best Time to Buy and Sell Stock with Cooldown">
 <meta name="twitter:description" content="问题：
 
 Say you have an array for which the ith element is the price of a given stock on day i.
-
 Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy">
 
     
@@ -105,15 +102,13 @@ Design an algorithm to find the maximum profit. You may complete as many transac
 		<p><strong>问题</strong>：</p>
 <blockquote>
 <p>Say you have an array for which the ith element is the price of a given stock on day i.</p>
-</blockquote>
-<p>Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy one and sell one share of the stock multiple times) with the following restrictions:<br>1、You may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).<br>2、After you sell your stock, you cannot buy stock on next day. (ie, cooldown 1 day)<br><strong>Example:</strong></p>
-<blockquote>
-<p>prices = [1, 2, 3, 0, 2]<br>maxProfit = 3<br>transactions = [buy, sell, cooldown, buy, sell]</p>
+<p>Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy one and sell one share of the stock multiple times) with the following restrictions:<br>1、You may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).<br>2、After you sell your stock, you cannot buy stock on next day. (ie, cooldown 1 day)</p>
+<p><strong>Example:</strong><br>prices = [1, 2, 3, 0, 2]<br>maxProfit = 3<br>transactions = [buy, sell, cooldown, buy, sell]</p>
 </blockquote>
 <p><strong>思路</strong>：<br>需要<code>冷静</code>的只有一种情况，即<code>连续4天出现涨-跌-涨的走势</code>，如下图这类模式：<br><img src="http://7xktxu.com1.z0.glb.clouddn.com/ttt.png" alt=""><br>假如只有这4天的话，第1天买了之后，接下来需要冷静的想一想，是在第2天卖还是第4天卖。在左图，第4天高于第2天，所以肯定在第4天卖，右图相反，第2天卖。但如果不只这4天的话，图中的第1天能不能买，还要看在它的前一天有没有发生交易(卖)。</p>
 <p>更一般的情况，问题可以简化为：<strong>连续4天出现涨-跌-涨的走势中的第3天是否应该买入？</strong></p>
 <p>如果第2天没有发生交易，那第3天肯定可以买，如果第2天发生交易了，此时需要分情况讨论：<br>1、第2天的股价高于第4天，那第3天就不用了买了；<br>2、第2天的股价低于第4天，那第2天发生的交易肯定可以放到第4天交易。此时还需要考虑：买入当天的最高收益是否是通过出售股票获得的？如果买入当天出售股票了，那今天的收益就是买入当天的收益加上，今天与买入当天的股票差价，如果买入当天没有出售股票，还需要看买入当天的前一天有没有发生交易，如果没有，可以加上当天的最大收益，否则需要加上买入当天前天的最大收益。</p>
-<p>//股票一直涨，不需要冷静，买！买！买！<br>max_profit(x) = max_profit(x-1) + prices[x] - prices[x-1]</p>
+<p><strong>分情况的递推公式如下：</strong><br>//股票一直涨，不需要冷静，买！买！买！<br>max_profit(x) = max_profit(x-1) + prices[x] - prices[x-1]</p>
 <p>//股票跌了，不需要冷静，不能买<br>max_profit(x) = max_profit(x-1)</p>
 <p>//出现涨跌涨，前天没有发生交易(卖)<br>max_profit(x) = max_profit(x-2) + prices[x] - prices[x-1]</p>
 <p>//出现涨跌涨，前天发生交易(卖)，且买入当天也发生了交易(卖)<br>max_profit(x) = max_profit(buy) + prices[x] - prices[buy]</p>

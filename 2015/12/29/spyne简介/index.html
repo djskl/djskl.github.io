@@ -16,8 +16,9 @@
 
 This project is discontinued. Please head over to github.com/arskom/spyne for the next version.
 
-上述中的This project指的就是soaplib。spyne是面向python的完整的分布式开发工具包。其中有几个比较基本的概念：
-Proto">
+上述中的This project指的就是soaplib。spyne是面向python的完整的分布式开发工具包。
+下面介绍几个比较基本的概念：
+Pro">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spyne简介">
 <meta property="og:url" content="http://1988zxh.com/2015/12/29/spyne简介/index.html">
@@ -26,17 +27,19 @@ Proto">
 
 This project is discontinued. Please head over to github.com/arskom/spyne for the next version.
 
-上述中的This project指的就是soaplib。spyne是面向python的完整的分布式开发工具包。其中有几个比较基本的概念：
-Proto">
-<meta property="og:updated_time" content="2015-12-30T13:41:25.000Z">
+上述中的This project指的就是soaplib。spyne是面向python的完整的分布式开发工具包。
+下面介绍几个比较基本的概念：
+Pro">
+<meta property="og:updated_time" content="2015-12-30T13:48:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spyne简介">
 <meta name="twitter:description" content="spyne是soaplib的一个泛化版本，作者原话是：
 
 This project is discontinued. Please head over to github.com/arskom/spyne for the next version.
 
-上述中的This project指的就是soaplib。spyne是面向python的完整的分布式开发工具包。其中有几个比较基本的概念：
-Proto">
+上述中的This project指的就是soaplib。spyne是面向python的完整的分布式开发工具包。
+下面介绍几个比较基本的概念：
+Pro">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -108,13 +111,15 @@ Proto">
 <blockquote>
 <p>This project is discontinued. Please head over to github.com/arskom/spyne for the next version.</p>
 </blockquote>
-<p>上述中的<strong>This project</strong>指的就是soaplib。spyne是面向python的完整的分布式开发工具包。其中有几个比较基本的概念：</p>
-<p><strong>Protocols</strong>：定义的是数据的传输规则，比如soap协议(<a href="http://spyne.io/docs/2.9/reference/protocol/soap.html#spyne.protocol.soap.soap11.Soap11" target="_blank" rel="external">spyne.protocol.soap.soap11.Soap11</a>)，数据以XML的形式传输。在spyne中，所有的协议都是<a href="http://spyne.io/docs/2.9/reference/protocol/base.html#spyne.protocol._base.ProtocolBase" target="_blank" rel="external">spyne.protocol._base.ProtocolBase</a>的子类。</p>
-<p><strong>Transports</strong>：封装protol数据，比如soap数据会借助http来传输。</p>
-<p><strong>Models</strong>:定义数据类型规范，比如<code>Unicode</code>, <code>Integer</code>, <code>ByteArray</code>。</p>
-<p><strong>Decorators</strong>:<code>@rpc</code>与<code>@srpc</code>可以将用户所写的代码标记为服务接口。</p>
+<p>上述中的<strong>This project</strong>指的就是soaplib。spyne是面向python的完整的分布式开发工具包。</p>
+<p>下面介绍几个比较基本的概念：</p>
+<p><strong>Protocols</strong>：数据的传输规则，比如soap协议(<a href="http://spyne.io/docs/2.9/reference/protocol/soap.html#spyne.protocol.soap.soap11.Soap11" target="_blank" rel="external">spyne.protocol.soap.soap11.Soap11</a>)，数据以XML的形式传输。在spyne中，所有的协议都是<a href="http://spyne.io/docs/2.9/reference/protocol/base.html#spyne.protocol._base.ProtocolBase" target="_blank" rel="external">spyne.protocol._base.ProtocolBase</a>的子类。</p>
+<p><strong>Transports</strong>：封装Protocol数据，比如soap数据会借助http来传输。</p>
+<p><strong>Models</strong>：定义数据类型规范，比如<code>Unicode</code>, <code>Integer</code>, <code>ByteArray</code>。</p>
+<p><strong>Decorators</strong>：<code>@rpc</code>与<code>@srpc</code>可以将用户所写的代码标记为服务接口。</p>
 <p><strong>Service</strong>：是spyne中的最小单位，所有对外提供服务的接口函数都必须属于某个service(<a href="http://spyne.io/docs/2.9/reference/service.html#spyne.service.ServiceBase" target="_blank" rel="external">spyne.service.ServiceBase</a>的子类)</p>
 <p><strong>Application</strong>：将服务(service)和协议(protocl)绑在一块，形成完整的服务程序。</p>
+<p>构造整个程序的基本流程如下：</p>
 <blockquote>
 <p>Your code is inside @rpc-wrapped methods in ServiceBase subclasses. The ServiceBase subclasses in turn are wrapped by an Application instance. The Application instantiation is used to assign input and output protocols to the exposed methods. The Application instance is finally wrapped by a client or server transport that takes the responsibility of moving the bits around.</p>
 <p>你的代码需要写在ServiceBase的子类中，且通过装饰器@rpc修饰为对外服务接口，ServiceBase的子类需要进一步被Application封装，Application可以为服务接口的输入/输出数据指定数据传输协议。最后Appliation会被Transport进一步封装，由Transport来具体传输底层的字节流数据。</p>

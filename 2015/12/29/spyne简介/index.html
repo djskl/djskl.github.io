@@ -5,26 +5,38 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>运行APUE程序 | ideas into codes</title>
+    <title>spyne简介 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="APUE(Advanced Programming in the UNIX Environment)的作者提供了一个静态库，里面封装了一些好用的api。下面介绍以下如何在eclipse下使用这个库。
-1、下载源代码并编译生成静态库下载地址：http://www.apuebook.com/src.3e.tar.gz下载之后解压，会在当前文件夹下看到一个README文件，里面介绍了如何编译生成这个库，">
+    <meta name="description" content="spyne是soaplib的一个泛化版本，作者原话是：
+
+This project is discontinued. Please head over to github.com/arskom/spyne for the next version.
+
+上述中的This project指的就是soaplib。spyne是面向python的完整的分布式开发工具包。其中有几个比较基本的概念：
+Proto">
 <meta property="og:type" content="article">
-<meta property="og:title" content="运行APUE程序">
-<meta property="og:url" content="http://1988zxh.com/2015/12/13/运行APUE程序/index.html">
+<meta property="og:title" content="spyne简介">
+<meta property="og:url" content="http://1988zxh.com/2015/12/29/spyne简介/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="APUE(Advanced Programming in the UNIX Environment)的作者提供了一个静态库，里面封装了一些好用的api。下面介绍以下如何在eclipse下使用这个库。
-1、下载源代码并编译生成静态库下载地址：http://www.apuebook.com/src.3e.tar.gz下载之后解压，会在当前文件夹下看到一个README文件，里面介绍了如何编译生成这个库，">
-<meta property="og:updated_time" content="2015-12-13T03:56:30.000Z">
+<meta property="og:description" content="spyne是soaplib的一个泛化版本，作者原话是：
+
+This project is discontinued. Please head over to github.com/arskom/spyne for the next version.
+
+上述中的This project指的就是soaplib。spyne是面向python的完整的分布式开发工具包。其中有几个比较基本的概念：
+Proto">
+<meta property="og:updated_time" content="2015-12-30T13:41:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="运行APUE程序">
-<meta name="twitter:description" content="APUE(Advanced Programming in the UNIX Environment)的作者提供了一个静态库，里面封装了一些好用的api。下面介绍以下如何在eclipse下使用这个库。
-1、下载源代码并编译生成静态库下载地址：http://www.apuebook.com/src.3e.tar.gz下载之后解压，会在当前文件夹下看到一个README文件，里面介绍了如何编译生成这个库，">
+<meta name="twitter:title" content="spyne简介">
+<meta name="twitter:description" content="spyne是soaplib的一个泛化版本，作者原话是：
+
+This project is discontinued. Please head over to github.com/arskom/spyne for the next version.
+
+上述中的This project指的就是soaplib。spyne是面向python的完整的分布式开发工具包。其中有几个比较基本的概念：
+Proto">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -79,23 +91,43 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/12/13/运行APUE程序/" title="运行APUE程序" itemprop="url">运行APUE程序</a>
+      <a href="/2015/12/29/spyne简介/" title="spyne简介" itemprop="url">spyne简介</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-12-12T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-12-13</time>
+    <time datetime="2015-12-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-12-29</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>APUE(Advanced Programming in the UNIX Environment)的作者提供了一个静态库，里面封装了一些好用的api。下面介绍以下如何在eclipse下使用这个库。</p>
-<p><strong>1、下载源代码并编译生成静态库</strong><br>下载地址：<a href="http://www.apuebook.com/src.3e.tar.gz" target="_blank" rel="external">http://www.apuebook.com/src.3e.tar.gz</a><br>下载之后解压，会在当前文件夹下看到一个<code>README</code>文件，里面介绍了如何编译生成这个库，一般在当前文件夹下运行<code>make</code>命令就可以了。之后在文件夹<code>lib</code>下就可以静态库<code>libapue.a</code>了。</p>
-<p><strong>2、加载</strong><br>右键C/C++工程，<code>Properties</code> &gt;&gt; <code>C/C++ Build</code> &gt;&gt; <code>Settings</code> &gt;&gt; <code>Cross GCC Linker</code> &gt;&gt; <code>Miscellaneous</code> &gt;&gt; <code>Other objects</code>。点击旁边带绿色加号的图标，通过<code>File System</code>在弹出的文件选择对话框里选择<code>libapue.a</code>即可。</p>
-<p><strong>3、示例</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">"apue.h"</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">	err_sys(<span class="string">"hello, world"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//输出：hello, world: Success</span></span><br></pre></td></tr></table></figure></p>
+		<p><a href="https://github.com/arskom/spyne" target="_blank" rel="external">spyne</a>是<a href="https://github.com/soaplib/soaplib" target="_blank" rel="external">soaplib</a>的一个泛化版本，作者原话是：</p>
+<blockquote>
+<p>This project is discontinued. Please head over to github.com/arskom/spyne for the next version.</p>
+</blockquote>
+<p>上述中的<strong>This project</strong>指的就是soaplib。spyne是面向python的完整的分布式开发工具包。其中有几个比较基本的概念：</p>
+<p><strong>Protocols</strong>：定义的是数据的传输规则，比如soap协议(<a href="http://spyne.io/docs/2.9/reference/protocol/soap.html#spyne.protocol.soap.soap11.Soap11" target="_blank" rel="external">spyne.protocol.soap.soap11.Soap11</a>)，数据以XML的形式传输。在spyne中，所有的协议都是<a href="http://spyne.io/docs/2.9/reference/protocol/base.html#spyne.protocol._base.ProtocolBase" target="_blank" rel="external">spyne.protocol._base.ProtocolBase</a>的子类。</p>
+<p><strong>Transports</strong>：封装protol数据，比如soap数据会借助http来传输。</p>
+<p><strong>Models</strong>:定义数据类型规范，比如<code>Unicode</code>, <code>Integer</code>, <code>ByteArray</code>。</p>
+<p><strong>Decorators</strong>:<code>@rpc</code>与<code>@srpc</code>可以将用户所写的代码标记为服务接口。</p>
+<p><strong>Service</strong>：是spyne中的最小单位，所有对外提供服务的接口函数都必须属于某个service(<a href="http://spyne.io/docs/2.9/reference/service.html#spyne.service.ServiceBase" target="_blank" rel="external">spyne.service.ServiceBase</a>的子类)</p>
+<p><strong>Application</strong>：将服务(service)和协议(protocl)绑在一块，形成完整的服务程序。</p>
+<blockquote>
+<p>Your code is inside @rpc-wrapped methods in ServiceBase subclasses. The ServiceBase subclasses in turn are wrapped by an Application instance. The Application instantiation is used to assign input and output protocols to the exposed methods. The Application instance is finally wrapped by a client or server transport that takes the responsibility of moving the bits around.</p>
+<p>你的代码需要写在ServiceBase的子类中，且通过装饰器@rpc修饰为对外服务接口，ServiceBase的子类需要进一步被Application封装，Application可以为服务接口的输入/输出数据指定数据传输协议。最后Appliation会被Transport进一步封装，由Transport来具体传输底层的字节流数据。</p>
+</blockquote>
+<p>下面是入门的<code>hello,world</code>例子：</p>
+<blockquote>
+<p>基于Django，且输入/输出协议都是soap1.1</p>
+</blockquote>
+<p><strong>myservice/views.py</strong>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> spyne.application <span class="keyword">import</span> Application</span><br><span class="line"><span class="keyword">from</span> spyne.decorator <span class="keyword">import</span> srpc</span><br><span class="line"><span class="keyword">from</span> spyne.protocol.soap <span class="keyword">import</span> Soap11</span><br><span class="line"><span class="keyword">from</span> spyne.service <span class="keyword">import</span> ServiceBase</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> spyne.model.complex <span class="keyword">import</span> Iterable</span><br><span class="line"><span class="keyword">from</span> spyne.model.primitive <span class="keyword">import</span> Integer, Unicode</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.views.decorators.csrf <span class="keyword">import</span> csrf_exempt</span><br><span class="line"><span class="keyword">from</span> spyne.server.django <span class="keyword">import</span> DjangoApplication</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorldService</span><span class="params">(ServiceBase)</span>:</span></span><br><span class="line"><span class="decorator">    @srpc(Unicode, Integer, _returns=Iterable(Unicode))</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">say_hello</span><span class="params">(name, times)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(times):</span><br><span class="line">            <span class="keyword">yield</span> <span class="string">'Hello, %s'</span> % name</span><br><span class="line"></span><br><span class="line">application = Application([HelloWorldService],</span><br><span class="line">    tns=<span class="string">'spyne.examples.hello'</span>,</span><br><span class="line">    in_protocol=Soap11(validator=<span class="string">'lxml'</span>),</span><br><span class="line">    out_protocol=Soap11()</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">hello_app = csrf_exempt(DjangoApplication(application))</span><br></pre></td></tr></table></figure></p>
+<p><strong>url配置</strong>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">urlpatterns += patterns(<span class="string">'myservice.views'</span>, url(<span class="string">r'^ws$'</span>, <span class="string">'hello_app'</span>))</span><br></pre></td></tr></table></figure></p>
+<p>最后别忘了将<code>myservice</code>放在<code>INSTALLED_APPS</code>中。</p>
+<p><strong>客户端测试代码</strong><br>启动Django服务器，在通过浏览器访问<a href="http://127.0.0.1:8000/ws?wsdl" target="_blank" rel="external">http://127.0.0.1:8000/ws?wsdl</a>，如果没报错，会看到当前webservice的wsdl接口描述文档(xml)。<br>下面再借助<a href="https://pypi.python.org/pypi/suds" target="_blank" rel="external">suds</a>访问一下我们的<code>say_hello</code>接口：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">from</span> suds.client <span class="keyword">import</span> Client</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>hello_client = Client(<span class="string">'http://localhost:8000/ws?wsdl'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">print</span> hello_client.service.say_hello(<span class="string">"Dave"</span>, <span class="number">5</span>)</span><br><span class="line">(stringArray)&#123;</span><br><span class="line">   string[] = </span><br><span class="line">      <span class="string">"Hello, Dave"</span>,</span><br><span class="line">      <span class="string">"Hello, Dave"</span>,</span><br><span class="line">      <span class="string">"Hello, Dave"</span>,</span><br><span class="line">      <span class="string">"Hello, Dave"</span>,</span><br><span class="line">      <span class="string">"Hello, Dave"</span>,</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>参考</strong>：<a href="http://spyne.io/docs/2.9/manual/index.html#spyne-manual" target="_blank" rel="external">Spyne Manual</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -103,7 +135,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/linux-c/">linux/c</a>
+  <a class="article-category-link" href="/categories/框架/">框架</a>
 </div>
 
 
@@ -113,7 +145,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/12/13/运行APUE程序/" data-title="运行APUE程序 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/12/29/spyne简介/" data-title="spyne简介 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -126,19 +158,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/12/15/地图上鼠标悬停及Feature选择的实现/" title="地图上鼠标单击及悬浮事件实现">
-  <strong>上一篇：</strong><br/>
-  <span>
-  地图上鼠标单击及悬浮事件实现</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/12/13/线段树及其应用/"  title="线段树及其应用">
+<a href="/2015/12/25/LeetCode之Best Time to Buy and Sell Stock with Cooldown/"  title="LeetCode之Best Time to Buy and Sell Stock with Cooldown">
  <strong>下一篇：</strong><br/> 
- <span>线段树及其应用
+ <span>LeetCode之Best Time to Buy and Sell Stock with Cooldown
 </span>
 </a>
 </div>

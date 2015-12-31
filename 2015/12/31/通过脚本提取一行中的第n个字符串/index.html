@@ -5,43 +5,29 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>awk处理空格分隔符 | ideas into codes</title>
+    <title>通过脚本提取一行中的第n个字符串 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="例1
-awk默认的分割符为空格，此时行首的空格可以自动忽略，但当显式标明空格为分割符或为分割符号之一时，行首的空格就不能被忽略了。针对以上问题可以考虑使用一下代码：1awk -F &amp;#39;|&amp;#39; &amp;#39;&amp;#123;gsub(/\s*/,&amp;#34;&amp;#34;);print $1;&amp;#125;&amp;#39; input.txt
-此时输出结果为：
+    <meta name="description" content="问题：提取以下文本(/tmp/demo.txt)中的被双引号引起来的字符串
 
-111112113114115116
-
-关于g">
+“0” : [ “未执行”, “正在等待系统处理” ],“1” : [ “收集中”, “系统正在收集数据” ],“2” : [ “成功”,   “任务成功，用户可以下载数据” ],“10”: [ “解析中”, “解析订单中，等待响应中” ],“11”: [ “待收集”, “订单解析完成，等待系统收集数据”],“-1”:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="awk处理空格分隔符">
-<meta property="og:url" content="http://1988zxh.com/2015/03/18/awk处理空格分隔符/index.html">
+<meta property="og:title" content="通过脚本提取一行中的第n个字符串">
+<meta property="og:url" content="http://1988zxh.com/2015/12/31/通过脚本提取一行中的第n个字符串/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="例1
-awk默认的分割符为空格，此时行首的空格可以自动忽略，但当显式标明空格为分割符或为分割符号之一时，行首的空格就不能被忽略了。针对以上问题可以考虑使用一下代码：1awk -F &amp;#39;|&amp;#39; &amp;#39;&amp;#123;gsub(/\s*/,&amp;#34;&amp;#34;);print $1;&amp;#125;&amp;#39; input.txt
-此时输出结果为：
+<meta property="og:description" content="问题：提取以下文本(/tmp/demo.txt)中的被双引号引起来的字符串
 
-111112113114115116
-
-关于g">
-<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/awk_input.png">
-<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/awk_input_2.png">
-<meta property="og:updated_time" content="2015-09-10T12:48:40.000Z">
+“0” : [ “未执行”, “正在等待系统处理” ],“1” : [ “收集中”, “系统正在收集数据” ],“2” : [ “成功”,   “任务成功，用户可以下载数据” ],“10”: [ “解析中”, “解析订单中，等待响应中” ],“11”: [ “待收集”, “订单解析完成，等待系统收集数据”],“-1”:">
+<meta property="og:updated_time" content="2015-12-31T11:44:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="awk处理空格分隔符">
-<meta name="twitter:description" content="例1
-awk默认的分割符为空格，此时行首的空格可以自动忽略，但当显式标明空格为分割符或为分割符号之一时，行首的空格就不能被忽略了。针对以上问题可以考虑使用一下代码：1awk -F &amp;#39;|&amp;#39; &amp;#39;&amp;#123;gsub(/\s*/,&amp;#34;&amp;#34;);print $1;&amp;#125;&amp;#39; input.txt
-此时输出结果为：
+<meta name="twitter:title" content="通过脚本提取一行中的第n个字符串">
+<meta name="twitter:description" content="问题：提取以下文本(/tmp/demo.txt)中的被双引号引起来的字符串
 
-111112113114115116
-
-关于g">
+“0” : [ “未执行”, “正在等待系统处理” ],“1” : [ “收集中”, “系统正在收集数据” ],“2” : [ “成功”,   “任务成功，用户可以下载数据” ],“10”: [ “解析中”, “解析订单中，等待响应中” ],“11”: [ “待收集”, “订单解析完成，等待系统收集数据”],“-1”:">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -96,31 +82,38 @@ awk默认的分割符为空格，此时行首的空格可以自动忽略，但�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/03/18/awk处理空格分隔符/" title="awk处理空格分隔符" itemprop="url">awk处理空格分隔符</a>
+      <a href="/2015/12/31/通过脚本提取一行中的第n个字符串/" title="通过脚本提取一行中的第n个字符串" itemprop="url">通过脚本提取一行中的第n个字符串</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-03-17T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-03-18</time>
+    <time datetime="2015-12-30T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-12-31</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p><strong>例1</strong><br><img src="http://7xktxu.com1.z0.glb.clouddn.com/awk_input.png" alt="第一列前面有一个空格，其他列用|与制表符分割"></p>
-<p>awk默认的分割符为空格，此时行首的空格可以自动忽略，但当显式标明空格为分割符或为分割符号之一时，行首的空格就不能被忽略了。针对以上问题可以考虑使用一下代码：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#39;|&#39; &#39;&#123;gsub(/\s*/,&#34;&#34;);print $1;&#125;&#39; input.txt</span><br></pre></td></tr></table></figure></p>
-<p>此时输出结果为：</p>
+		<p><strong>问题</strong>：<br>提取以下文本(/tmp/demo.txt)中的被双引号引起来的字符串</p>
 <blockquote>
-<p>111<br>112<br>113<br>114<br>115<br>116</p>
+<p>“0” : [ “未执行”, “正在等待系统处理” ],<br>“1” : [ “收集中”, “系统正在收集数据” ],<br>“2” : [ “成功”,   “任务成功，用户可以下载数据” ],<br>“10”: [ “解析中”, “解析订单中，等待响应中” ],<br>“11”: [ “待收集”, “订单解析完成，等待系统收集数据”],<br>“-1”: [ “无数据”, “抱歉，互联网上没有数据” ],<br>“-2”: [ “失败”,   “抱歉，未知原因导致失败” ],<br>“-3”: [ “错误”,   “抱歉，本地缓存数据丢失” ]</p>
 </blockquote>
-<p>关于gsub:</p>
+<p>如果用<strong>python</strong>的话易如反掌：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">import</span> re</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>f=open(<span class="string">'/tmp/demo.txt'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>[re.findall(<span class="string">r'(?&lt;=")[^"]*(?=")'</span>, line)[<span class="number">0</span>::<span class="number">2</span>] <span class="keyword">for</span> line <span class="keyword">in</span> f]</span><br></pre></td></tr></table></figure></p>
+<p>需要注意：<strong>是否使用<a href="http://www.regular-expressions.info/lookaround.html" target="_blank" rel="external">零宽断言</a>导致的匹配结果是不一样的</strong>。使用<a href="http://www.regular-expressions.info/lookaround.html" target="_blank" rel="external">零宽断言</a>时双引号只是参与了匹配并没有被提取，所以类似于<code>&quot;abc&quot;def&quot;hij&quot;</code>会被匹配成<code>abc, def, hij</code>，如果不使用的话，双引号也会被提取，匹配结果会变成<code>abc, hij</code>。</p>
+<p>如果用<strong>sed</strong>的话就有点麻烦了:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &#39;s/&#34;\([^&#34;]*\)&#34;[^&#34;]*&#34;\([^&#34;]*\)&#34;[^&#34;]*&#34;\([^&#34;]*\)&#34;.*/(\1) (\2) (\3)/g&#39; /tmp/demo.txt</span><br></pre></td></tr></table></figure></p>
+<p>sed不像python里的findall，它并<strong>不能直接提取某行中第n个符合某个规则的字符串</strong>。类似于以下代码是行不通的：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &#39;s/&#34;\([^&#34;]*\)&#34;/\2/g&#39; /tmp/demo.txt</span><br></pre></td></tr></table></figure></p>
+<p>其实，以上都是有点<strong>故意找事</strong>了，最简单的办法还是用双引号当作分隔符，然后间隔输出:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#34;\&#34;&#34; &#39;&#123;print $2, $4, $6&#125;&#39; /tmp/demo.txt</span><br></pre></td></tr></table></figure></p>
+<p>关于awk的用法，看到了一哥们的总结，非常好，摘抄如下：</p>
 <blockquote>
-<p>gsub(r, s [, t])<br>For  each substring matching the regular expression r in the string t, substitute the string s, and return the num‐<br>                               ber of substitutions.  If t is not supplied, use $0.  An &amp; in the replacement text is replaced with the  text  that<br>                               was  actually  matched.  Use \&amp; to get a literal &amp;.  (This must be typed as “\&amp;”; see GAWK: Effective AWK Program‐<br>                               ming for a fuller discussion of the rules for &amp;’s and backslashes in the replacement text  of  sub(),  gsub(),  and<br>                               gensub().)</p>
+<blockquote>
+<p>awk ‘{pattern + action}’ {filenames}</p>
 </blockquote>
-<p><strong>例2</strong><br><img src="http://7xktxu.com1.z0.glb.clouddn.com/awk_input_2.png" alt=""><br>以上文本是运行<code>ifconfig lo</code>得到的，通过awk命令得到<code>127.0.0.1</code>。<br>命令如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifocnfig lo | awk -F &#39;[ :]&#39; &#39;NR==2&#123;gsub(/^\s*/,&#34;&#34;);print $2&#125;&#39;</span><br></pre></td></tr></table></figure></p>
-<p>当文本的行首有空格或分隔符中包含空格的时候，与其想方设法的去匹配，不如直接删除然后再做操作。</p>
+<p>尽管操作可能会很复杂，但语法总是这样，其中 pattern 表示 AWK 在数据中查找的内容，而 action 是在找到匹配内容时所执行的一系列命令。花括号（{}）不需要在程序中始终出现，但它们用于根据特定的模式对一系列指令进行分组。 pattern就是要表示的正则表达式，用斜杠括起来。</p>
+<p>awk语言的最基本功能是在文件或者字符串中基于指定规则浏览和抽取信息，awk抽取信息后，才能进行其他文本操作。完整的awk脚本通常用来格式化文本文件中的信息。</p>
+<p>通常，awk是以文件的一行为处理单位的。awk每接收文件的一行，然后执行相应的命令，来处理文本。</p>
+</blockquote>
+<p>摘自：<a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html" target="_blank" rel="external">linux awk命令详解</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -132,18 +125,13 @@ awk默认的分割符为空格，此时行首的空格可以自动忽略，但�
 </div>
 
 
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/awk/">awk</a>
-  </div>
-
 </div>
 
 
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/03/18/awk处理空格分隔符/" data-title="awk处理空格分隔符 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2015/12/31/通过脚本提取一行中的第n个字符串/" data-title="通过脚本提取一行中的第n个字符串 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -156,19 +144,11 @@ awk默认的分割符为空格，此时行首的空格可以自动忽略，但�
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/03/27/文本倒置(sed)/" title="文本倒置(sed)">
-  <strong>上一篇：</strong><br/>
-  <span>
-  文本倒置(sed)</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/03/15/sed和awk输出偶数和奇数行/"  title="sed和awk输出奇偶数行">
+<a href="/2015/12/29/spyne简介/"  title="spyne简介">
  <strong>下一篇：</strong><br/> 
- <span>sed和awk输出奇偶数行
+ <span>spyne简介
 </span>
 </a>
 </div>

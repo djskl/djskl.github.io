@@ -22,7 +22,7 @@
 <meta property="og:description" content="问题：提取以下文本(/tmp/demo.txt)中的被双引号引起来的字符串
 
 “0” : [ “未执行”, “正在等待系统处理” ],“1” : [ “收集中”, “系统正在收集数据” ],“2” : [ “成功”,   “任务成功，用户可以下载数据” ],“10”: [ “解析中”, “解析订单中，等待响应中” ],“11”: [ “待收集”, “订单解析完成，等待系统收集数据”],“-1”:">
-<meta property="og:updated_time" content="2015-12-31T11:44:40.000Z">
+<meta property="og:updated_time" content="2015-12-31T11:48:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通过脚本提取一行中的第n个字符串">
 <meta name="twitter:description" content="问题：提取以下文本(/tmp/demo.txt)中的被双引号引起来的字符串
@@ -104,7 +104,7 @@
 <p>如果用<strong>sed</strong>的话就有点麻烦了:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &#39;s/&#34;\([^&#34;]*\)&#34;[^&#34;]*&#34;\([^&#34;]*\)&#34;[^&#34;]*&#34;\([^&#34;]*\)&#34;.*/(\1) (\2) (\3)/g&#39; /tmp/demo.txt</span><br></pre></td></tr></table></figure></p>
 <p>sed不像python里的findall，它并<strong>不能直接提取某行中第n个符合某个规则的字符串</strong>。类似于以下代码是行不通的：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &#39;s/&#34;\([^&#34;]*\)&#34;/\2/g&#39; /tmp/demo.txt</span><br></pre></td></tr></table></figure></p>
 <p>其实，以上都是有点<strong>故意找事</strong>了，最简单的办法还是用双引号当作分隔符，然后间隔输出:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#34;\&#34;&#34; &#39;&#123;print $2, $4, $6&#125;&#39; /tmp/demo.txt</span><br></pre></td></tr></table></figure></p>
-<p>关于awk的用法，看到了一哥们的总结，非常好，摘抄如下：</p>
+<p>关于awk的用法，看到了一哥们的总结，非常好，<a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html" target="_blank" rel="external">摘抄</a>如下：</p>
 <blockquote>
 <blockquote>
 <p>awk ‘{pattern + action}’ {filenames}</p>
@@ -113,7 +113,6 @@
 <p>awk语言的最基本功能是在文件或者字符串中基于指定规则浏览和抽取信息，awk抽取信息后，才能进行其他文本操作。完整的awk脚本通常用来格式化文本文件中的信息。</p>
 <p>通常，awk是以文件的一行为处理单位的。awk每接收文件的一行，然后执行相应的命令，来处理文本。</p>
 </blockquote>
-<p>摘自：<a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html" target="_blank" rel="external">linux awk命令详解</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">

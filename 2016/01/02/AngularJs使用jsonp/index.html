@@ -5,26 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>javascript传递默认参数 | ideas into codes</title>
+    <title>AngularJs使用jsonp | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#125;    ....&amp;#125;
-arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arg">
+    <meta name="description" content="今天学习AngularJs看到$http就顺带试了一下昨天看的jsonp，踩到了几个坑也学会了新的写法，现记录如下：12345678#Django代码from django.http.response import HttpResponseimport jsondef datas(request):    callback = request.REQUEST.get(&quot;callback&quot;)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="javascript传递默认参数">
-<meta property="og:url" content="http://1988zxh.com/2015/06/17/javascript传递默认参数/index.html">
+<meta property="og:title" content="AngularJs使用jsonp">
+<meta property="og:url" content="http://1988zxh.com/2016/01/02/AngularJs使用jsonp/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#125;    ....&amp;#125;
-arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arg">
-<meta property="og:updated_time" content="2015-09-10T12:29:25.000Z">
+<meta property="og:description" content="今天学习AngularJs看到$http就顺带试了一下昨天看的jsonp，踩到了几个坑也学会了新的写法，现记录如下：12345678#Django代码from django.http.response import HttpResponseimport jsondef datas(request):    callback = request.REQUEST.get(&quot;callback&quot;)">
+<meta property="og:updated_time" content="2016-01-02T13:38:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="javascript传递默认参数">
-<meta name="twitter:description" content="方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#125;    ....&amp;#125;
-arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arg">
+<meta name="twitter:title" content="AngularJs使用jsonp">
+<meta name="twitter:description" content="今天学习AngularJs看到$http就顺带试了一下昨天看的jsonp，踩到了几个坑也学会了新的写法，现记录如下：12345678#Django代码from django.http.response import HttpResponseimport jsondef datas(request):    callback = request.REQUEST.get(&quot;callback&quot;)">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -79,23 +76,22 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/06/17/javascript传递默认参数/" title="javascript传递默认参数" itemprop="url">javascript传递默认参数</a>
+      <a href="/2016/01/02/AngularJs使用jsonp/" title="AngularJs使用jsonp" itemprop="url">AngularJs使用jsonp</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-06-16T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-06-17</time>
+    <time datetime="2016-01-01T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-02</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>方式1：借助函数内置变量<code>arguments</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params">x, _def</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">arguments</span>[<span class="number">1</span>] == <span class="literal">undefined</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> _def = default_value;</span><br><span class="line">    &#125;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arguments类似数组但不是数组，支持下标访问，也有length属性，但没有push/pop这些方法。</p>
-<p>方式2：<code>typeof(x) == &quot;undefined&quot;</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params">x, _def</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span>(_def) == <span class="string">"undefined"</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> _def = default_value;</span><br><span class="line">    &#125;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这个比较简单直接一点，需要注意的是，不能直接<code>_def == undefined</code>，js和其他语言一样，不能操作未声明/定义的变量。</p>
+		<p>今天学习AngularJs看到$http就顺带试了一下昨天看的jsonp，踩到了几个坑也学会了新的写法，现记录如下：<br><figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">#Django代码</span><br><span class="line">from django.http.response import HttpResponse</span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">def datas(request):</span><br><span class="line">    callback = request.REQUEST.get("callback")</span><br><span class="line">    datas = json.dumps([&#123;"name": "zxh", "age": 28&#125;, &#123;"name": "lijie", "age": 18&#125;])</span><br><span class="line">    return HttpResponse("%s&amp;%s(%s);"%(callback, callback, datas), content_type="application/javascript")</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//AngularJs代码</span></span><br><span class="line"><span class="keyword">var</span> app = angular.module(<span class="string">'myApp'</span>, []);</span><br><span class="line">app.controller(<span class="string">'customersCtrl'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, $http</span>) </span>&#123;</span><br><span class="line">    $http(&#123;</span><br><span class="line">        url: <span class="string">"http://127.0.0.1:8000/datas?callback=JSON_CALLBACK"</span>,</span><br><span class="line">        method: <span class="string">"JSONP"</span>,</span><br><span class="line">    &#125;).success(<span class="function"><span class="keyword">function</span>(<span class="params">data, status</span>) </span>&#123;</span><br><span class="line">        $scope.datas = data;</span><br><span class="line">	&#125;).error(<span class="function"><span class="keyword">function</span>(<span class="params">data, status</span>)</span>&#123;</span><br><span class="line">	    alert(<span class="string">"fail"</span>);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>其中url后的参数<code>callback=JSON_CALLBACK</code>是<strong>必选项</strong>(<a href="http://docs.angularjs.cn/api/ng/service/\$http#jsonp" target="_blank" rel="external">The name of the callback should be the string JSON_CALLBACK</a>)。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -113,7 +109,7 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/06/17/javascript传递默认参数/" data-title="javascript传递默认参数 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/01/02/AngularJs使用jsonp/" data-title="AngularJs使用jsonp | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -126,19 +122,11 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/06/17/MediaQueries实现CSS动态调整/" title="MediaQueries实现CSS动态调整">
-  <strong>上一篇：</strong><br/>
-  <span>
-  MediaQueries实现CSS动态调整</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/06/15/Django中model字段的验证/"  title="Django中model字段的验证">
+<a href="/2016/01/02/AngularJs表单验证/"  title="AngularJs表单验证">
  <strong>下一篇：</strong><br/> 
- <span>Django中model字段的验证
+ <span>AngularJs表单验证
 </span>
 </a>
 </div>

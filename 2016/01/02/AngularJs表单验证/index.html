@@ -5,26 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>javascript传递默认参数 | ideas into codes</title>
+    <title>AngularJs表单验证 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#125;    ....&amp;#125;
-arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arg">
+    <meta name="description" content="今天看了一下AngularJs中的表单验证，不得不说，用起来还是有点不习惯，主要是没有选择器，相似的规则得逐个field添加，略麻烦。代码如下：1234567891011&amp;lt;div class=&quot;sign-up-wrapper&quot; ng-app&amp;gt;	&amp;lt;form name=&quot;signup_form&quot; novalidate&amp;gt;				&amp;lt;div class=&quot;form-group&quot;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="javascript传递默认参数">
-<meta property="og:url" content="http://1988zxh.com/2015/06/17/javascript传递默认参数/index.html">
+<meta property="og:title" content="AngularJs表单验证">
+<meta property="og:url" content="http://1988zxh.com/2016/01/02/AngularJs表单验证/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#125;    ....&amp;#125;
-arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arg">
-<meta property="og:updated_time" content="2015-09-10T12:29:25.000Z">
+<meta property="og:description" content="今天看了一下AngularJs中的表单验证，不得不说，用起来还是有点不习惯，主要是没有选择器，相似的规则得逐个field添加，略麻烦。代码如下：1234567891011&amp;lt;div class=&quot;sign-up-wrapper&quot; ng-app&amp;gt;	&amp;lt;form name=&quot;signup_form&quot; novalidate&amp;gt;				&amp;lt;div class=&quot;form-group&quot;">
+<meta property="og:updated_time" content="2016-01-02T13:49:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="javascript传递默认参数">
-<meta name="twitter:description" content="方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#125;    ....&amp;#125;
-arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arg">
+<meta name="twitter:title" content="AngularJs表单验证">
+<meta name="twitter:description" content="今天看了一下AngularJs中的表单验证，不得不说，用起来还是有点不习惯，主要是没有选择器，相似的规则得逐个field添加，略麻烦。代码如下：1234567891011&amp;lt;div class=&quot;sign-up-wrapper&quot; ng-app&amp;gt;	&amp;lt;form name=&quot;signup_form&quot; novalidate&amp;gt;				&amp;lt;div class=&quot;form-group&quot;">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -79,23 +76,22 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/06/17/javascript传递默认参数/" title="javascript传递默认参数" itemprop="url">javascript传递默认参数</a>
+      <a href="/2016/01/02/AngularJs表单验证/" title="AngularJs表单验证" itemprop="url">AngularJs表单验证</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-06-16T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-06-17</time>
+    <time datetime="2016-01-01T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-02</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>方式1：借助函数内置变量<code>arguments</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params">x, _def</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">arguments</span>[<span class="number">1</span>] == <span class="literal">undefined</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> _def = default_value;</span><br><span class="line">    &#125;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arguments类似数组但不是数组，支持下标访问，也有length属性，但没有push/pop这些方法。</p>
-<p>方式2：<code>typeof(x) == &quot;undefined&quot;</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params">x, _def</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span>(_def) == <span class="string">"undefined"</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> _def = default_value;</span><br><span class="line">    &#125;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这个比较简单直接一点，需要注意的是，不能直接<code>_def == undefined</code>，js和其他语言一样，不能操作未声明/定义的变量。</p>
+		<p>今天看了一下AngularJs中的表单验证，不得不说，用起来还是有点不习惯，主要是没有选择器，相似的规则得逐个field添加，略麻烦。代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"sign-up-wrapper"</span> <span class="attribute">ng-app</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">form</span> <span class="attribute">name</span>=<span class="value">"signup_form"</span> <span class="attribute">novalidate</span>&gt;</span>		</span><br><span class="line">		<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form-group"</span> <span class="attribute">ng-class</span>=<span class="value">"&#123;true: 'has-error', false: 'has-success'&#125;[iserror]"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">label</span> <span class="attribute">class</span>=<span class="value">"control-label"</span>&gt;</span>邮箱：<span class="tag">&lt;/<span class="title">label</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"email"</span> <span class="attribute">ng-model</span>=<span class="value">"email"</span> <span class="attribute">name</span>=<span class="value">"email"</span> <span class="attribute">class</span>=<span class="value">"form-control"</span></span><br><span class="line">				   <span class="attribute">required</span> <span class="attribute">ng-blur</span>=<span class="value">"iserror = signup_form.email.$dirty &amp;&amp; signup_form.email.$invalid"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">		</span><br><span class="line">		<span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">class</span>=<span class="value">"btn default"</span> <span class="attribute">ng-disabled</span>=<span class="value">"signup_form.$invalid"</span>&gt;</span>Submit<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>上述代码中的<code>has-error</code>与<code>has-success</code>配合<code>control-label</code>/<code>form-control</code>可以根据填写信息的错误与否，将当前label及input标为红色或绿色。<br>另外，因为angularjs是实时检查错误的，像邮箱这种不太合适，不能用户刚输入第一个字母就因为没包含@就报错吧，所以此处用了<code>ng-blur</code>事件。</p>
+<p><strong>参考：</strong><br><a href="http://www.cnblogs.com/woshinidezhu/p/Form-validation-with-AngularJS.html?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">(译) 在AngularJS中使用的表单验证功能</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -113,7 +109,7 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/06/17/javascript传递默认参数/" data-title="javascript传递默认参数 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/01/02/AngularJs表单验证/" data-title="AngularJs表单验证 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -127,18 +123,18 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/06/17/MediaQueries实现CSS动态调整/" title="MediaQueries实现CSS动态调整">
+ <a href="/2016/01/02/AngularJs使用jsonp/" title="AngularJs使用jsonp">
   <strong>上一篇：</strong><br/>
   <span>
-  MediaQueries实现CSS动态调整</span>
+  AngularJs使用jsonp</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/06/15/Django中model字段的验证/"  title="Django中model字段的验证">
+<a href="/2016/01/02/jsonp简介/"  title="jsonp简介">
  <strong>下一篇：</strong><br/> 
- <span>Django中model字段的验证
+ <span>jsonp简介
 </span>
 </a>
 </div>

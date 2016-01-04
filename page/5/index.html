@@ -74,6 +74,68 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2015/08/22/Postgresql表的继承与分区/" title="Postgresql表的继承与分区" itemprop="url">
+  
+    <h1 itemprop="name">Postgresql表的继承与分区</h1>
+    
+     
+           <p itemprop="description" >在Postgresql中，可以通过表的继承可以将一个逻辑表的不同数据放到不同分区上，用起来比较方便。示例表：12345678910111213141516171819202122232425262728293031-- 父表CREATE TABLE students(  sno </p>
+        
+    
+    <time datetime="2015-08-21T16:00:00.000Z" itemprop="datePublished">2015-08-22</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2015/08/14/Django由数据库生成model/" title="Django由数据库生成model" itemprop="url">
+  
+    <h1 itemprop="name">Django由数据库生成model</h1>
+    
+     
+           <p itemprop="description" >运行命令：1python manage.py inspectdb [ &amp;gt; models.py ]
+即可生成对应数据库表(默认为settings.py中的default数据库，可以加–database参数来指定)的model class，&amp;gt; models.py可将生成的</p>
+        
+    
+    <time datetime="2015-08-13T16:00:00.000Z" itemprop="datePublished">2015-08-14</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2015/08/10/几个消除有重复计算的递归的例子/" title="几个消除有重复计算的递归的例子" itemprop="url">
+  
+    <h1 itemprop="name">几个消除有重复计算的递归的例子</h1>
+    
+     
+           <p itemprop="description" >今天遇到了一个老问题：n阶楼梯可以一次走1阶、2阶或3阶，问总共有多少种走法？，这个问题一直觉得很easy，可以借助公式s(n)=s(n-1)+s(n-2)+s(n-3)用递归解决，仔细一想，还是想当然了，递归会造成大量的重复计算，如下图：
+对于这个问题的正确的解法应该是用循环从</p>
+        
+    
+    <time datetime="2015-08-09T16:00:00.000Z" itemprop="datePublished">2015-08-10</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2015/08/09/寻找二叉树中最近的公共祖先/" title="寻找二叉树中最近的公共祖先" itemprop="url">
   
     <h1 itemprop="name">寻找二叉树中最近的公共祖先</h1>
@@ -216,66 +278,6 @@
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/06/15/Django中model字段的验证/" title="Django中model字段的验证" itemprop="url">
-  
-    <h1 itemprop="name">Django中model字段的验证</h1>
-    
-     
-           <p itemprop="description" >本文介绍两种验证model字段的方法。这两种方法都需要显式的调用full_clean来验证，用户对字段赋予非法数值时不会自动报错，同样full_clean也不会在save函数中被自动调用，也就是说如果一个字段被赋予了一个非法值，完全可以被保存到数据库中(前提是数据库中没有定义相应</p>
-        
-    
-    <time datetime="2015-06-14T16:00:00.000Z" itemprop="datePublished">2015-06-15</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/05/10/空间数据的插入与查询(Django+Postgis)/" title="空间数据的插入与查询(Django+Postgis)" itemprop="url">
-  
-    <h1 itemprop="name">空间数据的插入与查询(Django+Postgis)</h1>
-    
-     
-           <p itemprop="description" >建表：123456789101112CREATE TABLE soildata(  sid character varying(32) NOT NULL,  stype character varying(32),  pos geometry,  CONSTRAINT soild</p>
-        
-    
-    <time datetime="2015-05-09T16:00:00.000Z" itemprop="datePublished">2015-05-10</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/05/09/fedora通过logrotate管理日志/" title="fedora通过logrotate管理日志" itemprop="url">
-  
-    <h1 itemprop="name">fedora通过logrotate管理日志</h1>
-    
-     
-           <p itemprop="description" >logrotate  is  designed to ease administration of systems that generate large numbers of log files.  It allows automatic rotation, compressi</p>
-        
-    
-    <time datetime="2015-05-08T16:00:00.000Z" itemprop="datePublished">2015-05-09</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/page/4/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">Next<span></span></a>
@@ -310,11 +312,11 @@
 		  
 		
 		  
-			<li><a href="/categories/前端/" title="前端">前端<sup>9</sup></a></li>
+			<li><a href="/categories/前端/" title="前端">前端<sup>11</sup></a></li>
 		  
 		
 		  
-			<li><a href="/categories/数据库/" title="数据库">数据库<sup>3</sup></a></li>
+			<li><a href="/categories/数据库/" title="数据库">数据库<sup>4</sup></a></li>
 		  
 		
 		  

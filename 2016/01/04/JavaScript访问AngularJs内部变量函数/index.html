@@ -5,23 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>空间数据的插入与查询(Django+Postgis) | ideas into codes</title>
+    <title>JavaScript访问AngularJs内部变量/函数 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="建表：123456789101112CREATE TABLE soildata(  sid character varying(32) NOT NULL,  stype character varying(32),  pos geometry,  CONSTRAINT soildata_pkey PRIMARY KEY (sid))WITH (  OIDS=FALSE);ALTER TABLE s">
+    <meta name="description" content="1234567891011var element = angular.element($document.getElementById(&quot;app&quot;));var controller = element.controller();var scope = element.scope();//调用方法scope.sub1();//如果需要重新绑定scope.$apply();//调用字段scope.fi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="空间数据的插入与查询(Django+Postgis)">
-<meta property="og:url" content="http://1988zxh.com/2015/05/10/空间数据的插入与查询(Django+Postgis)/index.html">
+<meta property="og:title" content="JavaScript访问AngularJs内部变量/函数">
+<meta property="og:url" content="http://1988zxh.com/2016/01/04/JavaScript访问AngularJs内部变量函数/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="建表：123456789101112CREATE TABLE soildata(  sid character varying(32) NOT NULL,  stype character varying(32),  pos geometry,  CONSTRAINT soildata_pkey PRIMARY KEY (sid))WITH (  OIDS=FALSE);ALTER TABLE s">
-<meta property="og:updated_time" content="2015-09-10T12:26:08.000Z">
+<meta property="og:description" content="1234567891011var element = angular.element($document.getElementById(&quot;app&quot;));var controller = element.controller();var scope = element.scope();//调用方法scope.sub1();//如果需要重新绑定scope.$apply();//调用字段scope.fi">
+<meta property="og:updated_time" content="2016-01-04T14:50:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="空间数据的插入与查询(Django+Postgis)">
-<meta name="twitter:description" content="建表：123456789101112CREATE TABLE soildata(  sid character varying(32) NOT NULL,  stype character varying(32),  pos geometry,  CONSTRAINT soildata_pkey PRIMARY KEY (sid))WITH (  OIDS=FALSE);ALTER TABLE s">
+<meta name="twitter:title" content="JavaScript访问AngularJs内部变量/函数">
+<meta name="twitter:description" content="1234567891011var element = angular.element($document.getElementById(&quot;app&quot;));var controller = element.controller();var scope = element.scope();//调用方法scope.sub1();//如果需要重新绑定scope.$apply();//调用字段scope.fi">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -76,24 +76,21 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/05/10/空间数据的插入与查询(Django+Postgis)/" title="空间数据的插入与查询(Django+Postgis)" itemprop="url">空间数据的插入与查询(Django+Postgis)</a>
+      <a href="/2016/01/04/JavaScript访问AngularJs内部变量函数/" title="JavaScript访问AngularJs内部变量/函数" itemprop="url">JavaScript访问AngularJs内部变量/函数</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-05-09T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-05-10</time>
+    <time datetime="2016-01-03T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-04</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p><strong>建表</strong>：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> soildata</span><br><span class="line">(</span><br><span class="line">  <span class="keyword">sid</span> <span class="built_in">character</span> <span class="built_in">varying</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  stype <span class="built_in">character</span> <span class="built_in">varying</span>(<span class="number">32</span>),</span><br><span class="line">  pos geometry,</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> soildata_pkey PRIMARY <span class="keyword">KEY</span> (<span class="keyword">sid</span>)</span><br><span class="line">)</span><br><span class="line"><span class="keyword">WITH</span> (</span><br><span class="line">  OIDS=<span class="literal">FALSE</span></span><br><span class="line">);</span></span><br><span class="line"><span class="operator"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> soildata</span><br><span class="line">  OWNER <span class="keyword">TO</span> postgres;</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>Django模型</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib.gis.db <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> django.contrib.gis.db.models.manager <span class="keyword">import</span> GeoManager</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create your models here.</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SoilData</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    sid = models.CharField(max_length=<span class="number">32</span>, primary_key=<span class="keyword">True</span>)</span><br><span class="line">    stype = models.CharField(max_length=<span class="number">32</span>)</span><br><span class="line">    pos = models.GeometryField(srid=<span class="number">4326</span>)</span><br><span class="line">    </span><br><span class="line">    objects = GeoManager()</span><br><span class="line">    </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">'soildata'</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>插入</strong><br>方式1：原生SQL语句<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#encoding:utf-8</span></span><br><span class="line"><span class="keyword">import</span> psycopg2</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    conn = psycopg2.connect(database=<span class="string">"gisdb"</span>,user=<span class="string">"postgres"</span>,password=<span class="string">""</span>,host=<span class="string">"127.0.0.1"</span>,port=<span class="string">"5432"</span>)</span><br><span class="line">    cursor = conn.cursor()</span><br><span class="line">    </span><br><span class="line">    cursor.execute(</span><br><span class="line">        <span class="string">'insert into soildata values(%s, %s, %s);'</span>,</span><br><span class="line">        (<span class="string">"1"</span>,<span class="string">"棕壤"</span>,<span class="string">"SRID=4326;POINT(120 38)"</span>)</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    cursor.close()</span><br><span class="line">    conn.commit()</span><br><span class="line">    conn.close()</span><br></pre></td></tr></table></figure></p>
-<p>方式2：Django model<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">soil = SoilData()</span><br><span class="line">soil.sid = <span class="string">"2"</span></span><br><span class="line">soil.stype = <span class="string">"红壤"</span></span><br><span class="line">pos = GEOSGeometry(<span class="string">'POINT(%s %s)'</span>%(<span class="number">100</span>,<span class="number">30</span>),<span class="number">4326</span>)</span><br><span class="line">soil.pos = pos</span><br><span class="line">soil.save()</span><br></pre></td></tr></table></figure></p>
-<p><strong>空间关系查询</strong>：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#62;&#62;&#62; from django.contrib.gis.geos.geometry import GEOSGeometry&#10;&#62;&#62;&#62; from myapp.models import SoilData&#10;&#62;&#62;&#62; wheres = [&#39;ST_Contains(ST_GeomFromText(%s, 4326), pos)&#39;]&#10;&#62;&#62;&#62; wheres_param = [&#39;POLYGON((99 29,99 31,100 29,100 31,99 29))&#39;]&#10;&#62;&#62;&#62; dao = SoilData.objects.extra(where=wheres, params=wheres_param)&#10;&#62;&#62;&#62; dao.count()&#10;0&#10;&#62;&#62;&#62; wheres_param = [&#39;POLYGON((99 20,99 31,101 31,101 20,99 20))&#39;]&#10;&#62;&#62;&#62; dao = SoilData.objects.extra(where=wheres, params=wheres_param)&#10;&#62;&#62;&#62; dao.count()&#10;1&#10;&#62;&#62;&#62; wheres_param = [&#39;POLYGON((0 0,0 90,180 90,180 0,0 0))&#39;]&#10;&#62;&#62;&#62; dao = SoilData.objects.extra(where=wheres, params=wheres_param)&#10;&#62;&#62;&#62; dao.count()&#10;2</span><br></pre></td></tr></table></figure></p>
+		<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> element = angular.element($<span class="built_in">document</span>.getElementById(<span class="string">"app"</span>));</span><br><span class="line"><span class="keyword">var</span> controller = element.controller();</span><br><span class="line"><span class="keyword">var</span> scope = element.scope();</span><br><span class="line"><span class="comment">//调用方法</span></span><br><span class="line">scope.sub1();</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果需要重新绑定</span></span><br><span class="line">scope.$apply();</span><br><span class="line"></span><br><span class="line"><span class="comment">//调用字段</span></span><br><span class="line">scope.field1;</span><br></pre></td></tr></table></figure>
+<p>以上代码来自：<a href="http://segmentfault.com/a/1190000000747708" target="_blank" rel="external">javascript 调用 angular.js 方法</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -101,7 +98,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/python/">python</a>
+  <a class="article-category-link" href="/categories/前端/">前端</a>
 </div>
 
 
@@ -111,7 +108,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/05/10/空间数据的插入与查询(Django+Postgis)/" data-title="空间数据的插入与查询(Django+Postgis) | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/01/04/JavaScript访问AngularJs内部变量函数/" data-title="JavaScript访问AngularJs内部变量/函数 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -125,18 +122,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/06/15/Django中model字段的验证/" title="Django中model字段的验证">
+ <a href="/2016/01/04/Django与AngularJs的模板标签冲突问题/" title="Django与AngularJs的模板标签冲突问题">
   <strong>上一篇：</strong><br/>
   <span>
-  Django中model字段的验证</span>
+  Django与AngularJs的模板标签冲突问题</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/05/09/fedora通过logrotate管理日志/"  title="fedora通过logrotate管理日志">
+<a href="/2016/01/04/Postgresql函数的rowtype类型及返回值/"  title="Postgresql函数的rowtype类型及返回值">
  <strong>下一篇：</strong><br/> 
- <span>fedora通过logrotate管理日志
+ <span>Postgresql函数的rowtype类型及返回值
 </span>
 </a>
 </div>

@@ -5,23 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>空间数据的插入与查询(Django+Postgis) | ideas into codes</title>
+    <title>Django与AngularJs的模板标签冲突问题 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="建表：123456789101112CREATE TABLE soildata(  sid character varying(32) NOT NULL,  stype character varying(32),  pos geometry,  CONSTRAINT soildata_pkey PRIMARY KEY (sid))WITH (  OIDS=FALSE);ALTER TABLE s">
+    <meta name="description" content="Django与AngularJs的模板标签是一样的，目前官方的解决冲突的办法有两个：1、借助$interpolateProvider相关api重新定义angularjs的标签1234myModule.config(function($interpolateProvider) &amp;#123;  $interpolateProvider.startSymbol(&apos;&amp;#123;[&amp;#123;&apos;);  $i">
 <meta property="og:type" content="article">
-<meta property="og:title" content="空间数据的插入与查询(Django+Postgis)">
-<meta property="og:url" content="http://1988zxh.com/2015/05/10/空间数据的插入与查询(Django+Postgis)/index.html">
+<meta property="og:title" content="Django与AngularJs的模板标签冲突问题">
+<meta property="og:url" content="http://1988zxh.com/2016/01/04/Django与AngularJs的模板标签冲突问题/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="建表：123456789101112CREATE TABLE soildata(  sid character varying(32) NOT NULL,  stype character varying(32),  pos geometry,  CONSTRAINT soildata_pkey PRIMARY KEY (sid))WITH (  OIDS=FALSE);ALTER TABLE s">
-<meta property="og:updated_time" content="2015-09-10T12:26:08.000Z">
+<meta property="og:description" content="Django与AngularJs的模板标签是一样的，目前官方的解决冲突的办法有两个：1、借助$interpolateProvider相关api重新定义angularjs的标签1234myModule.config(function($interpolateProvider) &amp;#123;  $interpolateProvider.startSymbol(&apos;&amp;#123;[&amp;#123;&apos;);  $i">
+<meta property="og:updated_time" content="2016-01-04T15:37:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="空间数据的插入与查询(Django+Postgis)">
-<meta name="twitter:description" content="建表：123456789101112CREATE TABLE soildata(  sid character varying(32) NOT NULL,  stype character varying(32),  pos geometry,  CONSTRAINT soildata_pkey PRIMARY KEY (sid))WITH (  OIDS=FALSE);ALTER TABLE s">
+<meta name="twitter:title" content="Django与AngularJs的模板标签冲突问题">
+<meta name="twitter:description" content="Django与AngularJs的模板标签是一样的，目前官方的解决冲突的办法有两个：1、借助$interpolateProvider相关api重新定义angularjs的标签1234myModule.config(function($interpolateProvider) &amp;#123;  $interpolateProvider.startSymbol(&apos;&amp;#123;[&amp;#123;&apos;);  $i">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -76,24 +76,24 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/05/10/空间数据的插入与查询(Django+Postgis)/" title="空间数据的插入与查询(Django+Postgis)" itemprop="url">空间数据的插入与查询(Django+Postgis)</a>
+      <a href="/2016/01/04/Django与AngularJs的模板标签冲突问题/" title="Django与AngularJs的模板标签冲突问题" itemprop="url">Django与AngularJs的模板标签冲突问题</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-05-09T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-05-10</time>
+    <time datetime="2016-01-03T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-04</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p><strong>建表</strong>：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> soildata</span><br><span class="line">(</span><br><span class="line">  <span class="keyword">sid</span> <span class="built_in">character</span> <span class="built_in">varying</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  stype <span class="built_in">character</span> <span class="built_in">varying</span>(<span class="number">32</span>),</span><br><span class="line">  pos geometry,</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> soildata_pkey PRIMARY <span class="keyword">KEY</span> (<span class="keyword">sid</span>)</span><br><span class="line">)</span><br><span class="line"><span class="keyword">WITH</span> (</span><br><span class="line">  OIDS=<span class="literal">FALSE</span></span><br><span class="line">);</span></span><br><span class="line"><span class="operator"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> soildata</span><br><span class="line">  OWNER <span class="keyword">TO</span> postgres;</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>Django模型</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib.gis.db <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> django.contrib.gis.db.models.manager <span class="keyword">import</span> GeoManager</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create your models here.</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SoilData</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    sid = models.CharField(max_length=<span class="number">32</span>, primary_key=<span class="keyword">True</span>)</span><br><span class="line">    stype = models.CharField(max_length=<span class="number">32</span>)</span><br><span class="line">    pos = models.GeometryField(srid=<span class="number">4326</span>)</span><br><span class="line">    </span><br><span class="line">    objects = GeoManager()</span><br><span class="line">    </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">'soildata'</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>插入</strong><br>方式1：原生SQL语句<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#encoding:utf-8</span></span><br><span class="line"><span class="keyword">import</span> psycopg2</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    conn = psycopg2.connect(database=<span class="string">"gisdb"</span>,user=<span class="string">"postgres"</span>,password=<span class="string">""</span>,host=<span class="string">"127.0.0.1"</span>,port=<span class="string">"5432"</span>)</span><br><span class="line">    cursor = conn.cursor()</span><br><span class="line">    </span><br><span class="line">    cursor.execute(</span><br><span class="line">        <span class="string">'insert into soildata values(%s, %s, %s);'</span>,</span><br><span class="line">        (<span class="string">"1"</span>,<span class="string">"棕壤"</span>,<span class="string">"SRID=4326;POINT(120 38)"</span>)</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    cursor.close()</span><br><span class="line">    conn.commit()</span><br><span class="line">    conn.close()</span><br></pre></td></tr></table></figure></p>
-<p>方式2：Django model<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">soil = SoilData()</span><br><span class="line">soil.sid = <span class="string">"2"</span></span><br><span class="line">soil.stype = <span class="string">"红壤"</span></span><br><span class="line">pos = GEOSGeometry(<span class="string">'POINT(%s %s)'</span>%(<span class="number">100</span>,<span class="number">30</span>),<span class="number">4326</span>)</span><br><span class="line">soil.pos = pos</span><br><span class="line">soil.save()</span><br></pre></td></tr></table></figure></p>
-<p><strong>空间关系查询</strong>：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#62;&#62;&#62; from django.contrib.gis.geos.geometry import GEOSGeometry&#10;&#62;&#62;&#62; from myapp.models import SoilData&#10;&#62;&#62;&#62; wheres = [&#39;ST_Contains(ST_GeomFromText(%s, 4326), pos)&#39;]&#10;&#62;&#62;&#62; wheres_param = [&#39;POLYGON((99 29,99 31,100 29,100 31,99 29))&#39;]&#10;&#62;&#62;&#62; dao = SoilData.objects.extra(where=wheres, params=wheres_param)&#10;&#62;&#62;&#62; dao.count()&#10;0&#10;&#62;&#62;&#62; wheres_param = [&#39;POLYGON((99 20,99 31,101 31,101 20,99 20))&#39;]&#10;&#62;&#62;&#62; dao = SoilData.objects.extra(where=wheres, params=wheres_param)&#10;&#62;&#62;&#62; dao.count()&#10;1&#10;&#62;&#62;&#62; wheres_param = [&#39;POLYGON((0 0,0 90,180 90,180 0,0 0))&#39;]&#10;&#62;&#62;&#62; dao = SoilData.objects.extra(where=wheres, params=wheres_param)&#10;&#62;&#62;&#62; dao.count()&#10;2</span><br></pre></td></tr></table></figure></p>
+		<p>Django与AngularJs的模板标签是一样的，目前官方的解决冲突的办法有两个：<br>1、借助<code>$interpolateProvider</code>相关api重新定义angularjs的标签<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">myModule.config(<span class="keyword">function</span>(<span class="variable">$interpolateProvider</span>) &#123;</span><br><span class="line">  <span class="variable">$interpolateProvider</span>.startSymbol(<span class="string">'&#123;[&#123;'</span>);</span><br><span class="line">  <span class="variable">$interpolateProvider</span>.endSymbol(<span class="string">'&#125;]&#125;'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>2、借助<code>verbatim</code>指令屏蔽Django标签<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span>&#123;%verbatim%&#125;</span><br><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span>this where your angular tags "&#123;&#123;&#125;&#125;" resides</span><br><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span>&#123;%endverbatim%&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以上虽然官方，但感觉用起来都不太方便，不如自定义的Django过滤器：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django <span class="keyword">import</span> template</span><br><span class="line"><span class="keyword">from</span> django.utils <span class="keyword">import</span> safestring</span><br><span class="line"></span><br><span class="line">register = template.Library()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="decorator">@register.filter(name='ng')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Angularify</span><span class="params">(value)</span>:</span></span><br><span class="line">  <span class="keyword">return</span> safestring.mark_safe(<span class="string">'&#123;&#123;%s&#125;&#125;'</span> % value)</span><br></pre></td></tr></table></figure></p>
+<p>这样用<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">  &#123;&#123; django_context_var &#125;&#125;</span><br><span class="line">  &#123;&#123; angularScopeVar | ng &#125;&#125;</span><br><span class="line">  &#123;&#123; angularScopeFunction() | ng &#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>以上方法与代码均非原创，来源在<a href="http://stackoverflow.com/questions/8302928/angularjs-with-django-conflicting-template-tags" target="_blank" rel="external">这里</a>。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -101,7 +101,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/python/">python</a>
+  <a class="article-category-link" href="/categories/前端/">前端</a>
 </div>
 
 
@@ -111,7 +111,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/05/10/空间数据的插入与查询(Django+Postgis)/" data-title="空间数据的插入与查询(Django+Postgis) | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/01/04/Django与AngularJs的模板标签冲突问题/" data-title="Django与AngularJs的模板标签冲突问题 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -124,19 +124,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/06/15/Django中model字段的验证/" title="Django中model字段的验证">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Django中model字段的验证</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/05/09/fedora通过logrotate管理日志/"  title="fedora通过logrotate管理日志">
+<a href="/2016/01/04/JavaScript访问AngularJs内部变量函数/"  title="JavaScript访问AngularJs内部变量/函数">
  <strong>下一篇：</strong><br/> 
- <span>fedora通过logrotate管理日志
+ <span>JavaScript访问AngularJs内部变量/函数
 </span>
 </a>
 </div>

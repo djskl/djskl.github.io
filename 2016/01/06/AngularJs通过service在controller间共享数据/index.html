@@ -5,23 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>Django与AngularJs的模板标签冲突问题 | ideas into codes</title>
+    <title>AngularJs通过service在controller间共享数据 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="Django与AngularJs的模板标签是一样的，目前官方的解决冲突的办法有两个：1、借助$interpolateProvider相关api重新定义angularjs的标签1234myModule.config(function($interpolateProvider) &amp;#123;  $interpolateProvider.startSymbol(&apos;&amp;#123;[&amp;#123;&apos;);  $i">
+    <meta name="description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;    &amp;lt;head&amp;gt;        &amp;lt;meta charset=&quot;UTF-8&quot;&amp;gt;        &amp;lt;script typ">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Django与AngularJs的模板标签冲突问题">
-<meta property="og:url" content="http://1988zxh.com/2016/01/04/Django与AngularJs的模板标签冲突问题/index.html">
+<meta property="og:title" content="AngularJs通过service在controller间共享数据">
+<meta property="og:url" content="http://1988zxh.com/2016/01/06/AngularJs通过service在controller间共享数据/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="Django与AngularJs的模板标签是一样的，目前官方的解决冲突的办法有两个：1、借助$interpolateProvider相关api重新定义angularjs的标签1234myModule.config(function($interpolateProvider) &amp;#123;  $interpolateProvider.startSymbol(&apos;&amp;#123;[&amp;#123;&apos;);  $i">
-<meta property="og:updated_time" content="2016-01-04T15:37:41.000Z">
+<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;    &amp;lt;head&amp;gt;        &amp;lt;meta charset=&quot;UTF-8&quot;&amp;gt;        &amp;lt;script typ">
+<meta property="og:updated_time" content="2016-01-06T14:28:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Django与AngularJs的模板标签冲突问题">
-<meta name="twitter:description" content="Django与AngularJs的模板标签是一样的，目前官方的解决冲突的办法有两个：1、借助$interpolateProvider相关api重新定义angularjs的标签1234myModule.config(function($interpolateProvider) &amp;#123;  $interpolateProvider.startSymbol(&apos;&amp;#123;[&amp;#123;&apos;);  $i">
+<meta name="twitter:title" content="AngularJs通过service在controller间共享数据">
+<meta name="twitter:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;    &amp;lt;head&amp;gt;        &amp;lt;meta charset=&quot;UTF-8&quot;&amp;gt;        &amp;lt;script typ">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -76,25 +76,20 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/04/Django与AngularJs的模板标签冲突问题/" title="Django与AngularJs的模板标签冲突问题" itemprop="url">Django与AngularJs的模板标签冲突问题</a>
+      <a href="/2016/01/06/AngularJs通过service在controller间共享数据/" title="AngularJs通过service在controller间共享数据" itemprop="url">AngularJs通过service在controller间共享数据</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-03T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-04</time>
+    <time datetime="2016-01-05T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-06</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>Django与AngularJs的模板标签是一样的，目前官方的解决冲突的办法有两个：<br>1、借助<code>$interpolateProvider</code>相关api重新定义angularjs的标签<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">myModule.config(<span class="keyword">function</span>(<span class="variable">$interpolateProvider</span>) &#123;</span><br><span class="line">  <span class="variable">$interpolateProvider</span>.startSymbol(<span class="string">'&#123;[&#123;'</span>);</span><br><span class="line">  <span class="variable">$interpolateProvider</span>.endSymbol(<span class="string">'&#125;]&#125;'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>2、借助<code>verbatim</code>指令屏蔽Django标签<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span>&#123;%verbatim%&#125;</span><br><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span>this where your angular tags "&#123;&#123;&#125;&#125;" resides</span><br><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span>&#123;%endverbatim%&#125;</span><br></pre></td></tr></table></figure></p>
-<p>以上虽然官方，但感觉用起来都不太方便，不如自定义的Django过滤器：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django <span class="keyword">import</span> template</span><br><span class="line"><span class="keyword">from</span> django.utils <span class="keyword">import</span> safestring</span><br><span class="line"></span><br><span class="line">register = template.Library()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="decorator">@register.filter(name='ng')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Angularify</span><span class="params">(value)</span>:</span></span><br><span class="line">  <span class="keyword">return</span> safestring.mark_safe(<span class="string">'&#123;&#123;%s&#125;&#125;'</span> % value)</span><br></pre></td></tr></table></figure></p>
-<p>这样用<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">  &#123;&#123; django_context_var &#125;&#125;</span><br><span class="line">  &#123;&#123; angularScopeVar | ng &#125;&#125;</span><br><span class="line">  &#123;&#123; angularScopeFunction() | ng &#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>以上方法与代码均非原创，来源在<a href="http://stackoverflow.com/questions/8302928/angularjs-with-django-conflicting-template-tags" target="_blank" rel="external">这里</a>。</p>
-  
+		<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"js/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"js/angular.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">ng-app</span>=<span class="value">"myapp"</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">ng-controller</span>=<span class="value">"fst-ctrl"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">span</span>&gt;</span>"1-ctrl"：&#123;&#123;info.msg&#125;&#125;<span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">button</span> <span class="attribute">ng-click</span>=<span class="value">"update()"</span>&gt;</span>更新<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">ng-controller</span>=<span class="value">"snd-ctrl"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">span</span>&gt;</span>"2-ctrl"：&#123;&#123;info.msg&#125;&#125;<span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">button</span> <span class="attribute">ng-click</span>=<span class="value">"update()"</span>&gt;</span>更新<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="actionscript"></span><br><span class="line">        </span><br><span class="line">            <span class="keyword">var</span> app = angular.module(<span class="string">"myapp"</span>, []);</span><br><span class="line">            </span><br><span class="line">            app.factory(<span class="string">"info"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">                <span class="keyword">return</span> &#123;</span><br><span class="line">                    add: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">                        <span class="keyword">this</span>.msg += <span class="number">1</span>;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    msg: <span class="number">0</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">var</span> _ctrl = <span class="function"><span class="keyword">function</span><span class="params">($scope, info)</span></span>&#123;</span><br><span class="line">                $scope.info = info;</span><br><span class="line">                $scope.update = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">                    <span class="keyword">this</span>.info.add();</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;;</span><br><span class="line">            </span><br><span class="line">            app.controller(<span class="string">"fst-ctrl"</span>, _ctrl);</span><br><span class="line">            </span><br><span class="line">            app.controller(<span class="string">"snd-ctrl"</span>, _ctrl);</span><br><span class="line">        </span><br><span class="line">        </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -111,7 +106,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2016/01/04/Django与AngularJs的模板标签冲突问题/" data-title="Django与AngularJs的模板标签冲突问题 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/01/06/AngularJs通过service在controller间共享数据/" data-title="AngularJs通过service在controller间共享数据 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -125,18 +120,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/01/06/AngularJs通过service在controller间共享数据/" title="AngularJs通过service在controller间共享数据">
+ <a href="/2016/01/06/AngularJs动态添加dom元素/" title="AngularJs动态添加dom元素">
   <strong>上一篇：</strong><br/>
   <span>
-  AngularJs通过service在controller间共享数据</span>
+  AngularJs动态添加dom元素</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2016/01/04/JavaScript访问AngularJs内部变量函数/"  title="JavaScript访问AngularJs内部变量/函数">
+<a href="/2016/01/04/Django与AngularJs的模板标签冲突问题/"  title="Django与AngularJs的模板标签冲突问题">
  <strong>下一篇：</strong><br/> 
- <span>JavaScript访问AngularJs内部变量/函数
+ <span>Django与AngularJs的模板标签冲突问题
 </span>
 </a>
 </div>

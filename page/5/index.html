@@ -74,13 +74,12 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/31/数据库中的层次操作/" title="数据库中的层次操作" itemprop="url">
+    <a href="/2015/08/31/请求参数解析QueryDict/" title="请求参数解析QueryDict" itemprop="url">
   
-    <h1 itemprop="name">数据库中的层次操作</h1>
+    <h1 itemprop="name">请求参数解析QueryDict</h1>
     
      
-           <p itemprop="description" >今天遇到了一个比较有意思的问题：有一个表结构如下所示：12345id, pid, name1, 10, hello10, -1, world2, 1, hehe...
-在这个表里，通过id和pid构成里一个森林，目前森林最多有4层。如下图所示意：其中绿色表示数据的分类，黄色表示具</p>
+           <p itemprop="description" >今天遇到了一个奇怪的问题：通过ajax向后台传json时，在解析参数后得到的是{key: [value]}，而不是{key: value}。请求参数解析函数如下：12345def get_params(request):    a = &amp;#123;&amp;#125;    a.upda</p>
         
     
     <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished">2015-08-31</time>
@@ -115,12 +114,13 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/22/Postgresql表的继承与分区/" title="Postgresql表的继承与分区" itemprop="url">
+    <a href="/2015/08/22/寻找第n个丑数/" title="寻找第n个丑数" itemprop="url">
   
-    <h1 itemprop="name">Postgresql表的继承与分区</h1>
+    <h1 itemprop="name">寻找第n个丑数</h1>
     
      
-           <p itemprop="description" >在Postgresql中，可以通过表的继承可以将一个逻辑表的不同数据放到不同分区上，用起来比较方便。示例表：12345678910111213141516171819202122232425262728293031-- 父表CREATE TABLE students(  sno </p>
+           <p itemprop="description" >因子只包含2、3或5的数叫做丑数，1也是丑数，前10个丑数是`1, 2, 3, 4, 5, 6, 8, 9, 10, 12。写一个程序，寻找第n个丑数。
+思路最简单粗暴的算法就是从1开始，遍历所有自然数，对每个数都判断一下是不是丑数，直到找到第n个丑数，但这样会有很多无谓的判断，</p>
         
     
     <time datetime="2015-08-21T16:00:00.000Z" itemprop="datePublished">2015-08-22</time>
@@ -135,13 +135,12 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/22/寻找第n个丑数/" title="寻找第n个丑数" itemprop="url">
+    <a href="/2015/08/22/Postgresql表的继承与分区/" title="Postgresql表的继承与分区" itemprop="url">
   
-    <h1 itemprop="name">寻找第n个丑数</h1>
+    <h1 itemprop="name">Postgresql表的继承与分区</h1>
     
      
-           <p itemprop="description" >因子只包含2、3或5的数叫做丑数，1也是丑数，前10个丑数是`1, 2, 3, 4, 5, 6, 8, 9, 10, 12。写一个程序，寻找第n个丑数。
-思路最简单粗暴的算法就是从1开始，遍历所有自然数，对每个数都判断一下是不是丑数，直到找到第n个丑数，但这样会有很多无谓的判断，</p>
+           <p itemprop="description" >在Postgresql中，可以通过表的继承可以将一个逻辑表的不同数据放到不同分区上，用起来比较方便。示例表：12345678910111213141516171819202122232425262728293031-- 父表CREATE TABLE students(  sno </p>
         
     
     <time datetime="2015-08-21T16:00:00.000Z" itemprop="datePublished">2015-08-22</time>
@@ -323,7 +322,7 @@
 		  
 		
 		  
-			<li><a href="/categories/算法/" title="算法">算法<sup>8</sup></a></li>
+			<li><a href="/categories/算法/" title="算法">算法<sup>9</sup></a></li>
 		  
 		
 		  

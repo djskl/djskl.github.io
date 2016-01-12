@@ -5,29 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>通过脚本提取一行中的第n个字符串 | ideas into codes</title>
+    <title>JSON格式日志字段提取 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="问题：提取以下文本(/tmp/demo.txt)中的被双引号引起来的字符串
-
-“0” : [ “未执行”, “正在等待系统处理” ],“1” : [ “收集中”, “系统正在收集数据” ],“2” : [ “成功”,   “任务成功，用户可以下载数据” ],“10”: [ “解析中”, “解析订单中，等待响应中” ],“11”: [ “待收集”, “订单解析完成，等待系统收集数据”],“-1”:">
+    <meta name="description" content="今天生产环境的系统出了问题，在本地没法重现，只能通过日志判断，但其他请求的日志一直在滚，实在不便于查看，于是在可疑位置增加了一条日志，来输出http的所有头部信息：12print &apos;HEADER：%s&apos;%http_header#输出：HEADER:&amp;#123;&quot;field1&quot;: value1, &quot;field2&quot;: value2, &quot;field3&quot;: hello, &quot;field4&quot;: value4&amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="通过脚本提取一行中的第n个字符串">
-<meta property="og:url" content="http://1988zxh.com/2015/12/31/通过脚本提取一行中的第n个字符串/index.html">
+<meta property="og:title" content="JSON格式日志字段提取">
+<meta property="og:url" content="http://1988zxh.com/2016/01/12/JSON格式日志字段提取/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="问题：提取以下文本(/tmp/demo.txt)中的被双引号引起来的字符串
-
-“0” : [ “未执行”, “正在等待系统处理” ],“1” : [ “收集中”, “系统正在收集数据” ],“2” : [ “成功”,   “任务成功，用户可以下载数据” ],“10”: [ “解析中”, “解析订单中，等待响应中” ],“11”: [ “待收集”, “订单解析完成，等待系统收集数据”],“-1”:">
-<meta property="og:updated_time" content="2015-12-31T11:48:23.000Z">
+<meta property="og:description" content="今天生产环境的系统出了问题，在本地没法重现，只能通过日志判断，但其他请求的日志一直在滚，实在不便于查看，于是在可疑位置增加了一条日志，来输出http的所有头部信息：12print &apos;HEADER：%s&apos;%http_header#输出：HEADER:&amp;#123;&quot;field1&quot;: value1, &quot;field2&quot;: value2, &quot;field3&quot;: hello, &quot;field4&quot;: value4&amp;">
+<meta property="og:updated_time" content="2016-01-12T10:43:47.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="通过脚本提取一行中的第n个字符串">
-<meta name="twitter:description" content="问题：提取以下文本(/tmp/demo.txt)中的被双引号引起来的字符串
-
-“0” : [ “未执行”, “正在等待系统处理” ],“1” : [ “收集中”, “系统正在收集数据” ],“2” : [ “成功”,   “任务成功，用户可以下载数据” ],“10”: [ “解析中”, “解析订单中，等待响应中” ],“11”: [ “待收集”, “订单解析完成，等待系统收集数据”],“-1”:">
+<meta name="twitter:title" content="JSON格式日志字段提取">
+<meta name="twitter:description" content="今天生产环境的系统出了问题，在本地没法重现，只能通过日志判断，但其他请求的日志一直在滚，实在不便于查看，于是在可疑位置增加了一条日志，来输出http的所有头部信息：12print &apos;HEADER：%s&apos;%http_header#输出：HEADER:&amp;#123;&quot;field1&quot;: value1, &quot;field2&quot;: value2, &quot;field3&quot;: hello, &quot;field4&quot;: value4&amp;">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -82,37 +76,23 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/12/31/通过脚本提取一行中的第n个字符串/" title="通过脚本提取一行中的第n个字符串" itemprop="url">通过脚本提取一行中的第n个字符串</a>
+      <a href="/2016/01/12/JSON格式日志字段提取/" title="JSON格式日志字段提取" itemprop="url">JSON格式日志字段提取</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-12-30T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-12-31</time>
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-12</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p><strong>问题</strong>：<br>提取以下文本(/tmp/demo.txt)中的被双引号引起来的字符串</p>
-<blockquote>
-<p>“0” : [ “未执行”, “正在等待系统处理” ],<br>“1” : [ “收集中”, “系统正在收集数据” ],<br>“2” : [ “成功”,   “任务成功，用户可以下载数据” ],<br>“10”: [ “解析中”, “解析订单中，等待响应中” ],<br>“11”: [ “待收集”, “订单解析完成，等待系统收集数据”],<br>“-1”: [ “无数据”, “抱歉，互联网上没有数据” ],<br>“-2”: [ “失败”,   “抱歉，未知原因导致失败” ],<br>“-3”: [ “错误”,   “抱歉，本地缓存数据丢失” ]</p>
-</blockquote>
-<p>如果用<strong>python</strong>的话易如反掌：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">import</span> re</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>f=open(<span class="string">'/tmp/demo.txt'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>[re.findall(<span class="string">r'(?&lt;=")[^"]*(?=")'</span>, line)[<span class="number">0</span>::<span class="number">2</span>] <span class="keyword">for</span> line <span class="keyword">in</span> f]</span><br></pre></td></tr></table></figure></p>
-<p>需要注意：<strong>是否使用<a href="http://www.regular-expressions.info/lookaround.html" target="_blank" rel="external">零宽断言</a>导致的匹配结果是不一样的</strong>。使用<a href="http://www.regular-expressions.info/lookaround.html" target="_blank" rel="external">零宽断言</a>时双引号只是参与了匹配并没有被提取，所以类似于<code>&quot;abc&quot;def&quot;hij&quot;</code>会被匹配成<code>abc, def, hij</code>，如果不使用的话，双引号也会被提取，匹配结果会变成<code>abc, hij</code>。</p>
-<p>如果用<strong>sed</strong>的话就有点麻烦了:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &#39;s/&#34;\([^&#34;]*\)&#34;[^&#34;]*&#34;\([^&#34;]*\)&#34;[^&#34;]*&#34;\([^&#34;]*\)&#34;.*/(\1) (\2) (\3)/g&#39; /tmp/demo.txt</span><br></pre></td></tr></table></figure></p>
-<p>sed不像python里的findall，它并<strong>不能直接提取某行中第n个符合某个规则的字符串</strong>。类似于以下代码是行不通的：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &#39;s/&#34;\([^&#34;]*\)&#34;/\2/g&#39; /tmp/demo.txt</span><br></pre></td></tr></table></figure></p>
-<p>其实，以上都是有点<strong>故意找事</strong>了，最简单的办法还是用双引号当作分隔符，然后间隔输出:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#34;\&#34;&#34; &#39;&#123;print $2, $4, $6&#125;&#39; /tmp/demo.txt</span><br></pre></td></tr></table></figure></p>
-<p>关于awk的用法，看到了一哥们的总结，非常好，<a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html" target="_blank" rel="external">摘抄</a>如下：</p>
-<blockquote>
-<blockquote>
-<p>awk ‘{pattern + action}’ {filenames}</p>
-</blockquote>
-<p>尽管操作可能会很复杂，但语法总是这样，其中 pattern 表示 AWK 在数据中查找的内容，而 action 是在找到匹配内容时所执行的一系列命令。花括号（{}）不需要在程序中始终出现，但它们用于根据特定的模式对一系列指令进行分组。 pattern就是要表示的正则表达式，用斜杠括起来。</p>
-<p>awk语言的最基本功能是在文件或者字符串中基于指定规则浏览和抽取信息，awk抽取信息后，才能进行其他文本操作。完整的awk脚本通常用来格式化文本文件中的信息。</p>
-<p>通常，awk是以文件的一行为处理单位的。awk每接收文件的一行，然后执行相应的命令，来处理文本。</p>
-</blockquote>
+		<p>今天生产环境的系统出了问题，在本地没法重现，只能通过日志判断，但其他请求的日志一直在滚，实在不便于查看，于是在可疑位置增加了一条日志，来输出http的所有头部信息：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> <span class="string">'HEADER：%s'</span>%http_header</span><br><span class="line"><span class="comment">#输出：HEADER:&#123;"field1": value1, "field2": value2, "field3": hello, "field4": value4&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>然后通过命令来实时查看：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -f access.log | grep &#39;^HEADER&#39;&#10;#&#25110;&#32773;&#10;tail -f access.log | awk /^HEADER/</span><br></pre></td></tr></table></figure></p>
+<p>这条记录就可以筛选出来了，但由于头部信息太多，我们感兴趣的就两三个字段，于是接着筛选：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#20551;&#23450;&#25105;&#20204;&#35201;&#25552;&#21462;&#23383;&#27573;&#20026;field3&#10;tail -f access.log | awk &#39;BEGIN &#123;FS=&#34;,&#34;&#125; /^HEADER/ &#123;for(i=1;i&#60;=NF;i++)&#123;if($i~&#34;field3[^,]*&#34;)print $i&#125;&#125;&#39;&#10;#&#25110;&#32773;&#10;tail -f access.log | grep &#39;^HEADER&#39; | grep -o &#39;field3[^,]*&#39;</span><br></pre></td></tr></table></figure></p>
+<p><strong>参考</strong><br><a href="http://www.tuicool.com/articles/6VJzI3v" target="_blank" rel="external">Linux: grep多个关键字“与”和“或”</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -120,7 +100,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/shell/">shell</a>
+  <a class="article-category-link" href="/categories/运维/">运维</a>
 </div>
 
 
@@ -130,7 +110,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/12/31/通过脚本提取一行中的第n个字符串/" data-title="通过脚本提取一行中的第n个字符串 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/01/12/JSON格式日志字段提取/" data-title="JSON格式日志字段提取 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -143,19 +123,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/01/01/AngularJs_orderby使用方法/" title="AngularJs orderby/filter使用方法">
-  <strong>上一篇：</strong><br/>
-  <span>
-  AngularJs orderby/filter使用方法</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/12/29/spyne简介/"  title="spyne简介">
+<a href="/2016/01/11/LeetCode之CoinChange/"  title="LeetCode之Coin Change">
  <strong>下一篇：</strong><br/> 
- <span>spyne简介
+ <span>LeetCode之Coin Change
 </span>
 </a>
 </div>

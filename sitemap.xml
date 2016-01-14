@@ -2,6 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://1988zxh.com/2015/08/31/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%B1%82%E6%AC%A1%E6%93%8D%E4%BD%9C/</loc>
+    <lastmod>2016-01-14T13:20:04.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://1988zxh.com/2015/08/22/Postgresql%E8%A1%A8%E7%9A%84%E7%BB%A7%E6%89%BF%E4%B8%8E%E5%88%86%E5%8C%BA/</loc>
+    <lastmod>2016-01-14T13:19:14.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://1988zxh.com/2015/12/09/postgresql%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AD%97%E6%AE%B5%E7%9A%84%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA/</loc>
+    <lastmod>2016-01-14T13:19:02.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://1988zxh.com/2016/01/04/Postgresql%E5%87%BD%E6%95%B0%E7%9A%84rowtype%E7%B1%BB%E5%9E%8B%E5%8F%8A%E8%BF%94%E5%9B%9E%E5%80%BC/</loc>
+    <lastmod>2016-01-14T13:18:54.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://1988zxh.com/2015/12/29/spyne%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2016-01-14T13:16:38.000Z</lastmod>
   </url>
@@ -112,11 +132,6 @@
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/04/Postgresql%E5%87%BD%E6%95%B0%E7%9A%84rowtype%E7%B1%BB%E5%9E%8B%E5%8F%8A%E8%BF%94%E5%9B%9E%E5%80%BC/</loc>
-    <lastmod>2016-01-04T15:33:14.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://1988zxh.com/2016/01/02/jsonp%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2016-01-02T01:50:19.000Z</lastmod>
   </url>
@@ -159,11 +174,6 @@
   <url>
     <loc>http://1988zxh.com/2015/12/11/Python%E8%A7%A3%E5%86%B3CERTIFICATE_VERIFY_FAILED%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2015-12-11T14:34:20.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://1988zxh.com/2015/12/09/postgresql%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AD%97%E6%AE%B5%E7%9A%84%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA/</loc>
-    <lastmod>2015-12-09T13:04:52.000Z</lastmod>
   </url>
   
   <url>
@@ -312,11 +322,6 @@
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/08/31/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%B1%82%E6%AC%A1%E6%93%8D%E4%BD%9C/</loc>
-    <lastmod>2015-08-31T12:12:37.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://1988zxh.com/2015/08/31/%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E8%A7%A3%E6%9E%90QueryDict/</loc>
     <lastmod>2015-08-31T11:44:35.000Z</lastmod>
   </url>
@@ -334,11 +339,6 @@
   <url>
     <loc>http://1988zxh.com/2015/08/22/%E5%AF%BB%E6%89%BE%E7%AC%ACn%E4%B8%AA%E4%B8%91%E6%95%B0/</loc>
     <lastmod>2015-08-22T12:46:33.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://1988zxh.com/2015/08/22/Postgresql%E8%A1%A8%E7%9A%84%E7%BB%A7%E6%89%BF%E4%B8%8E%E5%88%86%E5%8C%BA/</loc>
-    <lastmod>2015-08-22T02:41:01.000Z</lastmod>
   </url>
   
   <url>

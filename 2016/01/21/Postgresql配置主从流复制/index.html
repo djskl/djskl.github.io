@@ -1,0 +1,529 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>Postgresql配置主从流复制 | ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="这篇博客主要讲操作，内部原理稍后补充。假设主机器的ip地址是:192.168.16.10；从机器的ip地址是：192.168.16.111、主数据库配置首先修改pg_hba.conf，在最后增加一条：
+
+host    replication     postgres        192.168.16.11/32            trust
+
+这样就想当于给来自192.168.16.11的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Postgresql配置主从流复制">
+<meta property="og:url" content="http://1988zxh.com/2016/01/21/Postgresql配置主从流复制/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="这篇博客主要讲操作，内部原理稍后补充。假设主机器的ip地址是:192.168.16.10；从机器的ip地址是：192.168.16.111、主数据库配置首先修改pg_hba.conf，在最后增加一条：
+
+host    replication     postgres        192.168.16.11/32            trust
+
+这样就想当于给来自192.168.16.11的">
+<meta property="og:updated_time" content="2016-01-21T01:46:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Postgresql配置主从流复制">
+<meta name="twitter:description" content="这篇博客主要讲操作，内部原理稍后补充。假设主机器的ip地址是:192.168.16.10；从机器的ip地址是：192.168.16.111、主数据库配置首先修改pg_hba.conf，在最后增加一条：
+
+host    replication     postgres        192.168.16.11/32            trust
+
+这样就想当于给来自192.168.16.11的">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">芝兰生于深林 不以无人而不芳</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<span style="width:50px;display:inline-block;"></span>
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/21/Postgresql配置主从流复制/" title="Postgresql配置主从流复制" itemprop="url">Postgresql配置主从流复制</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-20T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-21</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<p>这篇博客主要讲操作，内部原理稍后补充。<br>假设主机器的ip地址是:192.168.16.10；从机器的ip地址是：192.168.16.11<br><strong>1、主数据库配置</strong><br>首先修改pg_hba.conf，在最后增加一条：</p>
+<blockquote>
+<p>host    replication     postgres        192.168.16.11/32            trust</p>
+</blockquote>
+<p>这样就想当于给来自192.168.16.11的postgres用户提供了可从10这台机器进行流复制的权限(replication privilege)。</p>
+<p>然后修改postgresql.conf：</p>
+<blockquote>
+<p>wal_level = hot_standby  # 这个是设置主为wal的主机</p>
+<p>max_wal_senders = 1 # 这个设置了可以最多有几个流复制连接，差不多有几个从，就设置几个</p>
+<p>wal_keep_segments = 256 ＃ 设置流复制保留的最多的xlog数目</p>
+<p>wal_sender_timeout = 60s ＃ 设置流复制主机发送数据的超时时间</p>
+<p>max_connections = 100 # 这个设置要注意下，从库的max_connections必须要大于主库的</p>
+</blockquote>
+<p>在改配置文件中还有1项：<code>synchronous_standby_names = &#39;&#39;</code>，建议注释掉，否则备份就是同步的了，也就是说主数据库上的修改操作要等从数据库备份完了才能返回结束，如果备份出错了，那可能就卡那了。</p>
+<p>重启主数据库：</p>
+<blockquote>
+<p>systemctl restart postgresql</p>
+</blockquote>
+<p><strong>2、从数据库配置</strong></p>
+<p>以下命令建议用postgres用户执行。</p>
+<p>使用pg_basebackup这个命令把10机器上数据全都备份过来，备份位置可自选(比如放在一个足够大的挂载点上)。</p>
+<blockquote>
+<p>pg_basebackup -F p –progress -D /newdir/data -h 10.12.12.10 -p 5432 -U postgres #如果数据量比较大的话需要等一会</p>
+</blockquote>
+<p>注意权限问题：<code>/newdir/data</code>整个目录必须是postgres用户可读可写的。</p>
+<p>停掉从数据库，然后将其默认的data目录重命名为data2，并在同目录下建立一个软连接指向<code>/newdir/data</code>:</p>
+<blockquote>
+<p>ln -s /newdir/data /var/lib/pgsql/data</p>
+</blockquote>
+<p>将postgresql自带的<code>recovery.conf.sample</code>复制过来，并重名为<code>recovery.conf</code>。<br>修改recovery.conf：</p>
+<blockquote>
+<p>standby_mode = on  # 这个说明这台机器为从库</p>
+<p>primary_conninfo = ‘host=192.168.16.10 port=5432 user=postgres’  # 这个说明这台机器对应主库的信息</p>
+<p>recovery_target_timeline = ‘latest’ # 这个说明这个流复制同步到最新的数据</p>
+</blockquote>
+<p>修改postgresql.conf：</p>
+<blockquote>
+<p>max_connections = 1000 ＃ 一般查多于写的应用从库的最大连接数要比较大</p>
+<p>hot_standby = on  ＃ 说明这台机器不仅仅是用于数据归档，也用于数据查询</p>
+<p>max_standby_streaming_delay = 30s # 数据流备份的最大延迟时间</p>
+<p>wal_receiver_status_interval = 1s  # 多久向主报告一次从的状态，当然从每次数据复制都会向主报告状态，这里只是设置最长的间隔时间</p>
+<p>hot_standby_feedback = on # 如果有错误的数据复制，是否向主进行反馈</p>
+</blockquote>
+<p>重启从数据库：</p>
+<blockquote>
+<p>systemctl restart postgresql</p>
+</blockquote>
+<p><strong>测试</strong><br>接下来可以在主库中进行insert/update/delete语句进行测试。如果出错的话可查看数据库日志(在data目录下的pg_log目录下)</p>
+<p><strong>参考</strong><br><a href="http://www.cnblogs.com/yjf512/p/4499547.html" target="_blank" rel="external">叶剑峰：postgres配置主从流复制</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/postgresql/">postgresql</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://1988zxh.com/2016/01/21/Postgresql配置主从流复制/" data-title="Postgresql配置主从流复制 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/01/21/更改postgresql的数据目录/"  title="更改postgresql的数据目录">
+ <strong>下一篇：</strong><br/> 
+ <span>更改postgresql的数据目录
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/django/" title="django">django<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/openlayers/" title="openlayers">openlayers<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>22</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spyne/" title="spyne">spyne<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>3</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/装饰器/" title="装饰器">装饰器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','vFmYG2ZLAiTvJ8vyggQN','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -74,6 +74,76 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2015/09/19/Django compressor使用简介/" title="Django compressor使用简介" itemprop="url">
+  
+    <h1 itemprop="name">Django compressor使用简介</h1>
+    
+     
+           <p itemprop="description" >Django-compressor是一个可以自动收集HTML页面中的js/css代码，然后进行压缩的插件，以模板标签的方式使用。
+平时写Django前台页面的时候，经常使用include标签来把相对独立的页面片段分离出去单独维护，分离出来的页面片段中除html代码外，还有js/c</p>
+        
+    
+    <time datetime="2015-09-18T16:00:00.000Z" itemprop="datePublished">2015-09-19</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2015/09/19/python中的and、or运算/" title="python中的and、or运算" itemprop="url">
+  
+    <h1 itemprop="name">python中的and、or运算</h1>
+    
+     
+           <p itemprop="description" >受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。规则如下：
+
+and运算：无假值则返回最后一个真值，有假值返回第一个假值or运算：无真值则返回最后一个假值，有真值则返回第一个真值
+
+所谓的假值是指：
+
+1、None2、False</p>
+        
+    
+    <time datetime="2015-09-18T16:00:00.000Z" itemprop="datePublished">2015-09-19</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2015/09/13/python中的metaclass及其应用/" title="python中的metaclass及其应用" itemprop="url">
+  
+    <h1 itemprop="name">python中的metaclass及其应用</h1>
+    
+     
+           <p itemprop="description" >在python中，类也是对象，一种可以创建其他对象的对象。类的定义本身就是一个对象的创建过程，默认情况下，普通的类由type类创建，从用户的角度来看，普通对象的创建通过__init__函数初始化，而类的创建则是通过__new__函数初始化。
+看type的构造函数：
+
+type(类</p>
+        
+    
+    <time datetime="2015-09-12T16:00:00.000Z" itemprop="datePublished">2015-09-13</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2015/09/03/python函数使用数组默认参数的陷阱/" title="python函数使用数组默认参数的陷阱" itemprop="url">
   
     <h1 itemprop="name">python函数使用数组默认参数的陷阱</h1>
@@ -175,27 +245,6 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/22/寻找第n个丑数/" title="寻找第n个丑数" itemprop="url">
-  
-    <h1 itemprop="name">寻找第n个丑数</h1>
-    
-     
-           <p itemprop="description" >因子只包含2、3或5的数叫做丑数，1也是丑数，前10个丑数是`1, 2, 3, 4, 5, 6, 8, 9, 10, 12。写一个程序，寻找第n个丑数。
-思路最简单粗暴的算法就是从1开始，遍历所有自然数，对每个数都判断一下是不是丑数，直到找到第n个丑数，但这样会有很多无谓的判断，</p>
-        
-    
-    <time datetime="2015-08-21T16:00:00.000Z" itemprop="datePublished">2015-08-22</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
     <a href="/2015/08/22/Postgresql表的继承与分区/" title="Postgresql表的继承与分区" itemprop="url">
   
     <h1 itemprop="name">Postgresql表的继承与分区</h1>
@@ -216,59 +265,16 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/14/Django由数据库生成model/" title="Django由数据库生成model" itemprop="url">
+    <a href="/2015/08/22/寻找第n个丑数/" title="寻找第n个丑数" itemprop="url">
   
-    <h1 itemprop="name">Django由数据库生成model</h1>
+    <h1 itemprop="name">寻找第n个丑数</h1>
     
      
-           <p itemprop="description" >运行命令：1python manage.py inspectdb [ &amp;gt; models.py ]
-即可生成对应数据库表(默认为settings.py中的default数据库，可以加–database参数来指定)的model class，&amp;gt; models.py可将生成的</p>
+           <p itemprop="description" >因子只包含2、3或5的数叫做丑数，1也是丑数，前10个丑数是`1, 2, 3, 4, 5, 6, 8, 9, 10, 12。写一个程序，寻找第n个丑数。
+思路最简单粗暴的算法就是从1开始，遍历所有自然数，对每个数都判断一下是不是丑数，直到找到第n个丑数，但这样会有很多无谓的判断，</p>
         
     
-    <time datetime="2015-08-13T16:00:00.000Z" itemprop="datePublished">2015-08-14</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/08/10/几个消除有重复计算的递归的例子/" title="几个消除有重复计算的递归的例子" itemprop="url">
-  
-    <h1 itemprop="name">几个消除有重复计算的递归的例子</h1>
-    
-     
-           <p itemprop="description" >今天遇到了一个老问题：n阶楼梯可以一次走1阶、2阶或3阶，问总共有多少种走法？，这个问题一直觉得很easy，可以借助公式s(n)=s(n-1)+s(n-2)+s(n-3)用递归解决，仔细一想，还是想当然了，递归会造成大量的重复计算，如下图：
-对于这个问题的正确的解法应该是用循环从</p>
-        
-    
-    <time datetime="2015-08-09T16:00:00.000Z" itemprop="datePublished">2015-08-10</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/08/09/寻找二叉树中最近的公共祖先/" title="寻找二叉树中最近的公共祖先" itemprop="url">
-  
-    <h1 itemprop="name">寻找二叉树中最近的公共祖先</h1>
-    
-     
-           <p itemprop="description" >问题描述：
-
-给定一棵二叉树，找出任意两个节点的最低公共祖先。树中节点的定义如下：123456# Definition for a binary tree node.class TreeNode:    def __init__(self, x):        self.val</p>
-        
-    
-    <time datetime="2015-08-08T16:00:00.000Z" itemprop="datePublished">2015-08-09</time>
+    <time datetime="2015-08-21T16:00:00.000Z" itemprop="datePublished">2015-08-22</time>
   </a>
 </section>
 
@@ -279,7 +285,7 @@
 
 
   <nav id="page-nav" class="clearfix unexpand">
-    <a class="extend prev" rel="prev" href="/page/4/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/">Next<span></span></a>
   </nav>
 
 </div>
@@ -311,7 +317,7 @@
 		  
 		
 		  
-			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>4</sup></a></li>
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>7</sup></a></li>
 		  
 		
 		  

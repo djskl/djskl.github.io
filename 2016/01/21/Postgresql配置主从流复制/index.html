@@ -12,28 +12,31 @@
     
 
     
-    <meta name="description" content="这篇博客主要讲操作，内部原理稍后补充。假设主机器的ip地址是:192.168.16.10；从机器的ip地址是：192.168.16.111、主数据库配置首先修改pg_hba.conf，在最后增加一条：
+    <meta name="description" content="假设主机器的ip地址是:192.168.16.10；从机器的ip地址是：192.168.16.11
+1、主数据库配置首先修改pg_hba.conf，在最后增加一条：
 
 host    replication     postgres        192.168.16.11/32            trust
 
-这样就想当于给来自192.168.16.11的">
+这样就想当于给来自192.168.16.11的postgres用户提供了可从10这">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Postgresql配置主从流复制">
 <meta property="og:url" content="http://1988zxh.com/2016/01/21/Postgresql配置主从流复制/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="这篇博客主要讲操作，内部原理稍后补充。假设主机器的ip地址是:192.168.16.10；从机器的ip地址是：192.168.16.111、主数据库配置首先修改pg_hba.conf，在最后增加一条：
+<meta property="og:description" content="假设主机器的ip地址是:192.168.16.10；从机器的ip地址是：192.168.16.11
+1、主数据库配置首先修改pg_hba.conf，在最后增加一条：
 
 host    replication     postgres        192.168.16.11/32            trust
 
-这样就想当于给来自192.168.16.11的">
-<meta property="og:updated_time" content="2016-01-21T01:46:56.000Z">
+这样就想当于给来自192.168.16.11的postgres用户提供了可从10这">
+<meta property="og:updated_time" content="2016-01-21T01:57:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Postgresql配置主从流复制">
-<meta name="twitter:description" content="这篇博客主要讲操作，内部原理稍后补充。假设主机器的ip地址是:192.168.16.10；从机器的ip地址是：192.168.16.111、主数据库配置首先修改pg_hba.conf，在最后增加一条：
+<meta name="twitter:description" content="假设主机器的ip地址是:192.168.16.10；从机器的ip地址是：192.168.16.11
+1、主数据库配置首先修改pg_hba.conf，在最后增加一条：
 
 host    replication     postgres        192.168.16.11/32            trust
 
-这样就想当于给来自192.168.16.11的">
+这样就想当于给来自192.168.16.11的postgres用户提供了可从10这">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -101,7 +104,8 @@ host    replication     postgres        192.168.16.11/32            trust
 </header>
 	<div class="article-content">
 		
-		<p>这篇博客主要讲操作，内部原理稍后补充。<br>假设主机器的ip地址是:192.168.16.10；从机器的ip地址是：192.168.16.11<br><strong>1、主数据库配置</strong><br>首先修改pg_hba.conf，在最后增加一条：</p>
+		<p>假设主机器的ip地址是:192.168.16.10；从机器的ip地址是：192.168.16.11</p>
+<p><strong>1、主数据库配置</strong><br>首先修改pg_hba.conf，在最后增加一条：</p>
 <blockquote>
 <p>host    replication     postgres        192.168.16.11/32            trust</p>
 </blockquote>

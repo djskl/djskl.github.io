@@ -79,9 +79,10 @@
     <h1 itemprop="name">Postgresql配置主从流复制</h1>
     
      
-           <p itemprop="description" >这篇博客主要讲操作，内部原理稍后补充。假设主机器的ip地址是:192.168.16.10；从机器的ip地址是：192.168.16.111、主数据库配置首先修改pg_hba.conf，在最后增加一条：
+           <p itemprop="description" >假设主机器的ip地址是:192.168.16.10；从机器的ip地址是：192.168.16.11
+1、主数据库配置首先修改pg_hba.conf，在最后增加一条：
 
-host    replication     postgres      </p>
+host    replication     postgres        192.168.16.11/32</p>
         
     
     <time datetime="2016-01-20T16:00:00.000Z" itemprop="datePublished">2016-01-21</time>

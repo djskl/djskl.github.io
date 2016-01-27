@@ -5,29 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>通过脚本提取一行中的第n个字符串 | ideas into codes</title>
+    <title>统计不同ip建立的tcp连接数 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="问题：提取以下文本(/tmp/demo.txt)中的被双引号引起来的字符串
-
-“0” : [ “未执行”, “正在等待系统处理” ],“1” : [ “收集中”, “系统正在收集数据” ],“2” : [ “成功”,   “任务成功，用户可以下载数据” ],“10”: [ “解析中”, “解析订单中，等待响应中” ],“11”: [ “待收集”, “订单解析完成，等待系统收集数据”],“-1”:">
+    <meta name="description" content="1netstat -tpn | awk &amp;#39;NR&amp;#62;2&amp;#123;print $5&amp;#125;&amp;#39; | awk -F&amp;#39;:&amp;#39; &amp;#39;&amp;#123;if($1 in a)&amp;#123;a[$1] += 1&amp;#125;else&amp;#123;a[$1]=1&amp;#125;&amp;#125;END&amp;#123;for(ip in a)&amp;#123;printf(&amp;#34;%-15s: %d">
 <meta property="og:type" content="article">
-<meta property="og:title" content="通过脚本提取一行中的第n个字符串">
-<meta property="og:url" content="http://1988zxh.com/2015/12/31/通过脚本提取一行中的第n个字符串/index.html">
+<meta property="og:title" content="统计不同ip建立的tcp连接数">
+<meta property="og:url" content="http://1988zxh.com/2016/01/27/统计不同ip建立的tcp连接数/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="问题：提取以下文本(/tmp/demo.txt)中的被双引号引起来的字符串
-
-“0” : [ “未执行”, “正在等待系统处理” ],“1” : [ “收集中”, “系统正在收集数据” ],“2” : [ “成功”,   “任务成功，用户可以下载数据” ],“10”: [ “解析中”, “解析订单中，等待响应中” ],“11”: [ “待收集”, “订单解析完成，等待系统收集数据”],“-1”:">
-<meta property="og:updated_time" content="2015-12-31T11:48:23.000Z">
+<meta property="og:description" content="1netstat -tpn | awk &amp;#39;NR&amp;#62;2&amp;#123;print $5&amp;#125;&amp;#39; | awk -F&amp;#39;:&amp;#39; &amp;#39;&amp;#123;if($1 in a)&amp;#123;a[$1] += 1&amp;#125;else&amp;#123;a[$1]=1&amp;#125;&amp;#125;END&amp;#123;for(ip in a)&amp;#123;printf(&amp;#34;%-15s: %d">
+<meta property="og:updated_time" content="2016-01-27T14:45:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="通过脚本提取一行中的第n个字符串">
-<meta name="twitter:description" content="问题：提取以下文本(/tmp/demo.txt)中的被双引号引起来的字符串
-
-“0” : [ “未执行”, “正在等待系统处理” ],“1” : [ “收集中”, “系统正在收集数据” ],“2” : [ “成功”,   “任务成功，用户可以下载数据” ],“10”: [ “解析中”, “解析订单中，等待响应中” ],“11”: [ “待收集”, “订单解析完成，等待系统收集数据”],“-1”:">
+<meta name="twitter:title" content="统计不同ip建立的tcp连接数">
+<meta name="twitter:description" content="1netstat -tpn | awk &amp;#39;NR&amp;#62;2&amp;#123;print $5&amp;#125;&amp;#39; | awk -F&amp;#39;:&amp;#39; &amp;#39;&amp;#123;if($1 in a)&amp;#123;a[$1] += 1&amp;#125;else&amp;#123;a[$1]=1&amp;#125;&amp;#125;END&amp;#123;for(ip in a)&amp;#123;printf(&amp;#34;%-15s: %d">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -83,37 +77,21 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/12/31/通过脚本提取一行中的第n个字符串/" title="通过脚本提取一行中的第n个字符串" itemprop="url">通过脚本提取一行中的第n个字符串</a>
+      <a href="/2016/01/27/统计不同ip建立的tcp连接数/" title="统计不同ip建立的tcp连接数" itemprop="url">统计不同ip建立的tcp连接数</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-12-30T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-12-31</time>
+    <time datetime="2016-01-26T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-27</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p><strong>问题</strong>：<br>提取以下文本(/tmp/demo.txt)中的被双引号引起来的字符串</p>
-<blockquote>
-<p>“0” : [ “未执行”, “正在等待系统处理” ],<br>“1” : [ “收集中”, “系统正在收集数据” ],<br>“2” : [ “成功”,   “任务成功，用户可以下载数据” ],<br>“10”: [ “解析中”, “解析订单中，等待响应中” ],<br>“11”: [ “待收集”, “订单解析完成，等待系统收集数据”],<br>“-1”: [ “无数据”, “抱歉，互联网上没有数据” ],<br>“-2”: [ “失败”,   “抱歉，未知原因导致失败” ],<br>“-3”: [ “错误”,   “抱歉，本地缓存数据丢失” ]</p>
-</blockquote>
-<p>如果用<strong>python</strong>的话易如反掌：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">import</span> re</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>f=open(<span class="string">'/tmp/demo.txt'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>[re.findall(<span class="string">r'(?&lt;=")[^"]*(?=")'</span>, line)[<span class="number">0</span>::<span class="number">2</span>] <span class="keyword">for</span> line <span class="keyword">in</span> f]</span><br></pre></td></tr></table></figure></p>
-<p>需要注意：<strong>是否使用<a href="http://www.regular-expressions.info/lookaround.html" target="_blank" rel="external">零宽断言</a>导致的匹配结果是不一样的</strong>。使用<a href="http://www.regular-expressions.info/lookaround.html" target="_blank" rel="external">零宽断言</a>时双引号只是参与了匹配并没有被提取，所以类似于<code>&quot;abc&quot;def&quot;hij&quot;</code>会被匹配成<code>abc, def, hij</code>，如果不使用的话，双引号也会被提取，匹配结果会变成<code>abc, hij</code>。</p>
-<p>如果用<strong>sed</strong>的话就有点麻烦了:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &#39;s/&#34;\([^&#34;]*\)&#34;[^&#34;]*&#34;\([^&#34;]*\)&#34;[^&#34;]*&#34;\([^&#34;]*\)&#34;.*/(\1) (\2) (\3)/g&#39; /tmp/demo.txt</span><br></pre></td></tr></table></figure></p>
-<p>sed不像python里的findall，它并<strong>不能直接提取某行中第n个符合某个规则的字符串</strong>。类似于以下代码是行不通的：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &#39;s/&#34;\([^&#34;]*\)&#34;/\2/g&#39; /tmp/demo.txt</span><br></pre></td></tr></table></figure></p>
-<p>其实，以上都是有点<strong>故意找事</strong>了，最简单的办法还是用双引号当作分隔符，然后间隔输出:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#34;\&#34;&#34; &#39;&#123;print $2, $4, $6&#125;&#39; /tmp/demo.txt</span><br></pre></td></tr></table></figure></p>
-<p>关于awk的用法，看到了一哥们的总结，非常好，<a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html" target="_blank" rel="external">摘抄</a>如下：</p>
-<blockquote>
-<blockquote>
-<p>awk ‘{pattern + action}’ {filenames}</p>
-</blockquote>
-<p>尽管操作可能会很复杂，但语法总是这样，其中 pattern 表示 AWK 在数据中查找的内容，而 action 是在找到匹配内容时所执行的一系列命令。花括号（{}）不需要在程序中始终出现，但它们用于根据特定的模式对一系列指令进行分组。 pattern就是要表示的正则表达式，用斜杠括起来。</p>
-<p>awk语言的最基本功能是在文件或者字符串中基于指定规则浏览和抽取信息，awk抽取信息后，才能进行其他文本操作。完整的awk脚本通常用来格式化文本文件中的信息。</p>
-<p>通常，awk是以文件的一行为处理单位的。awk每接收文件的一行，然后执行相应的命令，来处理文本。</p>
-</blockquote>
+		<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tpn | awk &#39;NR&#62;2&#123;print $5&#125;&#39; | awk -F&#39;:&#39; &#39;&#123;if($1 in a)&#123;a[$1] += 1&#125;else&#123;a[$1]=1&#125;&#125;END&#123;for(ip in a)&#123;printf(&#34;%-15s: %d\n&#34;,ip, a[ip]);&#125;&#125;&#39;|sort -t : -k 2 -n -r</span><br></pre></td></tr></table></figure>
+<p>如果想实时监视的话，可以把以上命令写到一个脚本文件里(比如ips)，然后借助<code>watch</code>命令:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">watch -n 1 -d sh ips</span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -131,7 +109,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/12/31/通过脚本提取一行中的第n个字符串/" data-title="通过脚本提取一行中的第n个字符串 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/01/27/统计不同ip建立的tcp连接数/" data-title="统计不同ip建立的tcp连接数 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -145,18 +123,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/01/01/AngularJs_orderby使用方法/" title="AngularJs orderby/filter使用方法">
+ <a href="/2016/01/27/Fedora20翻墙小记/" title="Fedora20翻墙小记">
   <strong>上一篇：</strong><br/>
   <span>
-  AngularJs orderby/filter使用方法</span>
+  Fedora20翻墙小记</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/12/29/spyne简介/"  title="spyne简介">
+<a href="/2016/01/23/老虎绕湖追狗的问题/"  title="老虎绕湖追狗的问题">
  <strong>下一篇：</strong><br/> 
- <span>spyne简介
+ <span>老虎绕湖追狗的问题
 </span>
 </a>
 </div>
@@ -165,7 +143,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/12/31/通过脚本提取一行中的第n个字符串/" data-title="通过脚本提取一行中的第n个字符串" data-url="http://1988zxh.com/2015/12/31/通过脚本提取一行中的第n个字符串/"></div>
+	<div class="ds-thread" data-thread-key="2016/01/27/统计不同ip建立的tcp连接数/" data-title="统计不同ip建立的tcp连接数" data-url="http://1988zxh.com/2016/01/27/统计不同ip建立的tcp连接数/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

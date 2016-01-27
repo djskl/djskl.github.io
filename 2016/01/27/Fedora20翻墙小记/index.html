@@ -5,41 +5,30 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>spyne简介 | ideas into codes</title>
+    <title>Fedora20翻墙小记 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="spyne是soaplib的一个泛化版本，作者原话是：
-
-This project is discontinued. Please head over to github.com/arskom/spyne for the next version.
-
-上述中的This project指的就是soaplib。spyne是面向python的完整的分布式开发工具包。
-下面介绍几个比较基本的概念：
-Pro">
+    <meta name="description" content="之前一直觉得可以用谷歌搜索就不用费劲翻墙了，没想到该来的早晚回来，安装一个工具时需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。
+ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据过了墙之后再被还原，这样就完美的绕过了墙。
+1、安装shadowsocks-qt5Fedora22/23可以从">
 <meta property="og:type" content="article">
-<meta property="og:title" content="spyne简介">
-<meta property="og:url" content="http://1988zxh.com/2015/12/29/spyne简介/index.html">
+<meta property="og:title" content="Fedora20翻墙小记">
+<meta property="og:url" content="http://1988zxh.com/2016/01/27/Fedora20翻墙小记/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="spyne是soaplib的一个泛化版本，作者原话是：
-
-This project is discontinued. Please head over to github.com/arskom/spyne for the next version.
-
-上述中的This project指的就是soaplib。spyne是面向python的完整的分布式开发工具包。
-下面介绍几个比较基本的概念：
-Pro">
-<meta property="og:updated_time" content="2016-01-14T13:16:38.000Z">
+<meta property="og:description" content="之前一直觉得可以用谷歌搜索就不用费劲翻墙了，没想到该来的早晚回来，安装一个工具时需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。
+ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据过了墙之后再被还原，这样就完美的绕过了墙。
+1、安装shadowsocks-qt5Fedora22/23可以从">
+<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/what-is-shadowsocks.png">
+<meta property="og:updated_time" content="2016-01-27T13:23:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="spyne简介">
-<meta name="twitter:description" content="spyne是soaplib的一个泛化版本，作者原话是：
-
-This project is discontinued. Please head over to github.com/arskom/spyne for the next version.
-
-上述中的This project指的就是soaplib。spyne是面向python的完整的分布式开发工具包。
-下面介绍几个比较基本的概念：
-Pro">
+<meta name="twitter:title" content="Fedora20翻墙小记">
+<meta name="twitter:description" content="之前一直觉得可以用谷歌搜索就不用费劲翻墙了，没想到该来的早晚回来，安装一个工具时需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。
+ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据过了墙之后再被还原，这样就完美的绕过了墙。
+1、安装shadowsocks-qt5Fedora22/23可以从">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -95,45 +84,36 @@ Pro">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/12/29/spyne简介/" title="spyne简介" itemprop="url">spyne简介</a>
+      <a href="/2016/01/27/Fedora20翻墙小记/" title="Fedora20翻墙小记" itemprop="url">Fedora20翻墙小记</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-12-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-12-29</time>
+    <time datetime="2016-01-26T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-27</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p><a href="https://github.com/arskom/spyne" target="_blank" rel="external">spyne</a>是<a href="https://github.com/soaplib/soaplib" target="_blank" rel="external">soaplib</a>的一个泛化版本，作者原话是：</p>
+		<p>之前一直觉得可以用<a href="http://www.itechzero.com/google-mirror-sites-collect.html" target="_blank" rel="external">谷歌搜索</a>就不用费劲翻墙了，没想到该来的早晚回来，安装一个工具时需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。</p>
+<p>ShadowSocks是一个基于<a href="https://en.wikipedia.org/wiki/SOCKS" target="_blank" rel="external">socks5协议</a>的工具，其原理如下图所示：<br><img src="http://7xktxu.com1.z0.glb.clouddn.com/what-is-shadowsocks.png" alt=""><br>需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据过了墙之后再被还原，这样就完美的绕过了墙。</p>
+<p><strong>1、安装shadowsocks-qt5</strong><br>Fedora22/23可以从<a href="https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/" target="_blank" rel="external">这里</a>下载repo文件，然后放到<code>/etc/yum.repos.d/</code>目录下，就可以通过yum安装了：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update&#10;sudo yum install shadowsocks-qt5</span><br></pre></td></tr></table></figure></p>
+<p>fedora20的repo：</p>
 <blockquote>
-<p>This project is discontinued. Please head over to github.com/arskom/spyne for the next version.</p>
+<p>[librehat-shadowsocks]<br>name=Copr repo for shadowsocks owned by librehat<br>baseurl=<a href="https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/" target="_blank" rel="external">https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/</a><br>skip_if_unavailable=True<br>gpgcheck=0<br>gpgkey=<a href="https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/pubkey.gpg" target="_blank" rel="external">https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/pubkey.gpg</a><br>enabled=1</p>
 </blockquote>
-<p>上述中的<strong>This project</strong>指的就是soaplib。spyne是面向python的完整的分布式开发工具包。</p>
-<p>下面介绍几个比较基本的概念：</p>
-<p><strong>Protocols</strong>：数据的传输规则，比如soap协议(<a href="http://spyne.io/docs/2.9/reference/protocol/soap.html#spyne.protocol.soap.soap11.Soap11" target="_blank" rel="external">spyne.protocol.soap.soap11.Soap11</a>)，数据以XML的形式传输。在spyne中，所有的协议都是<a href="http://spyne.io/docs/2.9/reference/protocol/base.html#spyne.protocol._base.ProtocolBase" target="_blank" rel="external">spyne.protocol._base.ProtocolBase</a>的子类。</p>
-<p><strong>Transports</strong>：封装Protocol数据，比如soap数据会借助http来传输。</p>
-<p><strong>Models</strong>：定义数据类型规范，比如<code>Unicode</code>, <code>Integer</code>, <code>ByteArray</code>。</p>
-<p><strong>Decorators</strong>：<code>@rpc</code>与<code>@srpc</code>可以将用户所写的代码标记为服务接口。</p>
-<p><strong>Service</strong>：是spyne中的最小单位，所有对外提供服务的接口函数都必须属于某个service(<a href="http://spyne.io/docs/2.9/reference/service.html#spyne.service.ServiceBase" target="_blank" rel="external">spyne.service.ServiceBase</a>的子类)</p>
-<p><strong>Application</strong>：将服务(service)和协议(protocl)绑在一块，形成完整的服务程序。</p>
-<p>构造整个程序的基本流程如下：</p>
+<p>fedora21的repo:</p>
 <blockquote>
-<p>Your code is inside @rpc-wrapped methods in ServiceBase subclasses. The ServiceBase subclasses in turn are wrapped by an Application instance. The Application instantiation is used to assign input and output protocols to the exposed methods. The Application instance is finally wrapped by a client or server transport that takes the responsibility of moving the bits around.</p>
-<p>你的代码需要写在ServiceBase的子类中，且通过装饰器@rpc修饰为对外服务接口，ServiceBase的子类需要进一步被Application封装，Application可以为服务接口的输入/输出数据指定数据传输协议。最后Appliation会被Transport进一步封装，由Transport来具体传输底层的字节流数据。</p>
+<p>[librehat-shadowsocks]<br>name=Copr repo for shadowsocks owned by librehat<br>baseurl=<a href="https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/" target="_blank" rel="external">https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/</a><br>skip_if_unavailable=True<br>gpgcheck=0<br>gpgkey=<a href="https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/pubkey.gpg" target="_blank" rel="external">https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/pubkey.gpg</a><br>enabled=1</p>
 </blockquote>
-<p>下面是入门的<code>hello,world</code>例子：</p>
-<blockquote>
-<p>基于Django，且输入/输出协议都是soap1.1</p>
-</blockquote>
-<p><strong>myservice/views.py</strong>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> spyne.application <span class="keyword">import</span> Application</span><br><span class="line"><span class="keyword">from</span> spyne.decorator <span class="keyword">import</span> srpc</span><br><span class="line"><span class="keyword">from</span> spyne.protocol.soap <span class="keyword">import</span> Soap11</span><br><span class="line"><span class="keyword">from</span> spyne.service <span class="keyword">import</span> ServiceBase</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> spyne.model.complex <span class="keyword">import</span> Iterable</span><br><span class="line"><span class="keyword">from</span> spyne.model.primitive <span class="keyword">import</span> Integer, Unicode</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.views.decorators.csrf <span class="keyword">import</span> csrf_exempt</span><br><span class="line"><span class="keyword">from</span> spyne.server.django <span class="keyword">import</span> DjangoApplication</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorldService</span><span class="params">(ServiceBase)</span>:</span></span><br><span class="line"><span class="decorator">    @srpc(Unicode, Integer, _returns=Iterable(Unicode))</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">say_hello</span><span class="params">(name, times)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(times):</span><br><span class="line">            <span class="keyword">yield</span> <span class="string">'Hello, %s'</span> % name</span><br><span class="line"></span><br><span class="line">application = Application([HelloWorldService],</span><br><span class="line">    tns=<span class="string">'spyne.examples.hello'</span>,</span><br><span class="line">    in_protocol=Soap11(validator=<span class="string">'lxml'</span>),</span><br><span class="line">    out_protocol=Soap11()</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">hello_app = csrf_exempt(DjangoApplication(application))</span><br></pre></td></tr></table></figure></p>
-<p><strong>url配置</strong>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">urlpatterns += patterns(<span class="string">'myservice.views'</span>, url(<span class="string">r'^ws$'</span>, <span class="string">'hello_app'</span>))</span><br></pre></td></tr></table></figure></p>
-<p>最后别忘了将<code>myservice</code>放在<code>INSTALLED_APPS</code>中。</p>
-<p><strong>客户端测试代码</strong><br>启动Django服务器，在通过浏览器访问<a href="http://127.0.0.1:8000/ws?wsdl" target="_blank" rel="external">http://127.0.0.1:8000/ws?wsdl</a>，如果没报错，会看到当前webservice的wsdl接口描述文档(xml)。<br>下面再借助<a href="https://pypi.python.org/pypi/suds" target="_blank" rel="external">suds</a>访问一下我们的<code>say_hello</code>接口：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">from</span> suds.client <span class="keyword">import</span> Client</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>hello_client = Client(<span class="string">'http://localhost:8000/ws?wsdl'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">print</span> hello_client.service.say_hello(<span class="string">"Dave"</span>, <span class="number">5</span>)</span><br><span class="line">(stringArray)&#123;</span><br><span class="line">   string[] = </span><br><span class="line">      <span class="string">"Hello, Dave"</span>,</span><br><span class="line">      <span class="string">"Hello, Dave"</span>,</span><br><span class="line">      <span class="string">"Hello, Dave"</span>,</span><br><span class="line">      <span class="string">"Hello, Dave"</span>,</span><br><span class="line">      <span class="string">"Hello, Dave"</span>,</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>参考</strong>：<a href="http://spyne.io/docs/2.9/manual/index.html#spyne-manual" target="_blank" rel="external">Spyne Manual</a></p>
+<p><strong>2、配置shadowsocks代理</strong><br>安装完之后可以在<code>applicaion</code>中看到<code>shadowsocks-qt5</code>，打开并新建<code>connection</code>，输入服务器地址、端口号、密码以及加密方法，本地端口一般不需要改(默认为1080)，点击<code>ok</code>，回到主界面点击<code>connect</code>即可连接。</p>
+<p>如果<code>latency</code>太大的话，基本没戏，我第一次试了几个免费公开帐号，这个值在两三百左右，访问什么网站都会返回<code>no data received</code>。</p>
+<p><strong>3、浏览器配置</strong><br>在Fedora默认的<code>Network</code>配置里就有<code>Network proxy</code>这一项，在<code>Socks Host</code>里输入<code>127.0.0.1</code>,端口<code>1080</code>即可，这样在chrome里访问网站就会自动走代理了。</p>
+<p><strong>4、Terminal配置</strong><br>可以参考<a href="http://cxh.me/2015/01/30/use-shadowsocks-in-terminal/" target="_blank" rel="external">这篇文章</a></p>
+<p><strong>最后</strong><br>推荐几个免费的试用帐号：<a href="http://www.ishadowsocks.com/，http://www.godusevpn.net/" target="_blank" rel="external">http://www.ishadowsocks.com/，http://www.godusevpn.net/</a></p>
+<p><strong>参考：</strong><br><a href="https://tumutanzi.com/archives/13005" target="_blank" rel="external">ShadowSocks的翻墙原理</a><br><a href="http://blog.csdn.net/bit_line/article/details/43260991" target="_blank" rel="external">[shadowsocks-qt5 for fedora20] [配置shadowsocks科学上网 under Linux]</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -141,7 +121,7 @@ Pro">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/spyne/">spyne</a>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
 </div>
 
 
@@ -151,7 +131,7 @@ Pro">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/12/29/spyne简介/" data-title="spyne简介 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/01/27/Fedora20翻墙小记/" data-title="Fedora20翻墙小记 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -164,19 +144,11 @@ Pro">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/12/31/通过脚本提取一行中的第n个字符串/" title="通过脚本提取一行中的第n个字符串">
-  <strong>上一篇：</strong><br/>
-  <span>
-  通过脚本提取一行中的第n个字符串</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/12/25/LeetCode之Best Time to Buy and Sell Stock with Cooldown/"  title="LeetCode之Best Time to Buy and Sell Stock with Cooldown">
+<a href="/2016/01/23/老虎绕湖追狗的问题/"  title="老虎绕湖追狗的问题">
  <strong>下一篇：</strong><br/> 
- <span>LeetCode之Best Time to Buy and Sell Stock with Cooldown
+ <span>老虎绕湖追狗的问题
 </span>
 </a>
 </div>
@@ -185,7 +157,7 @@ Pro">
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/12/29/spyne简介/" data-title="spyne简介" data-url="http://1988zxh.com/2015/12/29/spyne简介/"></div>
+	<div class="ds-thread" data-thread-key="2016/01/27/Fedora20翻墙小记/" data-title="Fedora20翻墙小记" data-url="http://1988zxh.com/2016/01/27/Fedora20翻墙小记/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

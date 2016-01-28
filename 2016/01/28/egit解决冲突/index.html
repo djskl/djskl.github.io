@@ -5,23 +5,28 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>文本倒置(sed) | ideas into codes</title>
+    <title>egit解决冲突 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="123456&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;1-3米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;3-10米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;">
+    <meta name="description" content="提交代码之前，先右键工程Team -&amp;gt; Synchronize Worksplace，然后就可以看到这个熟悉的界面：在git pull 或 git push之前一定要先把冲突解决掉。
+个人建议，先将自己修改的部分复制出来(冲突解决了、版本一致了之后再重新提交)，然后右键冲突的文件选择Overwrite将本地的修改覆盖掉，然后右键这个冲突文件，选择Add to Git Index，这时状态如下">
 <meta property="og:type" content="article">
-<meta property="og:title" content="文本倒置(sed)">
-<meta property="og:url" content="http://1988zxh.com/2015/03/27/文本倒置(sed)/index.html">
+<meta property="og:title" content="egit解决冲突">
+<meta property="og:url" content="http://1988zxh.com/2016/01/28/egit解决冲突/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="123456&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;1-3米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;3-10米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;">
-<meta property="og:updated_time" content="2015-09-10T12:49:13.000Z">
+<meta property="og:description" content="提交代码之前，先右键工程Team -&amp;gt; Synchronize Worksplace，然后就可以看到这个熟悉的界面：在git pull 或 git push之前一定要先把冲突解决掉。
+个人建议，先将自己修改的部分复制出来(冲突解决了、版本一致了之后再重新提交)，然后右键冲突的文件选择Overwrite将本地的修改覆盖掉，然后右键这个冲突文件，选择Add to Git Index，这时状态如下">
+<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/egit_sync.png">
+<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/egit_index.png">
+<meta property="og:updated_time" content="2016-01-28T15:23:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="文本倒置(sed)">
-<meta name="twitter:description" content="123456&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;1-3米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;lt;a href=&quot;javascript:void(0)&quot;&amp;gt;3-10米&amp;lt;/a&amp;gt;&amp;amp;nbsp;&amp;amp;">
+<meta name="twitter:title" content="egit解决冲突">
+<meta name="twitter:description" content="提交代码之前，先右键工程Team -&amp;gt; Synchronize Worksplace，然后就可以看到这个熟悉的界面：在git pull 或 git push之前一定要先把冲突解决掉。
+个人建议，先将自己修改的部分复制出来(冲突解决了、版本一致了之后再重新提交)，然后右键冲突的文件选择Overwrite将本地的修改覆盖掉，然后右键这个冲突文件，选择Add to Git Index，这时状态如下">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -77,21 +82,22 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/03/27/文本倒置(sed)/" title="文本倒置(sed)" itemprop="url">文本倒置(sed)</a>
+      <a href="/2016/01/28/egit解决冲突/" title="egit解决冲突" itemprop="url">egit解决冲突</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-03-26T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-03-27</time>
+    <time datetime="2016-01-27T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-28</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0)"</span>&gt;</span>1-3米<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0)"</span>&gt;</span>3-10米<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0)"</span>&gt;</span>10-30米<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0)"</span>&gt;</span>30-100米<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0)"</span>&gt;</span>100-500米<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"javascript:void(0)"</span>&gt;</span>500米-1KM<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这是同事给我写的代码，写法上就不管了，我想做的是把那串空格放到后面。一行一行的复制觉得有点麻烦，于是想到sed命令：<br><code>sed -r &#39;s/((&amp;nbsp;)+)(&lt;a.*a&gt;)/\3\1/g&#39; codes</code><br>写的时候，晕了，把<code>&amp;nbsp;</code>当成了一个字符，直接写成了<code>&amp;nbsp;+</code>，浪费了不少时间。<br>这里有个多层括号的问题，括号的顺序应该从左到右数，不管是否嵌套。比如：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# echo &#39;1212123456&#39; | sed -r &#39;s/((12)+)((34)(56))/\1,\2,\3,\4,\5/g&#39;&#10;121212,12,3456,34,56</span><br></pre></td></tr></table></figure></p>
+		<p>提交代码之前，先右键工程<code>Team -&gt; Synchronize Worksplace</code>，然后就可以看到这个熟悉的界面：<br><img src="http://7xktxu.com1.z0.glb.clouddn.com/egit_sync.png" alt=""><br>在<code>git pull</code> 或 <code>git push</code>之前一定要先把冲突解决掉。</p>
+<p>个人建议，先将自己修改的部分复制出来(冲突解决了、版本一致了之后再重新提交)，然后右键冲突的文件选择<code>Overwrite</code>将本地的修改覆盖掉，然后右键这个冲突文件，选择<code>Add to Git Index</code>，这时状态如下图所示：<br><img src="http://7xktxu.com1.z0.glb.clouddn.com/egit_index.png" alt=""><br>然后右键<strong>工程</strong>选择<code>commit</code>，将所有修改提交，然后就可以<code>git pull</code>(工具栏里带有绿色向下指的箭头的按钮)了,最后执行<code>git push</code>(git pull旁边带红色水平箭头的按钮)就可以了。</p>
+<p>如果发生了冲突，一定要先解决冲突：<code>Overwrite -&gt; Add to Git Index -&gt; commit -&gt; git pull -&gt; git push</code>，<strong>这个顺序一定不能错</strong>。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -99,7 +105,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/shell/">shell</a>
+  <a class="article-category-link" href="/categories/其他/">其他</a>
 </div>
 
 
@@ -109,7 +115,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/03/27/文本倒置(sed)/" data-title="文本倒置(sed) | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/01/28/egit解决冲突/" data-title="egit解决冲突 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -122,19 +128,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/04/03/Psycopg的基本用法/" title="Psycopg的基本用法">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Psycopg的基本用法</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/03/18/awk处理空格分隔符/"  title="awk处理空格分隔符">
+<a href="/2016/01/27/Fedora20翻墙小记/"  title="Fedora20翻墙小记">
  <strong>下一篇：</strong><br/> 
- <span>awk处理空格分隔符
+ <span>Fedora20翻墙小记
 </span>
 </a>
 </div>
@@ -143,7 +141,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/03/27/文本倒置(sed)/" data-title="文本倒置(sed)" data-url="http://1988zxh.com/2015/03/27/文本倒置(sed)/"></div>
+	<div class="ds-thread" data-thread-key="2016/01/28/egit解决冲突/" data-title="egit解决冲突" data-url="http://1988zxh.com/2016/01/28/egit解决冲突/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

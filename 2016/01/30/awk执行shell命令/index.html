@@ -5,23 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>AngularJs通过service在controller间共享数据 | ideas into codes</title>
+    <title>awk执行shell命令 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;    &amp;lt;head&amp;gt;        &amp;lt;meta charset=&quot;UTF-8&quot;&amp;gt;        &amp;lt;script typ">
+    <meta name="description" content="之前一直觉得shell中的字符串截取函数不能用在管道命令里有点可惜，昨天浏览微博的发现了这么一条命令：1ls -t | awk &amp;#39;NR&amp;#62;5 &amp;#123;system(&amp;#34;rm \&amp;#34;&amp;#34; $0 &amp;#34;\&amp;#34;&amp;#34;)&amp;#125;&amp;#39; #&amp;#21482;&amp;#20445;&amp;#30041;&amp;#26368;&amp;#26032;&amp;#30340;5&amp;#20010">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AngularJs通过service在controller间共享数据">
-<meta property="og:url" content="http://1988zxh.com/2016/01/06/AngularJs通过service在controller间共享数据/index.html">
+<meta property="og:title" content="awk执行shell命令">
+<meta property="og:url" content="http://1988zxh.com/2016/01/30/awk执行shell命令/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;    &amp;lt;head&amp;gt;        &amp;lt;meta charset=&quot;UTF-8&quot;&amp;gt;        &amp;lt;script typ">
-<meta property="og:updated_time" content="2016-01-14T13:01:29.000Z">
+<meta property="og:description" content="之前一直觉得shell中的字符串截取函数不能用在管道命令里有点可惜，昨天浏览微博的发现了这么一条命令：1ls -t | awk &amp;#39;NR&amp;#62;5 &amp;#123;system(&amp;#34;rm \&amp;#34;&amp;#34; $0 &amp;#34;\&amp;#34;&amp;#34;)&amp;#125;&amp;#39; #&amp;#21482;&amp;#20445;&amp;#30041;&amp;#26368;&amp;#26032;&amp;#30340;5&amp;#20010">
+<meta property="og:updated_time" content="2016-01-30T02:31:29.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AngularJs通过service在controller间共享数据">
-<meta name="twitter:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;    &amp;lt;head&amp;gt;        &amp;lt;meta charset=&quot;UTF-8&quot;&amp;gt;        &amp;lt;script typ">
+<meta name="twitter:title" content="awk执行shell命令">
+<meta name="twitter:description" content="之前一直觉得shell中的字符串截取函数不能用在管道命令里有点可惜，昨天浏览微博的发现了这么一条命令：1ls -t | awk &amp;#39;NR&amp;#62;5 &amp;#123;system(&amp;#34;rm \&amp;#34;&amp;#34; $0 &amp;#34;\&amp;#34;&amp;#34;)&amp;#125;&amp;#39; #&amp;#21482;&amp;#20445;&amp;#30041;&amp;#26368;&amp;#26032;&amp;#30340;5&amp;#20010">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -77,20 +77,30 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/06/AngularJs通过service在controller间共享数据/" title="AngularJs通过service在controller间共享数据" itemprop="url">AngularJs通过service在controller间共享数据</a>
+      <a href="/2016/01/30/awk执行shell命令/" title="awk执行shell命令" itemprop="url">awk执行shell命令</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-05T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-06</time>
+    <time datetime="2016-01-29T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-30</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"js/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"js/angular.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">ng-app</span>=<span class="value">"myapp"</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">ng-controller</span>=<span class="value">"fst-ctrl"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">span</span>&gt;</span>"1-ctrl"：&#123;&#123;info.msg&#125;&#125;<span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">button</span> <span class="attribute">ng-click</span>=<span class="value">"update()"</span>&gt;</span>更新<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">ng-controller</span>=<span class="value">"snd-ctrl"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">span</span>&gt;</span>"2-ctrl"：&#123;&#123;info.msg&#125;&#125;<span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">button</span> <span class="attribute">ng-click</span>=<span class="value">"update()"</span>&gt;</span>更新<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="actionscript"></span><br><span class="line">        </span><br><span class="line">            <span class="keyword">var</span> app = angular.module(<span class="string">"myapp"</span>, []);</span><br><span class="line">            </span><br><span class="line">            app.factory(<span class="string">"info"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">                <span class="keyword">return</span> &#123;</span><br><span class="line">                    add: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">                        <span class="keyword">this</span>.msg += <span class="number">1</span>;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    msg: <span class="number">0</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">var</span> _ctrl = <span class="function"><span class="keyword">function</span><span class="params">($scope, info)</span></span>&#123;</span><br><span class="line">                $scope.info = info;</span><br><span class="line">                $scope.update = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">                    <span class="keyword">this</span>.info.add();</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;;</span><br><span class="line">            </span><br><span class="line">            app.controller(<span class="string">"fst-ctrl"</span>, _ctrl);</span><br><span class="line">            </span><br><span class="line">            app.controller(<span class="string">"snd-ctrl"</span>, _ctrl);</span><br><span class="line">        </span><br><span class="line">        </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+		<p>之前一直觉得shell中的字符串截取函数不能用在管道命令里有点可惜，昨天浏览微博的发现了这么一条命令：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -t | awk &#39;NR&#62;5 &#123;system(&#34;rm \&#34;&#34; $0 &#34;\&#34;&#34;)&#125;&#39; #&#21482;&#20445;&#30041;&#26368;&#26032;&#30340;5&#20010;&#25991;&#20214; &#20854;&#20313;&#21024;&#38500;</span><br></pre></td></tr></table></figure></p>
+<p>来自<a href="http://weibo.com/2674868673/Dfh3y4nXd?type=comment" target="_blank" rel="external">linux命令行精选网</a>。</p>
+<p>命令中的<code>\&quot;&quot; $0 &quot;\&quot;</code>，内层的双引号相当于一个取值操作，外层双引号的作用是防止文件名中包含空格，比如<code>$0=file (copy).text</code>，上述命令相当于：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system(&#34;rm &#34;file (copy).text&#34;&#34;)</span><br></pre></td></tr></table></figure></p>
+<p>以上命令还可以用<code>getline</code>实现：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -t| awk &#39;NR&#62;5&#123;&#34;rm \&#34;&#34;$0&#34;\&#34;&#34;|getline&#125;&#39;</span><br></pre></td></tr></table></figure></p>
+<p>getline的官方文档：</p>
+<blockquote>
+<p>command | getline [var]<br>Run command piping the output either into \$0 or var, as above, and RT.</p>
+</blockquote>
+<p>下面再用getline剔除netstat命令输出的socket中的端口号，只保留ip地址：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tpn|grep &#39;127.0.0.1&#39;| head -5 |awk &#39;&#123;&#34;a=&#34;$5&#34;;echo $&#123;a%:*&#125;&#34;|getline s;print s;&#125;&#39;</span><br></pre></td></tr></table></figure></p>
+<p>这个也有个特殊的地方：<code>a=&quot;$5&quot;;echo ${a%:*}</code>不能简写为<code>echo ${&quot;$5&quot;%:*}</code>，因为<code>${}</code>的第一个参数必须为变量，不能为常量，所以此处需要借助一个自定义的变量。</p>
+<p><strong>参考</strong><br><a href="http://blog.csdn.net/cws1214/article/details/21959529" target="_blank" rel="external">awk里面执行shell命令</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -98,7 +108,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/angular/">angular</a>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
 </div>
 
 
@@ -108,7 +118,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2016/01/06/AngularJs通过service在controller间共享数据/" data-title="AngularJs通过service在controller间共享数据 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/01/30/awk执行shell命令/" data-title="awk执行shell命令 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -121,19 +131,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/01/08/AngularJs路由(route)简介/" title="AngularJs路由(route)简介">
-  <strong>上一篇：</strong><br/>
-  <span>
-  AngularJs路由(route)简介</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/01/06/AngularJs动态添加dom元素/"  title="AngularJs动态添加dom元素">
+<a href="/2016/01/28/egit解决冲突/"  title="egit解决冲突">
  <strong>下一篇：</strong><br/> 
- <span>AngularJs动态添加dom元素
+ <span>egit解决冲突
 </span>
 </a>
 </div>
@@ -142,7 +144,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/01/06/AngularJs通过service在controller间共享数据/" data-title="AngularJs通过service在controller间共享数据" data-url="http://1988zxh.com/2016/01/06/AngularJs通过service在controller间共享数据/"></div>
+	<div class="ds-thread" data-thread-key="2016/01/30/awk执行shell命令/" data-title="awk执行shell命令" data-url="http://1988zxh.com/2016/01/30/awk执行shell命令/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

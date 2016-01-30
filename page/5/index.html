@@ -75,6 +75,28 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2015/10/20/LeetCode之Repeated DNA Sequences/" title="LeetCode之Repeated DNA Sequences" itemprop="url">
+  
+    <h1 itemprop="name">LeetCode之Repeated DNA Sequences</h1>
+    
+     
+           <p itemprop="description" >问题：
+
+All DNA is composed of a series of nucleotides abbreviated as A, C, G, and T, for example: “ACGAATTCCG”. When studying DNA, it is somet</p>
+        
+    
+    <time datetime="2015-10-19T16:00:00.000Z" itemprop="datePublished">2015-10-20</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2015/10/19/python中init函数与new函数/" title="python中__init__函数与__new__函数" itemprop="url">
   
     <h1 itemprop="name">python中__init__函数与__new__函数</h1>
@@ -97,14 +119,13 @@ object.__new__(cls[, …])Called to create a new instance of class cls. __new__(
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/10/11/python中的反斜杠/" title="python中的反斜杠" itemprop="url">
+    <a href="/2015/10/11/Django通过一次性链接激活用户/" title="Django通过一次性链接激活用户" itemprop="url">
   
-    <h1 itemprop="name">python中的反斜杠</h1>
+    <h1 itemprop="name">Django通过一次性链接激活用户</h1>
     
      
-           <p itemprop="description" >以下引自：Lexical analysis / String literals
-
-When an ‘r’ or ‘R’ prefix is present, a character following a backslash is included in the string w</p>
+           <p itemprop="description" >以下代码改编自Django中的PasswordResetTokenGenerator。PasswordResetTokenGenerator用于生成一个重置密码的token，默认3天过期，且仅允许用户点击一次。本文在此基础上做了些修改，生成了可用于激活用户的token。
+生成to</p>
         
     
     <time datetime="2015-10-10T16:00:00.000Z" itemprop="datePublished">2015-10-11</time>
@@ -119,13 +140,14 @@ When an ‘r’ or ‘R’ prefix is present, a character following a backslash 
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/10/11/Django通过一次性链接激活用户/" title="Django通过一次性链接激活用户" itemprop="url">
+    <a href="/2015/10/11/python中的反斜杠/" title="python中的反斜杠" itemprop="url">
   
-    <h1 itemprop="name">Django通过一次性链接激活用户</h1>
+    <h1 itemprop="name">python中的反斜杠</h1>
     
      
-           <p itemprop="description" >以下代码改编自Django中的PasswordResetTokenGenerator。PasswordResetTokenGenerator用于生成一个重置密码的token，默认3天过期，且仅允许用户点击一次。本文在此基础上做了些修改，生成了可用于激活用户的token。
-生成to</p>
+           <p itemprop="description" >以下引自：Lexical analysis / String literals
+
+When an ‘r’ or ‘R’ prefix is present, a character following a backslash is included in the string w</p>
         
     
     <time datetime="2015-10-10T16:00:00.000Z" itemprop="datePublished">2015-10-11</time>
@@ -160,18 +182,13 @@ When an ‘r’ or ‘R’ prefix is present, a character following a backslash 
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/09/19/python中的and、or运算/" title="python中的and、or运算" itemprop="url">
+    <a href="/2015/09/19/Django compressor使用简介/" title="Django compressor使用简介" itemprop="url">
   
-    <h1 itemprop="name">python中的and、or运算</h1>
+    <h1 itemprop="name">Django compressor使用简介</h1>
     
      
-           <p itemprop="description" >受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。规则如下：
-
-and运算：无假值则返回最后一个真值，有假值返回第一个假值or运算：无真值则返回最后一个假值，有真值则返回第一个真值
-
-所谓的假值是指：
-
-1、None2、False</p>
+           <p itemprop="description" >Django-compressor是一个可以自动收集HTML页面中的js/css代码，然后进行压缩的插件，以模板标签的方式使用。
+平时写Django前台页面的时候，经常使用include标签来把相对独立的页面片段分离出去单独维护，分离出来的页面片段中除html代码外，还有js/c</p>
         
     
     <time datetime="2015-09-18T16:00:00.000Z" itemprop="datePublished">2015-09-19</time>
@@ -186,13 +203,18 @@ and运算：无假值则返回最后一个真值，有假值返回第一个假�
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/09/19/Django compressor使用简介/" title="Django compressor使用简介" itemprop="url">
+    <a href="/2015/09/19/python中的and、or运算/" title="python中的and、or运算" itemprop="url">
   
-    <h1 itemprop="name">Django compressor使用简介</h1>
+    <h1 itemprop="name">python中的and、or运算</h1>
     
      
-           <p itemprop="description" >Django-compressor是一个可以自动收集HTML页面中的js/css代码，然后进行压缩的插件，以模板标签的方式使用。
-平时写Django前台页面的时候，经常使用include标签来把相对独立的页面片段分离出去单独维护，分离出来的页面片段中除html代码外，还有js/c</p>
+           <p itemprop="description" >受一大牛指点，才注意到python中的and、or运算返回并不一定是布尔值(True/False)。规则如下：
+
+and运算：无假值则返回最后一个真值，有假值返回第一个假值or运算：无真值则返回最后一个假值，有真值则返回第一个真值
+
+所谓的假值是指：
+
+1、None2、False</p>
         
     
     <time datetime="2015-09-18T16:00:00.000Z" itemprop="datePublished">2015-09-19</time>
@@ -267,26 +289,6 @@ type(类</p>
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/08/31/请求参数解析QueryDict/" title="请求参数解析QueryDict" itemprop="url">
-  
-    <h1 itemprop="name">请求参数解析QueryDict</h1>
-    
-     
-           <p itemprop="description" >今天遇到了一个奇怪的问题：通过ajax向后台传json时，在解析参数后得到的是{key: [value]}，而不是{key: value}。请求参数解析函数如下：12345def get_params(request):    a = &amp;#123;&amp;#125;    a.upda</p>
-        
-    
-    <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished">2015-08-31</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/page/4/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/">Next<span></span></a>
@@ -329,7 +331,7 @@ type(类</p>
 		  
 		
 		  
-			<li><a href="/categories/shell/" title="shell">shell<sup>5</sup></a></li>
+			<li><a href="/categories/shell/" title="shell">shell<sup>6</sup></a></li>
 		  
 		
 		  

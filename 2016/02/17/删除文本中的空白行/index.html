@@ -5,29 +5,32 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>MediaQueries实现CSS动态调整 | ideas into codes</title>
+    <title>删除文本中的空白行 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="在CSS3中引入了一种叫作Media Queries的东西，可以根据媒体的类型及某些条件，应用相对应的样式。
-平时用的比较多的是根据不同屏幕宽度来应用不同的CSS，当然除屏幕宽度之外，还可以指定媒体类型，比如电脑(screen)，手机、平板等便携设备(handled)。
-使用说明如下：123456789101112131415161718192021222324&amp;lt;html&amp;gt;&amp;lt;he">
+    <meta name="description" content="包含空格的空白行：1、sed命令1sed &amp;#39;/^[ ]*$/d&amp;#39; foo.txt
+2、awk命令1awk NF foo.txt
+3、grep命令1grep -v &amp;#34;^[ ]*$&amp;#34; foo.txt
+不包含空格的空白行：以上命令仍然适用，awk命令还有两种写法：1awk &amp;#39;&amp;#123;if(length&amp;#62;0)print $0&amp;#125;&amp;#39; &amp;#1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MediaQueries实现CSS动态调整">
-<meta property="og:url" content="http://1988zxh.com/2015/06/17/MediaQueries实现CSS动态调整/index.html">
+<meta property="og:title" content="删除文本中的空白行">
+<meta property="og:url" content="http://1988zxh.com/2016/02/17/删除文本中的空白行/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="在CSS3中引入了一种叫作Media Queries的东西，可以根据媒体的类型及某些条件，应用相对应的样式。
-平时用的比较多的是根据不同屏幕宽度来应用不同的CSS，当然除屏幕宽度之外，还可以指定媒体类型，比如电脑(screen)，手机、平板等便携设备(handled)。
-使用说明如下：123456789101112131415161718192021222324&amp;lt;html&amp;gt;&amp;lt;he">
-<meta property="og:updated_time" content="2015-09-10T12:30:07.000Z">
+<meta property="og:description" content="包含空格的空白行：1、sed命令1sed &amp;#39;/^[ ]*$/d&amp;#39; foo.txt
+2、awk命令1awk NF foo.txt
+3、grep命令1grep -v &amp;#34;^[ ]*$&amp;#34; foo.txt
+不包含空格的空白行：以上命令仍然适用，awk命令还有两种写法：1awk &amp;#39;&amp;#123;if(length&amp;#62;0)print $0&amp;#125;&amp;#39; &amp;#1">
+<meta property="og:updated_time" content="2016-02-17T14:23:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MediaQueries实现CSS动态调整">
-<meta name="twitter:description" content="在CSS3中引入了一种叫作Media Queries的东西，可以根据媒体的类型及某些条件，应用相对应的样式。
-平时用的比较多的是根据不同屏幕宽度来应用不同的CSS，当然除屏幕宽度之外，还可以指定媒体类型，比如电脑(screen)，手机、平板等便携设备(handled)。
-使用说明如下：123456789101112131415161718192021222324&amp;lt;html&amp;gt;&amp;lt;he">
+<meta name="twitter:title" content="删除文本中的空白行">
+<meta name="twitter:description" content="包含空格的空白行：1、sed命令1sed &amp;#39;/^[ ]*$/d&amp;#39; foo.txt
+2、awk命令1awk NF foo.txt
+3、grep命令1grep -v &amp;#34;^[ ]*$&amp;#34; foo.txt
+不包含空格的空白行：以上命令仍然适用，awk命令还有两种写法：1awk &amp;#39;&amp;#123;if(length&amp;#62;0)print $0&amp;#125;&amp;#39; &amp;#1">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -83,26 +86,27 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/06/17/MediaQueries实现CSS动态调整/" title="MediaQueries实现CSS动态调整" itemprop="url">MediaQueries实现CSS动态调整</a>
+      <a href="/2016/02/17/删除文本中的空白行/" title="删除文本中的空白行" itemprop="url">删除文本中的空白行</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-06-16T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-06-17</time>
+    <time datetime="2016-02-16T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-02-17</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>在CSS3中引入了一种叫作<a href="http://www.w3.org/TR/css3-mediaqueries/" target="_blank" rel="external">Media Queries</a>的东西，可以根据媒体的类型及某些条件，应用相对应的样式。</p>
-<p>平时用的比较多的是根据不同屏幕宽度来应用不同的CSS，当然除屏幕宽度之外，还可以指定媒体类型，比如电脑(screen)，手机、平板等便携设备(handled)。</p>
-<p>使用说明如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css"></span><br><span class="line">    	<span class="class">.font-clz</span><span class="rules">&#123;</span><br><span class="line">    		<span class="rule"><span class="attribute">color</span>:<span class="value"> red</span></span>;</span><br><span class="line">    		<span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">18px</span></span></span>;	</span><br><span class="line">    	&#125;</span></span><br><span class="line">    	</span><br><span class="line">    	<span class="at_rule">@<span class="keyword">media</span> screen and (max-width:<span class="number">1000px</span>)</span>&#123;</span><br><span class="line">    		<span class="class">.font-clz</span><span class="rules">&#123;</span><br><span class="line">    			<span class="rule"><span class="attribute">color</span>:<span class="value"> green</span></span>;</span><br><span class="line">    			<span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">28px</span></span></span>;	</span><br><span class="line">    		&#125;</span>		</span><br><span class="line">    	&#125;</span><br><span class="line">    	</span><br><span class="line">    </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"font-clz"</span>&gt;</span>hello,world<span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>在该代码中，默认的字体样式是<code>red;18px</code>，但当屏幕小于1000px时，字体样式会变为<code>green;28px</code>。<br>在这里，<code>@media</code>默认的媒体类型就是screen，所以也可以直接简写为：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> @media (max-width:1000px)&#123;</span><br><span class="line">    .font-clz&#123;</span><br><span class="line">        color: green;</span><br><span class="line">        font-size: 28px;    </span><br><span class="line">    &#125;       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>其中，<code>max-width</code>表示小于指定宽度时应该应用的样式，<code>min-width</code>就表示大于指定宽度时应该应用的样式，也可以指定一个范围，比如<code>@media (min-width:500px) and (max-width:1000px)</code>表示介于500px到1000px之间应该应用的样式。</p>
-<p>除了在<code>style</code>中定义外，还可以通过<code>link</code>标签引入：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">   	<span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"large_screen.css"</span> <span class="attribute">media</span>=<span class="value">"screen and (min-width:1200px)"</span>&gt;</span></span><br><span class="line">   	</span><br><span class="line">   	<span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"small_screen.css"</span> <span class="attribute">media</span>=<span class="value">"screen and (max-width:1200px)"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">   	<span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">   		<span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"font-clz"</span>&gt;</span>hello,world<span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">   	<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>参考：<br><a href="http://www.cnblogs.com/mofish/archive/2012/05/23/2515218.html" target="_blank" rel="external">响应式web设计之CSS3 Media Queries</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries" target="_blank" rel="external">CSS media queries</a></p>
+		<p><strong>包含空格的空白行：</strong><br><strong>1、sed命令</strong><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &#39;/^[ ]*$/d&#39; foo.txt</span><br></pre></td></tr></table></figure></p>
+<p><strong>2、awk命令</strong><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk NF foo.txt</span><br></pre></td></tr></table></figure></p>
+<p><strong>3、grep命令</strong><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -v &#34;^[ ]*$&#34; foo.txt</span><br></pre></td></tr></table></figure></p>
+<p><strong>不包含空格的空白行：</strong><br>以上命令仍然适用，awk命令还有两种写法：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk &#39;&#123;if(length&#62;0)print $0&#125;&#39; &#10;#&#25110;&#32773;&#10;awk &#39;&#123;if($0!=&#34;&#34;)print $0&#125;&#39;</span><br></pre></td></tr></table></figure></p>
+<p><strong>后记</strong><br>总结完以上写法，突然想起了孔乙己写茴(回、囘、囬、廻)字的故事。。。</p>
+<blockquote>
+<p>孔乙己自己知道不能和他们谈天，便只好向孩子说话。有一回对我说道，“你读过书么？”我略略点一点头。他说，“读过书，……我便考你一考。茴香豆的茴字，怎样写的？”我想，讨饭一样的人，也配考我么？便回过脸去，不再理会。孔乙己等了许久，很恳切的说道，“不能写罢？……我教给你，记着！这些字应该记着。将来做掌柜的时候，写账要用。”我暗想我和掌柜的等级还很远呢，而且我们掌柜也从不将茴香豆上账；又好笑，又不耐烦，懒懒的答他道，“谁要你教，不是草头底下一个来回的回字么？”孔乙己显出极高兴的样子，将两个指头的长指甲敲着柜台，点头说，“对呀对呀！……回字有四样写法，你知道么？”我愈不耐烦了，努着嘴走远。孔乙己刚用指甲蘸了酒，想在柜上写字，见我毫不热心，便又叹一口气，显出极惋惜的样子。</p>
+</blockquote>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -110,7 +114,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/前端/">前端</a>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
 </div>
 
 
@@ -120,7 +124,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/06/17/MediaQueries实现CSS动态调整/" data-title="MediaQueries实现CSS动态调整 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/02/17/删除文本中的空白行/" data-title="删除文本中的空白行 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -133,19 +137,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/06/17/javascript传递默认参数/" title="javascript传递默认参数">
-  <strong>上一篇：</strong><br/>
-  <span>
-  javascript传递默认参数</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/06/15/Django中model字段的验证/"  title="Django中model字段的验证">
+<a href="/2016/02/05/通过Fabric自动部署web工程/"  title="通过Fabric自动部署web工程">
  <strong>下一篇：</strong><br/> 
- <span>Django中model字段的验证
+ <span>通过Fabric自动部署web工程
 </span>
 </a>
 </div>
@@ -154,7 +150,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/06/17/MediaQueries实现CSS动态调整/" data-title="MediaQueries实现CSS动态调整" data-url="http://1988zxh.com/2015/06/17/MediaQueries实现CSS动态调整/"></div>
+	<div class="ds-thread" data-thread-key="2016/02/17/删除文本中的空白行/" data-title="删除文本中的空白行" data-url="http://1988zxh.com/2016/02/17/删除文本中的空白行/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

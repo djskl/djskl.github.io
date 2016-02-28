@@ -28,7 +28,7 @@ Postgres-XL是一种基于postgres的支持ACID的易扩展的开源数据库，
 主要分为3部分：GTM, coordinator, data">
 <meta property="og:image" content="http://www.postgres-xl.org/wp-content/uploads/2014/04/xl_cluster_architecture1.jpg">
 <meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/xl_ceshi.png">
-<meta property="og:updated_time" content="2016-02-28T09:06:14.000Z">
+<meta property="og:updated_time" content="2016-02-28T09:11:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建Postgresql-xl集群">
 <meta name="twitter:description" content="1、简介
@@ -112,9 +112,10 @@ Postgres-XL是一种基于postgres的支持ACID的易扩展的开源数据库，
 <ul>
 <li>gtm是全局管理器，主要是对事务的管理来保证全局数据的ACID；</li>
 <li>coordinator是协调器(中介)，介于gtm与datanode之间，主要负责SQL语句的解析与规划；</li>
-<li>datanode具体存储数据的节点。<h3 id="2、环境搭建">2、环境搭建</h3>版本：<a href="http://files.postgres-xl.org/postgres-xl95r1beta1.tar.gz" target="_blank" rel="external">Postgres-XL 9.5 R1 (Beta 1)</a><br>机器：4台机器 ( Fedora22-64位，2核CPU，4G内存 )<br>部署方案：node1部署gtm，node2~node4每台机器部署一个coordnator，一个datanode;<br>用户：postgres(可以是其他普通用户，尽量避免使用root用户)<h4 id="2-1_无密码访问">2.1 无密码访问</h4>在各个机器上运行一下：<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
-</li>
+<li>datanode具体存储数据的节点。</li>
 </ul>
+<h3 id="2、环境搭建">2、环境搭建</h3><p>版本：<a href="http://files.postgres-xl.org/postgres-xl95r1beta1.tar.gz" target="_blank" rel="external">Postgres-XL 9.5 R1 (Beta 1)</a><br>机器：4台机器 ( Fedora22-64位，2核CPU，4G内存 )<br>部署方案：node1部署gtm，node2~node4每台机器部署一个coordnator，一个datanode;<br>用户：postgres(可以是其他普通用户，尽量避免使用root用户)</p>
+<h4 id="2-1_无密码访问">2.1 无密码访问</h4><p>在各个机器上运行一下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure></p>
 <p>将各个机器上的.ssh文件夹下的id_rsa.pub的内容都复制到node1的.ssh下的authorized_keys文件中，然后把这个文件复制到各个机器的.ssh目录下即可。</p>
 <h4 id="2-2_安装Postgres-XL">2.2 安装Postgres-XL</h4><p>这个挺简单的，如果机器上原先装有postgresql，要先关掉(最好删掉),然后下载postgres-xl95r1beta1.tar.gz到本地，解压，执行<code>./configure &amp; make &amp; make install</code>，中间如果提示缺少什么库，通过<code>yum search/install</code>安装即可。</p>
 <p>安装完之后，需要在node1上再安装<code>pgxc_ctl</code>：<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd <span class="variable">$XLSRC</span>/contrib/pgxc_ctl</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></p>

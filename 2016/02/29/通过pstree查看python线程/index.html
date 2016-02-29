@@ -5,30 +5,29 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>Fedora20翻墙小记 | ideas into codes</title>
+    <title>通过pstree查看python线程 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="之前一直觉得可以用谷歌搜索就不用费劲翻墙了，没想到该来的早晚会来，今天需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。
-ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据过了墙之后再被还原，这样就完美的绕过了墙。
-1、安装shadowsocks-qt5Fedora22/23可以从这里下载r">
+    <meta name="description" content="正常情况下，通过线程的属性ident获取到的线程id与通过ps/top等命令看到的是不一样的。官方对ident的解释如下：
+
+This is a nonzero integer. Its value has no direct meaning; it is intended as a magic cookie to be used e.g. to index a dictionary of thr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Fedora20翻墙小记">
-<meta property="og:url" content="http://1988zxh.com/2016/01/27/Fedora20翻墙小记/index.html">
+<meta property="og:title" content="通过pstree查看python线程">
+<meta property="og:url" content="http://1988zxh.com/2016/02/29/通过pstree查看python线程/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="之前一直觉得可以用谷歌搜索就不用费劲翻墙了，没想到该来的早晚会来，今天需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。
-ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据过了墙之后再被还原，这样就完美的绕过了墙。
-1、安装shadowsocks-qt5Fedora22/23可以从这里下载r">
-<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/what-is-shadowsocks.png">
-<meta property="og:updated_time" content="2016-01-28T14:43:49.000Z">
+<meta property="og:description" content="正常情况下，通过线程的属性ident获取到的线程id与通过ps/top等命令看到的是不一样的。官方对ident的解释如下：
+
+This is a nonzero integer. Its value has no direct meaning; it is intended as a magic cookie to be used e.g. to index a dictionary of thr">
+<meta property="og:updated_time" content="2016-02-29T11:59:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Fedora20翻墙小记">
-<meta name="twitter:description" content="之前一直觉得可以用谷歌搜索就不用费劲翻墙了，没想到该来的早晚会来，今天需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。
-ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据过了墙之后再被还原，这样就完美的绕过了墙。
-1、安装shadowsocks-qt5Fedora22/23可以从这里下载r">
+<meta name="twitter:title" content="通过pstree查看python线程">
+<meta name="twitter:description" content="正常情况下，通过线程的属性ident获取到的线程id与通过ps/top等命令看到的是不一样的。官方对ident的解释如下：
+
+This is a nonzero integer. Its value has no direct meaning; it is intended as a magic cookie to be used e.g. to index a dictionary of thr">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -84,36 +83,29 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/27/Fedora20翻墙小记/" title="Fedora20翻墙小记" itemprop="url">Fedora20翻墙小记</a>
+      <a href="/2016/02/29/通过pstree查看python线程/" title="通过pstree查看python线程" itemprop="url">通过pstree查看python线程</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-26T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-27</time>
+    <time datetime="2016-02-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-02-29</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>之前一直觉得可以用<a href="http://www.itechzero.com/google-mirror-sites-collect.html" target="_blank" rel="external">谷歌搜索</a>就不用费劲翻墙了，没想到该来的早晚会来，今天需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。</p>
-<p>ShadowSocks是一个基于<a href="https://en.wikipedia.org/wiki/SOCKS" target="_blank" rel="external">socks5协议</a>的工具，其原理如下图所示：<br><img src="http://7xktxu.com1.z0.glb.clouddn.com/what-is-shadowsocks.png" alt=""><br>需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据过了墙之后再被还原，这样就完美的绕过了墙。</p>
-<p><strong>1、安装shadowsocks-qt5</strong><br>Fedora22/23可以从<a href="https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/" target="_blank" rel="external">这里</a>下载repo文件，然后放到<code>/etc/yum.repos.d/</code>目录下，就可以通过yum安装了：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update&#10;sudo yum install shadowsocks-qt5</span><br></pre></td></tr></table></figure></p>
-<p>fedora20的repo：</p>
+		<p>正常情况下，通过线程的属性<code>ident</code>获取到的线程id与通过ps/top等命令看到的是不一样的。官方对<code>ident</code>的解释如下：</p>
 <blockquote>
-<p>[librehat-shadowsocks]<br>name=Copr repo for shadowsocks owned by librehat<br>baseurl=<a href="https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/" target="_blank" rel="external">https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/</a><br>skip_if_unavailable=True<br>gpgcheck=0<br>gpgkey=<a href="https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/pubkey.gpg" target="_blank" rel="external">https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/pubkey.gpg</a><br>enabled=1</p>
+<p>This is a nonzero integer. Its value has no direct meaning; it is intended as a magic cookie to be used e.g. to index a dictionary of thread-specific data. Thread identifiers may be recycled when a thread exits and another thread is created.</p>
 </blockquote>
-<p>fedora21的repo:</p>
-<blockquote>
-<p>[librehat-shadowsocks]<br>name=Copr repo for shadowsocks owned by librehat<br>baseurl=<a href="https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/" target="_blank" rel="external">https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/</a><br>skip_if_unavailable=True<br>gpgcheck=0<br>gpgkey=<a href="https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/pubkey.gpg" target="_blank" rel="external">https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/pubkey.gpg</a><br>enabled=1</p>
-</blockquote>
-<p><strong>2、配置shadowsocks代理</strong><br>安装完之后可以在<code>applicaion</code>中看到<code>shadowsocks-qt5</code>，打开并新建<code>connection</code>，输入服务器地址、端口号、密码以及加密方法，本地端口一般不需要改(默认为1080)，点击<code>ok</code>，回到主界面点击<code>connect</code>即可连接。</p>
-<p>如果<code>latency</code>太大的话，基本没戏，我第一次试了几个免费公开帐号，这个值在两三百左右，访问什么网站都会返回<code>no data received</code>。</p>
-<p><strong>3、浏览器配置</strong><br>在Fedora默认的<code>Network</code>配置里就有<code>Network proxy</code>这一项，在<code>Socks Host</code>里输入<code>127.0.0.1</code>,端口<code>1080</code>即可，这样在chrome里访问网站就会自动走代理了。</p>
-<p><strong>4、Terminal配置</strong><br>可以参考<a href="http://cxh.me/2015/01/30/use-shadowsocks-in-terminal/" target="_blank" rel="external">这篇文章</a></p>
-<p><strong>最后</strong><br>推荐几个免费的试用帐号：<a href="http://www.ishadowsocks.com/，http://www.godusevpn.net/" target="_blank" rel="external">http://www.ishadowsocks.com/，http://www.godusevpn.net/</a></p>
-<p><strong>参考：</strong><br><a href="https://tumutanzi.com/archives/13005" target="_blank" rel="external">ShadowSocks的翻墙原理</a><br><a href="http://blog.csdn.net/bit_line/article/details/43260991" target="_blank" rel="external">[shadowsocks-qt5 for fedora20] [配置shadowsocks科学上网 under Linux]</a></p>
+<p>这个id好像可以作为线程的<code>cookie</code>来保存一些数据，这只是python解释器给它的一个值，在linux里它还会获取另一个不一样的id，为了获取这个系统级的id，需要借助系统调用(syscall)。</p>
+<p>执行<code>grep -r &#39;SYS_gettid&#39; /usr/include/</code>，找到获取线程id的函数定义，看到<code>#define SYS_gettid __NR_gettid</code>，继续执行<code>grep -r &#39;__NR_gettid&#39; /usr/include/</code>找<code>__NR_gettid</code>的位置，然后就可以看到以下3行：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/usr/include/asm-generic/unistd<span class="class">.h</span>:<span class="hexcolor">#def</span>ine __NR_gettid <span class="number">178</span></span><br><span class="line"></span><br><span class="line">/usr/include/asm/unistd_64<span class="class">.h</span>:<span class="hexcolor">#def</span>ine __NR_gettid <span class="number">186</span></span><br><span class="line"></span><br><span class="line">/usr/include/asm/unistd_32<span class="class">.h</span>:<span class="hexcolor">#def</span>ine __NR_gettid <span class="number">224</span></span><br></pre></td></tr></table></figure></p>
+<p>根据自己的机器选择一个数字，我的是<code>224</code>：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import threading, ctypes</span><br><span class="line">from <span class="tag">time</span> import sleep</span><br><span class="line"></span><br><span class="line">class <span class="function"><span class="title">MyThread</span><span class="params">(threading.Thread)</span></span>:</span><br><span class="line">    def <span class="function"><span class="title">run</span><span class="params">(self)</span></span>:</span><br><span class="line">        self._tid = ctypes.<span class="function"><span class="title">CDLL</span><span class="params">(<span class="string">'libc.so.6'</span>)</span></span>.<span class="function"><span class="title">syscall</span><span class="params">(<span class="number">224</span>)</span></span></span><br><span class="line">        <span class="function"><span class="title">sleep</span><span class="params">(<span class="number">600</span>)</span></span></span><br><span class="line">    </span><br><span class="line">    def <span class="function"><span class="title">getIdent</span><span class="params">(self)</span></span>:</span><br><span class="line">        <span class="function"><span class="title">sleep</span><span class="params">(<span class="number">0.1</span>)</span></span></span><br><span class="line">        return self._tid</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    </span><br><span class="line">    print ctypes.<span class="function"><span class="title">CDLL</span><span class="params">(<span class="string">'libc.so.6'</span>)</span></span>.<span class="function"><span class="title">syscall</span><span class="params">(<span class="number">224</span>)</span></span></span><br><span class="line">    </span><br><span class="line">    t1 = <span class="function"><span class="title">MyThread</span><span class="params">()</span></span></span><br><span class="line">    t1.<span class="function"><span class="title">start</span><span class="params">()</span></span></span><br><span class="line">    print t1.<span class="function"><span class="title">getIdent</span><span class="params">()</span></span></span><br><span class="line">    </span><br><span class="line">    t2 = <span class="function"><span class="title">MyThread</span><span class="params">()</span></span></span><br><span class="line">    t2.<span class="function"><span class="title">start</span><span class="params">()</span></span></span><br><span class="line">    print t2.<span class="function"><span class="title">getIdent</span><span class="params">()</span></span></span><br><span class="line">    </span><br><span class="line">    t3 = <span class="function"><span class="title">MyThread</span><span class="params">()</span></span></span><br><span class="line">    t3.<span class="function"><span class="title">start</span><span class="params">()</span></span></span><br><span class="line">    print t3.<span class="function"><span class="title">getIdent</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<p>执行以上代码，看到输出：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3881</span></span><br><span class="line"><span class="number">3886</span></span><br><span class="line"><span class="number">3887</span></span><br><span class="line"><span class="number">3888</span></span><br></pre></td></tr></table></figure></p>
+<p>不一定一样，不过肯定是4个整数，然后在shell中执行<code>pstree -p 3881</code>就会看到：<br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">[<span class="keyword">root@zxh</span> ~]# pstree -p <span class="number">3881</span></span><br><span class="line">python<span class="list">(<span class="keyword">3881</span>)</span>─┬─&#123;python&#125;<span class="list">(<span class="keyword">3886</span>)</span></span><br><span class="line">             ├─&#123;python&#125;<span class="list">(<span class="keyword">3887</span>)</span></span><br><span class="line">             └─&#123;python&#125;<span class="list">(<span class="keyword">3888</span>)</span></span></span><br></pre></td></tr></table></figure></p>
+<p><strong>参考</strong><br><a href="http://stackoverflow.com/questions/11992275/id-of-a-python-thread-as-reported-by-top" target="_blank" rel="external">ID of a Python thread as reported by top</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -121,7 +113,7 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/其他/">其他</a>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
 </div>
 
 
@@ -131,7 +123,7 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2016/01/27/Fedora20翻墙小记/" data-title="Fedora20翻墙小记 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/02/29/通过pstree查看python线程/" data-title="通过pstree查看python线程 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -144,19 +136,11 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/01/28/egit解决冲突/" title="egit解决冲突">
-  <strong>上一篇：</strong><br/>
-  <span>
-  egit解决冲突</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/01/27/统计不同ip建立的tcp连接数/"  title="统计不同ip建立的tcp连接数">
+<a href="/2016/02/28/搭建Postgresql-xl集群/"  title="搭建Postgresql-xl集群">
  <strong>下一篇：</strong><br/> 
- <span>统计不同ip建立的tcp连接数
+ <span>搭建Postgresql-xl集群
 </span>
 </a>
 </div>
@@ -165,7 +149,7 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/01/27/Fedora20翻墙小记/" data-title="Fedora20翻墙小记" data-url="http://1988zxh.com/2016/01/27/Fedora20翻墙小记/"></div>
+	<div class="ds-thread" data-thread-key="2016/02/29/通过pstree查看python线程/" data-title="通过pstree查看python线程" data-url="http://1988zxh.com/2016/02/29/通过pstree查看python线程/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

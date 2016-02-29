@@ -5,23 +5,26 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>python中的条件变量 | ideas into codes</title>
+    <title>Django访问数据库集群 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="条件变量相对于普通的锁优势在于为已获得锁的线程提供了主动阻塞自己(wait)、唤醒别人(notify/notifyall)的操作。123456789101112131415161718192021222324252627282930import threadingimport loggingfrom time import sleepc_lock = threading.Condition()lo">
+    <meta name="description" content="一般数据库都需要部署成集群，有的负责读，有的负责写，这样不但可以减轻单点压力，还是提高数据检索速度。Django正好提供了一个操作多数据库的router。
+数据库的定义：123456789101112131415161718192021222324252627DATABASES = &amp;#123;                 &apos;default&apos;: &amp;#123;&amp;#125;,        &apos;db">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python中的条件变量">
-<meta property="og:url" content="http://1988zxh.com/2015/05/03/python中的条件变量/index.html">
+<meta property="og:title" content="Django访问数据库集群">
+<meta property="og:url" content="http://1988zxh.com/2016/02/29/Django访问数据库集群/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="条件变量相对于普通的锁优势在于为已获得锁的线程提供了主动阻塞自己(wait)、唤醒别人(notify/notifyall)的操作。123456789101112131415161718192021222324252627282930import threadingimport loggingfrom time import sleepc_lock = threading.Condition()lo">
-<meta property="og:updated_time" content="2015-09-26T09:31:14.000Z">
+<meta property="og:description" content="一般数据库都需要部署成集群，有的负责读，有的负责写，这样不但可以减轻单点压力，还是提高数据检索速度。Django正好提供了一个操作多数据库的router。
+数据库的定义：123456789101112131415161718192021222324252627DATABASES = &amp;#123;                 &apos;default&apos;: &amp;#123;&amp;#125;,        &apos;db">
+<meta property="og:updated_time" content="2016-02-29T13:50:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python中的条件变量">
-<meta name="twitter:description" content="条件变量相对于普通的锁优势在于为已获得锁的线程提供了主动阻塞自己(wait)、唤醒别人(notify/notifyall)的操作。123456789101112131415161718192021222324252627282930import threadingimport loggingfrom time import sleepc_lock = threading.Condition()lo">
+<meta name="twitter:title" content="Django访问数据库集群">
+<meta name="twitter:description" content="一般数据库都需要部署成集群，有的负责读，有的负责写，这样不但可以减轻单点压力，还是提高数据检索速度。Django正好提供了一个操作多数据库的router。
+数据库的定义：123456789101112131415161718192021222324252627DATABASES = &amp;#123;                 &apos;default&apos;: &amp;#123;&amp;#125;,        &apos;db">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -77,25 +80,27 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/05/03/python中的条件变量/" title="python中的条件变量" itemprop="url">python中的条件变量</a>
+      <a href="/2016/02/29/Django访问数据库集群/" title="Django访问数据库集群" itemprop="url">Django访问数据库集群</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-05-02T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-05-03</time>
+    <time datetime="2016-02-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-02-29</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>条件变量相对于普通的锁优势在于为<strong>已获得锁</strong>的线程提供了<strong>主动阻塞自己(wait)</strong>、<strong>唤醒别人(notify/notifyall)</strong>的操作。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"></span><br><span class="line">c_lock = threading.Condition()</span><br><span class="line"></span><br><span class="line">logging.basicConfig(format=<span class="string">'%(asctime)s %(message)s'</span>, datefmt=<span class="string">"%H:%M:%S"</span>, level=logging.DEBUG)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_dosth</span><span class="params">()</span>:</span></span><br><span class="line">    c_lock.acquire()</span><br><span class="line">    logging.debug(<span class="string">"%s 阻塞了"</span>, threading.current_thread().getName())</span><br><span class="line">    c_lock.wait()</span><br><span class="line">    logging.debug(<span class="string">"%s 被唤醒"</span>, threading.current_thread().getName())</span><br><span class="line">    </span><br><span class="line">    logging.debug(<span class="string">"%s 开始干活"</span>, threading.current_thread().getName())</span><br><span class="line">    sleep(<span class="number">3</span>)</span><br><span class="line">    logging.debug(<span class="string">"%s 干完了"</span>, threading.current_thread().getName())</span><br><span class="line">    </span><br><span class="line">    c_lock.release()</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_wake</span><span class="params">()</span>:</span></span><br><span class="line">    sleep(<span class="number">3</span>)</span><br><span class="line">    c_lock.acquire()</span><br><span class="line">    c_lock.notify(<span class="number">2</span>)</span><br><span class="line">    c_lock.release()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">for</span> idx <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">        threading.Thread(target=_dosth).start()</span><br><span class="line">    threading.Thread(target=_wake).start()</span><br></pre></td></tr></table></figure></p>
-<p>输出：</p>
-<blockquote>
-<p>17:11:54 Thread-1 阻塞了<br>17:11:54 Thread-2 阻塞了<br>17:11:54 Thread-3 阻塞了<br>17:11:54 Thread-4 阻塞了<br>17:11:54 Thread-5 阻塞了<br>17:11:57 Thread-2 被唤醒<br>17:11:57 Thread-2 开始干活<br>17:12:00 Thread-2 干完了<br>17:12:00 Thread-1 被唤醒<br>17:12:00 Thread-1 开始干活<br>17:12:03 Thread-1 干完了</p>
-</blockquote>
-<p>1、调用wait的线程会主动释放自己已获得的锁，然后阻塞在当前锁上，等待其他线程通过notify/notifyall唤醒。<br>2、只有已获得锁的线程才有资格调用wait/notify/notifyall。<br>3、调用wait被阻塞的线程在被唤醒时，直接从wait函数返回，然后逐个进入临界区开始干活（此时临界区始终还是只有一个线程）。<br>4、notify(n)可以指定同时被唤醒的阻塞线程的个数。<br>5、条件变量也是基于互斥锁的，默认是可重入锁，可选择的锁只有threading.Lock与threading.RLock，不能用信号量(semaphore)。</p>
+		<p>一般数据库都需要部署成集群，有的负责读，有的负责写，这样不但可以减轻单点压力，还是提高数据检索速度。Django正好提供了一个操作多数据库的router。</p>
+<p>数据库的定义：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">             </span><br><span class="line">    <span class="string">'default'</span>: &#123;&#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="string">'db1'</span>: &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'db1'</span>,</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.postgresql_psycopg2'</span>,</span><br><span class="line">        <span class="string">'USER'</span>: <span class="string">'postgres'</span>,</span><br><span class="line">        <span class="string">'PASSWORD'</span>: <span class="string">''</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">             </span><br><span class="line">    <span class="string">'db2'</span>: &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'db2'</span>,</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.postgresql_psycopg2'</span>,</span><br><span class="line">        <span class="string">'USER'</span>: <span class="string">'postgres'</span>,</span><br><span class="line">        <span class="string">'PASSWORD'</span>: <span class="string">''</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">             </span><br><span class="line">    <span class="string">'db3'</span>: &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'db3'</span>,</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.postgresql_psycopg2'</span>,</span><br><span class="line">        <span class="string">'USER'</span>: <span class="string">'postgres'</span>,</span><br><span class="line">        <span class="string">'PASSWORD'</span>: <span class="string">''</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">DATABASE_ROUTERS = [<span class="string">'MultiDatabase.routes.DBR'</span>]</span><br></pre></td></tr></table></figure></p>
+<p>数据库的路由定义如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DBR</span><span class="params">(object)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">db_for_read</span><span class="params">(self, model, **hints)</span>:</span></span><br><span class="line">        <span class="string">"""</span><br><span class="line">        Reads go to a randomly-chosen replica.</span><br><span class="line">        """</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'db1'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">db_for_write</span><span class="params">(self, model, **hints)</span>:</span></span><br><span class="line">        <span class="string">"""</span><br><span class="line">        Writes always go to primary.</span><br><span class="line">        """</span></span><br><span class="line">        <span class="keyword">return</span> random.choice([<span class="string">'db2'</span>, <span class="string">'db3'</span>])</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">allow_relation</span><span class="params">(self, obj1, obj2, **hints)</span>:</span></span><br><span class="line">        <span class="string">"""</span><br><span class="line">        Relations between objects are allowed if both objects are</span><br><span class="line">        in the primary/replica pool.</span><br><span class="line">        """</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">allow_migrate</span><span class="params">(self, db, app_label, model_name=None, **hints)</span>:</span></span><br><span class="line">        <span class="string">"""</span><br><span class="line">        All non-auth models end up in this pool.</span><br><span class="line">        """</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br></pre></td></tr></table></figure></p>
+<p>假定只有一个表：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Books</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    title = models.CharField(max_length = <span class="number">128</span>)</span><br><span class="line">    price = models.FloatField()</span><br><span class="line">    </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        app_label = <span class="string">""</span></span><br><span class="line">        db_table = <span class="string">"books"</span></span><br></pre></td></tr></table></figure></p>
+<p>在shell中测试：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#62;&#62;&#62; from MultiDatabaseDemo.models import Books&#10;&#62;&#62;&#62; b = Books()&#10;&#62;&#62;&#62; b.title = &#34;hello&#34;&#10;&#62;&#62;&#62; b.price = 10&#10;&#62;&#62;&#62; b.save()&#10;# &#22914;&#19978;&#20877;&#23450;&#20041;5&#26465;&#25968;&#25454;</span><br></pre></td></tr></table></figure></p>
+<p>查看数据库，db1中有3条数据库，而db2中有2条数据。<br>再在db3中手动输入一条数据<code>(title=&quot;hello&quot;, price=21)</code><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#62;&#62;&#62; from MultiDatabaseDemo.models import Books&#10;&#62;&#62;&#62; b = Books.objects.get(title=&#34;hello&#34;)&#10;&#62;&#62;&#62; b.price&#10;Decimal(&#39;21&#39;)</span><br></pre></td></tr></table></figure></p>
+<p>由以上输出可知，此次读取的数据库db3。</p>
+<p><strong>参考</strong><br><a href="https://docs.djangoproject.com/en/1.9/topics/db/multi-db/#multiple-databases" target="_blank" rel="external">Multiple databases</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -103,7 +108,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/python/">python</a>
+  <a class="article-category-link" href="/categories/django/">django</a>
 </div>
 
 
@@ -113,7 +118,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/05/03/python中的条件变量/" data-title="python中的条件变量 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/02/29/Django访问数据库集群/" data-title="Django访问数据库集群 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -126,19 +131,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/05/07/python中的日志模块logging/" title="python中的日志模块logging">
-  <strong>上一篇：</strong><br/>
-  <span>
-  python中的日志模块logging</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/05/03/Python中socket编程简介/"  title="Python中socket编程简介">
+<a href="/2016/02/29/通过pstree查看python线程/"  title="通过pstree查看python线程">
  <strong>下一篇：</strong><br/> 
- <span>Python中socket编程简介
+ <span>通过pstree查看python线程
 </span>
 </a>
 </div>
@@ -147,7 +144,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/05/03/python中的条件变量/" data-title="python中的条件变量" data-url="http://1988zxh.com/2015/05/03/python中的条件变量/"></div>
+	<div class="ds-thread" data-thread-key="2016/02/29/Django访问数据库集群/" data-title="Django访问数据库集群" data-url="http://1988zxh.com/2016/02/29/Django访问数据库集群/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

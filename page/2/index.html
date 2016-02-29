@@ -75,6 +75,27 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2016/01/21/更改postgresql的数据目录/" title="更改postgresql的数据目录" itemprop="url">
+  
+    <h1 itemprop="name">更改postgresql的数据目录</h1>
+    
+     
+           <p itemprop="description" >生产环境的postgresql数据出了问题，于是就想把整个数据库拷到本地来调试一下。
+1、找到生产环境的postgresql的data目录，在命令行下连接上数据库，然后执行show data_directory就可以看到了，在fedora20上是/var/lib/pgsql/da</p>
+        
+    
+    <time datetime="2016-01-20T16:00:00.000Z" itemprop="datePublished">2016-01-21</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2016/01/21/Postgresql配置主从流复制/" title="Postgresql配置主从流复制" itemprop="url">
   
     <h1 itemprop="name">Postgresql配置主从流复制</h1>
@@ -123,12 +144,12 @@ host    replication     postgres        192.168.16.11/32</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/12/在uwsgi的子线程中访问request.META的问题/" title="在uwsgi的子线程中访问request.META的问题" itemprop="url">
+    <a href="/2016/01/12/JSON格式日志字段提取/" title="JSON格式日志字段提取" itemprop="url">
   
-    <h1 itemprop="name">在uwsgi的子线程中访问request.META的问题</h1>
+    <h1 itemprop="name">JSON格式日志字段提取</h1>
     
      
-           <p itemprop="description" >今天发现用户的ip地址有的能记录成功，有的记录为空。刚开始以为是nginx的问题，看了看nginx的配置，proxy的配置都是正确的，然后仔细看了一下调试日志，发现还是代码的问题：在子线程中通过request.META读取用户ip时，request.META为空了。调试代码如下：</p>
+           <p itemprop="description" >今天生产环境的系统出了问题，在本地没法重现，只能通过日志判断，但其他请求的日志一直在滚，实在不便于查看，于是在可疑位置增加了一条日志，来输出http的所有头部信息：12print &#39;HEADER：%s&#39;%http_header#输出：HEADER:&amp;#123;&quot;field1&quot;: </p>
         
     
     <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished">2016-01-12</time>
@@ -143,12 +164,12 @@ host    replication     postgres        192.168.16.11/32</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/12/JSON格式日志字段提取/" title="JSON格式日志字段提取" itemprop="url">
+    <a href="/2016/01/12/在uwsgi的子线程中访问request.META的问题/" title="在uwsgi的子线程中访问request.META的问题" itemprop="url">
   
-    <h1 itemprop="name">JSON格式日志字段提取</h1>
+    <h1 itemprop="name">在uwsgi的子线程中访问request.META的问题</h1>
     
      
-           <p itemprop="description" >今天生产环境的系统出了问题，在本地没法重现，只能通过日志判断，但其他请求的日志一直在滚，实在不便于查看，于是在可疑位置增加了一条日志，来输出http的所有头部信息：12print &#39;HEADER：%s&#39;%http_header#输出：HEADER:&amp;#123;&quot;field1&quot;: </p>
+           <p itemprop="description" >今天发现用户的ip地址有的能记录成功，有的记录为空。刚开始以为是nginx的问题，看了看nginx的配置，proxy的配置都是正确的，然后仔细看了一下调试日志，发现还是代码的问题：在子线程中通过request.META读取用户ip时，request.META为空了。调试代码如下：</p>
         
     
     <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished">2016-01-12</time>
@@ -252,26 +273,6 @@ index.html
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/04/JavaScript访问AngularJs内部变量函数/" title="JavaScript访问AngularJs内部变量/函数" itemprop="url">
-  
-    <h1 itemprop="name">JavaScript访问AngularJs内部变量/函数</h1>
-    
-     
-           <p itemprop="description" >1234567891011var element = angular.element($document.getElementById(&quot;app&quot;));var controller = element.controller();var scope = element.scope(</p>
-        
-    
-    <time datetime="2016-01-03T16:00:00.000Z" itemprop="datePublished">2016-01-04</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
     <a href="/2016/01/04/Postgresql函数的rowtype类型及返回值/" title="Postgresql函数的rowtype类型及返回值" itemprop="url">
   
     <h1 itemprop="name">Postgresql函数的rowtype类型及返回值</h1>
@@ -314,7 +315,7 @@ Since every table h</p>
 		  
 		
 		  
-			<li><a href="/categories/django/" title="django">django<sup>10</sup></a></li>
+			<li><a href="/categories/django/" title="django">django<sup>11</sup></a></li>
 		  
 		
 		  
@@ -326,15 +327,15 @@ Since every table h</p>
 		  
 		
 		  
-			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>7</sup></a></li>
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>8</sup></a></li>
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>22</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>23</sup></a></li>
 		  
 		
 		  
-			<li><a href="/categories/shell/" title="shell">shell<sup>9</sup></a></li>
+			<li><a href="/categories/shell/" title="shell">shell<sup>7</sup></a></li>
 		  
 		
 		  

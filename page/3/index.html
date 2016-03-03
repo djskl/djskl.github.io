@@ -115,6 +115,50 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2016/01/04/Postgresql函数的rowtype类型及返回值/" title="Postgresql函数的rowtype类型及返回值" itemprop="url">
+  
+    <h1 itemprop="name">Postgresql函数的rowtype类型及返回值</h1>
+    
+     
+           <p itemprop="description" >今天想写触发器来根据表A里的数据变化更新表B的状态，A表的更新及删除都会触发这个操作。
+于是想到写一个普通函数在触发器函数里调用，结果尝试了一下指定参数类型为tablename%rowtype，结果居然报错，后来找到另一个比较勉强的解释：
+
+Since every table h</p>
+        
+    
+    <time datetime="2016-01-03T16:00:00.000Z" itemprop="datePublished">2016-01-04</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/01/02/jsonp简介/" title="jsonp简介" itemprop="url">
+  
+    <h1 itemprop="name">jsonp简介</h1>
+    
+     
+           <p itemprop="description" >jsonp不同于json，json是一种数据交换格式，jsonp则是为了跨域获取json数据的一种方式。
+默认情况下，由于浏览器的限制，当前网站上的任何内容都不允许其他网站直接调用访问(除非服务器进行一些设置)，而script标签自带跨域功能，jsonp就是通过动态加载scrip</p>
+        
+    
+    <time datetime="2016-01-01T16:00:00.000Z" itemprop="datePublished">2016-01-02</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2016/01/02/AngularJs表单验证/" title="AngularJs表单验证" itemprop="url">
   
     <h1 itemprop="name">AngularJs表单验证</h1>
@@ -141,27 +185,6 @@
     
      
            <p itemprop="description" >今天学习AngularJs看到$http就顺带试了一下昨天看的jsonp，踩到了几个坑也学会了新的写法，现记录如下：12345678#Django代码from django.http.response import HttpResponseimport jsondef datas</p>
-        
-    
-    <time datetime="2016-01-01T16:00:00.000Z" itemprop="datePublished">2016-01-02</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/01/02/jsonp简介/" title="jsonp简介" itemprop="url">
-  
-    <h1 itemprop="name">jsonp简介</h1>
-    
-     
-           <p itemprop="description" >jsonp不同于json，json是一种数据交换格式，jsonp则是为了跨域获取json数据的一种方式。
-默认情况下，由于浏览器的限制，当前网站上的任何内容都不允许其他网站直接调用访问(除非服务器进行一些设置)，而script标签自带跨域功能，jsonp就是通过动态加载scrip</p>
         
     
     <time datetime="2016-01-01T16:00:00.000Z" itemprop="datePublished">2016-01-02</time>
@@ -262,27 +285,6 @@ Design an algorithm to find the maximum profit.</p>
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/12/19/不同文件大小对读取速率的影响/" title="不同文件大小对读取速率的影响" itemprop="url">
-  
-    <h1 itemprop="name">不同文件大小对读取速率的影响</h1>
-    
-     
-           <p itemprop="description" >这几天对小文件(地图切片)缓存挺感兴趣的，于是做了以下实验测试不同文件大小对读取速度的影响。
-系统：Fedora20CPU：酷睿双核i3处理器(2.53GHz)内存：2GB(DDR3)硬盘：7200转/分钟测试文件：大小包括1b, 5b, 10b, 20b, 50b, 100b,</p>
-        
-    
-    <time datetime="2015-12-18T16:00:00.000Z" itemprop="datePublished">2015-12-19</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
@@ -317,7 +319,7 @@ Design an algorithm to find the maximum profit.</p>
 		  
 		
 		  
-			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>8</sup></a></li>
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>9</sup></a></li>
 		  
 		
 		  

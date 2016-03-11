@@ -5,35 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>sed和awk输出奇偶数行 | ideas into codes</title>
+    <title>将Python脚本的错误输出到stderr | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="实验文本
-
-[root@localhost ~]# cat pets.txtThis is my cat  my cat’s name is bettyThis is my dog  my dog’s name is frankThis is my fish  my fish’s name is georgeThis is my goat  my goat’s name is adam
-
-sed命">
+    <meta name="description" content="示例脚本(demo.py)代码如下：123456789101112131415161718192021222324from __future__ import print_functionimport traceback, sysdef exc_handler(func):    def _wraper(*args, **kwargs):        try:            return">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sed和awk输出奇偶数行">
-<meta property="og:url" content="http://1988zxh.com/2015/03/15/sed和awk输出偶数和奇数行/index.html">
+<meta property="og:title" content="将Python脚本的错误输出到stderr">
+<meta property="og:url" content="http://1988zxh.com/2016/03/11/将Python脚本的错误输出到stderr/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="实验文本
-
-[root@localhost ~]# cat pets.txtThis is my cat  my cat’s name is bettyThis is my dog  my dog’s name is frankThis is my fish  my fish’s name is georgeThis is my goat  my goat’s name is adam
-
-sed命">
-<meta property="og:updated_time" content="2015-09-10T12:48:55.000Z">
+<meta property="og:description" content="示例脚本(demo.py)代码如下：123456789101112131415161718192021222324from __future__ import print_functionimport traceback, sysdef exc_handler(func):    def _wraper(*args, **kwargs):        try:            return">
+<meta property="og:updated_time" content="2016-03-11T11:38:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sed和awk输出奇偶数行">
-<meta name="twitter:description" content="实验文本
-
-[root@localhost ~]# cat pets.txtThis is my cat  my cat’s name is bettyThis is my dog  my dog’s name is frankThis is my fish  my fish’s name is georgeThis is my goat  my goat’s name is adam
-
-sed命">
+<meta name="twitter:title" content="将Python脚本的错误输出到stderr">
+<meta name="twitter:description" content="示例脚本(demo.py)代码如下：123456789101112131415161718192021222324from __future__ import print_functionimport traceback, sysdef exc_handler(func):    def _wraper(*args, **kwargs):        try:            return">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -89,50 +77,30 @@ sed命">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/03/15/sed和awk输出偶数和奇数行/" title="sed和awk输出奇偶数行" itemprop="url">sed和awk输出奇偶数行</a>
+      <a href="/2016/03/11/将Python脚本的错误输出到stderr/" title="将Python脚本的错误输出到stderr" itemprop="url">将Python脚本的错误输出到stderr</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-03-14T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-03-15</time>
+    <time datetime="2016-03-10T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-11</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p><strong>实验文本</strong></p>
+		<p>示例脚本(demo.py)代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> traceback, sys</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exc_handler</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_wraper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">        <span class="keyword">except</span> Exception:</span><br><span class="line">            print(traceback.format_exc(), file=sys.stderr)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line">    <span class="keyword">return</span> _wraper</span><br><span class="line"></span><br><span class="line"><span class="decorator">@exc_handler   </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> num%<span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> num**<span class="number">2</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">"%s is odd"</span>%num)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">for</span> idx <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">        x = foo(idx)</span><br><span class="line">        <span class="keyword">if</span> x:</span><br><span class="line">            print(<span class="string">"%s*%s = %s"</span>%(idx, idx, x), file=sys.stdout)</span><br></pre></td></tr></table></figure></p>
+<p>通过脚本运行：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python demo.py <span class="number">1</span>&gt;&gt;info.<span class="built_in">log</span> <span class="number">2</span>&gt;&gt;error.<span class="built_in">log</span></span><br></pre></td></tr></table></figure></p>
+<p>info.log的内容如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>*<span class="number">0</span> = <span class="number">0</span></span><br><span class="line"><span class="number">2</span>*<span class="number">2</span> = <span class="number">4</span></span><br><span class="line"><span class="number">4</span>*<span class="number">4</span> = <span class="number">16</span></span><br></pre></td></tr></table></figure></p>
+<p>error.log的内容如下：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent <span class="operator"><span class="keyword">call</span> <span class="keyword">last</span>):</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"demo.py"</span>, line <span class="number">7</span>, <span class="keyword">in</span> _wraper</span><br><span class="line">    <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"demo.py"</span>, line <span class="number">18</span>, <span class="keyword">in</span> foo</span><br><span class="line">    <span class="keyword">raise</span> <span class="keyword">Exception</span>(<span class="string">"%s is odd"</span>%<span class="keyword">num</span>)</span><br><span class="line"><span class="keyword">Exception</span>: <span class="number">1</span> <span class="keyword">is</span> odd</span><br><span class="line"></span><br><span class="line">Traceback (most recent <span class="keyword">call</span> <span class="keyword">last</span>):</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"demo.py"</span>, line <span class="number">7</span>, <span class="keyword">in</span> _wraper</span><br><span class="line">    <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">  <span class="keyword">File</span> <span class="string">"demo.py"</span>, line <span class="number">18</span>, <span class="keyword">in</span> foo</span><br><span class="line">    <span class="keyword">raise</span> <span class="keyword">Exception</span>(<span class="string">"%s is odd"</span>%<span class="keyword">num</span>)</span><br><span class="line"><span class="keyword">Exception</span>: <span class="number">3</span> <span class="keyword">is</span> odd</span></span><br></pre></td></tr></table></figure></p>
+<p>其中，<code>from __future__ import print_function</code>的意思是：本程序中print使用的是3.0版本中的python函数，定义如下：</p>
 <blockquote>
-<p>[root@localhost ~]# cat pets.txt<br>This is my cat<br>  my cat’s name is betty<br>This is my dog<br>  my dog’s name is frank<br>This is my fish<br>  my fish’s name is george<br>This is my goat<br>  my goat’s name is adam</p>
+<p>print(*objects, sep=’ ‘, end=’\n’, file=sys.stdout, flush=False)</p>
 </blockquote>
-<p><strong>sed命令</strong><br><strong>方式1</strong></p>
-<blockquote>
-<p>[root@localhost ~]# sed ‘n;p’ pets.txt -n  #输出偶数行<br>[root@localhost ~]# sed ‘p;n’ pets.txt -n   #输出奇数行</p>
-</blockquote>
-<p><strong>解析</strong><br>sed命令执行时将文本<code>逐行</code>读到模式空间(pattern space)中，然后进行处理，结束后输出处理结果并清空模式空间，然后再读取下一行，如此循环直接全部处理结束。<br>如果添加了<code>n</code>或<code>N</code>命令，除当前行外，下一行也会被读取到模式空间中，不同的是：<code>n</code>读取后，忽略当前行，处理下一行，<code>N</code>读取后，会将当前行与下一行当作一行来处理。<br>下面看一个<code>N</code>的<a href="http://coolshell.cn/articles/9104.html" target="_blank" rel="external">例子</a>：</p>
-<blockquote>
-<p>[root@localhost ~]# sed ‘N;s/my/your/1’ pets.txt<br>This is your cat<br>  my cat’s name is betty<br>This is your dog<br>  my dog’s name is frank<br>This is your fish<br>  my fish’s name is george<br>This is your goat<br>  my goat’s name is adam</p>
-<p>[root@localhost ~]# sed ‘N;s/\n/,/‘ pets.txt<br>This is my cat,  my cat’s name is betty<br>This is my dog,  my dog’s name is frank<br>This is my fish,  my fish’s name is george<br>This is my goat,  my goat’s name is adam</p>
-</blockquote>
-<p><strong>方式2</strong></p>
-<blockquote>
-<p>[root@localhost ~]# sed ‘0~2p’ pets.txt -n #输出偶数行<br>[root@localhost ~]# sed ‘1~2p’ pets.txt -n  #输出奇数行</p>
-</blockquote>
-<p><strong>解析</strong></p>
-<blockquote>
-<p>first~step<br>Match every step’th line starting with line first.  For example, ``sed -n 1~2p’’ will print all the odd-numbered lines in the  input stream, and the address 2~5 will match every fifth line, starting with the second.  first can be zero; in this case, sed operates as if it were equal to step.</p>
-</blockquote>
-<p>以上出自<code>man sed</code></p>
-<p><strong>awk命令</strong><br>这个就比较简单了，比较直接的方式如下：</p>
-<blockquote>
-<p>[root@localhost ~]#awk ‘!(NR%2)’ pets.txt  #输出偶数行<br>[root@localhost ~]# awk ‘NR%2’ pets.txt     #输出奇数行</p>
-</blockquote>
-<p>以上代码等同于：</p>
-<blockquote>
-<p>[root@localhost ~]#awk ‘{if(NR%2 == 0){print}}’ pets.txt   #输出偶数行<br>[root@localhost ~]# awk ‘{if(NR%2 == 1){print;}}’ pets.txt  #输出奇数行</p>
-</blockquote>
-<p><strong>参考</strong><br><a href="http://coolshell.cn/articles/9104.html" target="_blank" rel="external">sed 简明教程</a><br><a href="http://www.cnblogs.com/fhefh/archive/2011/11/14/2248942.html" target="_blank" rel="external">linux：sed高级命令之n、N</a><br><a href="http://blog.chinaunix.net/uid-10540984-id-316081.html" target="_blank" rel="external">awk &amp; sed之奇数行与偶数行的打印</a><br><a href="http://bbs.linuxtone.org/thread-16543-1-1.html" target="_blank" rel="external">awk 输出奇数行 不理解 </a></p>
+<p>与2.7明显不同的一点是，此处的print必须以函数(后面加小括号)的方式调用。</p>
+<p>关于<code>__future__</code>多说两句，如果在代码了加入了<code>from __future__ import xxx</code>，会该变程序的某些行为，比如：<br><figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> division</span><br><span class="line"><span class="comment">#除法不再自动取整</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> absolute_import</span><br><span class="line"><span class="comment">#不能在代码里出现类似linux的那种点点的相对引入(relative import)</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>参考</strong><br><a href="http://stackoverflow.com/questions/5574702/how-to-print-to-stderr-in-python" target="_blank" rel="external">How to print to stderr in Python?</a><br><a href="https://docs.python.org/2/library/__future__.html" target="_blank" rel="external">Future statement definitions</a><br><a href="https://docs.python.org/3/library/functions.html#print" target="_blank" rel="external">python3 print函数</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -140,14 +108,9 @@ sed命">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/shell/">shell</a>
+  <a class="article-category-link" href="/categories/python/">python</a>
 </div>
 
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/awk/">awk</a><a href="/tags/sed/">sed</a>
-  </div>
 
 </div>
 
@@ -155,7 +118,7 @@ sed命">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/03/15/sed和awk输出偶数和奇数行/" data-title="sed和awk输出奇偶数行 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/03/11/将Python脚本的错误输出到stderr/" data-title="将Python脚本的错误输出到stderr | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -169,18 +132,18 @@ sed命">
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/03/18/awk处理空格分隔符/" title="awk处理空格分隔符">
+ <a href="/2016/03/11/JavaScript字符串替换/" title="JavaScript字符串替换">
   <strong>上一篇：</strong><br/>
   <span>
-  awk处理空格分隔符</span>
+  JavaScript字符串替换</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/03/07/javascript中的instanceof与typeof/"  title="javascript中的instanceof与typeof">
+<a href="/2016/03/03/Postgresql持续归档与PITR/"  title="Postgresql持续归档与PITR">
  <strong>下一篇：</strong><br/> 
- <span>javascript中的instanceof与typeof
+ <span>Postgresql持续归档与PITR
 </span>
 </a>
 </div>
@@ -189,7 +152,7 @@ sed命">
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/03/15/sed和awk输出偶数和奇数行/" data-title="sed和awk输出奇偶数行" data-url="http://1988zxh.com/2015/03/15/sed和awk输出偶数和奇数行/"></div>
+	<div class="ds-thread" data-thread-key="2016/03/11/将Python脚本的错误输出到stderr/" data-title="将Python脚本的错误输出到stderr" data-url="http://1988zxh.com/2016/03/11/将Python脚本的错误输出到stderr/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

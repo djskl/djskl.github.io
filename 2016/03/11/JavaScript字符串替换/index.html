@@ -5,35 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>sed和awk输出奇偶数行 | ideas into codes</title>
+    <title>JavaScript字符串替换 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="实验文本
-
-[root@localhost ~]# cat pets.txtThis is my cat  my cat’s name is bettyThis is my dog  my dog’s name is frankThis is my fish  my fish’s name is georgeThis is my goat  my goat’s name is adam
-
-sed命">
+    <meta name="description" content="默认情况下调用字符串的replace函数，只能替换匹配成功的第一个子串：1234var urls = &quot;www.gscloud.cn, www.gscloud.cn, www.gscloud&quot;var new_urls = urls.replace(&quot;www.gscloud.cn&quot;, &quot;www.giscloud.cn&quot;);console.log(new_urls);//输出&quot;www.giscloud">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sed和awk输出奇偶数行">
-<meta property="og:url" content="http://1988zxh.com/2015/03/15/sed和awk输出偶数和奇数行/index.html">
+<meta property="og:title" content="JavaScript字符串替换">
+<meta property="og:url" content="http://1988zxh.com/2016/03/11/JavaScript字符串替换/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="实验文本
-
-[root@localhost ~]# cat pets.txtThis is my cat  my cat’s name is bettyThis is my dog  my dog’s name is frankThis is my fish  my fish’s name is georgeThis is my goat  my goat’s name is adam
-
-sed命">
-<meta property="og:updated_time" content="2015-09-10T12:48:55.000Z">
+<meta property="og:description" content="默认情况下调用字符串的replace函数，只能替换匹配成功的第一个子串：1234var urls = &quot;www.gscloud.cn, www.gscloud.cn, www.gscloud&quot;var new_urls = urls.replace(&quot;www.gscloud.cn&quot;, &quot;www.giscloud.cn&quot;);console.log(new_urls);//输出&quot;www.giscloud">
+<meta property="og:updated_time" content="2016-03-11T10:49:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sed和awk输出奇偶数行">
-<meta name="twitter:description" content="实验文本
-
-[root@localhost ~]# cat pets.txtThis is my cat  my cat’s name is bettyThis is my dog  my dog’s name is frankThis is my fish  my fish’s name is georgeThis is my goat  my goat’s name is adam
-
-sed命">
+<meta name="twitter:title" content="JavaScript字符串替换">
+<meta name="twitter:description" content="默认情况下调用字符串的replace函数，只能替换匹配成功的第一个子串：1234var urls = &quot;www.gscloud.cn, www.gscloud.cn, www.gscloud&quot;var new_urls = urls.replace(&quot;www.gscloud.cn&quot;, &quot;www.giscloud.cn&quot;);console.log(new_urls);//输出&quot;www.giscloud">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -89,50 +77,22 @@ sed命">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/03/15/sed和awk输出偶数和奇数行/" title="sed和awk输出奇偶数行" itemprop="url">sed和awk输出奇偶数行</a>
+      <a href="/2016/03/11/JavaScript字符串替换/" title="JavaScript字符串替换" itemprop="url">JavaScript字符串替换</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-03-14T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-03-15</time>
+    <time datetime="2016-03-10T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-11</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p><strong>实验文本</strong></p>
-<blockquote>
-<p>[root@localhost ~]# cat pets.txt<br>This is my cat<br>  my cat’s name is betty<br>This is my dog<br>  my dog’s name is frank<br>This is my fish<br>  my fish’s name is george<br>This is my goat<br>  my goat’s name is adam</p>
-</blockquote>
-<p><strong>sed命令</strong><br><strong>方式1</strong></p>
-<blockquote>
-<p>[root@localhost ~]# sed ‘n;p’ pets.txt -n  #输出偶数行<br>[root@localhost ~]# sed ‘p;n’ pets.txt -n   #输出奇数行</p>
-</blockquote>
-<p><strong>解析</strong><br>sed命令执行时将文本<code>逐行</code>读到模式空间(pattern space)中，然后进行处理，结束后输出处理结果并清空模式空间，然后再读取下一行，如此循环直接全部处理结束。<br>如果添加了<code>n</code>或<code>N</code>命令，除当前行外，下一行也会被读取到模式空间中，不同的是：<code>n</code>读取后，忽略当前行，处理下一行，<code>N</code>读取后，会将当前行与下一行当作一行来处理。<br>下面看一个<code>N</code>的<a href="http://coolshell.cn/articles/9104.html" target="_blank" rel="external">例子</a>：</p>
-<blockquote>
-<p>[root@localhost ~]# sed ‘N;s/my/your/1’ pets.txt<br>This is your cat<br>  my cat’s name is betty<br>This is your dog<br>  my dog’s name is frank<br>This is your fish<br>  my fish’s name is george<br>This is your goat<br>  my goat’s name is adam</p>
-<p>[root@localhost ~]# sed ‘N;s/\n/,/‘ pets.txt<br>This is my cat,  my cat’s name is betty<br>This is my dog,  my dog’s name is frank<br>This is my fish,  my fish’s name is george<br>This is my goat,  my goat’s name is adam</p>
-</blockquote>
-<p><strong>方式2</strong></p>
-<blockquote>
-<p>[root@localhost ~]# sed ‘0~2p’ pets.txt -n #输出偶数行<br>[root@localhost ~]# sed ‘1~2p’ pets.txt -n  #输出奇数行</p>
-</blockquote>
-<p><strong>解析</strong></p>
-<blockquote>
-<p>first~step<br>Match every step’th line starting with line first.  For example, ``sed -n 1~2p’’ will print all the odd-numbered lines in the  input stream, and the address 2~5 will match every fifth line, starting with the second.  first can be zero; in this case, sed operates as if it were equal to step.</p>
-</blockquote>
-<p>以上出自<code>man sed</code></p>
-<p><strong>awk命令</strong><br>这个就比较简单了，比较直接的方式如下：</p>
-<blockquote>
-<p>[root@localhost ~]#awk ‘!(NR%2)’ pets.txt  #输出偶数行<br>[root@localhost ~]# awk ‘NR%2’ pets.txt     #输出奇数行</p>
-</blockquote>
-<p>以上代码等同于：</p>
-<blockquote>
-<p>[root@localhost ~]#awk ‘{if(NR%2 == 0){print}}’ pets.txt   #输出偶数行<br>[root@localhost ~]# awk ‘{if(NR%2 == 1){print;}}’ pets.txt  #输出奇数行</p>
-</blockquote>
-<p><strong>参考</strong><br><a href="http://coolshell.cn/articles/9104.html" target="_blank" rel="external">sed 简明教程</a><br><a href="http://www.cnblogs.com/fhefh/archive/2011/11/14/2248942.html" target="_blank" rel="external">linux：sed高级命令之n、N</a><br><a href="http://blog.chinaunix.net/uid-10540984-id-316081.html" target="_blank" rel="external">awk &amp; sed之奇数行与偶数行的打印</a><br><a href="http://bbs.linuxtone.org/thread-16543-1-1.html" target="_blank" rel="external">awk 输出奇数行 不理解 </a></p>
+		<p>默认情况下调用字符串的replace函数，只能替换匹配成功的第一个子串：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> urls = <span class="string">"www.gscloud.cn, www.gscloud.cn, www.gscloud"</span></span><br><span class="line"><span class="keyword">var</span> new_urls = urls.replace(<span class="string">"www.gscloud.cn"</span>, <span class="string">"www.giscloud.cn"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(new_urls);</span><br><span class="line"><span class="comment">//输出"www.giscloud.cn, www.gscloud.cn, www.gscloud"</span></span><br></pre></td></tr></table></figure></p>
+<p>js并没有提供replaceall函数，要想全局替换需要借助正则表达式：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> urls = <span class="string">"www.gscloud.cn, www.gscloud.cn, www.gscloud"</span></span><br><span class="line"><span class="keyword">var</span> new_urls = urls.replace(<span class="regexp">/www\.gscloud\.cn/g</span>, <span class="string">"www.giscloud.cn"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(new_urls);</span><br><span class="line"><span class="comment">//输出"www.giscloud.cn, www.giscloud.cn, www.giscloud"</span></span><br></pre></td></tr></table></figure></p>
+<p><code>/www\.gscloud\.cn/g</code>指定了一个正则表达式的pattern，更一般的写法为<code>/pattern/flag</code>，其中<code>pattern</code>指定了一个正则表达式，flag是标志位，常用的有<code>g(全局匹配)</code>,<code>i(忽略大小写)</code>。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -140,14 +100,9 @@ sed命">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/shell/">shell</a>
+  <a class="article-category-link" href="/categories/前端/">前端</a>
 </div>
 
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/awk/">awk</a><a href="/tags/sed/">sed</a>
-  </div>
 
 </div>
 
@@ -155,7 +110,7 @@ sed命">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/03/15/sed和awk输出偶数和奇数行/" data-title="sed和awk输出奇偶数行 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/03/11/JavaScript字符串替换/" data-title="JavaScript字符串替换 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -168,19 +123,11 @@ sed命">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/03/18/awk处理空格分隔符/" title="awk处理空格分隔符">
-  <strong>上一篇：</strong><br/>
-  <span>
-  awk处理空格分隔符</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/03/07/javascript中的instanceof与typeof/"  title="javascript中的instanceof与typeof">
+<a href="/2016/03/11/将Python脚本的错误输出到stderr/"  title="将Python脚本的错误输出到stderr">
  <strong>下一篇：</strong><br/> 
- <span>javascript中的instanceof与typeof
+ <span>将Python脚本的错误输出到stderr
 </span>
 </a>
 </div>
@@ -189,7 +136,7 @@ sed命">
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/03/15/sed和awk输出偶数和奇数行/" data-title="sed和awk输出奇偶数行" data-url="http://1988zxh.com/2015/03/15/sed和awk输出偶数和奇数行/"></div>
+	<div class="ds-thread" data-thread-key="2016/03/11/JavaScript字符串替换/" data-title="JavaScript字符串替换" data-url="http://1988zxh.com/2016/03/11/JavaScript字符串替换/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

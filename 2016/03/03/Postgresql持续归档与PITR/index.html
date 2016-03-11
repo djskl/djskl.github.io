@@ -12,19 +12,19 @@
     
 
     
-    <meta name="description" content="在对数据库数据文件实际更新前需要首先将操作写到WAL日志中，然后在适当的时候(check-point)将WAL(write-ahead log)中的操作实际刷新到硬盘中的数据文件中。
-在postgresql(Fedora)中，WAL日志存储/var/lib/psql/data/pg_xlog目录，考虑WAL日志可能会很大且包含了数据库中的全部信息，出于保密以及节约空间的考虑，以二进制的形式存储，默">
+    <meta name="description" content="为了便于数据备份与恢复，需要先将针对数据库的更新操作写到WAL日志中，然后在适当的时候(check-point)将WAL(write-ahead log)中的操作实际刷新到硬盘中的数据文件中。
+在postgresql(Fedora)中，WAL日志存储/var/lib/psql/data/pg_xlog目录，考虑WAL日志可能会很大且包含了数据库中的全部信息，出于保密以及节约空间的考虑，以二进制的形">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Postgresql持续归档与PITR">
 <meta property="og:url" content="http://1988zxh.com/2016/03/03/Postgresql持续归档与PITR/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="在对数据库数据文件实际更新前需要首先将操作写到WAL日志中，然后在适当的时候(check-point)将WAL(write-ahead log)中的操作实际刷新到硬盘中的数据文件中。
-在postgresql(Fedora)中，WAL日志存储/var/lib/psql/data/pg_xlog目录，考虑WAL日志可能会很大且包含了数据库中的全部信息，出于保密以及节约空间的考虑，以二进制的形式存储，默">
-<meta property="og:updated_time" content="2016-03-03T11:38:41.000Z">
+<meta property="og:description" content="为了便于数据备份与恢复，需要先将针对数据库的更新操作写到WAL日志中，然后在适当的时候(check-point)将WAL(write-ahead log)中的操作实际刷新到硬盘中的数据文件中。
+在postgresql(Fedora)中，WAL日志存储/var/lib/psql/data/pg_xlog目录，考虑WAL日志可能会很大且包含了数据库中的全部信息，出于保密以及节约空间的考虑，以二进制的形">
+<meta property="og:updated_time" content="2016-03-11T10:56:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Postgresql持续归档与PITR">
-<meta name="twitter:description" content="在对数据库数据文件实际更新前需要首先将操作写到WAL日志中，然后在适当的时候(check-point)将WAL(write-ahead log)中的操作实际刷新到硬盘中的数据文件中。
-在postgresql(Fedora)中，WAL日志存储/var/lib/psql/data/pg_xlog目录，考虑WAL日志可能会很大且包含了数据库中的全部信息，出于保密以及节约空间的考虑，以二进制的形式存储，默">
+<meta name="twitter:description" content="为了便于数据备份与恢复，需要先将针对数据库的更新操作写到WAL日志中，然后在适当的时候(check-point)将WAL(write-ahead log)中的操作实际刷新到硬盘中的数据文件中。
+在postgresql(Fedora)中，WAL日志存储/var/lib/psql/data/pg_xlog目录，考虑WAL日志可能会很大且包含了数据库中的全部信息，出于保密以及节约空间的考虑，以二进制的形">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -93,11 +93,12 @@
 </header>
 	<div class="article-content">
 		
-		<p>在对数据库数据文件实际更新前需要首先将操作写到WAL日志中，然后在适当的时候(check-point)将WAL(write-ahead log)中的操作实际刷新到硬盘中的数据文件中。</p>
+		<p>为了便于数据备份与恢复，需要先将针对数据库的更新操作写到WAL日志中，然后在适当的时候(check-point)将WAL(write-ahead log)中的操作实际刷新到硬盘中的数据文件中。</p>
 <p>在postgresql(Fedora)中，WAL日志存储/var/lib/psql/data/pg_xlog目录，考虑WAL日志可能会很大且包含了数据库中的全部信息，出于保密以及节约空间的考虑，以二进制的形式存储，默认大小是16MB，一个文件就是一个segment，不论里面有多少数据，segment的大小都是固定的。</p>
+<p>与dump方式相比，基于WAL日志的备份可以将数据库恢复到任意时间点(PITR, point-in-time recovery)，使用起来更加灵活方便(在Postgresql中，配置好之后无需再手动备份，WAL日志会自动备份)</p>
 <p>本文简单介绍以下基于WAL日志的备份与恢复操作。</p>
 <h3 id="1、建立备份基点">1、建立备份基点</h3><h4 id="1-1_设置postgresql-conf">1.1 设置postgresql.conf</h4><blockquote>
-<p><strong>wal_level</strong>: 默认是minimal，可以用于数据库在崩库之后的恢复，除此之外还有3个级别：archive, hot_standby, logical每个级别都比上一个级别多记录了一些信息。此处设置为<strong>archive</strong>。</p>
+<p><strong>wal_level</strong>: 默认是minimal，可以用于数据库在崩溃之后的恢复，除此之外还有3个级别：archive, hot_standby, logical每个级别都比上一个级别多记录了一些信息。此处设置为<strong>archive</strong>。</p>
 <p><strong>archive_mode</strong>: 设置为on，允许将WAL segment传到备份文件夹。</p>
 <p><strong>archive_command</strong>: 传递WAL日志的命令，此处设置为<strong>‘test ! -f /postgresql/archivedir/%f &amp;&amp; cp %p /postgresql/archivedir/%f’</strong>，其中 <em>/postgresql/archivedir</em> 必须存在，且允许当前用户(比如postgres)读写。</p>
 <p><strong>max_wal_senders</strong>: 发送WAL日志的进程个数，此处设置为<strong>10</strong>。</p>
@@ -154,6 +155,14 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2016/03/11/将Python脚本的错误输出到stderr/" title="将Python脚本的错误输出到stderr">
+  <strong>上一篇：</strong><br/>
+  <span>
+  将Python脚本的错误输出到stderr</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2016/02/29/通过pstree查看python线程/"  title="通过pstree查看python线程">
@@ -220,7 +229,7 @@
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>23</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>24</sup></a></li>
 		  
 		
 		  
@@ -236,7 +245,7 @@
 		  
 		
 		  
-			<li><a href="/categories/前端/" title="前端">前端<sup>5</sup></a></li>
+			<li><a href="/categories/前端/" title="前端">前端<sup>6</sup></a></li>
 		  
 		
 		  

@@ -5,26 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>请求参数解析QueryDict | ideas into codes</title>
+    <title>闭包的延迟绑定 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="今天遇到了一个奇怪的问题：通过ajax向后台传json时，在解析参数后得到的是{key: [value]}，而不是{key: value}。请求参数解析函数如下：12345def get_params(request):    a = &amp;#123;&amp;#125;    a.update(request.GET)    a.update(request.POST)    return a
-本意是想合并">
+    <meta name="description" content="今天写代码时候终于遇到了传说中的延迟绑定(Late Binding)，所谓延迟绑定简单来说，就是在函数内部只是绑定了变量的引用，并不是变量的值，比如下面这个例子：123456789def demo():    x = 10    def f():        return 10*x    x = 20    print f()if __name__ == &quot;__main__&quot;:    demo(">
 <meta property="og:type" content="article">
-<meta property="og:title" content="请求参数解析QueryDict">
-<meta property="og:url" content="http://1988zxh.com/2015/08/31/请求参数解析QueryDict/index.html">
+<meta property="og:title" content="闭包的延迟绑定">
+<meta property="og:url" content="http://1988zxh.com/2016/03/22/闭包的延迟绑定/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="今天遇到了一个奇怪的问题：通过ajax向后台传json时，在解析参数后得到的是{key: [value]}，而不是{key: value}。请求参数解析函数如下：12345def get_params(request):    a = &amp;#123;&amp;#125;    a.update(request.GET)    a.update(request.POST)    return a
-本意是想合并">
-<meta property="og:updated_time" content="2015-08-31T11:44:35.000Z">
+<meta property="og:description" content="今天写代码时候终于遇到了传说中的延迟绑定(Late Binding)，所谓延迟绑定简单来说，就是在函数内部只是绑定了变量的引用，并不是变量的值，比如下面这个例子：123456789def demo():    x = 10    def f():        return 10*x    x = 20    print f()if __name__ == &quot;__main__&quot;:    demo(">
+<meta property="og:updated_time" content="2016-03-22T12:53:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="请求参数解析QueryDict">
-<meta name="twitter:description" content="今天遇到了一个奇怪的问题：通过ajax向后台传json时，在解析参数后得到的是{key: [value]}，而不是{key: value}。请求参数解析函数如下：12345def get_params(request):    a = &amp;#123;&amp;#125;    a.update(request.GET)    a.update(request.POST)    return a
-本意是想合并">
+<meta name="twitter:title" content="闭包的延迟绑定">
+<meta name="twitter:description" content="今天写代码时候终于遇到了传说中的延迟绑定(Late Binding)，所谓延迟绑定简单来说，就是在函数内部只是绑定了变量的引用，并不是变量的值，比如下面这个例子：123456789def demo():    x = 10    def f():        return 10*x    x = 20    print f()if __name__ == &quot;__main__&quot;:    demo(">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -82,26 +79,26 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/08/31/请求参数解析QueryDict/" title="请求参数解析QueryDict" itemprop="url">请求参数解析QueryDict</a>
+      <a href="/2016/03/22/闭包的延迟绑定/" title="闭包的延迟绑定" itemprop="url">闭包的延迟绑定</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-08-31</time>
+    <time datetime="2016-03-21T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-22</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>今天遇到了一个奇怪的问题：通过ajax向后台传json时，在解析参数后得到的是<code>{key: [value]}</code>，而不是<code>{key: value}</code>。请求参数解析函数如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_params</span><span class="params">(request)</span>:</span></span><br><span class="line">    a = &#123;&#125;</span><br><span class="line">    a.update(request.GET)</span><br><span class="line">    a.update(request.POST)</span><br><span class="line">    <span class="keyword">return</span> a</span><br></pre></td></tr></table></figure></p>
-<p>本意是想合并get请求和post请求，但这里忽略里一点，request.GET/request.POST都不是普通的字典，而是<code>QueryDict</code>类型的字典，这类字典的典型的特征就是<code>一个键上可以绑定多个值</code>，比如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">from</span> django.http.request <span class="keyword">import</span> QueryDict</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>QueryDict(<span class="string">'a=1&amp;a=2&amp;c=3'</span>)</span><br><span class="line">&lt;QueryDict: &#123;<span class="string">u'a'</span>: [<span class="string">u'1'</span>, <span class="string">u'2'</span>], <span class="string">u'c'</span>: [<span class="string">u'3'</span>]&#125;&gt;</span><br></pre></td></tr></table></figure></p>
-<p>在这里<code>a</code>上就绑定里两个值，再看<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>nd = &#123;&#125;</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>nd.update(dct)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>nd</span><br><span class="line">&#123;<span class="string">u'a'</span>: [<span class="string">u'1'</span>, <span class="string">u'2'</span>], <span class="string">u'c'</span>: [<span class="string">u'3'</span>]&#125;</span><br></pre></td></tr></table></figure></p>
-<p>QueryDict支持普通dict的大部分操作，比如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dct[<span class="string">'a'</span>]</span><br><span class="line"><span class="string">u'2'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dct.get(<span class="string">'a'</span>)</span><br><span class="line"><span class="string">u'2'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dct.get(<span class="string">'b'</span>,<span class="string">'hello'</span>)</span><br><span class="line"><span class="string">'hello'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dct.items()</span><br><span class="line">[(<span class="string">u'a'</span>, <span class="string">u'2'</span>), (<span class="string">u'c'</span>, <span class="string">u'3'</span>)]</span><br></pre></td></tr></table></figure></p>
-<p>这里<code>a</code>上虽然有多个值，但始终取最后一个。它们有一点区别需要注意：<code>copy</code>函数。普通字典调用copy时执行的<code>浅复制</code>，而QueryDict却是<code>深复制</code>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#QueryDict</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dct=QueryDict(<span class="keyword">None</span>,mutable=<span class="keyword">True</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dct[<span class="string">'a'</span>]=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dct</span><br><span class="line">&lt;QueryDict: &#123;<span class="string">u'a'</span>: [[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]]&#125;&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dct_c = dct.copy()</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dct[<span class="string">'a'</span>][<span class="number">1</span>]=<span class="number">5</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dct</span><br><span class="line">&lt;QueryDict: &#123;<span class="string">u'a'</span>: [[<span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>]]&#125;&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dct_c</span><br><span class="line">&lt;QueryDict: &#123;<span class="string">u'a'</span>: [[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]]&#125;&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">#普通字典</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dct=&#123;<span class="string">'a'</span>:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]&#125;</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dct_c=dct.copy()</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dct[<span class="string">'a'</span>][<span class="number">1</span>]=<span class="number">5</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dct</span><br><span class="line">&#123;<span class="string">'a'</span>: [<span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>]&#125;</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dct_c</span><br><span class="line">&#123;<span class="string">'a'</span>: [<span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>]&#125;</span><br></pre></td></tr></table></figure></p>
-<p>另外，QueryDict还有一些针对request的操作，比如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>q = QueryDict(<span class="string">'a=2&amp;b=3&amp;b=5'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>q.urlencode()</span><br><span class="line"><span class="string">u'a=2&amp;b=3&amp;b=5'</span></span><br></pre></td></tr></table></figure></p>
-<p>参考：<br><a href="https://docs.djangoproject.com/en/1.8/ref/request-response/#querydict-objects" target="_blank" rel="external">QueryDict objects</a></p>
+		<p>今天写代码时候终于遇到了传说中的<code>延迟绑定(Late Binding)</code>，所谓延迟绑定简单来说，就是在函数内部只是绑定了变量的引用，并不是变量的值，比如下面这个例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">demo</span><span class="params">()</span>:</span></span><br><span class="line">    x = <span class="number">10</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">10</span>*x</span><br><span class="line">    x = <span class="number">20</span></span><br><span class="line">    <span class="keyword">print</span> f()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    demo()</span><br></pre></td></tr></table></figure></p>
+<p>以上代码会输出<code>200</code>就是因为变量x的值改变了，f执行的时候只会访问x的最新的值。</p>
+<p>有些时候这在延迟绑定看上去不那么清晰，比如以下代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">funcs = []</span><br><span class="line">msgs = [<span class="string">"zxh"</span>, <span class="string">"lijie"</span>]</span><br><span class="line"><span class="keyword">for</span> idx <span class="keyword">in</span> range(<span class="number">2</span>):</span><br><span class="line">    msg = msgs[idx]</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"hello, %s"</span>%msg</span><br><span class="line">    funcs.append(f)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> fun <span class="keyword">in</span> funcs:</span><br><span class="line">    <span class="keyword">print</span> fun()</span><br></pre></td></tr></table></figure></p>
+<p>以上代码输出如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello, lijie</span><br><span class="line">hello, lijie</span><br></pre></td></tr></table></figure></p>
+<p>其实，上述代码等同于：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">funcs = []</span><br><span class="line"> </span><br><span class="line">msgs = [<span class="string">"zxh"</span>, <span class="string">"lijie"</span>]</span><br><span class="line"></span><br><span class="line">idx = <span class="number">0</span></span><br><span class="line">msg = msgs[idx]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s"</span>%msg</span><br><span class="line">funcs.append(f)</span><br><span class="line"></span><br><span class="line">idx = <span class="number">1</span></span><br><span class="line">msg = msgs[idx]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s"</span>%msg</span><br><span class="line">funcs.append(f)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> fun <span class="keyword">in</span> funcs:</span><br><span class="line">    <span class="keyword">print</span> fun()</span><br></pre></td></tr></table></figure></p>
+<p>解决这个问题最简单的办法就是把变量换个名字，比如把出现在不同位置的<code>msg</code>分别重命名为<code>msg1</code>, <code>msg2</code>，如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">funcs = []</span><br><span class="line"> </span><br><span class="line">msgs = [<span class="string">"zxh"</span>, <span class="string">"lijie"</span>]</span><br><span class="line"></span><br><span class="line">idx = <span class="number">0</span></span><br><span class="line">msg1 = msgs[idx]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s"</span>%msg1</span><br><span class="line">funcs.append(f)</span><br><span class="line"></span><br><span class="line">idx = <span class="number">1</span></span><br><span class="line">msg2 = msgs[idx]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s"</span>%msg2</span><br><span class="line">funcs.append(f)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> fun <span class="keyword">in</span> funcs:</span><br><span class="line">    <span class="keyword">print</span> fun()</span><br></pre></td></tr></table></figure></p>
+<p>这个在办法用在循环里就不灵了，更好的办法是让内部函数绑定变量的值而不是变量的引用：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">funcs = []</span><br><span class="line"> </span><br><span class="line">msgs = [<span class="string">"zxh"</span>, <span class="string">"lijie"</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bindMsg</span><span class="params">(msg)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"hello, %s"</span>%msg</span><br><span class="line">    <span class="keyword">return</span> f</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> idx <span class="keyword">in</span> range(<span class="number">2</span>):</span><br><span class="line">    msg = msgs[idx]</span><br><span class="line">    f = bindMsg(msg)</span><br><span class="line">    funcs.append(f)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> fun <span class="keyword">in</span> funcs:</span><br><span class="line">    <span class="keyword">print</span> fun()</span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -119,7 +116,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/08/31/请求参数解析QueryDict/" data-title="请求参数解析QueryDict | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/03/22/闭包的延迟绑定/" data-title="闭包的延迟绑定 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -132,19 +129,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/09/01/try_finally中的return/" title="try_finally中的return">
-  <strong>上一篇：</strong><br/>
-  <span>
-  try_finally中的return</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/08/31/数据库中的层次操作/"  title="数据库中的层次操作">
+<a href="/2016/03/11/JavaScript字符串替换/"  title="JavaScript字符串替换">
  <strong>下一篇：</strong><br/> 
- <span>数据库中的层次操作
+ <span>JavaScript字符串替换
 </span>
 </a>
 </div>
@@ -153,7 +142,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/08/31/请求参数解析QueryDict/" data-title="请求参数解析QueryDict" data-url="http://1988zxh.com/2015/08/31/请求参数解析QueryDict/"></div>
+	<div class="ds-thread" data-thread-key="2016/03/22/闭包的延迟绑定/" data-title="闭包的延迟绑定" data-url="http://1988zxh.com/2016/03/22/闭包的延迟绑定/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

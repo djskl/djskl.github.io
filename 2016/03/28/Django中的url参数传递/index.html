@@ -5,23 +5,35 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>在uwsgi的子线程中访问request.META的问题 | ideas into codes</title>
+    <title>Django中的url参数传递 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="今天发现用户的ip地址有的能记录成功，有的记录为空。刚开始以为是nginx的问题，看了看nginx的配置，proxy的配置都是正确的，然后仔细看了一下调试日志，发现还是代码的问题：在子线程中通过request.META读取用户ip时，request.META为空了。调试代码如下：1234567891011121314151617import threadingfrom time import sl">
+    <meta name="description" content="此处说的参数传递是指将参数传递给views中的函数，而不是request。Django在匹配url时有一条规则是这样的：
+
+To capture a value from the URL, just put parenthesis around it.
+
+也就是说，想通过url给views中的函数传递参数，只要把相应的部分放在括号里就可以了，比如：123456789#views.pydef pag">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在uwsgi的子线程中访问request.META的问题">
-<meta property="og:url" content="http://1988zxh.com/2016/01/12/在uwsgi的子线程中访问request.META的问题/index.html">
+<meta property="og:title" content="Django中的url参数传递">
+<meta property="og:url" content="http://1988zxh.com/2016/03/28/Django中的url参数传递/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="今天发现用户的ip地址有的能记录成功，有的记录为空。刚开始以为是nginx的问题，看了看nginx的配置，proxy的配置都是正确的，然后仔细看了一下调试日志，发现还是代码的问题：在子线程中通过request.META读取用户ip时，request.META为空了。调试代码如下：1234567891011121314151617import threadingfrom time import sl">
-<meta property="og:updated_time" content="2016-01-12T11:13:47.000Z">
+<meta property="og:description" content="此处说的参数传递是指将参数传递给views中的函数，而不是request。Django在匹配url时有一条规则是这样的：
+
+To capture a value from the URL, just put parenthesis around it.
+
+也就是说，想通过url给views中的函数传递参数，只要把相应的部分放在括号里就可以了，比如：123456789#views.pydef pag">
+<meta property="og:updated_time" content="2016-03-28T13:55:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在uwsgi的子线程中访问request.META的问题">
-<meta name="twitter:description" content="今天发现用户的ip地址有的能记录成功，有的记录为空。刚开始以为是nginx的问题，看了看nginx的配置，proxy的配置都是正确的，然后仔细看了一下调试日志，发现还是代码的问题：在子线程中通过request.META读取用户ip时，request.META为空了。调试代码如下：1234567891011121314151617import threadingfrom time import sl">
+<meta name="twitter:title" content="Django中的url参数传递">
+<meta name="twitter:description" content="此处说的参数传递是指将参数传递给views中的函数，而不是request。Django在匹配url时有一条规则是这样的：
+
+To capture a value from the URL, just put parenthesis around it.
+
+也就是说，想通过url给views中的函数传递参数，只要把相应的部分放在括号里就可以了，比如：123456789#views.pydef pag">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -79,24 +91,28 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/12/在uwsgi的子线程中访问request.META的问题/" title="在uwsgi的子线程中访问request.META的问题" itemprop="url">在uwsgi的子线程中访问request.META的问题</a>
+      <a href="/2016/03/28/Django中的url参数传递/" title="Django中的url参数传递" itemprop="url">Django中的url参数传递</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-12</time>
+    <time datetime="2016-03-27T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-03-28</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>今天发现用户的ip地址有的能记录成功，有的记录为空。刚开始以为是nginx的问题，看了看nginx的配置，proxy的配置都是正确的，然后仔细看了一下调试日志，发现还是代码的问题：<code>在子线程中通过request.META读取用户ip时，request.META为空了</code>。调试代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_f</span><span class="params">(info)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"pre_ces: %s"</span>%info    <span class="comment">#输出所有信息</span></span><br><span class="line">        sleep(<span class="number">5</span>)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"pst_ces: %s"</span>%info    <span class="comment">#此时info为&#123;&#125;</span></span><br><span class="line">    t = threading.Thread(target=_f, args=(request.META,))</span><br><span class="line">    <span class="comment">#t.setDaemon(True)</span></span><br><span class="line">    t.start()</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></span><br><span class="line"></span><br><span class="line">    f(request)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#其他代码</span></span><br></pre></td></tr></table></figure></p>
-<p>为了模仿生产环境，用uwsgi启动：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --http :8080 --module DjangoDemo.wsgi</span><br></pre></td></tr></table></figure></p>
-<p>分<code>子线程是否是守护线程</code> / <code>uwsgi加不加--enable-threads选项</code>，两个条件，四种组合进行测试，发现区别在于加<code>enable-threads</code>选项，print语句的输出可以在控制台看到，否则看不到(此时结束uwsgi才能看到输出，估计应该是缓存的原因)；是否是守护线程对输出结果没有影响。</p>
-<p>查文档也没查到request.META是怎么空的，个人猜测应该是index函数执行结束后，uwsgi就将request.META置空了。</p>
-<p><strong>参考</strong><br>uwsgi官方文档关于子线程的建议：<a href="http://uwsgi-docs.readthedocs.org/en/latest/ThingsToKnow.html#things-to-know-best-practices-and-issues-read-it" target="_blank" rel="external">Things to know (best practices and “issues”) READ IT !!!</a><br>关于enable-threads必要性的讨论：<a href="https://github.com/unbit/uwsgi/issues/1141" target="_blank" rel="external">Understanding enable-threads</a></p>
+		<p>此处说的参数传递是指将参数传递给views中的函数，而不是request。<br>Django在匹配url时有一条规则是这样的：</p>
+<blockquote>
+<p>To capture a value from the URL, just put parenthesis around it.</p>
+</blockquote>
+<p>也就是说，想通过url给views中的函数传递参数，只要把相应的部分放在括号里就可以了，比如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#views.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">page</span><span class="params">(request, num=<span class="number">1</span>)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#URLconf</span></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^blog/$'</span>, views.page),</span><br><span class="line">    url(<span class="string">r'^blog/page(?P&lt;num&gt;[0-9]+)/$'</span>, views.page),</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>如果url为<code>http://127.0.0.1:8000/blog/page2</code>，那么匹配第二条，且参数num的值为2。<br>更一般的情况，比如将年份放到url里<code>http://127.0.0.1:8000/blog/2004</code>，查看对应年份发表过的博客：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#URLconf</span></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^blog/$'</span>, views.page),</span><br><span class="line">    url(<span class="string">r'^blog/(?P&lt;year&gt;[0-9]&#123;4&#125;)/$'</span>, views.archive),</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">#views.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">archive</span><span class="params">(request, year)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure></p>
+<p>借助这个规则，我们可以进一步简化Django的url配置：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">url_dispatch</span><span class="params">(request, *args)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> args[<span class="number">0</span>]: args = [<span class="string">"index"</span>]</span><br><span class="line">    </span><br><span class="line">    uname = args[<span class="number">0</span>].replace(<span class="string">"\."</span>, <span class="string">"_"</span>)</span><br><span class="line">    </span><br><span class="line">    handler = getattr(views, uname, <span class="keyword">None</span>)</span><br><span class="line">    <span class="keyword">if</span> handler <span class="keyword">is</span> <span class="keyword">None</span>: <span class="keyword">return</span> HttpResponse(status=<span class="number">404</span>)</span><br><span class="line">    </span><br><span class="line">    args = args[<span class="number">1</span>:]</span><br><span class="line">    <span class="keyword">return</span> handler(request, *args)</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r"^([^/]*)/*$"</span>, url_dispatch),</span><br><span class="line">    url(<span class="string">r"^([^/]*)/*([^/]*)/*$"</span>, url_dispatch),</span><br><span class="line">    url(<span class="string">r"^([^/]*)/*([^/]*)/*([^/]*)/*$"</span>, url_dispatch),</span><br><span class="line">    url(<span class="string">r"^([^/]*)/*([^/]*)/*([^/]*)/*([^/]*)/*$"</span>, url_dispatch),</span><br><span class="line">    url(<span class="string">r"^([^/]*)/*([^/]*)/*([^/]*)/*([^/]*)/*([^/]*)/*$"</span>, url_dispatch)   </span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>这样就不用费劲的针对每一个新添加的函数写一条规则了。</p>
+<p><strong>参考</strong><br><a href="https://docs.djangoproject.com/es/1.9/topics/http/urls/" target="_blank" rel="external">URL dispatcher</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -114,7 +130,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2016/01/12/在uwsgi的子线程中访问request.META的问题/" data-title="在uwsgi的子线程中访问request.META的问题 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/03/28/Django中的url参数传递/" data-title="Django中的url参数传递 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -127,19 +143,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/01/12/JSON格式日志字段提取/" title="JSON格式日志字段提取">
-  <strong>上一篇：</strong><br/>
-  <span>
-  JSON格式日志字段提取</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/01/11/LeetCode之CoinChange/"  title="LeetCode之Coin Change">
+<a href="/2016/03/22/闭包的延迟绑定/"  title="闭包的延迟绑定">
  <strong>下一篇：</strong><br/> 
- <span>LeetCode之Coin Change
+ <span>闭包的延迟绑定
 </span>
 </a>
 </div>
@@ -148,7 +156,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/01/12/在uwsgi的子线程中访问request.META的问题/" data-title="在uwsgi的子线程中访问request.META的问题" data-url="http://1988zxh.com/2016/01/12/在uwsgi的子线程中访问request.META的问题/"></div>
+	<div class="ds-thread" data-thread-key="2016/03/28/Django中的url参数传递/" data-title="Django中的url参数传递" data-url="http://1988zxh.com/2016/03/28/Django中的url参数传递/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

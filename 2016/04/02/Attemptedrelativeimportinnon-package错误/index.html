@@ -5,47 +5,29 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>Postgresql状态维护(持续更新) | ideas into codes</title>
+    <title>Attempted relative import in non-package错误 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="查看当前的数据库连接及正在执行的语句/命令1select * from pg_stat_activity;
-
-
-如果某个操作卡住了的话，其中waiting字段的值为t。
-
-查看当前数据库的连接数1SELECT count(*) FROM (SELECT pg_stat_get_backend_idset() AS backendid) AS s;
-
-
-默认100个，可在postgresql.con">
+    <meta name="description" content="假如代码结构如下所示：12345678Project    --p        --p1            -- __init__.py            --a.py        --p2            -- __init__.py            --b.py
+且a.py内容如下：12def show():    print &quot;hello&quot;
+b.py内容如下：12fr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Postgresql状态维护(持续更新)">
-<meta property="og:url" content="http://1988zxh.com/2016/01/21/Postgresql状态维护_持续更新/index.html">
+<meta property="og:title" content="Attempted relative import in non-package错误">
+<meta property="og:url" content="http://1988zxh.com/2016/04/02/Attemptedrelativeimportinnon-package错误/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="查看当前的数据库连接及正在执行的语句/命令1select * from pg_stat_activity;
-
-
-如果某个操作卡住了的话，其中waiting字段的值为t。
-
-查看当前数据库的连接数1SELECT count(*) FROM (SELECT pg_stat_get_backend_idset() AS backendid) AS s;
-
-
-默认100个，可在postgresql.con">
-<meta property="og:updated_time" content="2016-01-21T01:53:59.000Z">
+<meta property="og:description" content="假如代码结构如下所示：12345678Project    --p        --p1            -- __init__.py            --a.py        --p2            -- __init__.py            --b.py
+且a.py内容如下：12def show():    print &quot;hello&quot;
+b.py内容如下：12fr">
+<meta property="og:updated_time" content="2016-04-02T00:05:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Postgresql状态维护(持续更新)">
-<meta name="twitter:description" content="查看当前的数据库连接及正在执行的语句/命令1select * from pg_stat_activity;
-
-
-如果某个操作卡住了的话，其中waiting字段的值为t。
-
-查看当前数据库的连接数1SELECT count(*) FROM (SELECT pg_stat_get_backend_idset() AS backendid) AS s;
-
-
-默认100个，可在postgresql.con">
+<meta name="twitter:title" content="Attempted relative import in non-package错误">
+<meta name="twitter:description" content="假如代码结构如下所示：12345678Project    --p        --p1            -- __init__.py            --a.py        --p2            -- __init__.py            --b.py
+且a.py内容如下：12def show():    print &quot;hello&quot;
+b.py内容如下：12fr">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -103,29 +85,31 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/21/Postgresql状态维护_持续更新/" title="Postgresql状态维护(持续更新)" itemprop="url">Postgresql状态维护(持续更新)</a>
+      <a href="/2016/04/02/Attemptedrelativeimportinnon-package错误/" title="Attempted relative import in non-package错误" itemprop="url">Attempted relative import in non-package错误</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-20T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-21</time>
+    <time datetime="2016-04-01T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-04-02</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<ul>
-<li>查看当前的数据库连接及正在执行的语句/命令<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">select * <span class="keyword">from</span> pg_stat_activity;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>如果某个操作卡住了的话，其中waiting字段的值为<code>t</code>。</p>
-<ul>
-<li>查看当前数据库的连接数<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">SELECT <span class="keyword">count</span>(*) <span class="keyword">FROM</span> (SELECT pg_stat_get_backend_idset() <span class="keyword">AS</span> backendid) <span class="keyword">AS</span> s;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>默认100个，可在postgresql.conf里修改。</p>
+		<p>假如代码结构如下所示：<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Project</span><br><span class="line">    -<span class="ruby">-p</span><br><span class="line"></span>        -<span class="ruby">-p1</span><br><span class="line"></span>            -<span class="ruby">- __init_<span class="number">_</span>.py</span><br><span class="line"></span>            -<span class="ruby">-a.py</span><br><span class="line"></span>        -<span class="ruby">-p2</span><br><span class="line"></span>            -<span class="ruby">- __init_<span class="number">_</span>.py</span><br><span class="line"></span>            -<span class="ruby">-b.py</span></span><br></pre></td></tr></table></figure></p>
+<p>且a.py内容如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"hello"</span></span><br></pre></td></tr></table></figure></p>
+<p>b.py内容如下：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from .<span class="class">.p1</span><span class="class">.a</span> import show</span><br><span class="line"><span class="function"><span class="title">show</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<p>如果直接运行<code>python b.py</code>就会抛出错误<code>Attempted relative import in non-package</code>，顾名思义，就是试图在非包模块里使用相对引用。</p>
+<p>py文件的加载有两种方式：一种作为top-level的脚本的直接执行，另一种是通过import引入。第一种方式会将当前py的文件一个上下文变量<code>__name__</code>设置为<code>__main__</code>，而第二种方式才是自己的名字，即<code>p.p1.a</code>（可以通过<code>print __name__</code>查看）。<br>如果当前py文件被加载成了main模块，那么它就没有了包的属性，也就不存在父包，子包的概念了，所以<code>..</code>就无法发挥作用进而报错了。</p>
+<p>解决这个问题有两种办法:</p>
+<p>第一种是通过<code>-m</code>参数，将当前py文件看作一个具有包属性的main模块(运行不要加后缀<code>.py</code>，且此时<code>__name__</code>已然是<code>__main__</code>)，比如：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m <span class="tag">p</span><span class="class">.p2</span><span class="class">.b</span></span><br></pre></td></tr></table></figure></p>
+<p>注意，一定要在包<code>p</code>这一级别运行，否则又会报错<code>ValueError: Attempted relative import beyond toplevel package</code>。</p>
+<p>第二种就是不要直接运行有相对引用的模块，就这个例子而言，我们可以在p包同级，再写一个模块(比如main.py)：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="id">#b</span><span class="class">.py</span></span><br><span class="line">from .<span class="class">.p1</span><span class="class">.a</span> import show</span><br><span class="line">def <span class="function"><span class="title">sayhi</span><span class="params">()</span></span>:</span><br><span class="line">    <span class="function"><span class="title">show</span><span class="params">()</span></span></span><br><span class="line">    print <span class="string">"world"</span></span><br><span class="line"></span><br><span class="line"><span class="id">#main</span><span class="class">.py</span></span><br><span class="line">from <span class="tag">p</span><span class="class">.p2</span><span class="class">.b</span> import sayhi</span><br><span class="line"><span class="function"><span class="title">sayhi</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<p>这样再直接运行main.py就没事了。</p>
+<p>还有一个比较tricky的方法是直接将上级目录加到<code>sys.path</code>里：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">from os<span class="class">.path</span> import dirname</span><br><span class="line">sys<span class="class">.path</span><span class="class">.append</span>(<span class="function"><span class="title">dirname</span><span class="params">(dirname(__file__)</span></span>))</span><br></pre></td></tr></table></figure></p>
+<p><strong>参考</strong><br><a href="https://laike9m.com/blog/pythonxiang-dui-dao-ru-ji-zhi-xiang-jie,60/" target="_blank" rel="external">Python相对导入机制详解</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -133,7 +117,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/postgresql/">postgresql</a>
+  <a class="article-category-link" href="/categories/python/">python</a>
 </div>
 
 
@@ -143,7 +127,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2016/01/21/Postgresql状态维护_持续更新/" data-title="Postgresql状态维护(持续更新) | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/04/02/Attemptedrelativeimportinnon-package错误/" data-title="Attempted relative import in non-package错误 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -156,19 +140,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/01/21/Postgresql配置主从流复制/" title="Postgresql配置主从流复制">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Postgresql配置主从流复制</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/01/12/在uwsgi的子线程中访问request.META的问题/"  title="在uwsgi的子线程中访问request.META的问题">
+<a href="/2016/04/01/python描述符及类只读属性杂记/"  title="python描述符及类只读属性杂记">
  <strong>下一篇：</strong><br/> 
- <span>在uwsgi的子线程中访问request.META的问题
+ <span>python描述符及类只读属性杂记
 </span>
 </a>
 </div>
@@ -177,7 +153,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/01/21/Postgresql状态维护_持续更新/" data-title="Postgresql状态维护(持续更新)" data-url="http://1988zxh.com/2016/01/21/Postgresql状态维护_持续更新/"></div>
+	<div class="ds-thread" data-thread-key="2016/04/02/Attemptedrelativeimportinnon-package错误/" data-title="Attempted relative import in non-package错误" data-url="http://1988zxh.com/2016/04/02/Attemptedrelativeimportinnon-package错误/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

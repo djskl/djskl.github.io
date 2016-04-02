@@ -77,6 +77,29 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2016/02/17/删除文本中的空白行/" title="删除文本中的空白行" itemprop="url">
+  
+    <h1 itemprop="name">删除文本中的空白行</h1>
+    
+     
+           <p itemprop="description" >包含空格的空白行：1、sed命令1sed &amp;#39;/^[ ]*$/d&amp;#39; foo.txt
+2、awk命令1awk NF foo.txt
+3、grep命令1grep -v &amp;#34;^[ ]*$&amp;#34; foo.txt
+不包含空格的空白行：以上命令仍然适用，awk命令还有</p>
+        
+    
+    <time datetime="2016-02-16T16:00:00.000Z" itemprop="datePublished">2016-02-17</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2016/02/05/通过Fabric自动部署web工程/" title="通过Fabric自动部署web工程" itemprop="url">
   
     <h1 itemprop="name">通过Fabric自动部署web工程</h1>
@@ -141,13 +164,12 @@ Fabric is a Python (2.5-2.7) library and command-li</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/27/Fedora20翻墙小记/" title="Fedora20翻墙小记" itemprop="url">
+    <a href="/2016/01/27/统计不同ip建立的tcp连接数/" title="统计不同ip建立的tcp连接数" itemprop="url">
   
-    <h1 itemprop="name">Fedora20翻墙小记</h1>
+    <h1 itemprop="name">统计不同ip建立的tcp连接数</h1>
     
      
-           <p itemprop="description" >之前一直觉得可以用谷歌搜索就不用费劲翻墙了，没想到该来的早晚会来，今天需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。
-ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据</p>
+           <p itemprop="description" >1netstat -tpn | awk &amp;#39;NR&amp;#62;2&amp;#123;print $5&amp;#125;&amp;#39; | awk -F&amp;#39;:&amp;#39; &amp;#39;&amp;#123;if($1 in a)&amp;#123;a[$1] += 1&amp;#125;else&amp;#123;a[$1]=1</p>
         
     
     <time datetime="2016-01-26T16:00:00.000Z" itemprop="datePublished">2016-01-27</time>
@@ -162,12 +184,13 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/27/统计不同ip建立的tcp连接数/" title="统计不同ip建立的tcp连接数" itemprop="url">
+    <a href="/2016/01/27/Fedora20翻墙小记/" title="Fedora20翻墙小记" itemprop="url">
   
-    <h1 itemprop="name">统计不同ip建立的tcp连接数</h1>
+    <h1 itemprop="name">Fedora20翻墙小记</h1>
     
      
-           <p itemprop="description" >1netstat -tpn | awk &amp;#39;NR&amp;#62;2&amp;#123;print $5&amp;#125;&amp;#39; | awk -F&amp;#39;:&amp;#39; &amp;#39;&amp;#123;if($1 in a)&amp;#123;a[$1] += 1&amp;#125;else&amp;#123;a[$1]=1</p>
+           <p itemprop="description" >之前一直觉得可以用谷歌搜索就不用费劲翻墙了，没想到该来的早晚会来，今天需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。
+ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据</p>
         
     
     <time datetime="2016-01-26T16:00:00.000Z" itemprop="datePublished">2016-01-27</time>
@@ -271,26 +294,6 @@ host    replication     postgres        192.168.16.11/32</p>
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/01/12/JSON格式日志字段提取/" title="JSON格式日志字段提取" itemprop="url">
-  
-    <h1 itemprop="name">JSON格式日志字段提取</h1>
-    
-     
-           <p itemprop="description" >今天生产环境的系统出了问题，在本地没法重现，只能通过日志判断，但其他请求的日志一直在滚，实在不便于查看，于是在可疑位置增加了一条日志，来输出http的所有头部信息：12print &#39;HEADER：%s&#39;%http_header#输出：HEADER:&amp;#123;&quot;field1&quot;: </p>
-        
-    
-    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished">2016-01-12</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
@@ -329,7 +332,7 @@ host    replication     postgres        192.168.16.11/32</p>
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>26</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>27</sup></a></li>
 		  
 		
 		  

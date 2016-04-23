@@ -77,6 +77,28 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2016/02/29/通过pstree查看python线程/" title="通过pstree查看python线程" itemprop="url">
+  
+    <h1 itemprop="name">通过pstree查看python线程</h1>
+    
+     
+           <p itemprop="description" >正常情况下，通过线程的属性ident获取到的线程id与通过ps/top等命令看到的是不一样的。官方对ident的解释如下：
+
+This is a nonzero integer. Its value has no direct meaning; it is intended as</p>
+        
+    
+    <time datetime="2016-02-28T16:00:00.000Z" itemprop="datePublished">2016-02-29</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2016/02/28/搭建Postgresql-xl集群/" title="搭建Postgresql-xl集群" itemprop="url">
   
     <h1 itemprop="name">搭建Postgresql-xl集群</h1>
@@ -187,13 +209,12 @@ Fabric is a Python (2.5-2.7) library and command-li</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/27/Fedora20翻墙小记/" title="Fedora20翻墙小记" itemprop="url">
+    <a href="/2016/01/27/统计不同ip建立的tcp连接数/" title="统计不同ip建立的tcp连接数" itemprop="url">
   
-    <h1 itemprop="name">Fedora20翻墙小记</h1>
+    <h1 itemprop="name">统计不同ip建立的tcp连接数</h1>
     
      
-           <p itemprop="description" >之前一直觉得可以用谷歌搜索就不用费劲翻墙了，没想到该来的早晚会来，今天需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。
-ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据</p>
+           <p itemprop="description" >1netstat -tpn | awk &amp;#39;NR&amp;#62;2&amp;#123;print $5&amp;#125;&amp;#39; | awk -F&amp;#39;:&amp;#39; &amp;#39;&amp;#123;if($1 in a)&amp;#123;a[$1] += 1&amp;#125;else&amp;#123;a[$1]=1</p>
         
     
     <time datetime="2016-01-26T16:00:00.000Z" itemprop="datePublished">2016-01-27</time>
@@ -208,12 +229,13 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/27/统计不同ip建立的tcp连接数/" title="统计不同ip建立的tcp连接数" itemprop="url">
+    <a href="/2016/01/27/Fedora20翻墙小记/" title="Fedora20翻墙小记" itemprop="url">
   
-    <h1 itemprop="name">统计不同ip建立的tcp连接数</h1>
+    <h1 itemprop="name">Fedora20翻墙小记</h1>
     
      
-           <p itemprop="description" >1netstat -tpn | awk &amp;#39;NR&amp;#62;2&amp;#123;print $5&amp;#125;&amp;#39; | awk -F&amp;#39;:&amp;#39; &amp;#39;&amp;#123;if($1 in a)&amp;#123;a[$1] += 1&amp;#125;else&amp;#123;a[$1]=1</p>
+           <p itemprop="description" >之前一直觉得可以用谷歌搜索就不用费劲翻墙了，没想到该来的早晚会来，今天需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。
+ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据</p>
         
     
     <time datetime="2016-01-26T16:00:00.000Z" itemprop="datePublished">2016-01-27</time>
@@ -240,27 +262,6 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
         
     
     <time datetime="2016-01-22T16:00:00.000Z" itemprop="datePublished">2016-01-23</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/01/21/更改postgresql的数据目录/" title="更改postgresql的数据目录" itemprop="url">
-  
-    <h1 itemprop="name">更改postgresql的数据目录</h1>
-    
-     
-           <p itemprop="description" >生产环境的postgresql数据出了问题，于是就想把整个数据库拷到本地来调试一下。
-1、找到生产环境的postgresql的data目录，在命令行下连接上数据库，然后执行show data_directory就可以看到了，在fedora20上是/var/lib/pgsql/da</p>
-        
-    
-    <time datetime="2016-01-20T16:00:00.000Z" itemprop="datePublished">2016-01-21</time>
   </a>
 </section>
 
@@ -332,7 +333,7 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>28</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>29</sup></a></li>
 		  
 		
 		  

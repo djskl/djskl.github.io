@@ -1,0 +1,516 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>Werkzeug使用简介 | ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="1、简介WSGI(Web Server Gateway Interface)是Python对外提供web服务的规范，其中规定了服务器以及应用程序为了进行交互应该各自遵守的约定。python内置的WSGI工具库为wsgiref，Werkzeug是一个第三方的WSGI的工具库，相对于wsgiref，使用起来更加方便。 
+2、简单的例子以下是官方提供的一个很简单例子：123456789from werk">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Werkzeug使用简介">
+<meta property="og:url" content="http://1988zxh.com/2016/04/24/Werkzeug使用简介/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="1、简介WSGI(Web Server Gateway Interface)是Python对外提供web服务的规范，其中规定了服务器以及应用程序为了进行交互应该各自遵守的约定。python内置的WSGI工具库为wsgiref，Werkzeug是一个第三方的WSGI的工具库，相对于wsgiref，使用起来更加方便。 
+2、简单的例子以下是官方提供的一个很简单例子：123456789from werk">
+<meta property="og:updated_time" content="2016-04-24T06:44:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Werkzeug使用简介">
+<meta name="twitter:description" content="1、简介WSGI(Web Server Gateway Interface)是Python对外提供web服务的规范，其中规定了服务器以及应用程序为了进行交互应该各自遵守的约定。python内置的WSGI工具库为wsgiref，Werkzeug是一个第三方的WSGI的工具库，相对于wsgiref，使用起来更加方便。 
+2、简单的例子以下是官方提供的一个很简单例子：123456789from werk">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">知也者，以其知过物而能貌之</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/reads">读书</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/24/Werkzeug使用简介/" title="Werkzeug使用简介" itemprop="url">Werkzeug使用简介</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-23T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-04-24</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<p><strong>1、简介</strong><br>WSGI(Web Server Gateway Interface)是Python对外提供web服务的规范，其中规定了服务器以及应用程序为了进行交互应该各自遵守的约定。python内置的WSGI工具库为<a href="https://docs.python.org/2/library/wsgiref.html" target="_blank" rel="external">wsgiref</a>，<a href="http://werkzeug.pocoo.org/" target="_blank" rel="external">Werkzeug</a>是一个第三方的WSGI的工具库，相对于wsgiref，使用起来更加方便。 </p>
+<p><strong>2、简单的例子</strong><br>以下是官方提供的一个很简单例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> werkzeug.wrappers <span class="keyword">import</span> Request, Response</span><br><span class="line"></span><br><span class="line"><span class="decorator">@Request.application</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">application</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> Response(<span class="string">'Hello World!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">from</span> werkzeug.serving <span class="keyword">import</span> run_simple</span><br><span class="line">    run_simple(<span class="string">'localhost'</span>, <span class="number">4000</span>, application)</span><br></pre></td></tr></table></figure></p>
+<p>如果只是对外提供一个数据访问接口以上足矣，其中<code>application</code>函数的参数<code>request</code>为<code>werkzeug.wrappers.Request</code>的实例对象，其中get参数存于<code>request.args</code>，post参数存于<code>request.form</code>，这两个都是<code>ImmutableMultiDict</code>类型。</p>
+<p><strong>3、基本用法</strong><br><strong>3.1 路由</strong><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#url规则</span><br><span class="line">url_map = Map([</span><br><span class="line">    <span class="function"><span class="title">Rule</span><span class="params">(<span class="string">'/'</span>, endpoint=<span class="string">'index'</span>)</span></span>,</span><br><span class="line">    <span class="function"><span class="title">Rule</span><span class="params">(<span class="string">'/&lt;x&gt;'</span>, endpoint=<span class="string">'square'</span>)</span></span></span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">#url解析</span><br><span class="line">adapter = url_map.<span class="function"><span class="title">bind_to_environ</span><span class="params">(request.environ)</span></span></span><br><span class="line">#request为werkzeug<span class="class">.wrappers</span><span class="class">.Request</span>的实例对象，构造方法为<span class="function"><span class="title">Request</span><span class="params">(environ)</span></span></span><br><span class="line"></span><br><span class="line">func_name, params = adapter.<span class="function"><span class="title">match</span><span class="params">()</span></span></span><br><span class="line">#match可以对url进行解析，func_name于endpoint对应，params则对应url中的参数，如上例，如果url为http:<span class="comment">//localhost/10，则params=&#123;"x": 10&#125;</span></span><br><span class="line"></span><br><span class="line">func = <span class="function"><span class="title">getattr</span><span class="params">(obj, func_name)</span></span></span><br><span class="line">其中obj可看作Django的中views</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">func</span><span class="params">(**params)</span></span></span><br></pre></td></tr></table></figure></p>
+<p><strong>3.2 渲染</strong><br>渲染可以借助第三方工具<a href="http://jinja.pocoo.org/docs/dev/intro/" target="_blank" rel="external">Jinja2</a>，模板的语法跟Django很像。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#构造模板渲染对象</span><br><span class="line">template_path = os<span class="class">.path</span><span class="class">.join</span>(os<span class="class">.path</span><span class="class">.dirname</span>(__file__), <span class="string">"templates"</span>)</span><br><span class="line">self<span class="class">.jinja_env</span> = Environment(</span><br><span class="line">    loader=<span class="function"><span class="title">FileSystemLoader</span><span class="params">(template_path)</span></span>,</span><br><span class="line">    autoescape=True</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">#渲染</span><br><span class="line">t = self<span class="class">.jinja_env</span><span class="class">.get_template</span>(template_name)</span><br><span class="line">cnt = t.<span class="function"><span class="title">render</span><span class="params">(context)</span></span></span><br><span class="line">return <span class="function"><span class="title">Response</span><span class="params">(cnt, mimetype=<span class="string">"text/html"</span>)</span></span></span><br></pre></td></tr></table></figure></p>
+<p><strong>4、一个更完整的例子</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#目录结构：</span></span><br><span class="line"><span class="comment">#/project/</span></span><br><span class="line"><span class="comment">#    static/</span></span><br><span class="line"><span class="comment">#    templates/</span></span><br><span class="line"><span class="comment">#    views.py</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> werkzeug.wrappers <span class="keyword">import</span> Request, Response</span><br><span class="line"><span class="keyword">from</span> werkzeug.routing <span class="keyword">import</span> Map, Rule</span><br><span class="line"><span class="keyword">from</span> werkzeug.exceptions <span class="keyword">import</span> HTTPException, NotFound</span><br><span class="line"><span class="keyword">from</span> werkzeug.wsgi <span class="keyword">import</span> SharedDataMiddleware</span><br><span class="line"><span class="keyword">from</span> jinja2 <span class="keyword">import</span> Environment, FileSystemLoader</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shortly</span><span class="params">(object)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        template_path = os.path.join(os.path.dirname(__file__), <span class="string">"templates"</span>)</span><br><span class="line">        self.jinja_env = Environment(</span><br><span class="line">            loader=FileSystemLoader(template_path),</span><br><span class="line">            autoescape=<span class="keyword">True</span></span><br><span class="line">        )</span><br><span class="line">        </span><br><span class="line">        self.url_patterns = Map([</span><br><span class="line">            Rule(<span class="string">"/"</span>, endpoint=<span class="string">"index"</span>),</span><br><span class="line">            Rule(<span class="string">"/&lt;who&gt;"</span>, endpoint=<span class="string">"sayhi"</span>)</span><br><span class="line">        ])</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">render_template</span><span class="params">(self, template_name, **context)</span>:</span></span><br><span class="line">        t = self.jinja_env.get_template(template_name)</span><br><span class="line">        cnt = t.render(context)</span><br><span class="line">        <span class="keyword">return</span> Response(cnt, mimetype=<span class="string">"text/html"</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dispatch_request</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        adapter = self.url_patterns.bind_to_environ(request.environ)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            func_name, params = adapter.match()</span><br><span class="line">            <span class="keyword">if</span> hasattr(self, func_name):</span><br><span class="line">                func = getattr(self, func_name)</span><br><span class="line">                <span class="keyword">return</span> func(request, **params)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">raise</span> NotFound()</span><br><span class="line">        <span class="keyword">except</span> HTTPException, e:</span><br><span class="line">            <span class="keyword">return</span> e</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wsgi_app</span><span class="params">(self, environ, start_reponse)</span>:</span></span><br><span class="line">        request = Request(environ)</span><br><span class="line">        response = self.dispatch_request(request)</span><br><span class="line">        <span class="keyword">return</span> response(environ, start_reponse)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, environ, start_response)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.wsgi_app(environ, start_response)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.render_template(<span class="string">"index.html"</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sayhi</span><span class="params">(self, request, who)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.render_template(<span class="string">"hello.html"</span>, name=who)</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_app</span><span class="params">(with_static=True)</span>:</span></span><br><span class="line">    app = Shortly()</span><br><span class="line">    <span class="keyword">if</span> with_static:</span><br><span class="line">        app.wsgi_app = SharedDataMiddleware(app.wsgi_app, &#123;</span><br><span class="line">            <span class="string">'/static'</span>:  os.path.join(os.path.dirname(__file__), <span class="string">'static'</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">    <span class="keyword">return</span> app</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">from</span> werkzeug.serving <span class="keyword">import</span> run_simple</span><br><span class="line">    app = create_app()</span><br><span class="line">    run_simple(<span class="string">"localhost"</span>, <span class="number">8000</span>, app, use_reloader=<span class="keyword">True</span>, use_debugger=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p>
+<p><strong>参考</strong><br><a href="http://werkzeug-docs-cn.readthedocs.org/zh_CN/latest/tutorial.html" target="_blank" rel="external">Werkzeug 教程</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/python/">python</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://1988zxh.com/2016/04/24/Werkzeug使用简介/" data-title="Werkzeug使用简介 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/04/23/RabbitMQ使用简介/"  title="RabbitMQ使用简介">
+ <strong>下一篇：</strong><br/> 
+ <span>RabbitMQ使用简介
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/04/24/Werkzeug使用简介/" data-title="Werkzeug使用简介" data-url="http://1988zxh.com/2016/04/24/Werkzeug使用简介/"></div>
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"djskl"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/django/" title="django">django<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/openlayers/" title="openlayers">openlayers<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>30</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spyne/" title="spyne">spyne<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>4</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/装饰器/" title="装饰器">装饰器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+<script type="text/javascript">
+(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+_st('install','RFzyQ_eKhxpGo1Snfgpj','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"djskl"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

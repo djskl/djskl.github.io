@@ -77,6 +77,27 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2016/02/29/Django访问数据库集群/" title="Django访问数据库集群" itemprop="url">
+  
+    <h1 itemprop="name">Django访问数据库集群</h1>
+    
+     
+           <p itemprop="description" >一般数据库都需要部署成集群，有的负责读，有的负责写，这样不但可以减轻单点压力，还是提高数据检索速度。Django正好提供了一个操作多数据库的router。
+数据库的定义：123456789101112131415161718192021222324252627DATABASES </p>
+        
+    
+    <time datetime="2016-02-28T16:00:00.000Z" itemprop="datePublished">2016-02-29</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2016/02/29/通过pstree查看python线程/" title="通过pstree查看python线程" itemprop="url">
   
     <h1 itemprop="name">通过pstree查看python线程</h1>
@@ -209,12 +230,13 @@ Fabric is a Python (2.5-2.7) library and command-li</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/27/统计不同ip建立的tcp连接数/" title="统计不同ip建立的tcp连接数" itemprop="url">
+    <a href="/2016/01/27/Fedora20翻墙小记/" title="Fedora20翻墙小记" itemprop="url">
   
-    <h1 itemprop="name">统计不同ip建立的tcp连接数</h1>
+    <h1 itemprop="name">Fedora20翻墙小记</h1>
     
      
-           <p itemprop="description" >1netstat -tpn | awk &amp;#39;NR&amp;#62;2&amp;#123;print $5&amp;#125;&amp;#39; | awk -F&amp;#39;:&amp;#39; &amp;#39;&amp;#123;if($1 in a)&amp;#123;a[$1] += 1&amp;#125;else&amp;#123;a[$1]=1</p>
+           <p itemprop="description" >之前一直觉得可以用谷歌搜索就不用费劲翻墙了，没想到该来的早晚会来，今天需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。
+ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据</p>
         
     
     <time datetime="2016-01-26T16:00:00.000Z" itemprop="datePublished">2016-01-27</time>
@@ -229,13 +251,12 @@ Fabric is a Python (2.5-2.7) library and command-li</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/27/Fedora20翻墙小记/" title="Fedora20翻墙小记" itemprop="url">
+    <a href="/2016/01/27/统计不同ip建立的tcp连接数/" title="统计不同ip建立的tcp连接数" itemprop="url">
   
-    <h1 itemprop="name">Fedora20翻墙小记</h1>
+    <h1 itemprop="name">统计不同ip建立的tcp连接数</h1>
     
      
-           <p itemprop="description" >之前一直觉得可以用谷歌搜索就不用费劲翻墙了，没想到该来的早晚会来，今天需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。
-ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据</p>
+           <p itemprop="description" >1netstat -tpn | awk &amp;#39;NR&amp;#62;2&amp;#123;print $5&amp;#125;&amp;#39; | awk -F&amp;#39;:&amp;#39; &amp;#39;&amp;#123;if($1 in a)&amp;#123;a[$1] += 1&amp;#125;else&amp;#123;a[$1]=1</p>
         
     
     <time datetime="2016-01-26T16:00:00.000Z" itemprop="datePublished">2016-01-27</time>
@@ -262,31 +283,6 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
         
     
     <time datetime="2016-01-22T16:00:00.000Z" itemprop="datePublished">2016-01-23</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/01/21/Postgresql状态维护_持续更新/" title="Postgresql状态维护(持续更新)" itemprop="url">
-  
-    <h1 itemprop="name">Postgresql状态维护(持续更新)</h1>
-    
-     
-           <p itemprop="description" >查看当前的数据库连接及正在执行的语句/命令1select * from pg_stat_activity;
-
-
-如果某个操作卡住了的话，其中waiting字段的值为t。
-
-查看当前数据库的连接数1SELECT count(*) FROM (SELECT pg_stat_get_b</p>
-        
-    
-    <time datetime="2016-01-20T16:00:00.000Z" itemprop="datePublished">2016-01-21</time>
   </a>
 </section>
 
@@ -333,7 +329,7 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>29</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>30</sup></a></li>
 		  
 		
 		  

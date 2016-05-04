@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://1988zxh.com/2016/05/04/NGINX%E9%83%A8%E7%BD%B2websocket%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</loc>
+    <lastmod>2016-05-04T09:45:33.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://1988zxh.com/2016/04/24/httpd%E9%83%A8%E7%BD%B2wsgi%E5%BA%94%E7%94%A8/</loc>
     <lastmod>2016-04-24T13:38:25.000Z</lastmod>
   </url>

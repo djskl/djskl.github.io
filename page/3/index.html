@@ -77,6 +77,26 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2016/01/27/统计不同ip建立的tcp连接数/" title="统计不同ip建立的tcp连接数" itemprop="url">
+  
+    <h1 itemprop="name">统计不同ip建立的tcp连接数</h1>
+    
+     
+           <p itemprop="description" >1netstat -tpn | awk &amp;#39;NR&amp;#62;2&amp;#123;print $5&amp;#125;&amp;#39; | awk -F&amp;#39;:&amp;#39; &amp;#39;&amp;#123;if($1 in a)&amp;#123;a[$1] += 1&amp;#125;else&amp;#123;a[$1]=1</p>
+        
+    
+    <time datetime="2016-01-26T16:00:00.000Z" itemprop="datePublished">2016-01-27</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2016/01/23/老虎绕湖追狗的问题/" title="老虎绕湖追狗的问题" itemprop="url">
   
     <h1 itemprop="name">老虎绕湖追狗的问题</h1>
@@ -89,6 +109,27 @@
         
     
     <time datetime="2016-01-22T16:00:00.000Z" itemprop="datePublished">2016-01-23</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/01/21/更改postgresql的数据目录/" title="更改postgresql的数据目录" itemprop="url">
+  
+    <h1 itemprop="name">更改postgresql的数据目录</h1>
+    
+     
+           <p itemprop="description" >生产环境的postgresql数据出了问题，于是就想把整个数据库拷到本地来调试一下。
+1、找到生产环境的postgresql的data目录，在命令行下连接上数据库，然后执行show data_directory就可以看到了，在fedora20上是/var/lib/pgsql/da</p>
+        
+    
+    <time datetime="2016-01-20T16:00:00.000Z" itemprop="datePublished">2016-01-21</time>
   </a>
 </section>
 
@@ -148,16 +189,15 @@ host    replication     postgres        192.168.16.11/32</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/21/更改postgresql的数据目录/" title="更改postgresql的数据目录" itemprop="url">
+    <a href="/2016/01/12/在uwsgi的子线程中访问request.META的问题/" title="在uwsgi的子线程中访问request.META的问题" itemprop="url">
   
-    <h1 itemprop="name">更改postgresql的数据目录</h1>
+    <h1 itemprop="name">在uwsgi的子线程中访问request.META的问题</h1>
     
      
-           <p itemprop="description" >生产环境的postgresql数据出了问题，于是就想把整个数据库拷到本地来调试一下。
-1、找到生产环境的postgresql的data目录，在命令行下连接上数据库，然后执行show data_directory就可以看到了，在fedora20上是/var/lib/pgsql/da</p>
+           <p itemprop="description" >今天发现用户的ip地址有的能记录成功，有的记录为空。刚开始以为是nginx的问题，看了看nginx的配置，proxy的配置都是正确的，然后仔细看了一下调试日志，发现还是代码的问题：在子线程中通过request.META读取用户ip时，request.META为空了。调试代码如下：</p>
         
     
-    <time datetime="2016-01-20T16:00:00.000Z" itemprop="datePublished">2016-01-21</time>
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished">2016-01-12</time>
   </a>
 </section>
 
@@ -175,26 +215,6 @@ host    replication     postgres        192.168.16.11/32</p>
     
      
            <p itemprop="description" >今天生产环境的系统出了问题，在本地没法重现，只能通过日志判断，但其他请求的日志一直在滚，实在不便于查看，于是在可疑位置增加了一条日志，来输出http的所有头部信息：12print &#39;HEADER：%s&#39;%http_header#输出：HEADER:&amp;#123;&quot;field1&quot;: </p>
-        
-    
-    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished">2016-01-12</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/01/12/在uwsgi的子线程中访问request.META的问题/" title="在uwsgi的子线程中访问request.META的问题" itemprop="url">
-  
-    <h1 itemprop="name">在uwsgi的子线程中访问request.META的问题</h1>
-    
-     
-           <p itemprop="description" >今天发现用户的ip地址有的能记录成功，有的记录为空。刚开始以为是nginx的问题，看了看nginx的配置，proxy的配置都是正确的，然后仔细看了一下调试日志，发现还是代码的问题：在子线程中通过request.META读取用户ip时，request.META为空了。调试代码如下：</p>
         
     
     <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished">2016-01-12</time>
@@ -275,26 +295,6 @@ index.html
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/01/06/AngularJs动态添加dom元素/" title="AngularJs动态添加dom元素" itemprop="url">
-  
-    <h1 itemprop="name">AngularJs动态添加dom元素</h1>
-    
-     
-           <p itemprop="description" >昨天看到一个angularjs的教程，讲service概念的，给出了如下代码：123456789app.factory(&#39;audio&#39;, [&#39;$document&#39;, function($document) &amp;#123;  var audio = $document[0].crea</p>
-        
-    
-    <time datetime="2016-01-05T16:00:00.000Z" itemprop="datePublished">2016-01-06</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
@@ -357,7 +357,7 @@ index.html
 		  
 		
 		  
-			<li><a href="/categories/运维/" title="运维">运维<sup>4</sup></a></li>
+			<li><a href="/categories/运维/" title="运维">运维<sup>5</sup></a></li>
 		  
 		
 		</ul>

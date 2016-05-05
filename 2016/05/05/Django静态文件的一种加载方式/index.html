@@ -5,23 +5,26 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>AngularJs使用jsonp | ideas into codes</title>
+    <title>Django静态文件的一种加载方式 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="今天学习AngularJs看到$http就顺带试了一下昨天看的jsonp，踩到了几个坑也学会了新的写法，现记录如下：12345678#Django代码from django.http.response import HttpResponseimport jsondef datas(request):    callback = request.REQUEST.get(&quot;callback&quot;)">
+    <meta name="description" content="django官方static的加载方式是：12&amp;#123;% load staticfiles %&amp;#125;&amp;lt;script src=&quot;&amp;#123;% static &quot;jquery.min.js&quot;%&amp;#125;&quot;&amp;gt;&amp;lt;/script&amp;gt;
+写起来挺麻烦，而且看上去怪怪的，如果在context_processors中加入这么一条:1django.template.context_p">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AngularJs使用jsonp">
-<meta property="og:url" content="http://1988zxh.com/2016/01/02/AngularJs使用jsonp/index.html">
+<meta property="og:title" content="Django静态文件的一种加载方式">
+<meta property="og:url" content="http://1988zxh.com/2016/05/05/Django静态文件的一种加载方式/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="今天学习AngularJs看到$http就顺带试了一下昨天看的jsonp，踩到了几个坑也学会了新的写法，现记录如下：12345678#Django代码from django.http.response import HttpResponseimport jsondef datas(request):    callback = request.REQUEST.get(&quot;callback&quot;)">
-<meta property="og:updated_time" content="2016-01-14T13:00:45.000Z">
+<meta property="og:description" content="django官方static的加载方式是：12&amp;#123;% load staticfiles %&amp;#125;&amp;lt;script src=&quot;&amp;#123;% static &quot;jquery.min.js&quot;%&amp;#125;&quot;&amp;gt;&amp;lt;/script&amp;gt;
+写起来挺麻烦，而且看上去怪怪的，如果在context_processors中加入这么一条:1django.template.context_p">
+<meta property="og:updated_time" content="2016-05-05T11:45:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AngularJs使用jsonp">
-<meta name="twitter:description" content="今天学习AngularJs看到$http就顺带试了一下昨天看的jsonp，踩到了几个坑也学会了新的写法，现记录如下：12345678#Django代码from django.http.response import HttpResponseimport jsondef datas(request):    callback = request.REQUEST.get(&quot;callback&quot;)">
+<meta name="twitter:title" content="Django静态文件的一种加载方式">
+<meta name="twitter:description" content="django官方static的加载方式是：12&amp;#123;% load staticfiles %&amp;#125;&amp;lt;script src=&quot;&amp;#123;% static &quot;jquery.min.js&quot;%&amp;#125;&quot;&amp;gt;&amp;lt;/script&amp;gt;
+写起来挺麻烦，而且看上去怪怪的，如果在context_processors中加入这么一条:1django.template.context_p">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -79,22 +82,26 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/02/AngularJs使用jsonp/" title="AngularJs使用jsonp" itemprop="url">AngularJs使用jsonp</a>
+      <a href="/2016/05/05/Django静态文件的一种加载方式/" title="Django静态文件的一种加载方式" itemprop="url">Django静态文件的一种加载方式</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-01T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-02</time>
+    <time datetime="2016-05-04T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-05-05</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>今天学习AngularJs看到$http就顺带试了一下昨天看的jsonp，踩到了几个坑也学会了新的写法，现记录如下：<br><figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">#Django代码</span><br><span class="line">from django.http.response import HttpResponse</span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">def datas(request):</span><br><span class="line">    callback = request.REQUEST.get("callback")</span><br><span class="line">    datas = json.dumps([&#123;"name": "zxh", "age": 28&#125;, &#123;"name": "lijie", "age": 18&#125;])</span><br><span class="line">    return HttpResponse("%s&amp;%s(%s);"%(callback, callback, datas), content_type="application/javascript")</span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//AngularJs代码</span></span><br><span class="line"><span class="keyword">var</span> app = angular.module(<span class="string">'myApp'</span>, []);</span><br><span class="line">app.controller(<span class="string">'customersCtrl'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, $http</span>) </span>&#123;</span><br><span class="line">    $http(&#123;</span><br><span class="line">        url: <span class="string">"http://127.0.0.1:8000/datas?callback=JSON_CALLBACK"</span>,</span><br><span class="line">        method: <span class="string">"JSONP"</span>,</span><br><span class="line">    &#125;).success(<span class="function"><span class="keyword">function</span>(<span class="params">data, status</span>) </span>&#123;</span><br><span class="line">        $scope.datas = data;</span><br><span class="line">	&#125;).error(<span class="function"><span class="keyword">function</span>(<span class="params">data, status</span>)</span>&#123;</span><br><span class="line">	    alert(<span class="string">"fail"</span>);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>其中url后的参数<code>callback=JSON_CALLBACK</code>是<strong>必选项</strong>(<a href="http://docs.angularjs.cn/api/ng/service/\$http#jsonp" target="_blank" rel="external">The name of the callback should be the string JSON_CALLBACK</a>)。</p>
+		<p>django官方static的加载方式是：<br><figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span><span class="template_tag">&#123;% <span class="keyword">load</span> staticfiles %&#125;</span><span class="xml"></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"</span></span></span><span class="template_tag">&#123;% <span class="keyword">static</span> "jquery.min.js"%&#125;</span><span class="xml"><span class="tag"><span class="value">"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>写起来挺麻烦，而且看上去怪怪的，如果在<code>context_processors</code>中加入这么一条:<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django.<span class="keyword">template</span>.context_processors.<span class="keyword">static</span></span><br></pre></td></tr></table></figure></p>
+<p>在模板html文件中就可以这么使用了：<br><figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"</span></span></span><span class="expression">&#123;&#123;<span class="variable">STATIC</span>_<span class="variable">URL</span>&#125;&#125;</span><span class="xml"><span class="tag"><span class="value">jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>这样就简单很多了。</p>
+<p>这一条在<code>global_settings.py</code>中的<code>TEMPLATE_CONTEXT_PROCESSORS</code>是有的：<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TEMPLATE_CONTEXT_PROCESSORS</span> = [</span><br><span class="line">    'django.contrib.auth.context_processors.auth',</span><br><span class="line">    'django.<span class="keyword">template</span>.context_processors.debug',</span><br><span class="line">    'django.<span class="keyword">template</span>.context_processors.i18n',</span><br><span class="line">    'django.<span class="keyword">template</span>.context_processors.media',</span><br><span class="line">    **'django.<span class="keyword">template</span>.context_processors.<span class="keyword">static</span>',**</span><br><span class="line">    'django.<span class="keyword">template</span>.context_processors.tz',</span><br><span class="line">    'django.contrib.messages.context_processors.messages',</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>可以直接在<code>settings.py</code>直接引入：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from django<span class="class">.conf</span><span class="class">.global_settings</span> import TEMPLATE_CONTEXT_PROCESSORS</span><br></pre></td></tr></table></figure></p>
+<p>这样不用自己显式指定，也可以直接在html中使用了。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -102,7 +109,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/angular/">angular</a>
+  <a class="article-category-link" href="/categories/django/">django</a>
 </div>
 
 
@@ -112,7 +119,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2016/01/02/AngularJs使用jsonp/" data-title="AngularJs使用jsonp | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/05/05/Django静态文件的一种加载方式/" data-title="Django静态文件的一种加载方式 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -125,19 +132,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/01/04/Django与AngularJs的模板标签冲突问题/" title="Django与AngularJs的模板标签冲突问题">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Django与AngularJs的模板标签冲突问题</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/01/02/jsonp简介/"  title="jsonp简介">
+<a href="/2016/05/04/NGINX部署websocket反向代理/"  title="NGINX部署websocket反向代理">
  <strong>下一篇：</strong><br/> 
- <span>jsonp简介
+ <span>NGINX部署websocket反向代理
 </span>
 </a>
 </div>
@@ -146,7 +145,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/01/02/AngularJs使用jsonp/" data-title="AngularJs使用jsonp" data-url="http://1988zxh.com/2016/01/02/AngularJs使用jsonp/"></div>
+	<div class="ds-thread" data-thread-key="2016/05/05/Django静态文件的一种加载方式/" data-title="Django静态文件的一种加载方式" data-url="http://1988zxh.com/2016/05/05/Django静态文件的一种加载方式/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

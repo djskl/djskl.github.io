@@ -5,26 +5,29 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>Django静态文件的一种加载方式 | ideas into codes</title>
+    <title>编写systemd service文件 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="django官方static的加载方式是：12&amp;#123;% load staticfiles %&amp;#125;&amp;lt;script src=&quot;&amp;#123;% static &quot;jquery.min.js&quot;%&amp;#125;&quot;&amp;gt;&amp;lt;/script&amp;gt;
-写起来挺麻烦，而且看上去怪怪的，如果在context_processors中加入这么一条:1django.template.context_p">
+    <meta name="description" content="1、systemd简介
+
+systemd is a suite of basic building blocks for a Linux system. It provides a system and service manager that runs as PID 1 and starts the rest of the system. systemd provides aggressive">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Django静态文件的一种加载方式">
-<meta property="og:url" content="http://1988zxh.com/2016/05/05/Django静态文件的一种加载方式/index.html">
+<meta property="og:title" content="编写systemd service文件">
+<meta property="og:url" content="http://1988zxh.com/2016/05/11/编写systemd_service文件/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="django官方static的加载方式是：12&amp;#123;% load staticfiles %&amp;#125;&amp;lt;script src=&quot;&amp;#123;% static &quot;jquery.min.js&quot;%&amp;#125;&quot;&amp;gt;&amp;lt;/script&amp;gt;
-写起来挺麻烦，而且看上去怪怪的，如果在context_processors中加入这么一条:1django.template.context_p">
-<meta property="og:updated_time" content="2016-05-05T11:45:30.000Z">
+<meta property="og:description" content="1、systemd简介
+
+systemd is a suite of basic building blocks for a Linux system. It provides a system and service manager that runs as PID 1 and starts the rest of the system. systemd provides aggressive">
+<meta property="og:updated_time" content="2016-05-11T12:18:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Django静态文件的一种加载方式">
-<meta name="twitter:description" content="django官方static的加载方式是：12&amp;#123;% load staticfiles %&amp;#125;&amp;lt;script src=&quot;&amp;#123;% static &quot;jquery.min.js&quot;%&amp;#125;&quot;&amp;gt;&amp;lt;/script&amp;gt;
-写起来挺麻烦，而且看上去怪怪的，如果在context_processors中加入这么一条:1django.template.context_p">
+<meta name="twitter:title" content="编写systemd service文件">
+<meta name="twitter:description" content="1、systemd简介
+
+systemd is a suite of basic building blocks for a Linux system. It provides a system and service manager that runs as PID 1 and starts the rest of the system. systemd provides aggressive">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -82,26 +85,44 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/05/05/Django静态文件的一种加载方式/" title="Django静态文件的一种加载方式" itemprop="url">Django静态文件的一种加载方式</a>
+      <a href="/2016/05/11/编写systemd_service文件/" title="编写systemd service文件" itemprop="url">编写systemd service文件</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2016-05-04T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-05-05</time>
+    <time datetime="2016-05-10T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-05-11</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>django官方static的加载方式是：<br><figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span><span class="template_tag">&#123;% <span class="keyword">load</span> staticfiles %&#125;</span><span class="xml"></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"</span></span></span><span class="template_tag">&#123;% <span class="keyword">static</span> "jquery.min.js"%&#125;</span><span class="xml"><span class="tag"><span class="value">"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
-<p>写起来挺麻烦，而且看上去怪怪的，如果在<code>context_processors</code>中加入这么一条:<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django.<span class="keyword">template</span>.context_processors.<span class="keyword">static</span></span><br></pre></td></tr></table></figure></p>
-<p>在模板html文件中就可以这么使用了：<br><figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"</span></span></span><span class="expression">&#123;&#123;<span class="variable">STATIC</span>_<span class="variable">URL</span>&#125;&#125;</span><span class="xml"><span class="tag"><span class="value">jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
-<p>这样就简单很多了。</p>
-<p>这一条在<code>global_settings.py</code>中的<code>TEMPLATE_CONTEXT_PROCESSORS</code>是有的：<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TEMPLATE_CONTEXT_PROCESSORS</span> = [</span><br><span class="line">    'django.contrib.auth.context_processors.auth',</span><br><span class="line">    'django.<span class="keyword">template</span>.context_processors.debug',</span><br><span class="line">    'django.<span class="keyword">template</span>.context_processors.i18n',</span><br><span class="line">    'django.<span class="keyword">template</span>.context_processors.media',</span><br><span class="line">    **'django.<span class="keyword">template</span>.context_processors.<span class="keyword">static</span>',**</span><br><span class="line">    'django.<span class="keyword">template</span>.context_processors.tz',</span><br><span class="line">    'django.contrib.messages.context_processors.messages',</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
-<p>可以直接在<code>settings.py</code>直接引入：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from django<span class="class">.conf</span><span class="class">.global_settings</span> import TEMPLATE_CONTEXT_PROCESSORS</span><br></pre></td></tr></table></figure></p>
-<p>这样不用自己显式指定，也可以直接在html中使用了。</p>
+		<p><strong>1、systemd简介</strong></p>
+<blockquote>
+<p>systemd is a suite of basic building blocks for a Linux system. It provides a system and service manager that runs as PID 1 and starts the rest of the system. systemd provides aggressive parallelization capabilities, uses socket and D-Bus activation for starting services, offers on-demand starting of daemons, keeps track of processes using Linux control groups, supports snapshotting and restoring of the system state, maintains mount and automount points and implements an elaborate transactional dependency-based service control logic. 【引自<a href="https://www.freedesktop.org/wiki/Software/systemd/" target="_blank" rel="external">What is systemd</a>】</p>
+</blockquote>
+<p>systemd是linux系统一个超级进程(pid号为1)，主要负责其他进程和服务的管理。将linux系统比作一个地主大院的话，systemd是管家，其他进程和服务的角色相当于家丁、厨师等等（它们一块为地主root，以及其他用户服务），在它之前还有一个管家叫init，现在已经退休了，新晋管家systemd主要有以下特点：</p>
+<ul>
+<li>支持并行化任务；</li>
+<li>同时采用socket式与D-Bus总线式激活服务；</li>
+<li>按需启动守护进程（daemon）；</li>
+<li>利用 Linux 的 cgroups 监视进程；</li>
+<li>支持快照和系统恢复；</li>
+<li>维护挂载点和自动挂载点；</li>
+<li>各服务间基于依赖关系进行精密控制。</li>
+</ul>
+<p><strong>2、编写service文件</strong><br>我们可以根据systemd规定的语法规则，编写一个自己的服务程序交给systemctl管理，该语法规则与desktop的很像，主要由<strong>UNIT</strong>, <strong>SERVICE</strong>, <strong>INSTALL</strong> 3部分组成，对于单独运行的简单服务只需要在service部分定义<code>type</code>以及<code>ExecStart</code>就行了。<code>type</code>取决于你的脚本怎么写，如果只是普通的程序，令<code>type=simple</code>就行了，比如以下<a href="https://docs.python.org/2/library/socket.html#example" target="_blank" rel="external">代码</a>：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="id">#myserver</span><span class="class">.py</span></span><br><span class="line">import socket</span><br><span class="line">HOST = <span class="string">'localhost'</span></span><br><span class="line">PORT = <span class="number">50007</span></span><br><span class="line">s = socket.<span class="function"><span class="title">socket</span><span class="params">(socket.AF_INET, socket.SOCK_STREAM)</span></span></span><br><span class="line">s.<span class="function"><span class="title">bind</span><span class="params">((HOST, PORT)</span></span>)</span><br><span class="line">s.<span class="function"><span class="title">listen</span><span class="params">(<span class="number">1</span>)</span></span></span><br><span class="line">while True:</span><br><span class="line">    conn, addr = s.<span class="function"><span class="title">accept</span><span class="params">()</span></span></span><br><span class="line">    print <span class="string">'Connected by'</span>, addr</span><br><span class="line">    while True:</span><br><span class="line">        data = conn.<span class="function"><span class="title">recv</span><span class="params">(<span class="number">1024</span>)</span></span></span><br><span class="line">        <span class="keyword">if</span> not data: break</span><br><span class="line">        conn.<span class="function"><span class="title">sendall</span><span class="params">(data)</span></span></span><br><span class="line">    conn.<span class="function"><span class="title">close</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<p>可以写成这样的服务：<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[Unit]</span></span><br><span class="line"><span class="setting">Description=<span class="value">my demo server</span></span></span><br><span class="line"><span class="setting">After=<span class="value">network.target</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Service]</span></span><br><span class="line"><span class="setting">Type=<span class="value">simple</span></span></span><br><span class="line"><span class="setting">ExecStart=<span class="value">/usr/bin/python /path/myserver.py</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Install]</span></span><br><span class="line"><span class="setting">WantedBy=<span class="value">multi-user.target</span></span></span><br></pre></td></tr></table></figure></p>
+<p>将该文件命名为<code>myserver.service</code>，然后复制到<code>/usr/lib/systemd/system</code>，然后就可以通过<code>systemctl</code>进行管理了：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@zxh system]<span class="preprocessor"># systemctl start myserver.service </span></span><br><span class="line">[root@zxh system]<span class="preprocessor"># systemctl status myserver.service </span></span><br><span class="line">myserver.service - my demo server</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/myserver.service; disabled)</span><br><span class="line">   Active: active (running) since Wed <span class="number">2016</span>-<span class="number">05</span>-<span class="number">11</span> <span class="number">20</span>:<span class="number">01</span>:<span class="number">33</span> CST; <span class="number">5</span>s ago</span><br><span class="line"> Main PID: <span class="number">4337</span> (python)</span><br><span class="line">   CGroup: /system.slice/myserver.service</span><br><span class="line">           └─<span class="number">4337</span> /usr/bin/python /root/workspace/PythonDemo/server.py</span><br><span class="line"></span><br><span class="line">May <span class="number">11</span> <span class="number">20</span>:<span class="number">01</span>:<span class="number">33</span> zxh systemd[<span class="number">1</span>]: Started my demo server.</span><br></pre></td></tr></table></figure></p>
+<p>还有一个容易被误用的是<code>type=forking</code>，官方说法是：</p>
+<blockquote>
+<p>If set to forking, it is expected that the process configured with ExecStart= will call fork() as part of its start-up. The parent<br>           process is expected to exit when start-up is complete and all communication channels are set up. The child continues to run as the main<br>           daemon process. This is the behavior of traditional UNIX daemons. If this setting is used, it is recommended to also use the PIDFile=<br>           option, so that systemd can identify the main process of the daemon. systemd will proceed with starting follow-up units as soon as the<br>           parent process exits.</p>
+</blockquote>
+<p>也就是说，如果指定type为forking，那么脚本里面的主进程应该fork出一个子进程来，然后自己退出，同时为了便于管理，最好指定一个<code>PIDFile</code>。对于python，如果采用这种方式的话，可以借助<a href="https://pypi.python.org/pypi/python-daemon/" target="_blank" rel="external">python-daemon</a>库，需要注意的一点是指定pidfile时调用的是：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import daemon<span class="class">.pidlockfile</span> </span><br><span class="line">pidfile = daemon<span class="class">.pidlockfile</span><span class="class">.PIDLockFile</span>(<span class="string">"/var/run/spam.pid)</span></span><br></pre></td></tr></table></figure></p>
+<p>而不是<a href="https://www.python.org/dev/peps/pep-3143/" target="_blank" rel="external">官方</a>的：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import lockfile</span><br><span class="line">pidfile=lockfile.<span class="function"><span class="title">FileLock</span><span class="params">(<span class="string">'/var/run/spam.pid'</span>)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>对于简单的单一服务，使用simple就可以了，没必要用forking。</p>
+<p><strong>参考</strong><br><a href="http://stackoverflow.com/questions/13069634/python-daemon-and-systemd-service" target="_blank" rel="external">Python daemon and systemd service</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -109,7 +130,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/django/">django</a>
+  <a class="article-category-link" href="/categories/python/">python</a>
 </div>
 
 
@@ -119,7 +140,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2016/05/05/Django静态文件的一种加载方式/" data-title="Django静态文件的一种加载方式 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/05/11/编写systemd_service文件/" data-title="编写systemd service文件 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -132,19 +153,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/05/11/编写systemd_service文件/" title="编写systemd service文件">
-  <strong>上一篇：</strong><br/>
-  <span>
-  编写systemd service文件</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/05/04/NGINX部署websocket反向代理/"  title="NGINX部署websocket反向代理">
+<a href="/2016/05/05/Django静态文件的一种加载方式/"  title="Django静态文件的一种加载方式">
  <strong>下一篇：</strong><br/> 
- <span>NGINX部署websocket反向代理
+ <span>Django静态文件的一种加载方式
 </span>
 </a>
 </div>
@@ -153,7 +166,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/05/05/Django静态文件的一种加载方式/" data-title="Django静态文件的一种加载方式" data-url="http://1988zxh.com/2016/05/05/Django静态文件的一种加载方式/"></div>
+	<div class="ds-thread" data-thread-key="2016/05/11/编写systemd_service文件/" data-title="编写systemd service文件" data-url="http://1988zxh.com/2016/05/11/编写systemd_service文件/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

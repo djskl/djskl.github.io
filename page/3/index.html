@@ -77,6 +77,26 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2016/01/30/awk执行shell命令/" title="awk执行shell命令" itemprop="url">
+  
+    <h1 itemprop="name">awk执行shell命令</h1>
+    
+     
+           <p itemprop="description" >之前一直觉得shell中的字符串截取函数不能用在管道命令里有点可惜，昨天浏览微博的发现了这么一条命令：1ls -t | awk &amp;#39;NR&amp;#62;5 &amp;#123;system(&amp;#34;rm \&amp;#34;&amp;#34; $0 &amp;#34;\&amp;#34;&amp;#34;)&amp;#125;&amp;#3</p>
+        
+    
+    <time datetime="2016-01-29T16:00:00.000Z" itemprop="datePublished">2016-01-30</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2016/01/28/egit解决冲突/" title="egit解决冲突" itemprop="url">
   
     <h1 itemprop="name">egit解决冲突</h1>
@@ -98,12 +118,13 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/27/统计不同ip建立的tcp连接数/" title="统计不同ip建立的tcp连接数" itemprop="url">
+    <a href="/2016/01/27/Fedora20翻墙小记/" title="Fedora20翻墙小记" itemprop="url">
   
-    <h1 itemprop="name">统计不同ip建立的tcp连接数</h1>
+    <h1 itemprop="name">Fedora20翻墙小记</h1>
     
      
-           <p itemprop="description" >1netstat -tpn | awk &amp;#39;NR&amp;#62;2&amp;#123;print $5&amp;#125;&amp;#39; | awk -F&amp;#39;:&amp;#39; &amp;#39;&amp;#123;if($1 in a)&amp;#123;a[$1] += 1&amp;#125;else&amp;#123;a[$1]=1</p>
+           <p itemprop="description" >之前一直觉得可以用谷歌搜索就不用费劲翻墙了，没想到该来的早晚会来，今天需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。
+ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据</p>
         
     
     <time datetime="2016-01-26T16:00:00.000Z" itemprop="datePublished">2016-01-27</time>
@@ -118,13 +139,12 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/27/Fedora20翻墙小记/" title="Fedora20翻墙小记" itemprop="url">
+    <a href="/2016/01/27/统计不同ip建立的tcp连接数/" title="统计不同ip建立的tcp连接数" itemprop="url">
   
-    <h1 itemprop="name">Fedora20翻墙小记</h1>
+    <h1 itemprop="name">统计不同ip建立的tcp连接数</h1>
     
      
-           <p itemprop="description" >之前一直觉得可以用谷歌搜索就不用费劲翻墙了，没想到该来的早晚会来，今天需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。
-ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据</p>
+           <p itemprop="description" >1netstat -tpn | awk &amp;#39;NR&amp;#62;2&amp;#123;print $5&amp;#125;&amp;#39; | awk -F&amp;#39;:&amp;#39; &amp;#39;&amp;#123;if($1 in a)&amp;#123;a[$1] += 1&amp;#125;else&amp;#123;a[$1]=1</p>
         
     
     <time datetime="2016-01-26T16:00:00.000Z" itemprop="datePublished">2016-01-27</time>
@@ -268,28 +288,6 @@ host    replication     postgres        192.168.16.11/32</p>
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/01/11/LeetCode之CoinChange/" title="LeetCode之Coin Change" itemprop="url">
-  
-    <h1 itemprop="name">LeetCode之Coin Change</h1>
-    
-     
-           <p itemprop="description" >问题：
-
-You are given coins of different denominations and a total amount of money amount. Write a function to compute the fewest number of coi</p>
-        
-    
-    <time datetime="2016-01-10T16:00:00.000Z" itemprop="datePublished">2016-01-11</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
@@ -344,7 +342,7 @@ You are given coins of different denominations and a total amount of money amoun
 		  
 		
 		  
-			<li><a href="/categories/前端/" title="前端">前端<sup>6</sup></a></li>
+			<li><a href="/categories/前端/" title="前端">前端<sup>7</sup></a></li>
 		  
 		
 		  

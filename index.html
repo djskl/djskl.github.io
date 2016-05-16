@@ -77,6 +77,26 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2016/05/16/websocket协议使用分析/" title="websocket协议使用分析" itemprop="url">
+  
+    <h1 itemprop="name">websocket协议使用分析</h1>
+    
+     
+           <p itemprop="description" >1、协议简介websocket类似于TCP，是一种应用层的双向通信协议，任何一方都可以随时向对方发送信息(message, 最长为2^64个字节)，在实际传输时还可能被分片(Framing)，消息帧(frame)分为两种类型：控制帧、数据帧。数据帧又可进一步分为文本类型与二进制类</p>
+        
+    
+    <time datetime="2016-05-15T16:00:00.000Z" itemprop="datePublished">2016-05-16</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2016/05/11/编写systemd_service文件/" title="编写systemd service文件" itemprop="url">
   
     <h1 itemprop="name">编写systemd service文件</h1>
@@ -145,14 +165,12 @@ yum install nodejs npm -y  #安装npm </p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/04/24/httpd部署wsgi应用/" title="httpd部署wsgi应用" itemprop="url">
+    <a href="/2016/04/24/Werkzeug使用简介/" title="Werkzeug使用简介" itemprop="url">
   
-    <h1 itemprop="name">httpd部署wsgi应用</h1>
+    <h1 itemprop="name">Werkzeug使用简介</h1>
     
      
-           <p itemprop="description" >1、安装mod_wsgi
-
-The mod_wsgi package provides an Apache module that implements a WSGI compliant interface for hosting Python based web applica</p>
+           <p itemprop="description" >1、简介WSGI(Web Server Gateway Interface)是Python对外提供web服务的规范，其中规定了服务器以及应用程序为了进行交互应该各自遵守的约定。python内置的WSGI工具库为wsgiref，Werkzeug是一个第三方的WSGI的工具库，相对于</p>
         
     
     <time datetime="2016-04-23T16:00:00.000Z" itemprop="datePublished">2016-04-24</time>
@@ -167,12 +185,14 @@ The mod_wsgi package provides an Apache module that implements a WSGI compliant 
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/04/24/Werkzeug使用简介/" title="Werkzeug使用简介" itemprop="url">
+    <a href="/2016/04/24/httpd部署wsgi应用/" title="httpd部署wsgi应用" itemprop="url">
   
-    <h1 itemprop="name">Werkzeug使用简介</h1>
+    <h1 itemprop="name">httpd部署wsgi应用</h1>
     
      
-           <p itemprop="description" >1、简介WSGI(Web Server Gateway Interface)是Python对外提供web服务的规范，其中规定了服务器以及应用程序为了进行交互应该各自遵守的约定。python内置的WSGI工具库为wsgiref，Werkzeug是一个第三方的WSGI的工具库，相对于</p>
+           <p itemprop="description" >1、安装mod_wsgi
+
+The mod_wsgi package provides an Apache module that implements a WSGI compliant interface for hosting Python based web applica</p>
         
     
     <time datetime="2016-04-23T16:00:00.000Z" itemprop="datePublished">2016-04-24</time>
@@ -271,30 +291,6 @@ a descriptor is an object attribute with “binding behavior”, one whose attri
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/03/28/Django中的url参数传递/" title="Django中的url参数传递" itemprop="url">
-  
-    <h1 itemprop="name">Django中的url参数传递</h1>
-    
-     
-           <p itemprop="description" >此处说的参数传递是指将参数传递给views中的函数，而不是request。Django在匹配url时有一条规则是这样的：
-
-To capture a value from the URL, just put parenthesis around it.
-
-也就是说，想通过url给</p>
-        
-    
-    <time datetime="2016-03-27T16:00:00.000Z" itemprop="datePublished">2016-03-28</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -349,7 +345,7 @@ To capture a value from the URL, just put parenthesis around it.
 		  
 		
 		  
-			<li><a href="/categories/前端/" title="前端">前端<sup>6</sup></a></li>
+			<li><a href="/categories/前端/" title="前端">前端<sup>7</sup></a></li>
 		  
 		
 		  

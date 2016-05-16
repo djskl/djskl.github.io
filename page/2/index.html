@@ -77,6 +77,30 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2016/03/28/Django中的url参数传递/" title="Django中的url参数传递" itemprop="url">
+  
+    <h1 itemprop="name">Django中的url参数传递</h1>
+    
+     
+           <p itemprop="description" >此处说的参数传递是指将参数传递给views中的函数，而不是request。Django在匹配url时有一条规则是这样的：
+
+To capture a value from the URL, just put parenthesis around it.
+
+也就是说，想通过url给</p>
+        
+    
+    <time datetime="2016-03-27T16:00:00.000Z" itemprop="datePublished">2016-03-28</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2016/03/22/闭包的延迟绑定/" title="闭包的延迟绑定" itemprop="url">
   
     <h1 itemprop="name">闭包的延迟绑定</h1>
@@ -97,12 +121,12 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/03/11/JavaScript字符串替换/" title="JavaScript字符串替换" itemprop="url">
+    <a href="/2016/03/11/将Python脚本的错误输出到stderr/" title="将Python脚本的错误输出到stderr" itemprop="url">
   
-    <h1 itemprop="name">JavaScript字符串替换</h1>
+    <h1 itemprop="name">将Python脚本的错误输出到stderr</h1>
     
      
-           <p itemprop="description" >默认情况下调用字符串的replace函数，只能替换匹配成功的第一个子串：1234var urls = &quot;www.gscloud.cn, www.gscloud.cn, www.gscloud&quot;var new_urls = urls.replace(&quot;www.gscloud.cn&quot;</p>
+           <p itemprop="description" >示例脚本(demo.py)代码如下：123456789101112131415161718192021222324from __future__ import print_functionimport traceback, sysdef exc_handler(func):   </p>
         
     
     <time datetime="2016-03-10T16:00:00.000Z" itemprop="datePublished">2016-03-11</time>
@@ -117,12 +141,12 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/03/11/将Python脚本的错误输出到stderr/" title="将Python脚本的错误输出到stderr" itemprop="url">
+    <a href="/2016/03/11/JavaScript字符串替换/" title="JavaScript字符串替换" itemprop="url">
   
-    <h1 itemprop="name">将Python脚本的错误输出到stderr</h1>
+    <h1 itemprop="name">JavaScript字符串替换</h1>
     
      
-           <p itemprop="description" >示例脚本(demo.py)代码如下：123456789101112131415161718192021222324from __future__ import print_functionimport traceback, sysdef exc_handler(func):   </p>
+           <p itemprop="description" >默认情况下调用字符串的replace函数，只能替换匹配成功的第一个子串：1234var urls = &quot;www.gscloud.cn, www.gscloud.cn, www.gscloud&quot;var new_urls = urls.replace(&quot;www.gscloud.cn&quot;</p>
         
     
     <time datetime="2016-03-10T16:00:00.000Z" itemprop="datePublished">2016-03-11</time>
@@ -158,13 +182,14 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/02/29/Django访问数据库集群/" title="Django访问数据库集群" itemprop="url">
+    <a href="/2016/02/29/通过pstree查看python线程/" title="通过pstree查看python线程" itemprop="url">
   
-    <h1 itemprop="name">Django访问数据库集群</h1>
+    <h1 itemprop="name">通过pstree查看python线程</h1>
     
      
-           <p itemprop="description" >一般数据库都需要部署成集群，有的负责读，有的负责写，这样不但可以减轻单点压力，还是提高数据检索速度。Django正好提供了一个操作多数据库的router。
-数据库的定义：123456789101112131415161718192021222324252627DATABASES </p>
+           <p itemprop="description" >正常情况下，通过线程的属性ident获取到的线程id与通过ps/top等命令看到的是不一样的。官方对ident的解释如下：
+
+This is a nonzero integer. Its value has no direct meaning; it is intended as</p>
         
     
     <time datetime="2016-02-28T16:00:00.000Z" itemprop="datePublished">2016-02-29</time>
@@ -179,14 +204,13 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/02/29/通过pstree查看python线程/" title="通过pstree查看python线程" itemprop="url">
+    <a href="/2016/02/29/Django访问数据库集群/" title="Django访问数据库集群" itemprop="url">
   
-    <h1 itemprop="name">通过pstree查看python线程</h1>
+    <h1 itemprop="name">Django访问数据库集群</h1>
     
      
-           <p itemprop="description" >正常情况下，通过线程的属性ident获取到的线程id与通过ps/top等命令看到的是不一样的。官方对ident的解释如下：
-
-This is a nonzero integer. Its value has no direct meaning; it is intended as</p>
+           <p itemprop="description" >一般数据库都需要部署成集群，有的负责读，有的负责写，这样不但可以减轻单点压力，还是提高数据检索速度。Django正好提供了一个操作多数据库的router。
+数据库的定义：123456789101112131415161718192021222324252627DATABASES </p>
         
     
     <time datetime="2016-02-28T16:00:00.000Z" itemprop="datePublished">2016-02-29</time>
@@ -267,26 +291,6 @@ Fabric is a Python (2.5-2.7) library and command-li</p>
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/01/30/awk执行shell命令/" title="awk执行shell命令" itemprop="url">
-  
-    <h1 itemprop="name">awk执行shell命令</h1>
-    
-     
-           <p itemprop="description" >之前一直觉得shell中的字符串截取函数不能用在管道命令里有点可惜，昨天浏览微博的发现了这么一条命令：1ls -t | awk &amp;#39;NR&amp;#62;5 &amp;#123;system(&amp;#34;rm \&amp;#34;&amp;#34; $0 &amp;#34;\&amp;#34;&amp;#34;)&amp;#125;&amp;#3</p>
-        
-    
-    <time datetime="2016-01-29T16:00:00.000Z" itemprop="datePublished">2016-01-30</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
@@ -341,7 +345,7 @@ Fabric is a Python (2.5-2.7) library and command-li</p>
 		  
 		
 		  
-			<li><a href="/categories/前端/" title="前端">前端<sup>6</sup></a></li>
+			<li><a href="/categories/前端/" title="前端">前端<sup>7</sup></a></li>
 		  
 		
 		  

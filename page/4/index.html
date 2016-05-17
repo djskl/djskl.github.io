@@ -77,6 +77,26 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2016/01/12/JSON格式日志字段提取/" title="JSON格式日志字段提取" itemprop="url">
+  
+    <h1 itemprop="name">JSON格式日志字段提取</h1>
+    
+     
+           <p itemprop="description" >今天生产环境的系统出了问题，在本地没法重现，只能通过日志判断，但其他请求的日志一直在滚，实在不便于查看，于是在可疑位置增加了一条日志，来输出http的所有头部信息：12print &#39;HEADER：%s&#39;%http_header#输出：HEADER:&amp;#123;&quot;field1&quot;: </p>
+        
+    
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished">2016-01-12</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2016/01/11/LeetCode之CoinChange/" title="LeetCode之Coin Change" itemprop="url">
   
     <h1 itemprop="name">LeetCode之Coin Change</h1>
@@ -166,15 +186,12 @@ index.html
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/04/Postgresql函数的rowtype类型及返回值/" title="Postgresql函数的rowtype类型及返回值" itemprop="url">
+    <a href="/2016/01/04/JavaScript访问AngularJs内部变量函数/" title="JavaScript访问AngularJs内部变量/函数" itemprop="url">
   
-    <h1 itemprop="name">Postgresql函数的rowtype类型及返回值</h1>
+    <h1 itemprop="name">JavaScript访问AngularJs内部变量/函数</h1>
     
      
-           <p itemprop="description" >今天想写触发器来根据表A里的数据变化更新表B的状态，A表的更新及删除都会触发这个操作。
-于是想到写一个普通函数在触发器函数里调用，结果尝试了一下指定参数类型为tablename%rowtype，结果居然报错，后来找到另一个比较勉强的解释：
-
-Since every table h</p>
+           <p itemprop="description" >1234567891011var element = angular.element($document.getElementById(&quot;app&quot;));var controller = element.controller();var scope = element.scope(</p>
         
     
     <time datetime="2016-01-03T16:00:00.000Z" itemprop="datePublished">2016-01-04</time>
@@ -189,12 +206,15 @@ Since every table h</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/04/JavaScript访问AngularJs内部变量函数/" title="JavaScript访问AngularJs内部变量/函数" itemprop="url">
+    <a href="/2016/01/04/Postgresql函数的rowtype类型及返回值/" title="Postgresql函数的rowtype类型及返回值" itemprop="url">
   
-    <h1 itemprop="name">JavaScript访问AngularJs内部变量/函数</h1>
+    <h1 itemprop="name">Postgresql函数的rowtype类型及返回值</h1>
     
      
-           <p itemprop="description" >1234567891011var element = angular.element($document.getElementById(&quot;app&quot;));var controller = element.controller();var scope = element.scope(</p>
+           <p itemprop="description" >今天想写触发器来根据表A里的数据变化更新表B的状态，A表的更新及删除都会触发这个操作。
+于是想到写一个普通函数在触发器函数里调用，结果尝试了一下指定参数类型为tablename%rowtype，结果居然报错，后来找到另一个比较勉强的解释：
+
+Since every table h</p>
         
     
     <time datetime="2016-01-03T16:00:00.000Z" itemprop="datePublished">2016-01-04</time>
@@ -235,27 +255,6 @@ Since every table h</p>
     
      
            <p itemprop="description" >今天学习AngularJs看到$http就顺带试了一下昨天看的jsonp，踩到了几个坑也学会了新的写法，现记录如下：12345678#Django代码from django.http.response import HttpResponseimport jsondef datas</p>
-        
-    
-    <time datetime="2016-01-01T16:00:00.000Z" itemprop="datePublished">2016-01-02</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/01/02/jsonp简介/" title="jsonp简介" itemprop="url">
-  
-    <h1 itemprop="name">jsonp简介</h1>
-    
-     
-           <p itemprop="description" >jsonp不同于json，json是一种数据交换格式，jsonp则是为了跨域获取json数据的一种方式。
-默认情况下，由于浏览器的限制，当前网站上的任何内容都不允许其他网站直接调用访问(除非服务器进行一些设置)，而script标签自带跨域功能，jsonp就是通过动态加载scrip</p>
         
     
     <time datetime="2016-01-01T16:00:00.000Z" itemprop="datePublished">2016-01-02</time>
@@ -341,7 +340,7 @@ Since every table h</p>
 		  
 		
 		  
-			<li><a href="/categories/前端/" title="前端">前端<sup>7</sup></a></li>
+			<li><a href="/categories/前端/" title="前端">前端<sup>8</sup></a></li>
 		  
 		
 		  

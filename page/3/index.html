@@ -77,6 +77,29 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2016/02/17/删除文本中的空白行/" title="删除文本中的空白行" itemprop="url">
+  
+    <h1 itemprop="name">删除文本中的空白行</h1>
+    
+     
+           <p itemprop="description" >包含空格的空白行：1、sed命令1sed &amp;#39;/^[ ]*$/d&amp;#39; foo.txt
+2、awk命令1awk NF foo.txt
+3、grep命令1grep -v &amp;#34;^[ ]*$&amp;#34; foo.txt
+不包含空格的空白行：以上命令仍然适用，awk命令还有</p>
+        
+    
+    <time datetime="2016-02-16T16:00:00.000Z" itemprop="datePublished">2016-02-17</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2016/02/05/通过Fabric自动部署web工程/" title="通过Fabric自动部署web工程" itemprop="url">
   
     <h1 itemprop="name">通过Fabric自动部署web工程</h1>
@@ -205,13 +228,17 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/21/更改postgresql的数据目录/" title="更改postgresql的数据目录" itemprop="url">
+    <a href="/2016/01/21/Postgresql状态维护_持续更新/" title="Postgresql状态维护(持续更新)" itemprop="url">
   
-    <h1 itemprop="name">更改postgresql的数据目录</h1>
+    <h1 itemprop="name">Postgresql状态维护(持续更新)</h1>
     
      
-           <p itemprop="description" >生产环境的postgresql数据出了问题，于是就想把整个数据库拷到本地来调试一下。
-1、找到生产环境的postgresql的data目录，在命令行下连接上数据库，然后执行show data_directory就可以看到了，在fedora20上是/var/lib/pgsql/da</p>
+           <p itemprop="description" >查看当前的数据库连接及正在执行的语句/命令1select * from pg_stat_activity;
+
+
+如果某个操作卡住了的话，其中waiting字段的值为t。
+
+查看当前数据库的连接数1SELECT count(*) FROM (SELECT pg_stat_get_b</p>
         
     
     <time datetime="2016-01-20T16:00:00.000Z" itemprop="datePublished">2016-01-21</time>
@@ -226,17 +253,13 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/21/Postgresql状态维护_持续更新/" title="Postgresql状态维护(持续更新)" itemprop="url">
+    <a href="/2016/01/21/更改postgresql的数据目录/" title="更改postgresql的数据目录" itemprop="url">
   
-    <h1 itemprop="name">Postgresql状态维护(持续更新)</h1>
+    <h1 itemprop="name">更改postgresql的数据目录</h1>
     
      
-           <p itemprop="description" >查看当前的数据库连接及正在执行的语句/命令1select * from pg_stat_activity;
-
-
-如果某个操作卡住了的话，其中waiting字段的值为t。
-
-查看当前数据库的连接数1SELECT count(*) FROM (SELECT pg_stat_get_b</p>
+           <p itemprop="description" >生产环境的postgresql数据出了问题，于是就想把整个数据库拷到本地来调试一下。
+1、找到生产环境的postgresql的data目录，在命令行下连接上数据库，然后执行show data_directory就可以看到了，在fedora20上是/var/lib/pgsql/da</p>
         
     
     <time datetime="2016-01-20T16:00:00.000Z" itemprop="datePublished">2016-01-21</time>
@@ -263,26 +286,6 @@ host    replication     postgres        192.168.16.11/32</p>
         
     
     <time datetime="2016-01-20T16:00:00.000Z" itemprop="datePublished">2016-01-21</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/01/12/在uwsgi的子线程中访问request.META的问题/" title="在uwsgi的子线程中访问request.META的问题" itemprop="url">
-  
-    <h1 itemprop="name">在uwsgi的子线程中访问request.META的问题</h1>
-    
-     
-           <p itemprop="description" >今天发现用户的ip地址有的能记录成功，有的记录为空。刚开始以为是nginx的问题，看了看nginx的配置，proxy的配置都是正确的，然后仔细看了一下调试日志，发现还是代码的问题：在子线程中通过request.META读取用户ip时，request.META为空了。调试代码如下：</p>
-        
-    
-    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished">2016-01-12</time>
   </a>
 </section>
 
@@ -329,7 +332,7 @@ host    replication     postgres        192.168.16.11/32</p>
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>32</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>33</sup></a></li>
 		  
 		
 		  

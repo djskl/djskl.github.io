@@ -77,6 +77,27 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2016/01/21/更改postgresql的数据目录/" title="更改postgresql的数据目录" itemprop="url">
+  
+    <h1 itemprop="name">更改postgresql的数据目录</h1>
+    
+     
+           <p itemprop="description" >生产环境的postgresql数据出了问题，于是就想把整个数据库拷到本地来调试一下。
+1、找到生产环境的postgresql的data目录，在命令行下连接上数据库，然后执行show data_directory就可以看到了，在fedora20上是/var/lib/pgsql/da</p>
+        
+    
+    <time datetime="2016-01-20T16:00:00.000Z" itemprop="datePublished">2016-01-21</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2016/01/12/在uwsgi的子线程中访问request.META的问题/" title="在uwsgi的子线程中访问request.META的问题" itemprop="url">
   
     <h1 itemprop="name">在uwsgi的子线程中访问request.META的问题</h1>
@@ -206,29 +227,6 @@ index.html
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/04/Postgresql函数的rowtype类型及返回值/" title="Postgresql函数的rowtype类型及返回值" itemprop="url">
-  
-    <h1 itemprop="name">Postgresql函数的rowtype类型及返回值</h1>
-    
-     
-           <p itemprop="description" >今天想写触发器来根据表A里的数据变化更新表B的状态，A表的更新及删除都会触发这个操作。
-于是想到写一个普通函数在触发器函数里调用，结果尝试了一下指定参数类型为tablename%rowtype，结果居然报错，后来找到另一个比较勉强的解释：
-
-Since every table h</p>
-        
-    
-    <time datetime="2016-01-03T16:00:00.000Z" itemprop="datePublished">2016-01-04</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
     <a href="/2016/01/04/JavaScript访问AngularJs内部变量函数/" title="JavaScript访问AngularJs内部变量/函数" itemprop="url">
   
     <h1 itemprop="name">JavaScript访问AngularJs内部变量/函数</h1>
@@ -269,15 +267,18 @@ Since every table h</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/02/AngularJs表单验证/" title="AngularJs表单验证" itemprop="url">
+    <a href="/2016/01/04/Postgresql函数的rowtype类型及返回值/" title="Postgresql函数的rowtype类型及返回值" itemprop="url">
   
-    <h1 itemprop="name">AngularJs表单验证</h1>
+    <h1 itemprop="name">Postgresql函数的rowtype类型及返回值</h1>
     
      
-           <p itemprop="description" >今天看了一下AngularJs中的表单验证，不得不说，用起来还是有点不习惯，主要是没有选择器，相似的规则得逐个field添加，略麻烦。代码如下：1234567891011&amp;lt;div class=&quot;sign-up-wrapper&quot; ng-app&amp;gt;	&amp;lt;form nam</p>
+           <p itemprop="description" >今天想写触发器来根据表A里的数据变化更新表B的状态，A表的更新及删除都会触发这个操作。
+于是想到写一个普通函数在触发器函数里调用，结果尝试了一下指定参数类型为tablename%rowtype，结果居然报错，后来找到另一个比较勉强的解释：
+
+Since every table h</p>
         
     
-    <time datetime="2016-01-01T16:00:00.000Z" itemprop="datePublished">2016-01-02</time>
+    <time datetime="2016-01-03T16:00:00.000Z" itemprop="datePublished">2016-01-04</time>
   </a>
 </section>
 
@@ -288,7 +289,7 @@ Since every table h</p>
 
 
   <nav id="page-nav" class="clearfix unexpand">
-    <a class="extend prev" rel="prev" href="/page/3/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/">Next<span></span></a>
   </nav>
 
 </div>
@@ -324,7 +325,7 @@ Since every table h</p>
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>33</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>34</sup></a></li>
 		  
 		
 		  

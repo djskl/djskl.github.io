@@ -5,23 +5,29 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>空间数据的插入与查询(Django+Postgis) | ideas into codes</title>
+    <title>rsync文件过滤 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="建表：123456789101112CREATE TABLE soildata(  sid character varying(32) NOT NULL,  stype character varying(32),  pos geometry,  CONSTRAINT soildata_pkey PRIMARY KEY (sid))WITH (  OIDS=FALSE);ALTER TABLE s">
+    <meta name="description" content="rsync可以通过定义过滤规则来指定需要传输的文件(文件夹)列表
+
+As the list of files/directories to transfer is built, rsync checks each name to be transferred against the list of include/exclude patterns in turn, and the first ma">
 <meta property="og:type" content="article">
-<meta property="og:title" content="空间数据的插入与查询(Django+Postgis)">
-<meta property="og:url" content="http://1988zxh.com/2015/05/10/空间数据的插入与查询(Django+Postgis)/index.html">
+<meta property="og:title" content="rsync文件过滤">
+<meta property="og:url" content="http://1988zxh.com/2016/05/31/rsync文件过滤/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="建表：123456789101112CREATE TABLE soildata(  sid character varying(32) NOT NULL,  stype character varying(32),  pos geometry,  CONSTRAINT soildata_pkey PRIMARY KEY (sid))WITH (  OIDS=FALSE);ALTER TABLE s">
-<meta property="og:updated_time" content="2016-01-14T13:08:24.000Z">
+<meta property="og:description" content="rsync可以通过定义过滤规则来指定需要传输的文件(文件夹)列表
+
+As the list of files/directories to transfer is built, rsync checks each name to be transferred against the list of include/exclude patterns in turn, and the first ma">
+<meta property="og:updated_time" content="2016-05-31T12:46:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="空间数据的插入与查询(Django+Postgis)">
-<meta name="twitter:description" content="建表：123456789101112CREATE TABLE soildata(  sid character varying(32) NOT NULL,  stype character varying(32),  pos geometry,  CONSTRAINT soildata_pkey PRIMARY KEY (sid))WITH (  OIDS=FALSE);ALTER TABLE s">
+<meta name="twitter:title" content="rsync文件过滤">
+<meta name="twitter:description" content="rsync可以通过定义过滤规则来指定需要传输的文件(文件夹)列表
+
+As the list of files/directories to transfer is built, rsync checks each name to be transferred against the list of include/exclude patterns in turn, and the first ma">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -79,24 +85,52 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/05/10/空间数据的插入与查询(Django+Postgis)/" title="空间数据的插入与查询(Django+Postgis)" itemprop="url">空间数据的插入与查询(Django+Postgis)</a>
+      <a href="/2016/05/31/rsync文件过滤/" title="rsync文件过滤" itemprop="url">rsync文件过滤</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-05-09T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-05-10</time>
+    <time datetime="2016-05-30T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-05-31</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p><strong>建表</strong>：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> soildata</span><br><span class="line">(</span><br><span class="line">  <span class="keyword">sid</span> <span class="built_in">character</span> <span class="built_in">varying</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  stype <span class="built_in">character</span> <span class="built_in">varying</span>(<span class="number">32</span>),</span><br><span class="line">  pos geometry,</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> soildata_pkey PRIMARY <span class="keyword">KEY</span> (<span class="keyword">sid</span>)</span><br><span class="line">)</span><br><span class="line"><span class="keyword">WITH</span> (</span><br><span class="line">  OIDS=<span class="literal">FALSE</span></span><br><span class="line">);</span></span><br><span class="line"><span class="operator"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> soildata</span><br><span class="line">  OWNER <span class="keyword">TO</span> postgres;</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>Django模型</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib.gis.db <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> django.contrib.gis.db.models.manager <span class="keyword">import</span> GeoManager</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create your models here.</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SoilData</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    sid = models.CharField(max_length=<span class="number">32</span>, primary_key=<span class="keyword">True</span>)</span><br><span class="line">    stype = models.CharField(max_length=<span class="number">32</span>)</span><br><span class="line">    pos = models.GeometryField(srid=<span class="number">4326</span>)</span><br><span class="line">    </span><br><span class="line">    objects = GeoManager()</span><br><span class="line">    </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">'soildata'</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>插入</strong><br>方式1：原生SQL语句<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#encoding:utf-8</span></span><br><span class="line"><span class="keyword">import</span> psycopg2</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    conn = psycopg2.connect(database=<span class="string">"gisdb"</span>,user=<span class="string">"postgres"</span>,password=<span class="string">""</span>,host=<span class="string">"127.0.0.1"</span>,port=<span class="string">"5432"</span>)</span><br><span class="line">    cursor = conn.cursor()</span><br><span class="line">    </span><br><span class="line">    cursor.execute(</span><br><span class="line">        <span class="string">'insert into soildata values(%s, %s, %s);'</span>,</span><br><span class="line">        (<span class="string">"1"</span>,<span class="string">"棕壤"</span>,<span class="string">"SRID=4326;POINT(120 38)"</span>)</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    cursor.close()</span><br><span class="line">    conn.commit()</span><br><span class="line">    conn.close()</span><br></pre></td></tr></table></figure></p>
-<p>方式2：Django model<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">soil = SoilData()</span><br><span class="line">soil.sid = <span class="string">"2"</span></span><br><span class="line">soil.stype = <span class="string">"红壤"</span></span><br><span class="line">pos = GEOSGeometry(<span class="string">'POINT(%s %s)'</span>%(<span class="number">100</span>,<span class="number">30</span>),<span class="number">4326</span>)</span><br><span class="line">soil.pos = pos</span><br><span class="line">soil.save()</span><br></pre></td></tr></table></figure></p>
-<p><strong>空间关系查询</strong>：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#62;&#62;&#62; from django.contrib.gis.geos.geometry import GEOSGeometry&#10;&#62;&#62;&#62; from myapp.models import SoilData&#10;&#62;&#62;&#62; wheres = [&#39;ST_Contains(ST_GeomFromText(%s, 4326), pos)&#39;]&#10;&#62;&#62;&#62; wheres_param = [&#39;POLYGON((99 29,99 31,100 29,100 31,99 29))&#39;]&#10;&#62;&#62;&#62; dao = SoilData.objects.extra(where=wheres, params=wheres_param)&#10;&#62;&#62;&#62; dao.count()&#10;0&#10;&#62;&#62;&#62; wheres_param = [&#39;POLYGON((99 20,99 31,101 31,101 20,99 20))&#39;]&#10;&#62;&#62;&#62; dao = SoilData.objects.extra(where=wheres, params=wheres_param)&#10;&#62;&#62;&#62; dao.count()&#10;1&#10;&#62;&#62;&#62; wheres_param = [&#39;POLYGON((0 0,0 90,180 90,180 0,0 0))&#39;]&#10;&#62;&#62;&#62; dao = SoilData.objects.extra(where=wheres, params=wheres_param)&#10;&#62;&#62;&#62; dao.count()&#10;2</span><br></pre></td></tr></table></figure></p>
+		<p>rsync可以通过定义过滤规则来指定需要传输的文件(文件夹)列表</p>
+<blockquote>
+<p>As the list of files/directories to transfer is built, rsync checks each name to be transferred against the list of include/exclude patterns in turn, and the first matching pattern is acted on: if it is an exclude pattern, then that file is skipped; if it is an include pattern then that filename is not skipped; if no matching pattern is found, then the filename is not skipped. </p>
+</blockquote>
+<p><strong>INCLUDE/EXCLUDE PATTERN RULES</strong></p>
+<ul>
+<li>如果匹配规则(pattern)首字母为<code>/</code>，则会定位到传输文件的根目录(root of the transfer)，如果不是则会匹配文件路径的任意位置(实际是路径的最后那个目录或文件，考虑到rsync自顶向下递归处理，每个目录都会出现在路径的末端，所以可以匹配到任意位置)，比如要传输的目录为<code>/root/data/</code>，则<code>/foo</code>会匹配<code>/root/data/foo</code>文件或文件夹，注意此处是文件名精确匹配，不是名字以<code>foo</code>为首的文件或文件夹；而<code>foo/bar</code>，则可以匹配到<code>/root/data/hello/foo/bar/world/</code>这个目录。</li>
+<li>如果匹配规则以<code>/</code>为结尾则只能匹配目录(想匹配文件可以用<code>!</code>)。</li>
+<li>是否简单字符串匹配还是通配符匹配，主要看匹配规则中是否包含这三个字符：<code>&#39;*&#39;, &#39;?&#39;, &#39;[&#39;</code><ul>
+<li><code>*</code>匹配路径中的一个位置，不包括<code>/</code>, <code>**</code>匹配任意长度的字符串，包括<code>/</code></li>
+<li><code>?</code>匹配一个字符(不包括<code>/</code>)</li>
+<li><code>[</code>可以匹配一个范围，如<code>[a-z]</code></li>
+</ul>
+</li>
+</ul>
+<p>还有一种递归的情况需要格外注意，因为递归是自顶而下(宽度优先？)的，如果父目录被排除(exclude)了，那它的子目录即是include了还是不能被访问到，比如：<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">+ </span>/foo/bar/baz</span><br><span class="line"><span class="bullet">+ </span>/hello</span><br><span class="line"><span class="bullet">- </span>*</span><br></pre></td></tr></table></figure></p>
+<p>第一条规则是无效的，因为<code>- *</code>已经把所有的目录和文件都排除了，包括<code>foo</code>目录，rsync在遍历的时候看到<code>foo</code>所在的层级除了<code>hello</code>被include外，其他都没有加进来，所有就自动忽略<code>foo</code>及其以下的内容了。</p>
+<p>关于include/exclude多说一句，include单独用是没有意义的，因为默认情况下文件就是被include的，include是用来包含那些被exclude规则排除的某些文件(文件夹)的。</p>
+<p>下面举几个具体的例子：</p>
+<ul>
+<li><code>&quot;- *.o&quot;</code>排除所有以o结尾的文件</li>
+<li><code>&quot;- /foo&quot;</code>排除传输目录根目录下的<code>foo</code>文件或文件夹</li>
+<li><code>&quot;- foo/&quot;</code>排除所有目录名为<code>foo</code>的文件夹</li>
+<li><code>&quot;- /foo/*/bar&quot;</code>排除第一级目录名为foo,第三级文件(夹)名为bar的文件或目录</li>
+<li><code>&quot;- /foo/**/bar&quot;</code>所有第一级目录为foo且路径中包含bar的目录或文件</li>
+<li><code>&quot;+ */&quot;, &quot;+ *.c&quot;, &quot;- *&quot;</code>表示所有的文件夹以及以<code>c</code>为结尾的文件，即排除不是<code>c</code>为后缀的文件</li>
+<li><code>&quot;+ foo/&quot;, &quot;+ foo/bar.c&quot;, &quot;- *&quot;</code>只保留目录foo及即其下面的bar.c文件</li>
+<li><code>+ *.html, + *.png, -! */</code>只保留html以及png文件，其中<code>! */</code>表示非目录，即文件。</li>
+</ul>
+<p>另外rsync默认自动忽略文件夹，在使用的时候别忘了加<code>-a</code>或<code>-r</code>选项。</p>
+<p>还有<code>FILES-FROM</code>有点特殊，大部分情况下，<code>-a</code>即意味着递归，但如果使用了此选项，需要在此基础上在明确指定<code>-r, --recursive</code>。</p>
+<p>以上只是简单介绍，更详细的用法请参考：<a href="https://download.samba.org/pub/rsync/rsync.html" target="_blank" rel="external">https://download.samba.org/pub/rsync/rsync.html</a></p>
+<p><strong>参考</strong><br><a href="https://download.samba.org/pub/rsync/rsync.html" target="_blank" rel="external">rsync - a fast, versatile, remote (and local) file-copying tool </a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -104,7 +138,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/django/">django</a>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
 </div>
 
 
@@ -114,7 +148,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/05/10/空间数据的插入与查询(Django+Postgis)/" data-title="空间数据的插入与查询(Django+Postgis) | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/05/31/rsync文件过滤/" data-title="rsync文件过滤 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -127,19 +161,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/06/15/Django中model字段的验证/" title="Django中model字段的验证">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Django中model字段的验证</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/05/09/fedora通过logrotate管理日志/"  title="fedora通过logrotate管理日志">
+<a href="/2016/05/30/后台运行celery worker/"  title="后台运行celery worker">
  <strong>下一篇：</strong><br/> 
- <span>fedora通过logrotate管理日志
+ <span>后台运行celery worker
 </span>
 </a>
 </div>
@@ -148,7 +174,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/05/10/空间数据的插入与查询(Django+Postgis)/" data-title="空间数据的插入与查询(Django+Postgis)" data-url="http://1988zxh.com/2015/05/10/空间数据的插入与查询(Django+Postgis)/"></div>
+	<div class="ds-thread" data-thread-key="2016/05/31/rsync文件过滤/" data-title="rsync文件过滤" data-url="http://1988zxh.com/2016/05/31/rsync文件过滤/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

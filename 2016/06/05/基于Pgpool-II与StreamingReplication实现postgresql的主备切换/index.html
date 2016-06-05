@@ -1,0 +1,536 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>基于Pgpool-II与Streaming Replication实现postgresql的主备切换 | ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="集群环境OS：Fedora23 (x86_64)数据库：Postgresql 9.3pgpool-II: 3.3.10机器：2台虚拟机(db1:10.0.61.60, db2:10.0.61.61)，还需要有一个未被占用的ip地址来当作虚拟ip(vip: 10.0.61.250)
+安装说明db1为主节点，db2为从节点，db1&amp;amp;db2需要能够无密码互访问(最好root，postgres用户">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Pgpool-II与Streaming Replication实现postgresql的主备切换">
+<meta property="og:url" content="http://1988zxh.com/2016/06/05/基于Pgpool-II与StreamingReplication实现postgresql的主备切换/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="集群环境OS：Fedora23 (x86_64)数据库：Postgresql 9.3pgpool-II: 3.3.10机器：2台虚拟机(db1:10.0.61.60, db2:10.0.61.61)，还需要有一个未被占用的ip地址来当作虚拟ip(vip: 10.0.61.250)
+安装说明db1为主节点，db2为从节点，db1&amp;amp;db2需要能够无密码互访问(最好root，postgres用户">
+<meta property="og:updated_time" content="2016-06-05T14:34:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于Pgpool-II与Streaming Replication实现postgresql的主备切换">
+<meta name="twitter:description" content="集群环境OS：Fedora23 (x86_64)数据库：Postgresql 9.3pgpool-II: 3.3.10机器：2台虚拟机(db1:10.0.61.60, db2:10.0.61.61)，还需要有一个未被占用的ip地址来当作虚拟ip(vip: 10.0.61.250)
+安装说明db1为主节点，db2为从节点，db1&amp;amp;db2需要能够无密码互访问(最好root，postgres用户">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">知也者，以其知过物而能貌之</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/reads">读书</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/05/基于Pgpool-II与StreamingReplication实现postgresql的主备切换/" title="基于Pgpool-II与Streaming Replication实现postgresql的主备切换" itemprop="url">基于Pgpool-II与Streaming Replication实现postgresql的主备切换</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-04T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-06-05</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<p><strong>集群环境</strong><br>OS：Fedora23 (x86_64)<br>数据库：Postgresql 9.3<br>pgpool-II: <a href="http://www.pgpool.net/download.php?f=pgpool-II-3.3.10.tar.gz" target="_blank" rel="external">3.3.10</a><br>机器：2台虚拟机(db1:10.0.61.60, db2:10.0.61.61)，还需要有一个未被占用的ip地址来当作虚拟ip(vip: 10.0.61.250)</p>
+<p><strong>安装说明</strong><br>db1为主节点，db2为从节点，db1&amp;db2需要能够无密码互访问(最好root，postgres用户都配一下)。<br>每个节点都需要安装postgresql, pgpool，具体安装过程不再详述(pgpool的安装最好使用源码安装, yum&amp;dnf安装的版本可能不对，另外调试也比较麻烦)。另外Streaming Replication的配置可参考<a href="http://1988zxh.com/2016/01/21/Postgresql%E9%85%8D%E7%BD%AE%E4%B8%BB%E4%BB%8E%E6%B5%81%E5%A4%8D%E5%88%B6/">Postgresql配置主从流复制</a>。</p>
+<p>本例中postgresql的数据目录在<code>/var/lib/pgsql/data</code>，pgpool的配置文件在<code>/opt/pgpool/etc</code>目录，其中<code>/opt/pgpool</code>为安装时指定(./configure –prefix=/opt/pgpool)</p>
+<p><strong>配置说明</strong><br>安装完之后进行必要的配置就可以启动了，下面说一下几项关键配置：<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/opt/pgpool/etc/pgpool.conf</span></span><br><span class="line"></span><br><span class="line"><span class="setting">listen_addresses = <span class="value"><span class="string">'*'</span>      #监听来在哪些机器上的请求，默认是localhost，即谁也不监听，</span></span></span><br><span class="line">                            <span class="comment">#这里改为*，意思说不过虑，全部监听</span></span><br><span class="line"></span><br><span class="line"><span class="setting">port = <span class="value"><span class="number">9999</span>                 #监听端口</span></span></span><br><span class="line"></span><br><span class="line"><span class="setting">pcp_port = <span class="value"><span class="number">9898</span>             #pgpool的管理接口(pgpool-II provides the control interface</span></span></span><br><span class="line">                            <span class="comment">#where an administrator can collect pgpool-II status, and</span></span><br><span class="line">                            <span class="comment">#terminate pgpool-II processes via network)</span></span><br><span class="line">                        </span><br><span class="line"><span class="setting">backend_hostname0 = <span class="value"><span class="string">'db1'</span>   #数据库<span class="number">1</span>所在机器</span></span></span><br><span class="line"><span class="setting">backend_port0 = <span class="value"><span class="number">5432</span>        #数据库<span class="number">1</span>监听端口</span></span></span><br><span class="line"></span><br><span class="line"><span class="setting">backend_hostname0 = <span class="value"><span class="string">'db2'</span>   #数据库<span class="number">2</span>所在机器</span></span></span><br><span class="line"><span class="setting">backend_port0 = <span class="value"><span class="number">5432</span>        #数据库<span class="number">2</span>监听端口</span></span></span><br><span class="line"></span><br><span class="line"><span class="setting">use_watchdog = <span class="value"><span class="keyword">on</span>           #启动watchdog</span></span></span><br><span class="line"></span><br><span class="line"><span class="setting">wd_hostname = <span class="value"><span class="string">'db1'</span>         #本机器名字</span></span></span><br><span class="line"><span class="setting">wd_port = <span class="value"><span class="number">9000</span>              #本机器上watchdog的监听端口</span></span></span><br><span class="line"></span><br><span class="line"><span class="setting">failover_command = <span class="value"><span class="string">'ssh -T %H "test ! -f /var/lib/pgsql/data/bak.trigger &amp;&amp; touch /var/lib/pgsql/data/bak.trigger"'</span></span></span></span><br><span class="line">                            <span class="comment">#本节点宕机后要执行的命令</span></span><br><span class="line"></span><br><span class="line"><span class="setting">delegate_IP = <span class="value"><span class="string">'10.0.61.250'</span> #虚拟ip</span></span></span><br><span class="line"></span><br><span class="line"><span class="setting">ifconfig_path = <span class="value"><span class="string">'/usr/sbin'</span> #ifconfig命令所在位置</span></span></span><br><span class="line"></span><br><span class="line"><span class="setting">if_up_cmd = <span class="value"><span class="string">'ifconfig ens3:0 inet $_IP_$ netmask 255.255.255.0'</span></span></span></span><br><span class="line">                            <span class="comment">#绑定虚拟ip的命令，其中ens3为网卡名称(通过ifconfig查看，</span></span><br><span class="line">                            <span class="comment">#大部分为eth0，其中$_IP_$为虚拟ip)</span></span><br><span class="line">                            </span><br><span class="line"><span class="setting">if_down_cmd = <span class="value"><span class="string">'ifconfig ens3:0 down'</span></span></span></span><br><span class="line">                            <span class="comment">#如果本节点关闭了，解绑虚拟ip的命令</span></span><br><span class="line">                            </span><br><span class="line"><span class="setting">arping_path = <span class="value"><span class="string">'/usr/sbin'</span>   #arping命令的所在目录</span></span></span><br><span class="line"></span><br><span class="line"><span class="setting">arping_cmd = <span class="value"><span class="string">'arping -U $_IP_$ -w 1'</span></span></span></span><br><span class="line">                            <span class="comment">#告诉其他机器，现在我是$_IP_$，如果ifconfig里显示ens3:0已经</span></span><br><span class="line">                            <span class="comment">#绑定了虚拟ip，但其他机器ping不通，很有可能这条命令没执行</span></span><br><span class="line"></span><br><span class="line"><span class="setting">heartbeat_destination0 = <span class="value"><span class="string">'db2'</span></span></span></span><br><span class="line">                            <span class="comment">#本集群其他机器需要心跳检测的机器</span></span><br><span class="line"><span class="setting">heartbeat_device0 = <span class="value"><span class="string">'ens3'</span>  #往哪个网口发心跳检测信号，根据自己的机器设置</span></span></span><br><span class="line">                            </span><br><span class="line"><span class="setting">other_pgpool_hostname0 = <span class="value"><span class="string">'db2'</span></span></span></span><br><span class="line">                            <span class="comment">#集群中其他部署了pgpool的机器</span></span><br><span class="line"><span class="setting">other_pgpool_port0 = <span class="value"><span class="number">9999</span></span></span></span><br><span class="line"><span class="setting">other_wd_port0 = <span class="value"><span class="number">9000</span></span></span></span><br></pre></td></tr></table></figure></p>
+<p>以上只是关键配置项，还有其他需要配置的信息，请参考：<a href="https://github.com/djskl/pgpool" target="_blank" rel="external">https://github.com/djskl/pgpool</a></p>
+<p>配置完之后，运行<code>chmod u+s /usr/sbin /usr/sbin/iconfig /usr/sbin/arping</code>来为ifconfig/arping设置<a href="https://en.wikipedia.org/wiki/Chmod#Special_modes" target="_blank" rel="external">s位</a>。</p>
+<p><strong>运行</strong><br>在db1,db2上先后运行<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">pgpool</span> -nd</span><br></pre></td></tr></table></figure></p>
+<p>然后在db1上运行<code>ifconfig</code>会看到,<code>10.0.61.250</code>已经绑定到了<code>ens3:0</code>：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ens3:<span class="number">0</span>: flags=<span class="number">4163</span>&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span class="number">1500</span></span><br><span class="line">        inet <span class="number">10.0</span><span class="number">.61</span><span class="number">.250</span>  netmask <span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span>  broadcast <span class="number">10.0</span><span class="number">.61</span><span class="number">.255</span></span><br><span class="line">        ether c8:<span class="number">00</span>:<span class="number">61</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">60</span>  txqueuelen <span class="number">1000</span>  (Ethernet)</span><br></pre></td></tr></table></figure></p>
+<p>在其他机器上ping一下10.0.61.250，发现也能ping通了</p>
+<p>进一步运行<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">su postgres</span><br><span class="line">psql -h <span class="number">10.0</span><span class="number">.61</span><span class="number">.250</span> -p <span class="number">9999</span></span><br><span class="line">show pool_nodes;</span><br></pre></td></tr></table></figure></p>
+<p>会看到<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> node_id |<span class="string"> hostname </span>|<span class="string"> port </span>|<span class="string"> status </span>|<span class="string"> lb_weight </span>|<span class="string">  role  </span><br><span class="line">---------+----------+------+--------+-----------+--------</span><br><span class="line"> 0       </span>|<span class="string"> db1      </span>|<span class="string"> 5432 </span>|<span class="string"> 2      </span>|<span class="string"> 0.500000  </span>|<span class="string"> master</span><br><span class="line"> 1       </span>|<span class="string"> db2      </span>|<span class="string"> 5432 </span>|<span class="string"> 2      </span>|<span class="string"> 0.500000  </span>|<span class="string"> slave</span><br><span class="line">(2 rows)</span></span><br></pre></td></tr></table></figure></p>
+<p>其中状态(status)一览用数字表示：</p>
+<blockquote>
+<p>0 - This state is only used during the initialization. PCP will never display it.<br>1 - Node is up. No connections yet.<br>2 - Node is up. Connections are pooled.<br>3 - Node is down.</p>
+</blockquote>
+<p><strong>实验</strong><br>1、关闭主库<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="constant">@db1</span> ~]<span class="preprocessor"># systemctl stop postgresql</span></span><br></pre></td></tr></table></figure></p>
+<p>稍等片刻，db2上的<code>recovery.conf</code>会被重命名为<code>recovery.done</code>，此时备份节点启动充当主节点，数据库依然可以通过10.0.61.250/9999对数据库进行读写，如果没有的话可以通过<code>pg_controldata</code>来查看，切换完成后集群状态为<code>in production</code>，正在备份则为<code>in archiving</code>，此时可通过db2的pg_log中的日志查看，一般就是提示连不上主库，该错误很可能是pgpool.conf中failover_command指定的命令执行失败导致的。</p>
+<p>重新主库后会出现数据不一致的情况，毕竟从库已经单独运行了，如果恢复为db1为master，db2为slave，需要首先将db2的数据备份db1，然后停掉db2上的数据库，并在db1上以postgres用户运行脚本rsync_standby.sh(具体代码附于文末)，最后重启db1,db2上的数据库即可。</p>
+<p>db1重新加入后，运行<code>show pool_nodes</code>会看到其状态变为了3，此时需要手动运行(root)<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pcp_attach_node <span class="number">10</span> db1 <span class="number">9898</span> postgres postgres <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p>通过这条命令将db1重新加入集群。</p>
+<p>2、db1断电<br>此时会看到db2上的pgpool的日志有这么几条：<br><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">wd_escalation</span>: <span class="string">escalating to master pgpool</span></span><br><span class="line"><span class="attribute">exec_ifconfig</span>: <span class="string">'ifconfig ens3:0 inet $_IP_$ netmask 255.255.255.0' succeeded</span></span><br><span class="line"><span class="attribute">exec_ifconfig</span>: <span class="string">'arping -U $_IP_$ -w 1' succeeded</span></span><br></pre></td></tr></table></figure></p>
+<p>说明10.0.61.250已漂至db2上。<br>早期版本(比如3.3.4)会出现exec_ifconfig执行失败的情况，返回的错误码是127,虽然如此，在从节点上运行ifconfig，你会发现，虚拟ip也已经绑定了，只是没执行arping命令。<br>刚开始以为是用户不对，本例中pgpool以root启动，怀疑db2在重新绑定虚拟ip时执行ifconfig的不是root，而是一个普通的用户，于是在代码里加上get_login，发现执行ifconfig的确实是root，那就奇怪了，在bash中，127一般代表这条命令不存在。它的源代码如下：<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">///pgpool-<span class="type">II</span>-<span class="number">3</span>.<span class="number">3</span>.<span class="number">10</span>/watchdog/wd_if.c</span><br><span class="line">pid = fork();</span><br><span class="line"><span class="keyword">if</span> (pid == <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">        close(<span class="type">STDOUT_FILENO</span>);</span><br><span class="line">        dup2(pfd[<span class="number">1</span>], <span class="type">STDOUT_FILENO</span>);</span><br><span class="line">        close(pfd[<span class="number">0</span>]);</span><br><span class="line">        status = execv(path,args);</span><br><span class="line">        exit(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">        free(buf);</span><br><span class="line">        close(pfd[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span> (;;)</span><br><span class="line">        &#123;</span><br><span class="line">                <span class="type">int</span> <span class="literal">result</span>;</span><br><span class="line">                <span class="literal">result</span> = waitpid(pid, &amp;status, <span class="number">0</span>);</span><br><span class="line">                <span class="keyword">if</span> (<span class="literal">result</span> &lt; <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                        <span class="keyword">if</span> (errno == <span class="type">EINTR</span>)</span><br><span class="line">                                <span class="keyword">continue</span>;</span><br><span class="line">                        pool_debug(<span class="string">"exec_ifconfig: wait() failed. reason: %s "</span>, strerror(errno));</span><br><span class="line">                        <span class="keyword">return</span> <span class="type">WD_NG</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (<span class="type">WIFEXITED</span>(status) == <span class="number">0</span> || <span class="type">WEXITSTATUS</span>(status) != <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                        pool_debug(<span class="string">"exec_ifconfig: '%s' failed. exit status: %d"</span>,</span><br><span class="line">                                   command, <span class="type">WEXITSTATUS</span>(status));</span><br><span class="line">                        <span class="keyword">return</span> <span class="type">WD_NG</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        close(pfd[<span class="number">0</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>ifconfig命令是通过<code>execv</code>执行的，在网上搜了一下，说返回127可能是因为<code>/bin/sh</code>调用失败导致的，但这也奇怪了，毕竟主节点运行成功了，去官网看了一下，在版本<a href="http://www.pgpool.net/docs/pgpool-II-3.3.10/doc/NEWS.txt" target="_blank" rel="external">升级日志</a>里，看到了一条疑似能解释这个问题的信息：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- Fix ill signal befavior of SIGCHLD in exec_ifconfig() (Tatsuo Ishii)</span><br><span class="line">      </span><br><span class="line">      For some reason SIGCHLD was <span class="operator"><span class="keyword">set</span> <span class="keyword">to</span> SIG_IGN *<span class="keyword">and</span>* tries <span class="keyword">to</span> <span class="keyword">wait</span></span><br><span class="line">      <span class="keyword">child</span> process which <span class="keyword">always</span> fails because SIGCHLD <span class="keyword">is</span> <span class="keyword">never</span> delivered.</span><br><span class="line">      Due <span class="keyword">to</span> this <span class="string">"ifconfig up"</span> fails <span class="keyword">when</span> switching <span class="keyword">to</span> watchdog <span class="keyword">master</span>.</span></span><br></pre></td></tr></table></figure></p>
+<p>貌似是信号处理出的问题(还是有点不明所以)</p>
+<p>最后，如果仅是pgpool master挂了，虚拟ip也会漂到db2上，此时不影响数据的正常运转(包括主从复制)</p>
+<p><strong>参考</strong><br><a href="http://www.pgpool.net/docs/latest/tutorial-zh_cn.html#replication" target="_blank" rel="external">pgpool-II 入门教程</a><br><a href="http://www.pgpool.net/pgpool-web/contrib_docs/watchdog/en.html" target="_blank" rel="external">pgpool-II Tutorial [ Watchdog ]</a><br><a href="http://francs3.blog.163.com/blog/static/4057672720149285445881/" target="_blank" rel="external">PostgreSQL 流复制 + Pgpool-II 实现高可用 HA</a><br><a href="http://my.oschina.net/Kenyon/blog/98217?fromerr=AqNh2572" target="_blank" rel="external">PostgreSQL的HA(主备切换)</a></p>
+<p><strong>附</strong>：rsync_standby.sh<br>此代码改自：<a href="https://yq.aliyun.com/articles/6049" target="_blank" rel="external">rsync增量重置备库</a><br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#/bin/<span class="keyword">sh</span> -x</span><br><span class="line">PRIMARY_HOST_NAME=db1</span><br><span class="line">RECOVERY_HOST_NAME=db2</span><br><span class="line">PRIMARY_PORT=5432</span><br><span class="line">STANDBY_PORT=5432</span><br><span class="line"></span><br><span class="line">SOURCE_CLUSTER=/<span class="keyword">var</span>/lib/pgsql/data</span><br><span class="line">DEST_CLUSTER=/<span class="keyword">var</span>/lib/pgsql/data</span><br><span class="line"></span><br><span class="line">psql -p <span class="label">$PRIMARY_PORT</span> -c <span class="string">"SELECT pg_start_backup('file_based_log_shipping', true)"</span> postgres</span><br><span class="line"></span><br><span class="line">/usr/bin/rsync -C -a -c --delete --exclude postmaster.pid \</span><br><span class="line">--exclude postgresql.<span class="keyword">conf</span> --exclude bak.trigger \</span><br><span class="line">--exclude postmaster.opts --exclude pg_log \</span><br><span class="line">--exclude recovery.<span class="keyword">conf</span> --exclude recovery.done \</span><br><span class="line">--exclude pg_xlog <span class="label">$SOURCE_CLUSTER</span>/ <span class="label">$RECOVERY_HOST_NAME</span>:<span class="label">$DEST_CLUSTER</span>/</span><br><span class="line"></span><br><span class="line">ssh -T <span class="label">$RECOVERY_HOST_NAME</span> /bin/<span class="keyword">rm</span> -rf <span class="label">$DEST_CLUSTER</span>/pg_xlog</span><br><span class="line">ssh -T <span class="label">$RECOVERY_HOST_NAME</span> /bin/<span class="keyword">mkdir</span> <span class="label">$DEST_CLUSTER</span>/pg_xlog</span><br><span class="line">ssh -T <span class="label">$RECOVERY_HOST_NAME</span> /bin/chmod 700 <span class="label">$DEST_CLUSTER</span>/pg_xlog</span><br><span class="line">ssh -T <span class="label">$RECOVERY_HOST_NAME</span> /bin/<span class="keyword">rm</span> -rf <span class="label">$DEST_CLUSTER</span>/recovery.done</span><br><span class="line">ssh -T <span class="label">$RECOVERY_HOST_NAME</span> "/bin/<span class="keyword">cat</span> &gt; <span class="label">$DEST_CLUSTER</span>/recovery.<span class="keyword">conf</span> &lt;&lt;EOF</span><br><span class="line">standby_mode = <span class="keyword">on</span></span><br><span class="line">primary_conninfo = 'port=<span class="label">$PRIMARY_PORT</span> user=postgres host=<span class="label">$PRIMARY_HOST_NAME</span>'</span><br><span class="line">recovery_target_timeline = 'latest'</span><br><span class="line">trigger_file = '/<span class="keyword">var</span>/lib/pgsql/data/bak.trigger'</span><br><span class="line">EOF"</span><br><span class="line"></span><br><span class="line">ssh -T <span class="label">$RECOVERY_HOST_NAME</span> <span class="string">"sed -i 's/$PRIMARY_PORT/$STANDBY_PORT/g' $DEST_CLUSTER/postgresql.conf"</span></span><br><span class="line">psql -p <span class="label">$PRIMARY_PORT</span> -c <span class="string">"SELECT pg_stop_backup()"</span> postgres</span><br></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://1988zxh.com/2016/06/05/基于Pgpool-II与StreamingReplication实现postgresql的主备切换/" data-title="基于Pgpool-II与Streaming Replication实现postgresql的主备切换 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/05/31/rsync文件过滤/"  title="rsync文件过滤">
+ <strong>下一篇：</strong><br/> 
+ <span>rsync文件过滤
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/06/05/基于Pgpool-II与StreamingReplication实现postgresql的主备切换/" data-title="基于Pgpool-II与Streaming Replication实现postgresql的主备切换" data-url="http://1988zxh.com/2016/06/05/基于Pgpool-II与StreamingReplication实现postgresql的主备切换/"></div>
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"djskl"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/django/" title="django">django<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/openlayers/" title="openlayers">openlayers<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>34</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spyne/" title="spyne">spyne<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/装饰器/" title="装饰器">装饰器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+<script type="text/javascript">
+(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+_st('install','RFzyQ_eKhxpGo1Snfgpj','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"djskl"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

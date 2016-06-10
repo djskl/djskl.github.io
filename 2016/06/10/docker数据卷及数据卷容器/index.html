@@ -5,29 +5,26 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>python中的反斜杠 | ideas into codes</title>
+    <title>docker数据卷及数据卷容器 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="以下引自：Lexical analysis / String literals
-
-When an ‘r’ or ‘R’ prefix is present, a character following a backslash is included in the string without change, and all backslashes are left in the string. F">
+    <meta name="description" content="docker容器的文件系统是在启动的时候创建的，其中的文件内容继承自静态的镜像(image)，image中的文件是只读的，启动的容器在其上又覆盖了一层可读写的文件系统。对于来自image文件，容器只有在需要改动的时候才会将其拷贝的自己的空间里(copy on write)，但改变了的内容不会自动写回image的原文件，所以当容器重启时其写入自身文件系统的内容都会丢失。
+为了防止数据丢失，实现数据的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python中的反斜杠">
-<meta property="og:url" content="http://1988zxh.com/2015/10/11/python中的反斜杠/index.html">
+<meta property="og:title" content="docker数据卷及数据卷容器">
+<meta property="og:url" content="http://1988zxh.com/2016/06/10/docker数据卷及数据卷容器/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="以下引自：Lexical analysis / String literals
-
-When an ‘r’ or ‘R’ prefix is present, a character following a backslash is included in the string without change, and all backslashes are left in the string. F">
-<meta property="og:updated_time" content="2015-10-11T01:23:49.000Z">
+<meta property="og:description" content="docker容器的文件系统是在启动的时候创建的，其中的文件内容继承自静态的镜像(image)，image中的文件是只读的，启动的容器在其上又覆盖了一层可读写的文件系统。对于来自image文件，容器只有在需要改动的时候才会将其拷贝的自己的空间里(copy on write)，但改变了的内容不会自动写回image的原文件，所以当容器重启时其写入自身文件系统的内容都会丢失。
+为了防止数据丢失，实现数据的">
+<meta property="og:updated_time" content="2016-06-10T09:08:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python中的反斜杠">
-<meta name="twitter:description" content="以下引自：Lexical analysis / String literals
-
-When an ‘r’ or ‘R’ prefix is present, a character following a backslash is included in the string without change, and all backslashes are left in the string. F">
+<meta name="twitter:title" content="docker数据卷及数据卷容器">
+<meta name="twitter:description" content="docker容器的文件系统是在启动的时候创建的，其中的文件内容继承自静态的镜像(image)，image中的文件是只读的，启动的容器在其上又覆盖了一层可读写的文件系统。对于来自image文件，容器只有在需要改动的时候才会将其拷贝的自己的空间里(copy on write)，但改变了的内容不会自动写回image的原文件，所以当容器重启时其写入自身文件系统的内容都会丢失。
+为了防止数据丢失，实现数据的">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -85,31 +82,37 @@ When an ‘r’ or ‘R’ prefix is present, a character following a backslash 
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/11/python中的反斜杠/" title="python中的反斜杠" itemprop="url">python中的反斜杠</a>
+      <a href="/2016/06/10/docker数据卷及数据卷容器/" title="docker数据卷及数据卷容器" itemprop="url">docker数据卷及数据卷容器</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-10T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-10-11</time>
+    <time datetime="2016-06-09T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-06-10</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>以下引自：<a href="https://docs.python.org/2/reference/lexical_analysis.html#string-literals" target="_blank" rel="external">Lexical analysis / String literals</a></p>
+		<p>docker容器的文件系统是在启动的时候创建的，其中的文件内容继承自静态的镜像(image)，image中的文件是只读的，启动的容器在其上又覆盖了一层可读写的文件系统。对于来自image文件，容器只有在需要改动的时候才会将其拷贝的自己的空间里(copy on write)，但改变了的内容不会自动写回image的原文件，所以当容器重启时其写入自身文件系统的内容都会丢失。</p>
+<p>为了防止数据丢失，实现数据的持久化，可以将宿主的文件系统以<strong>数据卷</strong>的形式加载到容器中，这样容器的读写都在宿主的物理硬盘，数据就不会丢失了。</p>
+<p><strong>创建一个数据卷</strong><br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="command">run</span> -i -t <span class="comment">--name mydb -v /webapp fedora /bin/bash</span></span><br></pre></td></tr></table></figure></p>
+<p>这样就在<code>mydb</code>容器中加载了一个数据卷<code>/webapp</code>。启动该容器后，通过<code>docker ps</code>查看：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">f3b4bdcdc738        fedora:latest       <span class="string">"/bin/bash"</span>         <span class="number">8</span> minutes ago       Up <span class="number">6</span> minutes                            mydb</span><br></pre></td></tr></table></figure></p>
+<p><code>webapp</code>会映射到宿主机硬盘上的一个目录，可通过以下命令查看：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@zxh</span> ~]<span class="comment"># docker inspect -f '&#123;&#123; .Volumes &#125;&#125;' mydb</span></span><br><span class="line">map[<span class="regexp">/webapp:/var</span><span class="regexp">/lib/docker</span><span class="regexp">/vfs/dir</span><span class="regexp">/e2c223...8b47]</span></span><br></pre></td></tr></table></figure></p>
+<p>由此可知，<code>webapp</code>挂载在了宿主机的<code>/var/lib/docker/vfs/dir/e2c223...8b47</code>目录下。</p>
+<p>在宿主机的挂载目录下新建文件<code>touch hello.txt</code>，然后跑到mydb容器中的<code>webapp</code>目录下查看：<br><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">[root@f3b4bdcdc738 webapp]</span># ll</span><br><span class="line">total 0</span><br><span class="line">-rw-r--r-- 1 root root 0 Jun 10 08:58 hello.txt</span><br></pre></td></tr></table></figure></p>
+<p>也可以明确指定挂载点：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="command">run</span> -i -t <span class="comment">--name mydb -v /webapp:/root/webapp fedora /bin/bash</span></span><br></pre></td></tr></table></figure></p>
+<p>加载的数据卷默认的权限为读写(rw)权限，这个可以在加载的时候手动指定。</p>
+<p><strong>创建并挂载数据卷容器</strong><br>为了方便容器间的数据共享，可以考虑创建专门的数据卷容器(有点像数据库)，来存储、管理数据。<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -v /dbdata --<span class="keyword">name</span> dbdata fedora echo <span class="type">Data</span>-<span class="keyword">only</span> container</span><br></pre></td></tr></table></figure></p>
+<p>然后可以通过<code>--volumes-from</code>来加载数据卷容器。<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="command">run</span> -i -t <span class="comment">--volumes-from dbdata --name cnt1 fedora /bin/bash</span></span><br><span class="line">docker <span class="command">run</span> -i -t <span class="comment">--volumes-from dbdata --name cnt2 fedora /bin/bash</span></span><br></pre></td></tr></table></figure></p>
+<p>也可以通过已挂载了数据卷的容器来挂载数据卷：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="command">run</span> -i -t <span class="comment">--volumes-from cnt1 --name cnt3 fedora /bin/bash</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>后记</strong><br>因为莫名其妙的原因，在使用<code>docker pull fedora</code>拉取官方的fedora镜像时老是报错：</p>
 <blockquote>
-<p>When an ‘r’ or ‘R’ prefix is present, a character following a backslash is included in the string without change, and all backslashes are left in the string. For example, the string literal r”\n” consists of two characters: a backslash and a lowercase ‘n’. String quotes can be escaped with a backslash, but the backslash remains in the string; for example, r”\”” is a valid string literal consisting of two characters: a backslash and a double quote; r”\” is not a valid string literal (even a raw string cannot end in an odd number of backslashes). Specifically, a raw string cannot end in a single backslash (since the backslash would escape the following quote character). Note also that a single backslash followed by a newline is interpreted as those two characters as part of the string, not as a line continuation.</p>
+<p>FATA[0017] Could not reach any registry endpoint</p>
 </blockquote>
-<p>如果字符串以<code>r</code>或<code>R</code> (raw)开始，则反斜杠后跟的字符会以原始形式出现在字符串中：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#62;&#62;&#62; print &#39;\\&#39;&#10;\&#10;&#62;&#62;&#62; print r&#39;\\&#39;&#10;\\&#10;&#62;&#62;&#62; print &#39;\n&#39;&#10;#&#27492;&#22788;&#26377;2&#20010;&#31354;&#34892;&#10;&#10;&#62;&#62;&#62; print r&#39;\n&#39;&#10;\n&#10;&#62;&#62;&#62; print &#39;\&#39;&#39;&#10;&#39;&#10;&#62;&#62;&#62; print r&#39;\&#39;&#39;&#10;\&#39;&#10;&#62;&#62;&#62; print r&#39;\&#39;&#10;  File &#34;&#60;stdin&#62;&#34;, line 1&#10;    print r&#39;\&#39;&#10;             ^&#10;SyntaxError: EOL while scanning string literal</span><br></pre></td></tr></table></figure></p>
-<p><code>r</code>首先是消除了反斜杠转义意义，然后将反斜杠后的字符以原始形式加入到字符串中。</p>
-<p>在正则表达式中，如果要匹配反斜杠，需要用<code>\\</code>，如果前缀不是<code>r</code>，则经过python一转义，在正则表达式里就剩一个<code>\</code>了，为了转义这两个<code>\\</code>，需要用4个<code>\\\\</code>，此时可用r<code>\\</code>来表示<code>\\\\</code>。</p>
-<p>以下引自<a href="https://docs.python.org/2/library/re.html#module-re" target="_blank" rel="external">re — Regular expression operations</a></p>
-<blockquote>
-<p>Regular expressions use the backslash character (‘\’) to indicate special forms or to allow special characters to be used without invoking their special meaning. This collides with Python’s usage of the same character for the same purpose in string literals; for example, to match a literal backslash, one might have to write ‘\\‘ as the pattern string, because the regular expression must be \, and each backslash must be expressed as \ inside a regular Python string literal.</p>
-<p>The solution is to use Python’s raw string notation for regular expression patterns; backslashes are not handled in any special way in a string literal prefixed with ‘r’. So r”\n” is a two-character string containing ‘\’ and ‘n’, while “\n” is a one-character string containing a newline. Usually patterns will be expressed in Python code using this raw string notation.</p>
-</blockquote>
+<p>网上搜到了<a href="http://www.alauda.cn/" target="_blank" rel="external">灵雀云.容器服务</a>提供的镜像服务：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull index<span class="class">.alauda</span><span class="class">.cn</span>/library/fedora</span><br></pre></td></tr></table></figure></p>
+<p><strong>参考</strong><br><a href="http://wiki.jikexueyuan.com/project/docker-technology-and-combat/senior-publishing-mechanism.html" target="_blank" rel="external">Docker从入门到实践–数据卷</a><br><a href="http://blog.csdn.net/wqzghost/article/details/44813701" target="_blank" rel="external">剖析Docker文件系统：Aufs与Devicemapper</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -117,7 +120,7 @@ When an ‘r’ or ‘R’ prefix is present, a character following a backslash 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/python/">python</a>
+  <a class="article-category-link" href="/categories/Docker/">Docker</a>
 </div>
 
 
@@ -127,7 +130,7 @@ When an ‘r’ or ‘R’ prefix is present, a character following a backslash 
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/10/11/python中的反斜杠/" data-title="python中的反斜杠 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/06/10/docker数据卷及数据卷容器/" data-title="docker数据卷及数据卷容器 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -140,19 +143,11 @@ When an ‘r’ or ‘R’ prefix is present, a character following a backslash 
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/10/11/Django通过一次性链接激活用户/" title="Django通过一次性链接激活用户">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Django通过一次性链接激活用户</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/09/25/django条件继承父模板/"  title="django条件继承父模板">
+<a href="/2016/06/05/基于Pgpool-II与StreamingReplication实现postgresql的主备切换/"  title="基于Pgpool-II与Streaming Replication实现postgresql的主备切换">
  <strong>下一篇：</strong><br/> 
- <span>django条件继承父模板
+ <span>基于Pgpool-II与Streaming Replication实现postgresql的主备切换
 </span>
 </a>
 </div>
@@ -161,7 +156,7 @@ When an ‘r’ or ‘R’ prefix is present, a character following a backslash 
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/10/11/python中的反斜杠/" data-title="python中的反斜杠" data-url="http://1988zxh.com/2015/10/11/python中的反斜杠/"></div>
+	<div class="ds-thread" data-thread-key="2016/06/10/docker数据卷及数据卷容器/" data-title="docker数据卷及数据卷容器" data-url="http://1988zxh.com/2016/06/10/docker数据卷及数据卷容器/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

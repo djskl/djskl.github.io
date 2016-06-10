@@ -77,16 +77,16 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/02/29/Django访问数据库集群/" title="Django访问数据库集群" itemprop="url">
+    <a href="/2016/03/03/Postgresql持续归档与PITR/" title="Postgresql持续归档与PITR" itemprop="url">
   
-    <h1 itemprop="name">Django访问数据库集群</h1>
+    <h1 itemprop="name">Postgresql持续归档与PITR</h1>
     
      
-           <p itemprop="description" >一般数据库都需要部署成集群，有的负责读，有的负责写，这样不但可以减轻单点压力，还是提高数据检索速度。Django正好提供了一个操作多数据库的router。
-数据库的定义：123456789101112131415161718192021222324252627DATABASES </p>
+           <p itemprop="description" >为了便于数据备份与恢复，需要先将针对数据库的更新操作写到WAL日志中，然后在适当的时候(check-point)将WAL(write-ahead log)中的操作实际刷新到硬盘中的数据文件中。
+在postgresql(Fedora)中，WAL日志存储/var/lib/psql/d</p>
         
     
-    <time datetime="2016-02-28T16:00:00.000Z" itemprop="datePublished">2016-02-29</time>
+    <time datetime="2016-03-02T16:00:00.000Z" itemprop="datePublished">2016-03-03</time>
   </a>
 </section>
 
@@ -106,6 +106,27 @@
            <p itemprop="description" >正常情况下，通过线程的属性ident获取到的线程id与通过ps/top等命令看到的是不一样的。官方对ident的解释如下：
 
 This is a nonzero integer. Its value has no direct meaning; it is intended as</p>
+        
+    
+    <time datetime="2016-02-28T16:00:00.000Z" itemprop="datePublished">2016-02-29</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/02/29/Django访问数据库集群/" title="Django访问数据库集群" itemprop="url">
+  
+    <h1 itemprop="name">Django访问数据库集群</h1>
+    
+     
+           <p itemprop="description" >一般数据库都需要部署成集群，有的负责读，有的负责写，这样不但可以减轻单点压力，还是提高数据检索速度。Django正好提供了一个操作多数据库的router。
+数据库的定义：123456789101112131415161718192021222324252627DATABASES </p>
         
     
     <time datetime="2016-02-28T16:00:00.000Z" itemprop="datePublished">2016-02-29</time>
@@ -268,29 +289,6 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/01/23/老虎绕湖追狗的问题/" title="老虎绕湖追狗的问题" itemprop="url">
-  
-    <h1 itemprop="name">老虎绕湖追狗的问题</h1>
-    
-     
-           <p itemprop="description" >一只老虎正在追一条狗，狗扑通一声跳到了一个圆形的湖里，问满足什么条件狗才能从湖里游到岸边时不被老虎抓住？
-
-假设湖的半径为r，老虎在岸上的速度为v1，狗的速度为v2。
-狗跳到湖里后，肯定会先游到湖中心，然后再向岸边游。最简单的选择是沿着与老虎相反的直线方向(一条直径)往岸边游，此</p>
-        
-    
-    <time datetime="2016-01-22T16:00:00.000Z" itemprop="datePublished">2016-01-23</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
@@ -307,6 +305,10 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
 <div class="categorieslist">
 	<p class="asidetitle">分类</p>
 		<ul>
+		
+		  
+			<li><a href="/categories/Docker/" title="Docker">Docker<sup>1</sup></a></li>
+		  
 		
 		  
 			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>

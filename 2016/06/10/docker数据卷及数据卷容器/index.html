@@ -20,7 +20,7 @@
 <meta property="og:site_name" content="ideas into codes">
 <meta property="og:description" content="docker容器的文件系统是在启动的时候创建的，其中的文件内容继承自静态的镜像(image)，image中的文件是只读的，启动的容器在其上又覆盖了一层可读写的文件系统。对于来自image文件，容器只有在需要改动的时候才会将其拷贝的自己的空间里(copy on write)，但改变了的内容不会自动写回image的原文件，所以当容器重启时其写入自身文件系统的内容都会丢失。
 为了防止数据丢失，实现数据的">
-<meta property="og:updated_time" content="2016-06-10T09:12:39.000Z">
+<meta property="og:updated_time" content="2016-06-10T09:16:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker数据卷及数据卷容器">
 <meta name="twitter:description" content="docker容器的文件系统是在启动的时候创建的，其中的文件内容继承自静态的镜像(image)，image中的文件是只读的，启动的容器在其上又覆盖了一层可读写的文件系统。对于来自image文件，容器只有在需要改动的时候才会将其拷贝的自己的空间里(copy on write)，但改变了的内容不会自动写回image的原文件，所以当容器重启时其写入自身文件系统的内容都会丢失。
@@ -120,7 +120,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Docker/">Docker</a>
+  <a class="article-category-link" href="/categories/docker/">docker</a>
 </div>
 
 
@@ -189,15 +189,15 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/Docker/" title="Docker">Docker<sup>1</sup></a></li>
-		  
-		
-		  
 			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>
 		  
 		
 		  
 			<li><a href="/categories/django/" title="django">django<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>1</sup></a></li>
 		  
 		
 		  

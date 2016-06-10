@@ -20,7 +20,7 @@
 <meta property="og:site_name" content="ideas into codes">
 <meta property="og:description" content="docker容器的文件系统是在启动的时候创建的，其中的文件内容继承自静态的镜像(image)，image中的文件是只读的，启动的容器在其上又覆盖了一层可读写的文件系统。对于来自image文件，容器只有在需要改动的时候才会将其拷贝的自己的空间里(copy on write)，但改变了的内容不会自动写回image的原文件，所以当容器重启时其写入自身文件系统的内容都会丢失。
 为了防止数据丢失，实现数据的">
-<meta property="og:updated_time" content="2016-06-10T09:08:00.000Z">
+<meta property="og:updated_time" content="2016-06-10T09:12:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker数据卷及数据卷容器">
 <meta name="twitter:description" content="docker容器的文件系统是在启动的时候创建的，其中的文件内容继承自静态的镜像(image)，image中的文件是只读的，启动的容器在其上又覆盖了一层可读写的文件系统。对于来自image文件，容器只有在需要改动的时候才会将其拷贝的自己的空间里(copy on write)，但改变了的内容不会自动写回image的原文件，所以当容器重启时其写入自身文件系统的内容都会丢失。
@@ -111,7 +111,7 @@
 <blockquote>
 <p>FATA[0017] Could not reach any registry endpoint</p>
 </blockquote>
-<p>网上搜到了<a href="http://www.alauda.cn/" target="_blank" rel="external">灵雀云.容器服务</a>提供的镜像服务：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull index<span class="class">.alauda</span><span class="class">.cn</span>/library/fedora</span><br></pre></td></tr></table></figure></p>
+<p>后来网上搜到了<a href="http://www.alauda.cn/" target="_blank" rel="external">灵雀云.容器服务</a>提供的镜像服务：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull index<span class="class">.alauda</span><span class="class">.cn</span>/library/fedora</span><br></pre></td></tr></table></figure></p>
 <p><strong>参考</strong><br><a href="http://wiki.jikexueyuan.com/project/docker-technology-and-combat/senior-publishing-mechanism.html" target="_blank" rel="external">Docker从入门到实践–数据卷</a><br><a href="http://blog.csdn.net/wqzghost/article/details/44813701" target="_blank" rel="external">剖析Docker文件系统：Aufs与Devicemapper</a></p>
   
 	</div>

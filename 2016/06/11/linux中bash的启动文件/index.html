@@ -5,29 +5,26 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>LeetCode之Remove Duplicate Letters | ideas into codes</title>
+    <title>linux中bash的启动文件 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="问题：
-
-Given a string which contains only lowercase letters, remove duplicate letters so that every letter appear once and only once. You must make sure your result is the smallest in lexicographical or">
+    <meta name="description" content="当我们在某个linux中打开了终端(Terminal)或者ssh到了某个机器，或者直接登陆进入某个只有”命令行”的机器，直接跟我们打交道的都是一个叫做shell的东西，shell的实现方式有很多种(bash, ksh,zsh等等)，目前应用最广的是bash，几乎成了shell的代名词。
+登陆到系统,在命令行中查看：123456[root@zxh ~]# ps -ef|grep bashroot">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode之Remove Duplicate Letters">
-<meta property="og:url" content="http://1988zxh.com/2015/12/15/LeetCode之Remove Duplicate Letters/index.html">
+<meta property="og:title" content="linux中bash的启动文件">
+<meta property="og:url" content="http://1988zxh.com/2016/06/11/linux中bash的启动文件/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="问题：
-
-Given a string which contains only lowercase letters, remove duplicate letters so that every letter appear once and only once. You must make sure your result is the smallest in lexicographical or">
-<meta property="og:updated_time" content="2015-12-15T13:44:41.000Z">
+<meta property="og:description" content="当我们在某个linux中打开了终端(Terminal)或者ssh到了某个机器，或者直接登陆进入某个只有”命令行”的机器，直接跟我们打交道的都是一个叫做shell的东西，shell的实现方式有很多种(bash, ksh,zsh等等)，目前应用最广的是bash，几乎成了shell的代名词。
+登陆到系统,在命令行中查看：123456[root@zxh ~]# ps -ef|grep bashroot">
+<meta property="og:updated_time" content="2016-06-11T03:50:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode之Remove Duplicate Letters">
-<meta name="twitter:description" content="问题：
-
-Given a string which contains only lowercase letters, remove duplicate letters so that every letter appear once and only once. You must make sure your result is the smallest in lexicographical or">
+<meta name="twitter:title" content="linux中bash的启动文件">
+<meta name="twitter:description" content="当我们在某个linux中打开了终端(Terminal)或者ssh到了某个机器，或者直接登陆进入某个只有”命令行”的机器，直接跟我们打交道的都是一个叫做shell的东西，shell的实现方式有很多种(bash, ksh,zsh等等)，目前应用最广的是bash，几乎成了shell的代名词。
+登陆到系统,在命令行中查看：123456[root@zxh ~]# ps -ef|grep bashroot">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -85,28 +82,27 @@ Given a string which contains only lowercase letters, remove duplicate letters s
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/12/15/LeetCode之Remove Duplicate Letters/" title="LeetCode之Remove Duplicate Letters" itemprop="url">LeetCode之Remove Duplicate Letters</a>
+      <a href="/2016/06/11/linux中bash的启动文件/" title="linux中bash的启动文件" itemprop="url">linux中bash的启动文件</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-12-14T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-12-15</time>
+    <time datetime="2016-06-10T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-06-11</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p><strong>问题</strong>：</p>
-<blockquote>
-<p>Given a string which contains only lowercase letters, remove duplicate letters so that every letter appear once and only once. You must make sure your result is the smallest in lexicographical order among all possible results.<br>比如：”bcabc” —&gt; “abc”; “cbacdcbc” —&gt; “acdb”</p>
-</blockquote>
-<p><strong>思路</strong>：<br>假设给定字符串中唯一元素的总个数为 <strong>N</strong>，则某个元素能不能出现在位置 <strong>x(x=1,2,3…)</strong>上，就看排在它后面的唯一元素的个数<strong>n</strong>是否满足 <strong>x + n &gt;= N</strong>，对于所有满足这个条件的字符<strong>c</strong>，选取一个字典序最小的，然后在令<strong>n = n - 1</strong>，选取下一个字符，直至<strong>n=0</strong>。</p>
-<p>基于以上思路的算法可以大体分为2步：<br>1、遍历一遍字符串，计算出每个位置到字符串末尾所包含的唯一元素的个数，得到个数数组<strong>occurs</strong>, 遍历结束后还可得到唯一元素总数<strong>N</strong>；<br>2、令<strong>n=N</strong>, 从头遍历<strong>occurs</strong>, 找到满足出现次数不小于<strong>n-1</strong>的且字典序最小的字符，然后令<strong>n=n-1</strong>，继续循环，直至<strong>n=-1</strong>。考虑到已选取的字符不会再次作为候选字符了，所以每选取一个都需要更新一下个数数组<strong>occurs</strong>。</p>
-<p>例子如下：<br><code>s = &quot;cbacdcbc&quot;</code>对应的个数数组如下：<br>|c|b|a|c|d|c|b|c|<br>|3|3|3|2|2|1|1|0|<br>第一次满足条件的是c, b, a，我们选取字典序最小的a，其次是c，考虑到c被选取之后就不能再被当作候选的字符了，所以d与b对应的个数都应该减1，如此循环。</p>
-<p>代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">removeDuplicateLetters</span><span class="params">(self, s)</span>:</span></span><br><span class="line">        <span class="string">"""</span><br><span class="line">        :type s: str</span><br><span class="line">        :rtype: str</span><br><span class="line">        """</span></span><br><span class="line">        uniques, size = set(), <span class="number">0</span></span><br><span class="line">        totals = len(s)</span><br><span class="line">        occurs = [<span class="number">0</span>]*totals</span><br><span class="line">        indexs = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> idx <span class="keyword">in</span> range(totals-<span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">            c = s[idx]</span><br><span class="line">            <span class="keyword">if</span> c <span class="keyword">in</span> uniques:</span><br><span class="line">                occurs[idx] = size-<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                indexs[c] = idx</span><br><span class="line">                occurs[idx] = size</span><br><span class="line">                uniques.add(c)</span><br><span class="line">                size += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        beg, k = <span class="number">0</span>, size-<span class="number">1</span></span><br><span class="line">        rst = []</span><br><span class="line">        choosen = set()</span><br><span class="line">        <span class="keyword">while</span> k &gt; -<span class="number">1</span>:</span><br><span class="line">            tmp = <span class="string">'z'</span></span><br><span class="line">            <span class="keyword">for</span> idx <span class="keyword">in</span> range(beg, totals):</span><br><span class="line">                <span class="keyword">if</span> occurs[idx] &gt;= k:</span><br><span class="line">                    <span class="keyword">if</span> s[idx] &lt; tmp <span class="keyword">and</span> s[idx] <span class="keyword">not</span> <span class="keyword">in</span> choosen:</span><br><span class="line">                        beg = idx</span><br><span class="line">                        tmp = s[idx]</span><br><span class="line">                        </span><br><span class="line">            rst.append(tmp)</span><br><span class="line">            choosen.add(tmp)</span><br><span class="line">            k -= <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">            end = indexs[tmp]</span><br><span class="line">            <span class="keyword">for</span> idx <span class="keyword">in</span> range(beg+<span class="number">1</span>, end):</span><br><span class="line">                occurs[idx] -= <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="string">""</span>.join(rst)</span><br></pre></td></tr></table></figure></p>
-<p><strong>后记</strong><br>这个问题尝试了3种不同的思路，搞了2个晚上，总共提交了8次才成功，而且才击败了百分之四十几的人，真是拖了后腿了。。。</p>
+		<p>当我们在某个linux中打开了终端(Terminal)或者ssh到了某个机器，或者直接登陆进入某个只有”命令行”的机器，直接跟我们打交道的都是一个叫做shell的东西，shell的实现方式有很多种(bash, ksh,zsh等等)，目前应用最广的是<code>bash</code>，几乎成了shell的代名词。</p>
+<p>登陆到系统,在命令行中查看：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@zxh ~]<span class="preprocessor"># ps -ef|grep bash</span></span><br><span class="line">root     <span class="number">10408</span> <span class="number">10400</span>  <span class="number">0</span> <span class="number">11</span>:<span class="number">34</span> pts/<span class="number">0</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> bash</span><br><span class="line">root     <span class="number">10602</span> <span class="number">10400</span>  <span class="number">0</span> <span class="number">11</span>:<span class="number">39</span> pts/<span class="number">1</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> bash</span><br><span class="line">root     <span class="number">10631</span> <span class="number">10400</span>  <span class="number">1</span> <span class="number">11</span>:<span class="number">39</span> pts/<span class="number">2</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> bash</span><br><span class="line">root     <span class="number">10658</span> <span class="number">10400</span>  <span class="number">2</span> <span class="number">11</span>:<span class="number">39</span> pts/<span class="number">3</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> bash</span><br><span class="line">root     <span class="number">10686</span> <span class="number">10408</span>  <span class="number">0</span> <span class="number">11</span>:<span class="number">39</span> pts/<span class="number">0</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> grep --color=<span class="keyword">auto</span> bash</span><br></pre></td></tr></table></figure></p>
+<p>会发现至少有一个bash程序在运行，且有几个终端就会有几个bash。</p>
+<p>bash的启动可以分为登陆方式、非登陆方式以及脚本方式。</p>
+<p>用户输入用户名/登陆密码后启动的bash即是以登陆方式启动，主要加载以下3个文件：<br>1、<code>/etc/profile</code>：该文件中包含了一些系统级别的环境变量或启动程序，该文件会影响到每一个登陆到该系统的用户，所以修改要慎重。<br>2、<code>~/.bash_profile或~/.bash_login或~/.profile</code>，先找到谁就加载谁，剩下的直接忽略这个是用户级别的，对这个文件的修改只会影响到用户自己。<br>3、<code>~/.bashrc</code>这个是与bash绑定的，每启动一次都会加载并执行一次。</p>
+<p>用户登陆之后再启动的bash都是以非登陆方式启动的，此时只会加载并运行<code>~/.bashrc</code>。</p>
+<p>运行脚本时启动的bash会加载并执行<code>BASH_ENV</code>指定的文件：<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="constant">@zxh</span> ~]<span class="preprocessor"># echo $BASH_ENV</span></span><br><span class="line"></span><br><span class="line">[root<span class="constant">@zxh</span> ~]<span class="preprocessor"># echo <span class="string">'echo $a &gt; 1.sh'</span></span></span><br><span class="line">echo <span class="variable">$a</span> &gt; <span class="number">1.</span>sh</span><br><span class="line">[root<span class="constant">@zxh</span> ~]<span class="preprocessor"># echo <span class="string">'echo $a'</span> &gt; 1.sh</span></span><br><span class="line">[root<span class="constant">@zxh</span> ~]<span class="preprocessor"># chmod a+x 1.sh </span></span><br><span class="line">[root<span class="constant">@zxh</span> ~]<span class="preprocessor"># ./1.sh </span></span><br><span class="line"></span><br><span class="line">[root<span class="constant">@zxh</span> ~]<span class="preprocessor"># export BASH_ENV=<span class="string">'/root/start.sh'</span></span></span><br><span class="line">[root<span class="constant">@zxh</span> ~]<span class="preprocessor"># echo <span class="string">'a=nihao'</span> &gt; /root/start.sh</span></span><br><span class="line">[root<span class="constant">@zxh</span> ~]<span class="preprocessor"># ./1.sh </span></span><br><span class="line">nihao</span><br></pre></td></tr></table></figure></p>
+<p><strong>参考</strong><br><a href="http://mp.weixin.qq.com/s?__biz=MzIxNDMyODgyMA==&amp;mid=2247483669&amp;idx=1&amp;sn=c29eb916825afa013e50b3cab5da7c87&amp;scene=0#wechat_redirect" target="_blank" rel="external">SHELL编程之执行环境</a><br><a href="http://blog.chinaunix.net/uid-27571599-id-3364003.html" target="_blank" rel="external">shell初学指南之之bash的启动文件</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -114,7 +110,7 @@ Given a string which contains only lowercase letters, remove duplicate letters s
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/算法/">算法</a>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
 </div>
 
 
@@ -124,7 +120,7 @@ Given a string which contains only lowercase letters, remove duplicate letters s
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/12/15/LeetCode之Remove Duplicate Letters/" data-title="LeetCode之Remove Duplicate Letters | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/06/11/linux中bash的启动文件/" data-title="linux中bash的启动文件 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -137,19 +133,11 @@ Given a string which contains only lowercase letters, remove duplicate letters s
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/12/19/不同文件大小对读取速率的影响/" title="不同文件大小对读取速率的影响">
-  <strong>上一篇：</strong><br/>
-  <span>
-  不同文件大小对读取速率的影响</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/12/15/地图上鼠标悬停及Feature选择的实现/"  title="地图上鼠标单击及悬浮事件实现">
+<a href="/2016/06/10/docker数据卷及数据卷容器/"  title="docker数据卷及数据卷容器">
  <strong>下一篇：</strong><br/> 
- <span>地图上鼠标单击及悬浮事件实现
+ <span>docker数据卷及数据卷容器
 </span>
 </a>
 </div>
@@ -158,7 +146,7 @@ Given a string which contains only lowercase letters, remove duplicate letters s
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/12/15/LeetCode之Remove Duplicate Letters/" data-title="LeetCode之Remove Duplicate Letters" data-url="http://1988zxh.com/2015/12/15/LeetCode之Remove Duplicate Letters/"></div>
+	<div class="ds-thread" data-thread-key="2016/06/11/linux中bash的启动文件/" data-title="linux中bash的启动文件" data-url="http://1988zxh.com/2016/06/11/linux中bash的启动文件/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

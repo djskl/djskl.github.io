@@ -77,6 +77,26 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2016/01/12/在uwsgi的子线程中访问request.META的问题/" title="在uwsgi的子线程中访问request.META的问题" itemprop="url">
+  
+    <h1 itemprop="name">在uwsgi的子线程中访问request.META的问题</h1>
+    
+     
+           <p itemprop="description" >今天发现用户的ip地址有的能记录成功，有的记录为空。刚开始以为是nginx的问题，看了看nginx的配置，proxy的配置都是正确的，然后仔细看了一下调试日志，发现还是代码的问题：在子线程中通过request.META读取用户ip时，request.META为空了。调试代码如下：</p>
+        
+    
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished">2016-01-12</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2016/01/11/LeetCode之CoinChange/" title="LeetCode之Coin Change" itemprop="url">
   
     <h1 itemprop="name">LeetCode之Coin Change</h1>
@@ -126,12 +146,12 @@ index.html
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/06/AngularJs通过service在controller间共享数据/" title="AngularJs通过service在controller间共享数据" itemprop="url">
+    <a href="/2016/01/06/AngularJs动态添加dom元素/" title="AngularJs动态添加dom元素" itemprop="url">
   
-    <h1 itemprop="name">AngularJs通过service在controller间共享数据</h1>
+    <h1 itemprop="name">AngularJs动态添加dom元素</h1>
     
      
-           <p itemprop="description" >123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;    &amp;lt;head&amp;g</p>
+           <p itemprop="description" >昨天看到一个angularjs的教程，讲service概念的，给出了如下代码：123456789app.factory(&#39;audio&#39;, [&#39;$document&#39;, function($document) &amp;#123;  var audio = $document[0].crea</p>
         
     
     <time datetime="2016-01-05T16:00:00.000Z" itemprop="datePublished">2016-01-06</time>
@@ -146,12 +166,12 @@ index.html
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/06/AngularJs动态添加dom元素/" title="AngularJs动态添加dom元素" itemprop="url">
+    <a href="/2016/01/06/AngularJs通过service在controller间共享数据/" title="AngularJs通过service在controller间共享数据" itemprop="url">
   
-    <h1 itemprop="name">AngularJs动态添加dom元素</h1>
+    <h1 itemprop="name">AngularJs通过service在controller间共享数据</h1>
     
      
-           <p itemprop="description" >昨天看到一个angularjs的教程，讲service概念的，给出了如下代码：123456789app.factory(&#39;audio&#39;, [&#39;$document&#39;, function($document) &amp;#123;  var audio = $document[0].crea</p>
+           <p itemprop="description" >123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;    &amp;lt;head&amp;g</p>
         
     
     <time datetime="2016-01-05T16:00:00.000Z" itemprop="datePublished">2016-01-06</time>
@@ -186,15 +206,12 @@ index.html
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/04/Postgresql函数的rowtype类型及返回值/" title="Postgresql函数的rowtype类型及返回值" itemprop="url">
+    <a href="/2016/01/04/JavaScript访问AngularJs内部变量函数/" title="JavaScript访问AngularJs内部变量/函数" itemprop="url">
   
-    <h1 itemprop="name">Postgresql函数的rowtype类型及返回值</h1>
+    <h1 itemprop="name">JavaScript访问AngularJs内部变量/函数</h1>
     
      
-           <p itemprop="description" >今天想写触发器来根据表A里的数据变化更新表B的状态，A表的更新及删除都会触发这个操作。
-于是想到写一个普通函数在触发器函数里调用，结果尝试了一下指定参数类型为tablename%rowtype，结果居然报错，后来找到另一个比较勉强的解释：
-
-Since every table h</p>
+           <p itemprop="description" >1234567891011var element = angular.element($document.getElementById(&quot;app&quot;));var controller = element.controller();var scope = element.scope(</p>
         
     
     <time datetime="2016-01-03T16:00:00.000Z" itemprop="datePublished">2016-01-04</time>
@@ -209,12 +226,15 @@ Since every table h</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/04/JavaScript访问AngularJs内部变量函数/" title="JavaScript访问AngularJs内部变量/函数" itemprop="url">
+    <a href="/2016/01/04/Postgresql函数的rowtype类型及返回值/" title="Postgresql函数的rowtype类型及返回值" itemprop="url">
   
-    <h1 itemprop="name">JavaScript访问AngularJs内部变量/函数</h1>
+    <h1 itemprop="name">Postgresql函数的rowtype类型及返回值</h1>
     
      
-           <p itemprop="description" >1234567891011var element = angular.element($document.getElementById(&quot;app&quot;));var controller = element.controller();var scope = element.scope(</p>
+           <p itemprop="description" >今天想写触发器来根据表A里的数据变化更新表B的状态，A表的更新及删除都会触发这个操作。
+于是想到写一个普通函数在触发器函数里调用，结果尝试了一下指定参数类型为tablename%rowtype，结果居然报错，后来找到另一个比较勉强的解释：
+
+Since every table h</p>
         
     
     <time datetime="2016-01-03T16:00:00.000Z" itemprop="datePublished">2016-01-04</time>
@@ -266,27 +286,6 @@ Since every table h</p>
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/01/02/jsonp简介/" title="jsonp简介" itemprop="url">
-  
-    <h1 itemprop="name">jsonp简介</h1>
-    
-     
-           <p itemprop="description" >jsonp不同于json，json是一种数据交换格式，jsonp则是为了跨域获取json数据的一种方式。
-默认情况下，由于浏览器的限制，当前网站上的任何内容都不允许其他网站直接调用访问(除非服务器进行一些设置)，而script标签自带跨域功能，jsonp就是通过动态加载scrip</p>
-        
-    
-    <time datetime="2016-01-01T16:00:00.000Z" itemprop="datePublished">2016-01-02</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/page/4/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/">Next<span></span></a>
@@ -313,7 +312,7 @@ Since every table h</p>
 		  
 		
 		  
-			<li><a href="/categories/docker/" title="docker">docker<sup>2</sup></a></li>
+			<li><a href="/categories/docker/" title="docker">docker<sup>3</sup></a></li>
 		  
 		
 		  

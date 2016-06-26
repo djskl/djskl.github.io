@@ -77,6 +77,26 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2016/04/02/Attemptedrelativeimportinnon-package错误/" title="Attempted relative import in non-package错误" itemprop="url">
+  
+    <h1 itemprop="name">Attempted relative import in non-package错误</h1>
+    
+     
+           <p itemprop="description" >假如代码结构如下所示：12345678Project    --p        --p1            -- __init__.py            --a.py        --p2            -- __init__.py            -</p>
+        
+    
+    <time datetime="2016-04-01T16:00:00.000Z" itemprop="datePublished">2016-04-02</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2016/04/01/python描述符及类只读属性杂记/" title="python描述符及类只读属性杂记" itemprop="url">
   
     <h1 itemprop="name">python描述符及类只读属性杂记</h1>
@@ -204,13 +224,14 @@ To capture a value from the URL, just put parenthesis around it.
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/02/29/Django访问数据库集群/" title="Django访问数据库集群" itemprop="url">
+    <a href="/2016/02/29/通过pstree查看python线程/" title="通过pstree查看python线程" itemprop="url">
   
-    <h1 itemprop="name">Django访问数据库集群</h1>
+    <h1 itemprop="name">通过pstree查看python线程</h1>
     
      
-           <p itemprop="description" >一般数据库都需要部署成集群，有的负责读，有的负责写，这样不但可以减轻单点压力，还是提高数据检索速度。Django正好提供了一个操作多数据库的router。
-数据库的定义：123456789101112131415161718192021222324252627DATABASES </p>
+           <p itemprop="description" >正常情况下，通过线程的属性ident获取到的线程id与通过ps/top等命令看到的是不一样的。官方对ident的解释如下：
+
+This is a nonzero integer. Its value has no direct meaning; it is intended as</p>
         
     
     <time datetime="2016-02-28T16:00:00.000Z" itemprop="datePublished">2016-02-29</time>
@@ -225,14 +246,13 @@ To capture a value from the URL, just put parenthesis around it.
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/02/29/通过pstree查看python线程/" title="通过pstree查看python线程" itemprop="url">
+    <a href="/2016/02/29/Django访问数据库集群/" title="Django访问数据库集群" itemprop="url">
   
-    <h1 itemprop="name">通过pstree查看python线程</h1>
+    <h1 itemprop="name">Django访问数据库集群</h1>
     
      
-           <p itemprop="description" >正常情况下，通过线程的属性ident获取到的线程id与通过ps/top等命令看到的是不一样的。官方对ident的解释如下：
-
-This is a nonzero integer. Its value has no direct meaning; it is intended as</p>
+           <p itemprop="description" >一般数据库都需要部署成集群，有的负责读，有的负责写，这样不但可以减轻单点压力，还是提高数据检索速度。Django正好提供了一个操作多数据库的router。
+数据库的定义：123456789101112131415161718192021222324252627DATABASES </p>
         
     
     <time datetime="2016-02-28T16:00:00.000Z" itemprop="datePublished">2016-02-29</time>
@@ -267,29 +287,6 @@ Postgres-XL是一种基于postgres的支持ACID的易扩展的开源数据库，
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/02/17/删除文本中的空白行/" title="删除文本中的空白行" itemprop="url">
-  
-    <h1 itemprop="name">删除文本中的空白行</h1>
-    
-     
-           <p itemprop="description" >包含空格的空白行：1、sed命令1sed &amp;#39;/^[ ]*$/d&amp;#39; foo.txt
-2、awk命令1awk NF foo.txt
-3、grep命令1grep -v &amp;#34;^[ ]*$&amp;#34; foo.txt
-不包含空格的空白行：以上命令仍然适用，awk命令还有</p>
-        
-    
-    <time datetime="2016-02-16T16:00:00.000Z" itemprop="datePublished">2016-02-17</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
@@ -316,7 +313,7 @@ Postgres-XL是一种基于postgres的支持ACID的易扩展的开源数据库，
 		  
 		
 		  
-			<li><a href="/categories/docker/" title="docker">docker<sup>3</sup></a></li>
+			<li><a href="/categories/docker/" title="docker">docker<sup>4</sup></a></li>
 		  
 		
 		  

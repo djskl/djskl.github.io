@@ -5,26 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>javascript传递默认参数 | ideas into codes</title>
+    <title>基于docker的nginx&amp;uwsgi服务自启动 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#125;    ....&amp;#125;
-arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arg">
+    <meta name="description" content="nginx.service123456789101112131415161718[Unit]Description=The nginx HTTP and reverse proxy serverAfter=network.target remote-fs.target nss-lookup.target[Service]Type=forkingPIDFile=/usr/local/nginx/lo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="javascript传递默认参数">
-<meta property="og:url" content="http://1988zxh.com/2015/06/17/javascript传递默认参数/index.html">
+<meta property="og:title" content="基于docker的nginx&uwsgi服务自启动">
+<meta property="og:url" content="http://1988zxh.com/2016/05/17/基于docker的nginx_uwsgi服务自启动/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#125;    ....&amp;#125;
-arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arg">
-<meta property="og:updated_time" content="2015-09-10T12:29:25.000Z">
+<meta property="og:description" content="nginx.service123456789101112131415161718[Unit]Description=The nginx HTTP and reverse proxy serverAfter=network.target remote-fs.target nss-lookup.target[Service]Type=forkingPIDFile=/usr/local/nginx/lo">
+<meta property="og:updated_time" content="2016-07-07T14:07:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="javascript传递默认参数">
-<meta name="twitter:description" content="方式1：借助函数内置变量arguments123456var func = function(x, _def)&amp;#123;    if(arguments[1] == undefined)&amp;#123;        var _def = default_value;    &amp;#125;    ....&amp;#125;
-arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arg">
+<meta name="twitter:title" content="基于docker的nginx&uwsgi服务自启动">
+<meta name="twitter:description" content="nginx.service123456789101112131415161718[Unit]Description=The nginx HTTP and reverse proxy serverAfter=network.target remote-fs.target nss-lookup.target[Service]Type=forkingPIDFile=/usr/local/nginx/lo">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -82,23 +79,23 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/06/17/javascript传递默认参数/" title="javascript传递默认参数" itemprop="url">javascript传递默认参数</a>
+      <a href="/2016/05/17/基于docker的nginx_uwsgi服务自启动/" title="基于docker的nginx&amp;uwsgi服务自启动" itemprop="url">基于docker的nginx&amp;uwsgi服务自启动</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-06-16T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-06-17</time>
+    <time datetime="2016-05-16T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-05-17</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>方式1：借助函数内置变量<code>arguments</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params">x, _def</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">arguments</span>[<span class="number">1</span>] == <span class="literal">undefined</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> _def = default_value;</span><br><span class="line">    &#125;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>arguments是每个函数都有的内置变量，其中存储了所有传给这个函数的参数，arguments类似数组但不是数组，支持下标访问，也有length属性，但没有push/pop这些方法。</p>
-<p>方式2：<code>typeof(x) == &quot;undefined&quot;</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params">x, _def</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span>(_def) == <span class="string">"undefined"</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> _def = default_value;</span><br><span class="line">    &#125;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这个比较简单直接一点，需要注意的是，不能直接<code>_def == undefined</code>，js和其他语言一样，不能操作未声明/定义的变量。</p>
+		<p><strong>nginx.service</strong><br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[Unit]</span></span><br><span class="line"><span class="setting">Description=<span class="value">The nginx HTTP and reverse proxy server</span></span></span><br><span class="line"><span class="setting">After=<span class="value">network.target remote-fs.target nss-lookup.target</span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Service]</span></span><br><span class="line"><span class="setting">Type=<span class="value">forking</span></span></span><br><span class="line"><span class="setting">PIDFile=<span class="value">/usr/local/nginx/logs/nginx.pid</span></span></span><br><span class="line"><span class="setting">ExecStartPre=<span class="value">/usr/bin/rm -f /usr/local/nginx/logs/nginx.pid</span></span></span><br><span class="line"><span class="setting">ExecStartPre=<span class="value">/usr/local/nginx/sbin/nginx -t</span></span></span><br><span class="line"><span class="setting">ExecStart=<span class="value">/usr/local/nginx/sbin/nginx</span></span></span><br><span class="line"><span class="setting">ExecReload=<span class="value">/bin/kill -s HUP <span class="variable">$MAINPID</span></span></span></span><br><span class="line"><span class="setting">KillSignal=<span class="value">SIGQUIT</span></span></span><br><span class="line"><span class="setting">TimeoutStopSec=<span class="value"><span class="number">5</span></span></span></span><br><span class="line"><span class="setting">KillMode=<span class="value">mixed</span></span></span><br><span class="line"><span class="setting">PrivateTmp=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"><span class="title"></span><br><span class="line">[Install]</span></span><br><span class="line"><span class="setting">WantedBy=<span class="value">multi-user.target</span></span></span><br></pre></td></tr></table></figure></p>
+<p><strong>docker-gen.service</strong><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=docker-gen service</span><br><span class="line">Requires=nginx<span class="class">.service</span> docker<span class="class">.service</span></span><br><span class="line">After=network<span class="class">.target</span> nginx<span class="class">.service</span> docker<span class="class">.service</span></span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/local/bin/docker-gen -only-exposed -watch -notify <span class="string">'/usr/local/nginx/sbin/nginx -s reload'</span> /usr/local/nginx/conf/gscloud<span class="class">.tmpl</span> /usr/local/nginx/conf/gscloud<span class="class">.conf</span> &gt;&gt; /var/log/docker-gen/run<span class="class">.log</span> <span class="number">2</span>&gt;&amp;<span class="number">1</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></p>
+<p><strong>web-docker.service</strong><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=gscloud docker service</span><br><span class="line">Requires=nginx<span class="class">.service</span> docker<span class="class">.service</span></span><br><span class="line">Wants=docker-gen<span class="class">.service</span></span><br><span class="line">After=network<span class="class">.target</span> nginx<span class="class">.service</span> docker<span class="class">.service</span> docker-gen<span class="class">.service</span></span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=oneshot</span><br><span class="line"></span><br><span class="line">ExecStartPre=-/usr/bin/docker rm g1</span><br><span class="line">ExecStartPre=-/usr/bin/docker rm g2</span><br><span class="line">ExecStartPre=-/usr/bin/docker rm g3</span><br><span class="line"></span><br><span class="line">ExecStart=/usr/bin/docker run -e VHOST=www<span class="class">.gscloud</span><span class="class">.cn</span> -d --name g1 --volumes-from gscloud_data --volumes-from gscloud_code --privileged=true -P gscloud_www sh /start<span class="class">.sh</span></span><br><span class="line">ExecStart=/usr/bin/docker run -e VHOST=www<span class="class">.gscloud</span><span class="class">.cn</span> -d --name g2 --volumes-from gscloud_data --volumes-from gscloud_code --privileged=true -P gscloud_www sh /start<span class="class">.sh</span></span><br><span class="line">ExecStart=/usr/bin/docker run -e VHOST=www<span class="class">.gscloud</span><span class="class">.cn</span> -d --name g3 --volumes-from gscloud_data --volumes-from gscloud_code --privileged=true -P gscloud_www sh /start<span class="class">.sh</span></span><br><span class="line"></span><br><span class="line">RemainAfterExit=yes</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></p>
+<p><strong>start.sh</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cat /hosts.map &gt;&gt; /etc/hosts</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="operator">-f</span> /usr/<span class="built_in">local</span>/webprj_dir/django_uwsgi.xml ];<span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"can't start webprj! check whether the codes exist."</span> <span class="number">1</span>&gt;&amp;<span class="number">2</span></span><br><span class="line">        <span class="built_in">exit</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/webprj_dir</span><br><span class="line"></span><br><span class="line">uwsgi -x ./django_uwsgi.xml</span><br><span class="line"></span><br><span class="line">tail <span class="operator">-f</span> /var/<span class="built_in">log</span>/uwsgi_webprj_dir.log</span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -116,7 +113,7 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/06/17/javascript传递默认参数/" data-title="javascript传递默认参数 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/05/17/基于docker的nginx_uwsgi服务自启动/" data-title="基于docker的nginx&amp;uwsgi服务自启动 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,18 +127,18 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/06/20/python中的抽象类与接口/" title="python中的抽象类与接口">
+ <a href="/2016/05/17/javascript加载优化/" title="javascript加载优化">
   <strong>上一篇：</strong><br/>
   <span>
-  python中的抽象类与接口</span>
+  javascript加载优化</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/06/17/MediaQueries实现CSS动态调整/"  title="MediaQueries实现CSS动态调整">
+<a href="/2016/05/16/websocket协议使用分析/"  title="websocket协议使用分析">
  <strong>下一篇：</strong><br/> 
- <span>MediaQueries实现CSS动态调整
+ <span>websocket协议使用分析
 </span>
 </a>
 </div>
@@ -150,7 +147,7 @@ arguments是每个函数都有的内置变量，其中存储了所有传给这�
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/06/17/javascript传递默认参数/" data-title="javascript传递默认参数" data-url="http://1988zxh.com/2015/06/17/javascript传递默认参数/"></div>
+	<div class="ds-thread" data-thread-key="2016/05/17/基于docker的nginx_uwsgi服务自启动/" data-title="基于docker的nginx&uwsgi服务自启动" data-url="http://1988zxh.com/2016/05/17/基于docker的nginx_uwsgi服务自启动/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

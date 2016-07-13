@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://1988zxh.com/2016/07/13/docker%E5%AE%B9%E5%99%A8%E8%BF%90%E8%A1%8C%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</loc>
+    <lastmod>2016-07-13T13:53:45.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://1988zxh.com/2016/06/25/dockerfile%E6%9E%84%E5%BB%BAdocker%E9%95%9C%E5%83%8F/</loc>
     <lastmod>2016-07-13T13:45:22.000Z</lastmod>
   </url>
@@ -9,11 +14,6 @@
   <url>
     <loc>http://1988zxh.com/2016/07/07/%E5%9F%BA%E4%BA%8Edocker%E7%9A%84nginx_uwsgi%E6%9C%8D%E5%8A%A1%E8%87%AA%E5%90%AF%E5%8A%A8/</loc>
     <lastmod>2016-07-13T13:34:27.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://1988zxh.com/2016/07/13/docker%E5%AE%B9%E5%99%A8%E8%BF%90%E8%A1%8C%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</loc>
-    <lastmod>2016-07-13T13:32:28.000Z</lastmod>
   </url>
   
   <url>

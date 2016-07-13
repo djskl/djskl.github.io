@@ -5,23 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>ideas into codes</title>
+    <title>docker容器运行定时任务 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="title: docker容器运行定时任务categories: dockerdate: 2016-07-13toc: falseDockerfile：12345678910111213141516171819202122FROM fedoraRUN dnf update -yRUN dnf install vim -yRUN dnf install crontabs -yRUN pip inst">
+    <meta name="description" content="Dockerfile：12345678910111213141516171819202122FROM fedoraRUN dnf update -yRUN dnf install vim -yRUN dnf install crontabs -yRUN pip install --upgrade pipRUN pip install sh#设置系统时区ENV TZ=&apos;Asia/Shanghai&apos;R">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ideas into codes">
+<meta property="og:title" content="docker容器运行定时任务">
 <meta property="og:url" content="http://1988zxh.com/2016/07/13/docker容器运行定时任务/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="title: docker容器运行定时任务categories: dockerdate: 2016-07-13toc: falseDockerfile：12345678910111213141516171819202122FROM fedoraRUN dnf update -yRUN dnf install vim -yRUN dnf install crontabs -yRUN pip inst">
-<meta property="og:updated_time" content="2016-07-13T13:32:28.000Z">
+<meta property="og:description" content="Dockerfile：12345678910111213141516171819202122FROM fedoraRUN dnf update -yRUN dnf install vim -yRUN dnf install crontabs -yRUN pip install --upgrade pipRUN pip install sh#设置系统时区ENV TZ=&apos;Asia/Shanghai&apos;R">
+<meta property="og:updated_time" content="2016-07-13T13:53:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ideas into codes">
-<meta name="twitter:description" content="title: docker容器运行定时任务categories: dockerdate: 2016-07-13toc: falseDockerfile：12345678910111213141516171819202122FROM fedoraRUN dnf update -yRUN dnf install vim -yRUN dnf install crontabs -yRUN pip inst">
+<meta name="twitter:title" content="docker容器运行定时任务">
+<meta name="twitter:description" content="Dockerfile：12345678910111213141516171819202122FROM fedoraRUN dnf update -yRUN dnf install vim -yRUN dnf install crontabs -yRUN pip install --upgrade pipRUN pip install sh#设置系统时区ENV TZ=&apos;Asia/Shanghai&apos;R">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -79,33 +79,31 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/07/13/docker容器运行定时任务/" title="" itemprop="url"></a>
+      <a href="/2016/07/13/docker容器运行定时任务/" title="docker容器运行定时任务" itemprop="url">docker容器运行定时任务</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2016-07-13T13:32:28.000Z" itemprop="datePublished"> 发表于 2016-07-13</time>
+    <time datetime="2016-07-12T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-07-13</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-		
-			
-		
-		</div>
-		
-		<p>title: docker容器运行定时任务<br>categories: docker<br>date: 2016-07-13<br>toc: false<br><strong>Dockerfile：</strong><br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">FROM</span> fedora</span><br><span class="line"></span><br><span class="line"><span class="built_in">RUN</span> <span class="bash">dnf update -y</span><br><span class="line"></span><span class="built_in">RUN</span> <span class="bash">dnf install vim -y</span><br><span class="line"></span><span class="built_in">RUN</span> <span class="bash">dnf install crontabs -y</span><br><span class="line"></span></span><br><span class="line"><span class="built_in">RUN</span> <span class="bash">pip install --upgrade pip</span><br><span class="line"></span><span class="built_in">RUN</span> <span class="bash">pip install sh</span><br><span class="line"></span></span><br><span class="line"><span class="comment">#设置系统时区</span></span><br><span class="line"><span class="built_in">ENV</span> TZ=<span class="string">'Asia/Shanghai'</span></span><br><span class="line">RUN rm -f /etc/localtime</span><br><span class="line"><span class="comment">#系统&amp;crontab时区同步</span></span><br><span class="line"><span class="built_in">RUN</span> <span class="bash">cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br><span class="line"></span></span><br><span class="line"><span class="comment">#将脚本程序拷贝到root目录下</span></span><br><span class="line"><span class="built_in">ADD</span> <span class="bash">worker.py /root/</span><br><span class="line"></span></span><br><span class="line"><span class="built_in">ADD</span> <span class="bash">worker-cron /etc/cron.d/</span><br><span class="line"></span></span><br><span class="line"><span class="built_in">RUN</span> <span class="bash">touch /var/<span class="built_in">log</span>/<span class="built_in">stat</span>_user.log</span><br><span class="line"></span><span class="built_in">ENTRYPOINT</span> <span class="bash">crond &amp;&amp; tail <span class="operator">-f</span> /var/<span class="built_in">log</span>/<span class="built_in">stat</span>_user.log</span></span><br></pre></td></tr></table></figure></p>
+		<p><strong>Dockerfile：</strong><br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">FROM</span> fedora</span><br><span class="line"></span><br><span class="line"><span class="built_in">RUN</span> <span class="bash">dnf update -y</span><br><span class="line"></span><span class="built_in">RUN</span> <span class="bash">dnf install vim -y</span><br><span class="line"></span><span class="built_in">RUN</span> <span class="bash">dnf install crontabs -y</span><br><span class="line"></span></span><br><span class="line"><span class="built_in">RUN</span> <span class="bash">pip install --upgrade pip</span><br><span class="line"></span><span class="built_in">RUN</span> <span class="bash">pip install sh</span><br><span class="line"></span></span><br><span class="line"><span class="comment">#设置系统时区</span></span><br><span class="line"><span class="built_in">ENV</span> TZ=<span class="string">'Asia/Shanghai'</span></span><br><span class="line">RUN rm -f /etc/localtime</span><br><span class="line"><span class="comment">#系统&amp;crontab时区同步</span></span><br><span class="line"><span class="built_in">RUN</span> <span class="bash">cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br><span class="line"></span></span><br><span class="line"><span class="comment">#将脚本程序拷贝到root目录下</span></span><br><span class="line"><span class="built_in">ADD</span> <span class="bash">worker.py /root/</span><br><span class="line"></span></span><br><span class="line"><span class="built_in">ADD</span> <span class="bash">worker-cron /etc/cron.d/</span><br><span class="line"></span></span><br><span class="line"><span class="built_in">RUN</span> <span class="bash">touch /var/<span class="built_in">log</span>/<span class="built_in">stat</span>_user.log</span><br><span class="line"></span><span class="built_in">ENTRYPOINT</span> <span class="bash">crond &amp;&amp; tail <span class="operator">-f</span> /var/<span class="built_in">log</span>/<span class="built_in">stat</span>_user.log</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>worker-cron</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 每到正点执行一次</span></span><br><span class="line"><span class="number">0</span> * * * * root python /root/worker.py &gt;&gt; /var/<span class="built_in">log</span>/worker.py.<span class="built_in">log</span> <span class="number">2</span>&gt;&amp;<span class="number">1</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>构建镜像并启动容器</strong><br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker build -t ces .</span><br><span class="line">docker <span class="keyword">run</span> -<span class="keyword">d</span> ces</span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/docker/">docker</a>
+</div>
 
 
 </div>
@@ -114,7 +112,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2016/07/13/docker容器运行定时任务/" data-title="ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/07/13/docker容器运行定时任务/" data-title="docker容器运行定时任务 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -140,7 +138,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/07/13/docker容器运行定时任务/" data-title="" data-url="http://1988zxh.com/2016/07/13/docker容器运行定时任务/"></div>
+	<div class="ds-thread" data-thread-key="2016/07/13/docker容器运行定时任务/" data-title="docker容器运行定时任务" data-url="http://1988zxh.com/2016/07/13/docker容器运行定时任务/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -163,13 +161,6 @@
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
- 
- 
- 
-  </div>
-
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
@@ -188,7 +179,7 @@
 		  
 		
 		  
-			<li><a href="/categories/docker/" title="docker">docker<sup>7</sup></a></li>
+			<li><a href="/categories/docker/" title="docker">docker<sup>8</sup></a></li>
 		  
 		
 		  
@@ -366,8 +357,6 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
         
     }
   });

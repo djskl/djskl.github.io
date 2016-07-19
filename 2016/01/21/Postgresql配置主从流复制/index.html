@@ -28,7 +28,7 @@ host    replication     postgres        192.168.16.11/32            trust
 host    replication     postgres        192.168.16.11/32            trust
 
 这样就想当于给来自192.168.16.11的postgres用户提供了可从10这">
-<meta property="og:updated_time" content="2016-01-21T01:57:02.000Z">
+<meta property="og:updated_time" content="2016-07-19T14:04:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Postgresql配置主从流复制">
 <meta name="twitter:description" content="假设主机器的ip地址是:192.168.16.10；从机器的ip地址是：192.168.16.11
@@ -156,7 +156,11 @@ host    replication     postgres        192.168.16.11/32            trust
 <p>systemctl restart postgresql</p>
 </blockquote>
 <p><strong>测试</strong><br>接下来可以在主库中进行insert/update/delete语句进行测试。如果出错的话可查看数据库日志(在data目录下的pg_log目录下)</p>
-<p><strong>参考</strong><br><a href="http://www.cnblogs.com/yjf512/p/4499547.html" target="_blank" rel="external">叶剑峰：postgres配置主从流复制</a></p>
+<p><strong>状态查看</strong></p>
+<ul>
+<li>视图<code>pg_stat_replication</code>：在主节点上查看备份节点的信息</li>
+<li>函数<code>pg_is_in_recovery()</code>：在从节点上查看当前节点是否仍处于备份状态<br><strong>参考</strong><br><a href="http://www.cnblogs.com/yjf512/p/4499547.html" target="_blank" rel="external">叶剑峰：postgres配置主从流复制</a><br><a href="https://vibhorkumar.wordpress.com/2014/05/21/monitoring-approach-for-streaming-replication-with-hot-standby-in-postgresql-9-3/" target="_blank" rel="external">Monitoring approach for Streaming Replication with Hot Standby in PostgreSQL 9.3.</a></li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -269,7 +273,7 @@ host    replication     postgres        192.168.16.11/32            trust
 		  
 		
 		  
-			<li><a href="/categories/shell/" title="shell">shell<sup>11</sup></a></li>
+			<li><a href="/categories/shell/" title="shell">shell<sup>12</sup></a></li>
 		  
 		
 		  

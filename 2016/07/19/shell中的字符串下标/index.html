@@ -5,23 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>python读写shp文件 | ideas into codes</title>
+    <title>shell中的字符串下标 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849from osgeo import ogrimport os# Get a Layer&apos;s ExtentinShapefile = &quot;states.shp&quot;inDriver = ogr.GetDriverByName(&quot;E">
+    <meta name="description" content="1234567891011121314151617#!/bin/bashfunction stridx()&amp;#123;    if [ $# -ne 2 ] ;then        echo &quot;num of args error!&quot;  1&amp;gt;&amp;amp;2        exit 1    fi    x=&quot;$&amp;#123;1%%$2*&amp;#125;&quot;    [[ $x = $1 ]] &amp;amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python读写shp文件">
-<meta property="og:url" content="http://1988zxh.com/2015/10/22/python读写shp文件/index.html">
+<meta property="og:title" content="shell中的字符串下标">
+<meta property="og:url" content="http://1988zxh.com/2016/07/19/shell中的字符串下标/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849from osgeo import ogrimport os# Get a Layer&apos;s ExtentinShapefile = &quot;states.shp&quot;inDriver = ogr.GetDriverByName(&quot;E">
-<meta property="og:updated_time" content="2015-10-22T13:12:26.000Z">
+<meta property="og:description" content="1234567891011121314151617#!/bin/bashfunction stridx()&amp;#123;    if [ $# -ne 2 ] ;then        echo &quot;num of args error!&quot;  1&amp;gt;&amp;amp;2        exit 1    fi    x=&quot;$&amp;#123;1%%$2*&amp;#125;&quot;    [[ $x = $1 ]] &amp;amp;">
+<meta property="og:updated_time" content="2016-07-19T14:14:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python读写shp文件">
-<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849from osgeo import ogrimport os# Get a Layer&apos;s ExtentinShapefile = &quot;states.shp&quot;inDriver = ogr.GetDriverByName(&quot;E">
+<meta name="twitter:title" content="shell中的字符串下标">
+<meta name="twitter:description" content="1234567891011121314151617#!/bin/bashfunction stridx()&amp;#123;    if [ $# -ne 2 ] ;then        echo &quot;num of args error!&quot;  1&amp;gt;&amp;amp;2        exit 1    fi    x=&quot;$&amp;#123;1%%$2*&amp;#125;&quot;    [[ $x = $1 ]] &amp;amp;">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -79,22 +79,21 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/22/python读写shp文件/" title="python读写shp文件" itemprop="url">python读写shp文件</a>
+      <a href="/2016/07/19/shell中的字符串下标/" title="shell中的字符串下标" itemprop="url">shell中的字符串下标</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-21T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-10-22</time>
+    <time datetime="2016-07-18T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-07-19</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> osgeo <span class="keyword">import</span> ogr</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get a Layer's Extent</span></span><br><span class="line">inShapefile = <span class="string">"states.shp"</span></span><br><span class="line">inDriver = ogr.GetDriverByName(<span class="string">"ESRI Shapefile"</span>)</span><br><span class="line">inDataSource = inDriver.Open(inShapefile, <span class="number">0</span>)</span><br><span class="line">inLayer = inDataSource.GetLayer()</span><br><span class="line">extent = inLayer.GetExtent()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a Polygon from the extent tuple</span></span><br><span class="line">ring = ogr.Geometry(ogr.wkbLinearRing)</span><br><span class="line">ring.AddPoint(extent[<span class="number">0</span>],extent[<span class="number">2</span>])</span><br><span class="line">ring.AddPoint(extent[<span class="number">1</span>], extent[<span class="number">2</span>])</span><br><span class="line">ring.AddPoint(extent[<span class="number">1</span>], extent[<span class="number">3</span>])</span><br><span class="line">ring.AddPoint(extent[<span class="number">0</span>], extent[<span class="number">3</span>])</span><br><span class="line">ring.AddPoint(extent[<span class="number">0</span>],extent[<span class="number">2</span>])</span><br><span class="line">poly = ogr.Geometry(ogr.wkbPolygon)</span><br><span class="line">poly.AddGeometry(ring)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者通过WKT直接生成</span></span><br><span class="line">geom = ogr.CreateGeometryFromWkt(_wkt)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Save extent to a new Shapefile</span></span><br><span class="line">outShapefile = <span class="string">"states_extent.shp"</span></span><br><span class="line">outDriver = ogr.GetDriverByName(<span class="string">"ESRI Shapefile"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove output shapefile if it already exists</span></span><br><span class="line"><span class="keyword">if</span> os.path.exists(outShapefile):</span><br><span class="line">    outDriver.DeleteDataSource(outShapefile)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the output shapefile</span></span><br><span class="line">outDataSource = outDriver.CreateDataSource(outShapefile)</span><br><span class="line">outLayer = outDataSource.CreateLayer(<span class="string">"states_extent"</span>, geom_type=ogr.wkbPolygon)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add an ID field</span></span><br><span class="line">idField = ogr.FieldDefn(<span class="string">"id"</span>, ogr.OFTInteger)</span><br><span class="line">outLayer.CreateField(idField)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the feature and set values</span></span><br><span class="line">featureDefn = outLayer.GetLayerDefn()</span><br><span class="line">feature = ogr.Feature(featureDefn)</span><br><span class="line">feature.SetGeometry(poly)</span><br><span class="line">feature.SetField(<span class="string">"id"</span>, <span class="number">1</span>)</span><br><span class="line">outLayer.CreateFeature(feature)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Close DataSource</span></span><br><span class="line">inDataSource.Destroy()</span><br><span class="line">outDataSource.Destroy()</span><br></pre></td></tr></table></figure>
-<p>在这里空间数据结构仍是layer&gt;feature&gt;Geometry&gt;Polygon/LineString/Point</p>
-<p><strong>参考</strong>：<br><a href="https://pcjericks.github.io/py-gdalogr-cookbook/vector_layers.html#create-a-new-layer-from-the-extent-of-an-existing-layer" target="_blank" rel="external">Create a new Layer from the extent of an existing Layer</a></p>
+		<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span><br><span class="line"></span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">stridx</span></span>()&#123;</span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$#</span> <span class="operator">-ne</span> <span class="number">2</span> ] ;<span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"num of args error!"</span>  <span class="number">1</span>&gt;&amp;<span class="number">2</span></span><br><span class="line">        <span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    x=<span class="string">"<span class="variable">$&#123;1%%$2*&#125;</span>"</span></span><br><span class="line">    [[ <span class="variable">$x</span> = <span class="variable">$1</span> ]] &amp;&amp; <span class="built_in">echo</span> -<span class="number">1</span> || <span class="built_in">echo</span> <span class="variable">$&#123;#x&#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ss=<span class="string">"This is a cat on the bed"</span></span><br><span class="line">s=<span class="string">"cat"</span></span><br><span class="line"></span><br><span class="line">stridx <span class="string">"<span class="variable">$ss</span>"</span> <span class="variable">$s</span></span><br></pre></td></tr></table></figure>
+<p>以上双引号的意思是防止空格将原来的单个string分成了多个。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -102,7 +101,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/python/">python</a>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
 </div>
 
 
@@ -112,7 +111,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2015/10/22/python读写shp文件/" data-title="python读写shp文件 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/07/19/shell中的字符串下标/" data-title="shell中的字符串下标 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -125,19 +124,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/10/28/subprocess使用简介/" title="subprocess使用简介">
-  <strong>上一篇：</strong><br/>
-  <span>
-  subprocess使用简介</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/10/21/LeetCode之Single Number II/"  title="LeetCode之Single Number II">
+<a href="/2016/07/17/Tornado之IOLoop使用简介/"  title="Tornado之IOLoop使用简介">
  <strong>下一篇：</strong><br/> 
- <span>LeetCode之Single Number II
+ <span>Tornado之IOLoop使用简介
 </span>
 </a>
 </div>
@@ -146,7 +137,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/10/22/python读写shp文件/" data-title="python读写shp文件" data-url="http://1988zxh.com/2015/10/22/python读写shp文件/"></div>
+	<div class="ds-thread" data-thread-key="2016/07/19/shell中的字符串下标/" data-title="shell中的字符串下标" data-url="http://1988zxh.com/2016/07/19/shell中的字符串下标/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

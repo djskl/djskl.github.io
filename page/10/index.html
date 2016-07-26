@@ -77,6 +77,26 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2015/08/31/请求参数解析QueryDict/" title="请求参数解析QueryDict" itemprop="url">
+  
+    <h1 itemprop="name">请求参数解析QueryDict</h1>
+    
+     
+           <p itemprop="description" >今天遇到了一个奇怪的问题：通过ajax向后台传json时，在解析参数后得到的是{key: [value]}，而不是{key: value}。请求参数解析函数如下：12345def get_params(request):    a = &amp;#123;&amp;#125;    a.upda</p>
+        
+    
+    <time datetime="2015-08-30T16:00:00.000Z" itemprop="datePublished">2015-08-31</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2015/08/24/python中装饰器的使用/" title="python中装饰器的使用" itemprop="url">
   
     <h1 itemprop="name">python中装饰器的使用</h1>
@@ -97,13 +117,12 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/22/寻找第n个丑数/" title="寻找第n个丑数" itemprop="url">
+    <a href="/2015/08/22/Postgresql表的继承与分区/" title="Postgresql表的继承与分区" itemprop="url">
   
-    <h1 itemprop="name">寻找第n个丑数</h1>
+    <h1 itemprop="name">Postgresql表的继承与分区</h1>
     
      
-           <p itemprop="description" >因子只包含2、3或5的数叫做丑数，1也是丑数，前10个丑数是`1, 2, 3, 4, 5, 6, 8, 9, 10, 12。写一个程序，寻找第n个丑数。
-思路最简单粗暴的算法就是从1开始，遍历所有自然数，对每个数都判断一下是不是丑数，直到找到第n个丑数，但这样会有很多无谓的判断，</p>
+           <p itemprop="description" >在Postgresql中，可以通过表的继承可以将一个逻辑表的不同数据放到不同分区上，用起来比较方便。示例表：12345678910111213141516171819202122232425262728293031-- 父表CREATE TABLE students(  sno </p>
         
     
     <time datetime="2015-08-21T16:00:00.000Z" itemprop="datePublished">2015-08-22</time>
@@ -118,12 +137,13 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/08/22/Postgresql表的继承与分区/" title="Postgresql表的继承与分区" itemprop="url">
+    <a href="/2015/08/22/寻找第n个丑数/" title="寻找第n个丑数" itemprop="url">
   
-    <h1 itemprop="name">Postgresql表的继承与分区</h1>
+    <h1 itemprop="name">寻找第n个丑数</h1>
     
      
-           <p itemprop="description" >在Postgresql中，可以通过表的继承可以将一个逻辑表的不同数据放到不同分区上，用起来比较方便。示例表：12345678910111213141516171819202122232425262728293031-- 父表CREATE TABLE students(  sno </p>
+           <p itemprop="description" >因子只包含2、3或5的数叫做丑数，1也是丑数，前10个丑数是`1, 2, 3, 4, 5, 6, 8, 9, 10, 12。写一个程序，寻找第n个丑数。
+思路最简单粗暴的算法就是从1开始，遍历所有自然数，对每个数都判断一下是不是丑数，直到找到第n个丑数，但这样会有很多无谓的判断，</p>
         
     
     <time datetime="2015-08-21T16:00:00.000Z" itemprop="datePublished">2015-08-22</time>
@@ -259,27 +279,6 @@
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/06/20/python中的抽象类与接口/" title="python中的抽象类与接口" itemprop="url">
-  
-    <h1 itemprop="name">python中的抽象类与接口</h1>
-    
-     
-           <p itemprop="description" >python本身并不支持抽象类或接口，如果想让一个方法必须在子类中实现，可以通过抛出NotImplementedError进行限制，这样如果子类没有覆盖这个方法而直接调用，就会抛出这个异常。
-这种方式仅对方法进行限制，但包含这种方法的类仍然是普通类，还可以实例化成对象，并不是抽象</p>
-        
-    
-    <time datetime="2015-06-19T16:00:00.000Z" itemprop="datePublished">2015-06-20</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/page/9/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/11/">Next<span></span></a>
@@ -322,7 +321,7 @@
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>35</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>36</sup></a></li>
 		  
 		
 		  

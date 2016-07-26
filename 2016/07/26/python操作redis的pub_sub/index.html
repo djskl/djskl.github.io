@@ -5,29 +5,23 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>jsonp简介 | ideas into codes</title>
+    <title>python操作redis的pub/sub | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="jsonp不同于json，json是一种数据交换格式，jsonp则是为了跨域获取json数据的一种方式。
-默认情况下，由于浏览器的限制，当前网站上的任何内容都不允许其他网站直接调用访问(除非服务器进行一些设置)，而script标签自带跨域功能，jsonp就是通过动态加载script代码来实现跨域访问的。
-基本原理如下：12345678910&amp;lt;!-- 本地页面js代码 --&amp;gt;&amp;lt;sc">
+    <meta name="description" content="1234567891011121314151617181920&amp;gt;&amp;gt;&amp;gt; import redis&amp;gt;&amp;gt;&amp;gt; conn = redis.StrictRedis()&amp;gt;&amp;gt;&amp;gt; chan = conn.pubsub() #此处返回`PubSub`对象，可以subscribe/listen，但不能publish&amp;gt;&amp;gt;&amp;gt; chan.subscrib">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jsonp简介">
-<meta property="og:url" content="http://1988zxh.com/2016/01/02/jsonp简介/index.html">
+<meta property="og:title" content="python操作redis的pub/sub">
+<meta property="og:url" content="http://1988zxh.com/2016/07/26/python操作redis的pub_sub/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="jsonp不同于json，json是一种数据交换格式，jsonp则是为了跨域获取json数据的一种方式。
-默认情况下，由于浏览器的限制，当前网站上的任何内容都不允许其他网站直接调用访问(除非服务器进行一些设置)，而script标签自带跨域功能，jsonp就是通过动态加载script代码来实现跨域访问的。
-基本原理如下：12345678910&amp;lt;!-- 本地页面js代码 --&amp;gt;&amp;lt;sc">
-<meta property="og:updated_time" content="2016-01-02T01:50:19.000Z">
+<meta property="og:description" content="1234567891011121314151617181920&amp;gt;&amp;gt;&amp;gt; import redis&amp;gt;&amp;gt;&amp;gt; conn = redis.StrictRedis()&amp;gt;&amp;gt;&amp;gt; chan = conn.pubsub() #此处返回`PubSub`对象，可以subscribe/listen，但不能publish&amp;gt;&amp;gt;&amp;gt; chan.subscrib">
+<meta property="og:updated_time" content="2016-07-26T14:12:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jsonp简介">
-<meta name="twitter:description" content="jsonp不同于json，json是一种数据交换格式，jsonp则是为了跨域获取json数据的一种方式。
-默认情况下，由于浏览器的限制，当前网站上的任何内容都不允许其他网站直接调用访问(除非服务器进行一些设置)，而script标签自带跨域功能，jsonp就是通过动态加载script代码来实现跨域访问的。
-基本原理如下：12345678910&amp;lt;!-- 本地页面js代码 --&amp;gt;&amp;lt;sc">
+<meta name="twitter:title" content="python操作redis的pub/sub">
+<meta name="twitter:description" content="1234567891011121314151617181920&amp;gt;&amp;gt;&amp;gt; import redis&amp;gt;&amp;gt;&amp;gt; conn = redis.StrictRedis()&amp;gt;&amp;gt;&amp;gt; chan = conn.pubsub() #此处返回`PubSub`对象，可以subscribe/listen，但不能publish&amp;gt;&amp;gt;&amp;gt; chan.subscrib">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -85,26 +79,23 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/02/jsonp简介/" title="jsonp简介" itemprop="url">jsonp简介</a>
+      <a href="/2016/07/26/python操作redis的pub_sub/" title="python操作redis的pub/sub" itemprop="url">python操作redis的pub/sub</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-01T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-02</time>
+    <time datetime="2016-07-25T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-07-26</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>jsonp不同于json，json是一种数据交换格式，jsonp则是为了跨域获取json数据的一种方式。</p>
-<p>默认情况下，由于浏览器的限制，当前网站上的任何内容都不允许其他网站直接调用访问(除非服务器进行一些设置)，而<code>script</code>标签自带跨域功能，jsonp就是通过动态加载script代码来实现跨域访问的。</p>
-<p>基本原理如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 本地页面js代码 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="actionscript"></span><br><span class="line">    <span class="keyword">var</span> localHandler = <span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>&#123;</span><br><span class="line">        alert(<span class="string">'我是本地函数，可以被跨域的remote.js文件调用，远程js带来的数据是：'</span> + data.result);</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"http://remoteserver.com/remote.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">&lt;!-- 服务器端remote.js代码 --&gt;</span></span><br><span class="line">localHandler(&#123;"result":"我是远程js带来的数据"&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>以上代码摘自<a href="http://www.cnblogs.com/dowinning/archive/2012/04/19/json-jsonp-jquery.html" target="_blank" rel="external">说说JSON和JSONP，也许你会豁然开朗，含jQuery用例</a></p>
-<p>Django结合jquery的示例如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#django代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#/products/views.py</span></span><br><span class="line"><span class="keyword">from</span> django.http.response <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">info</span><span class="params">(request)</span>:</span></span><br><span class="line">    callback = request.REQUEST[<span class="string">"callback"</span>]</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">"%s(&#123;name: 'pencil', price: 12&#125;);"</span>%callback, content_type=<span class="string">"application/javascript"</span>)</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 页面代码 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"></span><br><span class="line">	$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">                url: <span class="string">"http://127.0.0.1:8000/products/info"</span>,</span><br><span class="line">                dataType: <span class="string">"jsonp"</span>,</span><br><span class="line">                jsonp: <span class="string">"callback"</span>,</span><br><span class="line">                success: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">            	    alert(data.name);</span><br><span class="line">                &#125;,</span><br><span class="line">                error: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                    alert(<span class="string">'fail'</span>);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">	&#125;);</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>参考：</strong><br><a href="http://www.cnblogs.com/dowinning/archive/2012/04/19/json-jsonp-jquery.html" target="_blank" rel="external">说说JSON和JSONP，也许你会豁然开朗，含jQuery用例</a></p>
+		<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;</span>&gt; import redis</span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; conn = redis.<span class="constant">StrictRedis</span>()</span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; chan = conn.pubsub() <span class="comment">#此处返回`PubSub`对象，可以subscribe/listen，但不能publish</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; chan.subscribe(<span class="string">"foobar"</span>) <span class="comment">#监听一个名为foobar的channel</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; msgs=chan.listen() <span class="comment">#此处不会阻塞，直接返回一个生成器，有点协程的意思</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; msgs.next() <span class="comment">#有消息就返回,消息空了就阻塞</span></span><br><span class="line">&#123;<span class="string">'pattern'</span><span class="symbol">:</span> <span class="constant">None</span>, <span class="string">'type'</span><span class="symbol">:</span> <span class="string">'subscribe'</span>, <span class="string">'channel'</span><span class="symbol">:</span> <span class="string">'foobar'</span>, <span class="string">'data'</span><span class="symbol">:</span> <span class="number">1</span>L&#125;</span><br><span class="line"><span class="comment">#以上type有3种：subscribe/message/unsubscribe</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; msgs.next() <span class="comment">#在另一个客户端执行conn.publish("foobar", "hello,world")</span></span><br><span class="line">&#123;<span class="string">'pattern'</span><span class="symbol">:</span> <span class="constant">None</span>, <span class="string">'type'</span><span class="symbol">:</span> <span class="string">'message'</span>, <span class="string">'channel'</span><span class="symbol">:</span> <span class="string">'foobar'</span>, <span class="string">'data'</span><span class="symbol">:</span> <span class="string">'hello,world'</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; chan.unsubscribe(<span class="string">"foobar"</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; msgs.next()</span><br><span class="line">&#123;<span class="string">'pattern'</span><span class="symbol">:</span> <span class="constant">None</span>, <span class="string">'type'</span><span class="symbol">:</span> <span class="string">'unsubscribe'</span>, <span class="string">'channel'</span><span class="symbol">:</span> <span class="string">'foobar'</span>, <span class="string">'data'</span><span class="symbol">:</span> 0L&#125;</span><br></pre></td></tr></table></figure>
+<p>除了使用<code>next()</code>之外，还可以使用<code>chan.get_message()</code>来获取订阅的消息，该方法有消息时，返回对应的消息，否则返回None。</p>
+<p>考虑到redis的数据传输也是基于tcp的，我们还可以借助异步IO框架(比如gevent)来监听消息的到来：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import redis</span><br><span class="line">import gevent<span class="class">.select</span></span><br><span class="line">conn = redis.<span class="function"><span class="title">StrictRedis</span><span class="params">()</span></span></span><br><span class="line">chan = conn.<span class="function"><span class="title">pubsub</span><span class="params">()</span></span></span><br><span class="line">chan.<span class="function"><span class="title">subscribe</span><span class="params">(<span class="string">"foobar"</span>)</span></span></span><br><span class="line">foobar_fd = chan<span class="class">.connection</span>._sock.<span class="function"><span class="title">fileno</span><span class="params">()</span></span></span><br><span class="line">while True:</span><br><span class="line">    ready = gevent<span class="class">.select</span><span class="class">.select</span>([foobar_fd], [], [], <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">if</span> foobar_fd <span class="keyword">in</span> ready[<span class="number">0</span>]:</span><br><span class="line">        print chan.<span class="function"><span class="title">get_message</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print <span class="string">"wating for messages..."</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>参考</strong><br><a href="http://redis.io/topics/pubsub" target="_blank" rel="external">Redis:Pub/Sub</a><br><a href="https://github.com/unbit/uwsgi/blob/master/tests/websockets_chat.py" target="_blank" rel="external">uwsgi/tests/websockets_chat.py</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -112,7 +103,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/前端/">前端</a>
+  <a class="article-category-link" href="/categories/python/">python</a>
 </div>
 
 
@@ -122,7 +113,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2016/01/02/jsonp简介/" data-title="jsonp简介 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/07/26/python操作redis的pub_sub/" data-title="python操作redis的pub/sub | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -135,19 +126,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/01/04/Django与AngularJs的模板标签冲突问题/" title="Django与AngularJs的模板标签冲突问题">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Django与AngularJs的模板标签冲突问题</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/01/02/AngularJs表单验证/"  title="AngularJs表单验证">
+<a href="/2016/07/19/shell中的字符串下标/"  title="shell中的字符串下标">
  <strong>下一篇：</strong><br/> 
- <span>AngularJs表单验证
+ <span>shell中的字符串下标
 </span>
 </a>
 </div>
@@ -156,7 +139,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/01/02/jsonp简介/" data-title="jsonp简介" data-url="http://1988zxh.com/2016/01/02/jsonp简介/"></div>
+	<div class="ds-thread" data-thread-key="2016/07/26/python操作redis的pub_sub/" data-title="python操作redis的pub/sub" data-url="http://1988zxh.com/2016/07/26/python操作redis的pub_sub/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

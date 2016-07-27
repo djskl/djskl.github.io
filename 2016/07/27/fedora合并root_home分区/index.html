@@ -5,23 +5,26 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>awk执行shell命令 | ideas into codes</title>
+    <title>fedora合并root/home分区 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="之前一直觉得shell中的字符串截取函数不能用在管道命令里有点可惜，昨天浏览微博的发现了这么一条命令：1ls -t | awk &amp;#39;NR&amp;#62;5 &amp;#123;system(&amp;#34;rm \&amp;#34;&amp;#34; $0 &amp;#34;\&amp;#34;&amp;#34;)&amp;#125;&amp;#39; #&amp;#21482;&amp;#20445;&amp;#30041;&amp;#26368;&amp;#26032;&amp;#30340;5&amp;#20010">
+    <meta name="description" content="1234[root@zxh ~]# df -hFilesystem               Size  Used Avail Use% Mounted on/dev/mapper/fedora-root  50G   49G   853M  99% //dev/mapper/fedora-home  145G  46G   99G   31% /home
+装系统的时候采用的是默认分区方式，结果">
 <meta property="og:type" content="article">
-<meta property="og:title" content="awk执行shell命令">
-<meta property="og:url" content="http://1988zxh.com/2016/01/30/awk执行shell命令/index.html">
+<meta property="og:title" content="fedora合并root/home分区">
+<meta property="og:url" content="http://1988zxh.com/2016/07/27/fedora合并root_home分区/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="之前一直觉得shell中的字符串截取函数不能用在管道命令里有点可惜，昨天浏览微博的发现了这么一条命令：1ls -t | awk &amp;#39;NR&amp;#62;5 &amp;#123;system(&amp;#34;rm \&amp;#34;&amp;#34; $0 &amp;#34;\&amp;#34;&amp;#34;)&amp;#125;&amp;#39; #&amp;#21482;&amp;#20445;&amp;#30041;&amp;#26368;&amp;#26032;&amp;#30340;5&amp;#20010">
-<meta property="og:updated_time" content="2016-01-30T02:31:29.000Z">
+<meta property="og:description" content="1234[root@zxh ~]# df -hFilesystem               Size  Used Avail Use% Mounted on/dev/mapper/fedora-root  50G   49G   853M  99% //dev/mapper/fedora-home  145G  46G   99G   31% /home
+装系统的时候采用的是默认分区方式，结果">
+<meta property="og:updated_time" content="2016-07-27T13:35:03.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="awk执行shell命令">
-<meta name="twitter:description" content="之前一直觉得shell中的字符串截取函数不能用在管道命令里有点可惜，昨天浏览微博的发现了这么一条命令：1ls -t | awk &amp;#39;NR&amp;#62;5 &amp;#123;system(&amp;#34;rm \&amp;#34;&amp;#34; $0 &amp;#34;\&amp;#34;&amp;#34;)&amp;#125;&amp;#39; #&amp;#21482;&amp;#20445;&amp;#30041;&amp;#26368;&amp;#26032;&amp;#30340;5&amp;#20010">
+<meta name="twitter:title" content="fedora合并root/home分区">
+<meta name="twitter:description" content="1234[root@zxh ~]# df -hFilesystem               Size  Used Avail Use% Mounted on/dev/mapper/fedora-root  50G   49G   853M  99% //dev/mapper/fedora-home  145G  46G   99G   31% /home
+装系统的时候采用的是默认分区方式，结果">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -79,30 +82,25 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/30/awk执行shell命令/" title="awk执行shell命令" itemprop="url">awk执行shell命令</a>
+      <a href="/2016/07/27/fedora合并root_home分区/" title="fedora合并root/home分区" itemprop="url">fedora合并root/home分区</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-29T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-30</time>
+    <time datetime="2016-07-26T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-07-27</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>之前一直觉得shell中的字符串截取函数不能用在管道命令里有点可惜，昨天浏览微博的发现了这么一条命令：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -t | awk &#39;NR&#62;5 &#123;system(&#34;rm \&#34;&#34; $0 &#34;\&#34;&#34;)&#125;&#39; #&#21482;&#20445;&#30041;&#26368;&#26032;&#30340;5&#20010;&#25991;&#20214; &#20854;&#20313;&#21024;&#38500;</span><br></pre></td></tr></table></figure></p>
-<p>来自<a href="http://weibo.com/2674868673/Dfh3y4nXd?type=comment" target="_blank" rel="external">linux命令行精选网</a>。</p>
-<p>命令中的<code>\&quot;&quot; $0 &quot;\&quot;</code>，内层的双引号相当于一个取值操作，外层双引号的作用是防止文件名中包含空格，比如<code>$0=file (copy).text</code>，上述命令相当于：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system(&#34;rm &#34;file (copy).text&#34;&#34;)</span><br></pre></td></tr></table></figure></p>
-<p>以上命令还可以用<code>getline</code>实现：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -t| awk &#39;NR&#62;5&#123;&#34;rm \&#34;&#34;$0&#34;\&#34;&#34;|getline&#125;&#39;</span><br></pre></td></tr></table></figure></p>
-<p>getline的官方文档：</p>
-<blockquote>
-<p>command | getline [var]<br>Run command piping the output either into \$0 or var, as above, and RT.</p>
-</blockquote>
-<p>下面再用getline剔除netstat命令输出的socket中的端口号，只保留ip地址：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tpn|grep &#39;127.0.0.1&#39;| head -5 |awk &#39;&#123;&#34;a=&#34;$5&#34;;echo $&#123;a%:*&#125;&#34;|getline s;print s;&#125;&#39;</span><br></pre></td></tr></table></figure></p>
-<p>这个也有个特殊的地方：<code>a=&quot;$5&quot;;echo ${a%:*}</code>不能简写为<code>echo ${&quot;$5&quot;%:*}</code>，因为<code>${}</code>的第一个参数必须为变量，不能为常量，所以此处需要借助一个自定义的变量。</p>
-<p><strong>参考</strong><br><a href="http://blog.csdn.net/cws1214/article/details/21959529" target="_blank" rel="external">awk里面执行shell命令</a></p>
+		<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@zxh ~]<span class="preprocessor"># df -h</span></span><br><span class="line">Filesystem               Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mapper/fedora-root  <span class="number">50</span>G   <span class="number">49</span>G   <span class="number">853</span>M  <span class="number">99</span>% /</span><br><span class="line">/dev/mapper/fedora-home  <span class="number">145</span>G  <span class="number">46</span>G   <span class="number">99</span>G   <span class="number">31</span>% /home</span><br></pre></td></tr></table></figure>
+<p>装系统的时候采用的是默认分区方式，结果没想到<code>home</code>没用多少，而<code>/</code>快用完了，现在就把<code>/dev/mapper/fedora-home</code>合并到<code>/dev/mapper/fedora-root</code>。</p>
+<p><strong>首先备份<code>home</code>目录下的文件</strong>，然后：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">umount /home</span><br><span class="line">lvremove <span class="regexp">/dev/</span>mapper/fedora-home</span><br><span class="line">lvresize -L +<span class="number">145</span>G <span class="regexp">/dev/</span>mapper/fedora-root</span><br><span class="line">resize2fs /</span><br></pre></td></tr></table></figure></p>
+<p><strong>最后从<code>/etc/fstab</code>中删掉<code>/dev/mapper/fedora-home</code>启动项</strong>，否则系统启动不了。</p>
+<p>此时执行<code>df -h</code>，可以看到分区后的结果了，然后重启就可以了。</p>
+<p><strong>参考</strong><br><a href="http://unix.stackexchange.com/questions/85687/how-can-i-merge-root-and-home-in-fedora" target="_blank" rel="external">How can I merge root and home in Fedora?</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -110,7 +108,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/shell/">shell</a>
+  <a class="article-category-link" href="/categories/python/">python</a>
 </div>
 
 
@@ -120,7 +118,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2016/01/30/awk执行shell命令/" data-title="awk执行shell命令 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://1988zxh.com/2016/07/27/fedora合并root_home分区/" data-title="fedora合并root/home分区 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -133,19 +131,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/02/05/通过Fabric自动部署web工程/" title="通过Fabric自动部署web工程">
-  <strong>上一篇：</strong><br/>
-  <span>
-  通过Fabric自动部署web工程</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/01/28/egit解决冲突/"  title="egit解决冲突">
+<a href="/2016/07/26/python操作redis的pub_sub/"  title="python操作redis的pub/sub">
  <strong>下一篇：</strong><br/> 
- <span>egit解决冲突
+ <span>python操作redis的pub/sub
 </span>
 </a>
 </div>
@@ -154,7 +144,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/01/30/awk执行shell命令/" data-title="awk执行shell命令" data-url="http://1988zxh.com/2016/01/30/awk执行shell命令/"></div>
+	<div class="ds-thread" data-thread-key="2016/07/27/fedora合并root_home分区/" data-title="fedora合并root/home分区" data-url="http://1988zxh.com/2016/07/27/fedora合并root_home分区/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

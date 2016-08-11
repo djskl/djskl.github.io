@@ -1,0 +1,526 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>python中set的实现 | ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="C++中set以及java中的treeset都是基于红黑树实现的，而python中的set是基于散列表(HashTable)实现的。它们的复杂度对比如下：1234567       | Hash Table  |   Red-Black Tree    |-------+-------------+---------------------+Space  | O(n) : O(n) | O(n)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python中set的实现">
+<meta property="og:url" content="http://1988zxh.com/2016/08/10/python中set的实现/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="C++中set以及java中的treeset都是基于红黑树实现的，而python中的set是基于散列表(HashTable)实现的。它们的复杂度对比如下：1234567       | Hash Table  |   Red-Black Tree    |-------+-------------+---------------------+Space  | O(n) : O(n) | O(n)">
+<meta property="og:updated_time" content="2016-08-10T13:45:51.093Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python中set的实现">
+<meta name="twitter:description" content="C++中set以及java中的treeset都是基于红黑树实现的，而python中的set是基于散列表(HashTable)实现的。它们的复杂度对比如下：1234567       | Hash Table  |   Red-Black Tree    |-------+-------------+---------------------+Space  | O(n) : O(n) | O(n)">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">知也者，以其知过物而能貌之</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/reads">读书</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/08/10/python中set的实现/" title="python中set的实现" itemprop="url">python中set的实现</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2016-08-09T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-08-10</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<p>C++中set以及java中的treeset都是基于红黑树实现的，而python中的set是基于散列表(HashTable)实现的。它们的复杂度对比如下：<br><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">       | <span class="keyword">Hash</span> <span class="keyword">Table</span>  |   <span class="keyword">Red</span>-<span class="keyword">Black</span> Tree    |</span><br><span class="line">-------+-------------+---------------------+</span><br><span class="line"><span class="keyword">Space</span>  | <span class="keyword">O</span>(n) : <span class="keyword">O</span>(n) | <span class="keyword">O</span>(n)     : <span class="keyword">O</span>(n)     |</span><br><span class="line"><span class="keyword">Insert</span> | <span class="keyword">O</span>(<span class="number">1</span>) : <span class="keyword">O</span>(n) | <span class="keyword">O</span>(log n) : <span class="keyword">O</span>(log n) |</span><br><span class="line">Fetch  | <span class="keyword">O</span>(<span class="number">1</span>) : <span class="keyword">O</span>(n) | <span class="keyword">O</span>(log n) : <span class="keyword">O</span>(log n) |</span><br><span class="line"><span class="keyword">Delete</span> | <span class="keyword">O</span>(<span class="number">1</span>) : <span class="keyword">O</span>(n) | <span class="keyword">O</span>(log n) : <span class="keyword">O</span>(log n) |</span><br><span class="line">       | avg  :worst | average  : worst    |</span><br></pre></td></tr></table></figure></p>
+<p>貌似很难说谁比谁强。</p>
+<p>python中的set所使用的hash函数是<code>PyObject_Hash</code>，解决冲突使用的是<code>开放定址法(Open addressing)</code>。</p>
+<blockquote>
+<p>Open addressing is preferred over chaining since the link overhead for chaining would be substantial (100% with typical malloc overhead).</p>
+</blockquote>
+<p>这是CPython中set的相关定义：<br><figure class="highlight mizar"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">/* There are three kinds <span class="keyword">of</span> entries <span class="keyword">in</span> the table:</span><br><span class="line">1. Unused:  key == NULL</span><br><span class="line">2. Active:  key != NULL <span class="keyword">and</span> key != dummy </span><br><span class="line">3. Dummy:   key == dummy </span><br><span class="line"></span><br><span class="line">The hash field <span class="keyword">of</span> Unused slots have no meaning.</span><br><span class="line">The hash field <span class="keyword">of</span> Dummny slots are <span class="keyword">set</span> to -1 </span><br><span class="line">meaning <span class="keyword">that</span> dummy entries can <span class="keyword">be</span> detected <span class="keyword">by</span></span><br><span class="line">either entry-&gt;key==dummy <span class="keyword">or</span> <span class="keyword">by</span> entry-&gt;hash==-1.</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">#<span class="keyword">define</span> PySet_MINSIZE 8</span><br><span class="line"></span><br><span class="line">typedef <span class="keyword">struct</span> &#123;</span><br><span class="line">    PyObject *key; </span><br><span class="line">    Py_hash_t hash;             /* Cached hash code <span class="keyword">of</span> the key */</span><br><span class="line">&#125; setentry;</span><br><span class="line"></span><br><span class="line">typedef <span class="keyword">struct</span> &#123;</span><br><span class="line">    PyObject_HEAD</span><br><span class="line"></span><br><span class="line">    Py_ssize_t fill;            /* Number active <span class="keyword">and</span> dummy entries*/</span><br><span class="line">    Py_ssize_t used;            /* Number active entries */</span><br><span class="line"></span><br><span class="line">    /* The table contains mask + 1 slots, <span class="keyword">and</span> <span class="keyword">that</span>'s a power <span class="keyword">of</span> 2. </span><br><span class="line">     * We store the mask instead <span class="keyword">of</span> the size because the mask <span class="keyword">is</span> more</span><br><span class="line">     * frequently needed.</span><br><span class="line">     */    </span><br><span class="line">    Py_ssize_t mask; </span><br><span class="line"></span><br><span class="line">    /* The table points to a fixed-size smalltable <span class="keyword">for</span> small tables</span><br><span class="line">     * <span class="keyword">or</span> to additional malloc'ed memory <span class="keyword">for</span> bigger tables.</span><br><span class="line">     * The table pointer <span class="keyword">is</span> never NULL which saves us <span class="keyword">from</span> repeated</span><br><span class="line">     * runtime null-tests.</span><br><span class="line">     */    </span><br><span class="line">    setentry *table;</span><br><span class="line"></span><br><span class="line">    setentry smalltable[PySet_MINSIZE];</span><br><span class="line">    </span><br><span class="line">&#125; PySetObject;</span><br></pre></td></tr></table></figure></p>
+<p>其中<code>setentry</code>是存储于set的基本元素，而<code>PySetObject</code>即是set在CPython中的实现，<code>PySetObject</code>中的每一个<code>setentry</code>都有3种状态(类型?)：。</p>
+<blockquote>
+<p><strong>unused</strong>：当前存储单元未被使用；<br><strong>active</strong>：当前存储单元已被占用；<br><strong>dummy</strong>：当前存储单元曾经被占用，现已被删除。</p>
+</blockquote>
+<p>其中dummy存在的意义是防止由解决冲突形成的探测序列断裂。</p>
+<p>PySetObject中的<code>used/fill</code>字段表示hashtable中已填充的元素个数(用于计算装载因子等)；<code>perturb</code>解决冲突时使用；<code>mask</code>是hashtable的长度，一般是2的n次方，称为<code>mask</code>而不是<code>size</code>的原因是以后该字段主要用于位的与运算；<code>table</code>存储<code>setentry</code>的数组；<code>smalltable</code>初始化化时预生成的空间,大小为<code>PySet_MINSIZE</code>个，刚开始时<code>table</code>指针指向<code>smalltable</code>，但当<code>table</code>中的元素超过8个时，<code>table</code>会指向新申请的内存空间。</p>
+<p>set或dict的关键操作就是快速(O(1))的找到某个key值，CPython中这一关键函数如下：<br><figure class="highlight zephir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//so为PySetObject对象</span></span><br><span class="line"><span class="comment">#define INIT_NONZERO_SET_SLOTS(so) do &#123;                        </span></span><br><span class="line">    (so)-&gt;table = (so)-&gt;smalltable; <span class="comment">//table指针指向smalltable                        </span></span><br><span class="line">    (so)-&gt;mask = PySet_MINSIZE - <span class="number">1</span>; <span class="comment">//长度设为PySet_MINSIZE - 1 </span></span><br><span class="line">    &#125; <span class="keyword">while</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#define EMPTY_TO_MINSIZE(so) do &#123; </span></span><br><span class="line">    memset((so)-&gt;smalltable, <span class="number">0</span>, sizeof((so)-&gt;smalltable)); <span class="comment">//申请初始空间</span></span><br><span class="line">    (so)-&gt;used = (so)-&gt;fill = <span class="number">0</span>; <span class="comment">//目前set中没有元素</span></span><br><span class="line">    INIT_NONZERO_SET_SLOTS(so); <span class="comment">//进行一些初始化工作          </span></span><br><span class="line">    &#125; <span class="keyword">while</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> setentry *</span><br><span class="line">set_lookkey(PySetObject *so, PyObject *key, register <span class="keyword">long</span> hash)</span><br><span class="line">&#123;</span><br><span class="line">    register Py_ssize_t i;</span><br><span class="line">    register size_t perturb;</span><br><span class="line">    register setentry *freeslot;    <span class="comment">//指向第一个dummy单元，方便后面复用</span></span><br><span class="line">    register size_t mask = so-&gt;mask;</span><br><span class="line">    setentry *table = so-&gt;table;</span><br><span class="line">    register setentry *entry;</span><br><span class="line">    register <span class="keyword">int</span> cmp;</span><br><span class="line">    PyObject *startkey;</span><br><span class="line">    </span><br><span class="line">    i = hash &amp; mask;    <span class="comment">//通过与运算将待插入对象的hash值映射到table的index范围之内</span></span><br><span class="line">    entry = &amp;table[i]; </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//所映射的单元为空 或 键值的引用相同，根据键值的状态判断是否查找成功</span></span><br><span class="line">    <span class="keyword">if</span> (entry-&gt;key == <span class="keyword">NULL</span> || entry-&gt;key == key)</span><br><span class="line">        <span class="keyword">return</span> entry;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//当前单元为dummy类型，则将其赋于freeslot，方便后续使用</span></span><br><span class="line">    <span class="keyword">if</span> (entry-&gt;key == dummy)</span><br><span class="line">        freeslot = entry;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//说明引用不同(entry-&gt;key != key)，但值有可能相同</span></span><br><span class="line">        <span class="keyword">if</span> (entry-&gt;hash == hash) &#123;</span><br><span class="line">            startkey = entry-&gt;key;</span><br><span class="line">            Py_INCREF(startkey);    <span class="comment">//增加startkey的一次引用次数，供垃圾回收时参考</span></span><br><span class="line">            cmp = PyObject_RichCompareBool(startkey, key, Py_EQ);   <span class="comment">//CPython自己的比较函数</span></span><br><span class="line">            Py_DECREF(startkey);    <span class="comment">//减少startkey的一次引用次数，供垃圾回收时参考</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">//值也不相同</span></span><br><span class="line">            <span class="keyword">if</span> (cmp &lt; <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">NULL</span></span><br><span class="line">            <span class="keyword">if</span> (table == so-&gt;table &amp;&amp; entry-&gt;key == startkey) &#123;</span><br><span class="line">                <span class="keyword">if</span> (cmp &gt; <span class="number">0</span>)</span><br><span class="line">                    <span class="keyword">return</span> entry;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> set_lookkey(so, key, hash);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        freeslot = <span class="keyword">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//解决hash冲突</span></span><br><span class="line">    <span class="keyword">for</span> (perturb = hash; ; perturb &gt;&gt;= PERTURB_SHIFT) &#123;</span><br><span class="line">        i = (i &lt;&lt; <span class="number">2</span>) + i + perturb + <span class="number">1</span>;</span><br><span class="line">        entry = &amp;table[i &amp; mask];</span><br><span class="line">        <span class="keyword">if</span> (entry-&gt;key == <span class="keyword">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (freeslot != <span class="keyword">NULL</span>)</span><br><span class="line">                entry = freeslot;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (entry-&gt;key == key)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">if</span> (entry-&gt;hash == hash &amp;&amp; entry-&gt;key != dummy) &#123;</span><br><span class="line">            startkey = entry-&gt;key;</span><br><span class="line">            Py_INCREF(startkey);</span><br><span class="line">            cmp = PyObject_RichCompareBool(startkey, key, Py_EQ);</span><br><span class="line">            Py_DECREF(startkey);</span><br><span class="line">            <span class="keyword">if</span> (cmp &lt; <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">NULL</span>;</span><br><span class="line">            <span class="keyword">if</span> (table == so-&gt;table &amp;&amp; entry-&gt;key == startkey) &#123;</span><br><span class="line">                <span class="keyword">if</span> (cmp &gt; <span class="number">0</span>)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">/* The compare did major nasty stuff to the</span><br><span class="line">                 * set:  start over.</span><br><span class="line">                 */</span></span><br><span class="line">                <span class="keyword">return</span> set_lookkey(so, key, hash);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (entry-&gt;key == dummy &amp;&amp; freeslot == <span class="keyword">NULL</span>)</span><br><span class="line">            freeslot = entry;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> entry;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>后记</strong><br>主要参考了《Python源码剖析》上对字典实现的阐述，然后结合一些网上的资料，自己试着总结了set的实现，写得确实有点乱，过路的君子将就看吧。。。</p>
+<p><strong>参考</strong><br><a href="https://book.douban.com/subject/3117898/" target="_blank" rel="external">Python源码剖析.陈儒</a><br><a href="http://svn.python.org/view/python/trunk/Objects/setobject.c" target="_blank" rel="external">/python/trunk/Objects/setobject.c</a><br><a href="https://fossies.org/dox/Python-2.7.12/structsetentry.html" target="_blank" rel="external">setentry Struct Reference</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/python/">python</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://1988zxh.com/2016/08/10/python中set的实现/" data-title="python中set的实现 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/07/27/fedora合并root_home分区/"  title="fedora合并root/home分区">
+ <strong>下一篇：</strong><br/> 
+ <span>fedora合并root/home分区
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/08/10/python中set的实现/" data-title="python中set的实现" data-url="http://1988zxh.com/2016/08/10/python中set的实现/"></div>
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"djskl"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/django/" title="django">django<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/openlayers/" title="openlayers">openlayers<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>37</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spyne/" title="spyne">spyne<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/装饰器/" title="装饰器">装饰器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+<script type="text/javascript">
+(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+_st('install','RFzyQ_eKhxpGo1Snfgpj','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"djskl"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

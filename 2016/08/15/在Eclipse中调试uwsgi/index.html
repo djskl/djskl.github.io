@@ -5,30 +5,24 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>Fedora20翻墙小记 | ideas into codes</title>
+    <title>在Eclipse中调试uwsgi | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="之前一直觉得可以用谷歌搜索就不用费劲翻墙了，没想到该来的早晚会来，今天需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。
-ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据过了墙之后再被还原，这样就完美的绕过了墙。
-1、安装shadowsocks-qt5Fedora22/23可以从这里下载r">
+    <meta name="description" content="1、将pydevd.py所在目录添加到sys.path123456import sys;sys.path.append(r&apos;/path/to/eclipse/plugins/org.python.pydev_xxx/pysrc&apos;)def application(env, sr):    url = env[&quot;PATH_INFO&quot;]    import pydevd;pydevd.settrace(">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Fedora20翻墙小记">
-<meta property="og:url" content="http://ideasintocodes.top/2016/01/27/Fedora20翻墙小记/index.html">
+<meta property="og:title" content="在Eclipse中调试uwsgi">
+<meta property="og:url" content="http://ideasintocodes.top/2016/08/15/在Eclipse中调试uwsgi/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="之前一直觉得可以用谷歌搜索就不用费劲翻墙了，没想到该来的早晚会来，今天需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。
-ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据过了墙之后再被还原，这样就完美的绕过了墙。
-1、安装shadowsocks-qt5Fedora22/23可以从这里下载r">
-<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/what-is-shadowsocks.png">
-<meta property="og:updated_time" content="2016-01-28T14:43:49.000Z">
+<meta property="og:description" content="1、将pydevd.py所在目录添加到sys.path123456import sys;sys.path.append(r&apos;/path/to/eclipse/plugins/org.python.pydev_xxx/pysrc&apos;)def application(env, sr):    url = env[&quot;PATH_INFO&quot;]    import pydevd;pydevd.settrace(">
+<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/pydevd.png">
+<meta property="og:updated_time" content="2016-08-15T13:03:10.349Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Fedora20翻墙小记">
-<meta name="twitter:description" content="之前一直觉得可以用谷歌搜索就不用费劲翻墙了，没想到该来的早晚会来，今天需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。
-ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据过了墙之后再被还原，这样就完美的绕过了墙。
-1、安装shadowsocks-qt5Fedora22/23可以从这里下载r">
+<meta name="twitter:title" content="在Eclipse中调试uwsgi">
+<meta name="twitter:description" content="1、将pydevd.py所在目录添加到sys.path123456import sys;sys.path.append(r&apos;/path/to/eclipse/plugins/org.python.pydev_xxx/pysrc&apos;)def application(env, sr):    url = env[&quot;PATH_INFO&quot;]    import pydevd;pydevd.settrace(">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -86,36 +80,28 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/27/Fedora20翻墙小记/" title="Fedora20翻墙小记" itemprop="url">Fedora20翻墙小记</a>
+      <a href="/2016/08/15/在Eclipse中调试uwsgi/" title="在Eclipse中调试uwsgi" itemprop="url">在Eclipse中调试uwsgi</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2016-01-26T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-01-27</time>
+    <time datetime="2016-08-14T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-08-15</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>之前一直觉得可以用<a href="http://www.itechzero.com/google-mirror-sites-collect.html" target="_blank" rel="external">谷歌搜索</a>就不用费劲翻墙了，没想到该来的早晚会来，今天需要调用谷歌的某项服务，绕不开了，只能尝试着去翻了。</p>
-<p>ShadowSocks是一个基于<a href="https://en.wikipedia.org/wiki/SOCKS" target="_blank" rel="external">socks5协议</a>的工具，其原理如下图所示：<br><img src="http://7xktxu.com1.z0.glb.clouddn.com/what-is-shadowsocks.png" alt=""><br>需要传输的数据在经过墙的时候被加了密，这样墙就没法判断这个连接是否该被拦截了，数据过了墙之后再被还原，这样就完美的绕过了墙。</p>
-<p><strong>1、安装shadowsocks-qt5</strong><br>Fedora22/23可以从<a href="https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/" target="_blank" rel="external">这里</a>下载repo文件，然后放到<code>/etc/yum.repos.d/</code>目录下，就可以通过yum安装了：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update&#10;sudo yum install shadowsocks-qt5</span><br></pre></td></tr></table></figure></p>
-<p>fedora20的repo：</p>
+		<p><strong>1、将<code>pydevd.py</code>所在目录添加到sys.path</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys;sys.path.append(<span class="string">r'/path/to/eclipse/plugins/org.python.pydev_xxx/pysrc'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">application</span><span class="params">(env, sr)</span>:</span></span><br><span class="line">    url = env[<span class="string">"PATH_INFO"</span>]</span><br><span class="line">    <span class="keyword">import</span> pydevd;pydevd.settrace() <span class="comment">#此处为段点</span></span><br><span class="line">    <span class="comment">#other codes</span></span><br></pre></td></tr></table></figure></p>
+<p>注：此步骤必须使用<code>pydevd</code>，不可使用<code>pdb</code></p>
+<p><strong>2、打开eclipse中的debugger server</strong><br><img src="http://7xktxu.com1.z0.glb.clouddn.com/pydevd.png" alt="">点击右图红圈中的按钮即可(如果工具栏没有可以通过Window &gt; Customize perspective &gt; Tool Bar visibility &gt; PyDev debug启用)，此时可在<code>console</code>面板中看到以下输出：</p>
 <blockquote>
-<p>[librehat-shadowsocks]<br>name=Copr repo for shadowsocks owned by librehat<br>baseurl=<a href="https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/" target="_blank" rel="external">https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/</a><br>skip_if_unavailable=True<br>gpgcheck=0<br>gpgkey=<a href="https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/pubkey.gpg" target="_blank" rel="external">https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/pubkey.gpg</a><br>enabled=1</p>
+<p>Debug Server at port: 5678</p>
 </blockquote>
-<p>fedora21的repo:</p>
-<blockquote>
-<p>[librehat-shadowsocks]<br>name=Copr repo for shadowsocks owned by librehat<br>baseurl=<a href="https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/" target="_blank" rel="external">https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/</a><br>skip_if_unavailable=True<br>gpgcheck=0<br>gpgkey=<a href="https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/pubkey.gpg" target="_blank" rel="external">https://copr-be.cloud.fedoraproject.org/results/librehat/shadowsocks/fedora-\$releasever-\$basearch/pubkey.gpg</a><br>enabled=1</p>
-</blockquote>
-<p><strong>2、配置shadowsocks代理</strong><br>安装完之后可以在<code>applicaion</code>中看到<code>shadowsocks-qt5</code>，打开并新建<code>connection</code>，输入服务器地址、端口号、密码以及加密方法，本地端口一般不需要改(默认为1080)，点击<code>ok</code>，回到主界面点击<code>connect</code>即可连接。</p>
-<p>如果<code>latency</code>太大的话，基本没戏，我第一次试了几个免费公开帐号，这个值在两三百左右，访问什么网站都会返回<code>no data received</code>。</p>
-<p><strong>3、浏览器配置</strong><br>在Fedora默认的<code>Network</code>配置里就有<code>Network proxy</code>这一项，在<code>Socks Host</code>里输入<code>127.0.0.1</code>,端口<code>1080</code>即可，这样在chrome里访问网站就会自动走代理了。</p>
-<p><strong>4、Terminal配置</strong><br>可以参考<a href="http://cxh.me/2015/01/30/use-shadowsocks-in-terminal/" target="_blank" rel="external">这篇文章</a></p>
-<p><strong>最后</strong><br>推荐几个免费的试用帐号：<a href="http://www.ishadowsocks.com/，http://www.godusevpn.net/" target="_blank" rel="external">http://www.ishadowsocks.com/，http://www.godusevpn.net/</a></p>
-<p><strong>参考：</strong><br><a href="https://tumutanzi.com/archives/13005" target="_blank" rel="external">ShadowSocks的翻墙原理</a><br><a href="http://blog.csdn.net/bit_line/article/details/43260991" target="_blank" rel="external">[shadowsocks-qt5 for fedora20] [配置shadowsocks科学上网 under Linux]</a></p>
+<p><strong>3、启动uwsgi程序</strong><br>启动uwsgi程序，并通过http访问uwsgi中被调试的接口，会发现程序会阻塞在<code>settrace()</code>语句上，同时可以打开<code>Debug Perspective</code>进行相关的debug操作。</p>
+<p>以上同样适用于调试其他不经过eclipse启动的远程程序。</p>
+<p><strong>参考</strong><br><a href="http://stackoverflow.com/questions/16056865/debug-uwsgi-application-in-eclipse" target="_blank" rel="external">Debug uWsgi application in eclipse</a><br><a href="http://www.pydev.org/manual_adv_remote_debugger.html" target="_blank" rel="external">pydev:Remote Debugger</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -123,7 +109,7 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/其他/">其他</a>
+  <a class="article-category-link" href="/categories/python/">python</a>
 </div>
 
 
@@ -133,7 +119,7 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://ideasintocodes.top/2016/01/27/Fedora20翻墙小记/" data-title="Fedora20翻墙小记 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://ideasintocodes.top/2016/08/15/在Eclipse中调试uwsgi/" data-title="在Eclipse中调试uwsgi | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -146,19 +132,11 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/01/28/egit解决冲突/" title="egit解决冲突">
-  <strong>上一篇：</strong><br/>
-  <span>
-  egit解决冲突</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/01/27/统计不同ip建立的tcp连接数/"  title="统计不同ip建立的tcp连接数">
+<a href="/2016/08/10/python中set的实现/"  title="python中set的实现">
  <strong>下一篇：</strong><br/> 
- <span>统计不同ip建立的tcp连接数
+ <span>python中set的实现
 </span>
 </a>
 </div>
@@ -167,7 +145,7 @@ ShadowSocks是一个基于socks5协议的工具，其原理如下图所示：需
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/01/27/Fedora20翻墙小记/" data-title="Fedora20翻墙小记" data-url="http://ideasintocodes.top/2016/01/27/Fedora20翻墙小记/"></div>
+	<div class="ds-thread" data-thread-key="2016/08/15/在Eclipse中调试uwsgi/" data-title="在Eclipse中调试uwsgi" data-url="http://ideasintocodes.top/2016/08/15/在Eclipse中调试uwsgi/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

@@ -2,627 +2,632 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://1988zxh.com/2016/08/10/python%E4%B8%ADset%E7%9A%84%E5%AE%9E%E7%8E%B0/</loc>
+    <loc>http://ideasintocodes.top/2016/08/15/%E5%9C%A8Eclipse%E4%B8%AD%E8%B0%83%E8%AF%95uwsgi/</loc>
+    <lastmod>2016-08-15T13:03:10.349Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://ideasintocodes.top/2016/08/10/python%E4%B8%ADset%E7%9A%84%E5%AE%9E%E7%8E%B0/</loc>
     <lastmod>2016-08-10T13:45:51.093Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/07/27/fedora%E5%90%88%E5%B9%B6root_home%E5%88%86%E5%8C%BA/</loc>
+    <loc>http://ideasintocodes.top/2016/07/27/fedora%E5%90%88%E5%B9%B6root_home%E5%88%86%E5%8C%BA/</loc>
     <lastmod>2016-07-27T13:39:36.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/07/26/python%E6%93%8D%E4%BD%9Credis%E7%9A%84pub_sub/</loc>
+    <loc>http://ideasintocodes.top/2016/07/26/python%E6%93%8D%E4%BD%9Credis%E7%9A%84pub_sub/</loc>
     <lastmod>2016-07-26T14:12:42.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/07/19/shell%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8B%E6%A0%87/</loc>
+    <loc>http://ideasintocodes.top/2016/07/19/shell%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8B%E6%A0%87/</loc>
     <lastmod>2016-07-19T14:14:17.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/21/Postgresql%E9%85%8D%E7%BD%AE%E4%B8%BB%E4%BB%8E%E6%B5%81%E5%A4%8D%E5%88%B6/</loc>
+    <loc>http://ideasintocodes.top/2016/01/21/Postgresql%E9%85%8D%E7%BD%AE%E4%B8%BB%E4%BB%8E%E6%B5%81%E5%A4%8D%E5%88%B6/</loc>
     <lastmod>2016-07-19T14:04:03.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/07/17/Tornado%E4%B9%8BIOLoop%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B/</loc>
+    <loc>http://ideasintocodes.top/2016/07/17/Tornado%E4%B9%8BIOLoop%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2016-07-17T13:31:28.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/07/13/docker%E5%AE%B9%E5%99%A8%E8%BF%90%E8%A1%8C%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</loc>
+    <loc>http://ideasintocodes.top/2016/07/13/docker%E5%AE%B9%E5%99%A8%E8%BF%90%E8%A1%8C%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</loc>
     <lastmod>2016-07-13T13:53:45.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/06/25/dockerfile%E6%9E%84%E5%BB%BAdocker%E9%95%9C%E5%83%8F/</loc>
+    <loc>http://ideasintocodes.top/2016/06/25/dockerfile%E6%9E%84%E5%BB%BAdocker%E9%95%9C%E5%83%8F/</loc>
     <lastmod>2016-07-13T13:45:22.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/07/07/%E5%9F%BA%E4%BA%8Edocker%E7%9A%84nginx_uwsgi%E6%9C%8D%E5%8A%A1%E8%87%AA%E5%90%AF%E5%8A%A8/</loc>
+    <loc>http://ideasintocodes.top/2016/07/07/%E5%9F%BA%E4%BA%8Edocker%E7%9A%84nginx_uwsgi%E6%9C%8D%E5%8A%A1%E8%87%AA%E5%90%AF%E5%8A%A8/</loc>
     <lastmod>2016-07-13T13:34:27.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/07/01/Docker%20Overview_%E8%AF%91/</loc>
+    <loc>http://ideasintocodes.top/2016/07/01/Docker%20Overview_%E8%AF%91/</loc>
     <lastmod>2016-07-02T15:03:46.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/06/29/docker%E5%AE%B9%E5%99%A8%E7%9A%84%E5%86%85%E5%AD%98%E4%B8%8ECPU%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/</loc>
+    <loc>http://ideasintocodes.top/2016/06/29/docker%E5%AE%B9%E5%99%A8%E7%9A%84%E5%86%85%E5%AD%98%E4%B8%8ECPU%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/</loc>
     <lastmod>2016-06-29T12:52:46.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/06/21/%E9%80%9A%E8%BF%87docker_gen%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AEnginx%E4%BB%A3%E7%90%86/</loc>
+    <loc>http://ideasintocodes.top/2016/06/21/%E9%80%9A%E8%BF%87docker_gen%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AEnginx%E4%BB%A3%E7%90%86/</loc>
     <lastmod>2016-06-21T10:54:30.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/06/16/%E6%90%AD%E5%BB%BAdockerswarm%E9%9B%86%E7%BE%A4/</loc>
+    <loc>http://ideasintocodes.top/2016/06/16/%E6%90%AD%E5%BB%BAdockerswarm%E9%9B%86%E7%BE%A4/</loc>
     <lastmod>2016-06-18T01:00:44.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/06/14/Fedora%E4%B8%AD%E7%9A%84firewalld%E5%BA%94%E7%94%A8%E7%AE%80%E4%BB%8B/</loc>
+    <loc>http://ideasintocodes.top/2016/06/14/Fedora%E4%B8%AD%E7%9A%84firewalld%E5%BA%94%E7%94%A8%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2016-06-14T13:56:13.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/06/12/%E5%8F%AA%E4%BF%9D%E7%95%99%E8%B7%AF%E5%BE%84%E4%BB%A5%E5%8F%8A%E6%96%87%E4%BB%B6%E5%90%8D%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%A4%87%E4%BB%BD/</loc>
+    <loc>http://ideasintocodes.top/2016/06/12/%E5%8F%AA%E4%BF%9D%E7%95%99%E8%B7%AF%E5%BE%84%E4%BB%A5%E5%8F%8A%E6%96%87%E4%BB%B6%E5%90%8D%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%A4%87%E4%BB%BD/</loc>
     <lastmod>2016-06-12T14:48:40.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/06/11/linux%E4%B8%ADbash%E7%9A%84%E5%90%AF%E5%8A%A8%E6%96%87%E4%BB%B6/</loc>
+    <loc>http://ideasintocodes.top/2016/06/11/linux%E4%B8%ADbash%E7%9A%84%E5%90%AF%E5%8A%A8%E6%96%87%E4%BB%B6/</loc>
     <lastmod>2016-06-11T03:50:30.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/06/10/docker%E6%95%B0%E6%8D%AE%E5%8D%B7%E5%8F%8A%E6%95%B0%E6%8D%AE%E5%8D%B7%E5%AE%B9%E5%99%A8/</loc>
+    <loc>http://ideasintocodes.top/2016/06/10/docker%E6%95%B0%E6%8D%AE%E5%8D%B7%E5%8F%8A%E6%95%B0%E6%8D%AE%E5%8D%B7%E5%AE%B9%E5%99%A8/</loc>
     <lastmod>2016-06-10T09:16:02.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/06/05/%E5%9F%BA%E4%BA%8EPgpool-II%E4%B8%8EStreamingReplication%E5%AE%9E%E7%8E%B0postgresql%E7%9A%84%E4%B8%BB%E5%A4%87%E5%88%87%E6%8D%A2/</loc>
+    <loc>http://ideasintocodes.top/2016/06/05/%E5%9F%BA%E4%BA%8EPgpool-II%E4%B8%8EStreamingReplication%E5%AE%9E%E7%8E%B0postgresql%E7%9A%84%E4%B8%BB%E5%A4%87%E5%88%87%E6%8D%A2/</loc>
     <lastmod>2016-06-07T13:58:44.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/05/31/rsync%E6%96%87%E4%BB%B6%E8%BF%87%E6%BB%A4/</loc>
+    <loc>http://ideasintocodes.top/2016/05/31/rsync%E6%96%87%E4%BB%B6%E8%BF%87%E6%BB%A4/</loc>
     <lastmod>2016-05-31T12:46:56.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/05/30/%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8Ccelery%20worker/</loc>
+    <loc>http://ideasintocodes.top/2016/05/30/%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8Ccelery%20worker/</loc>
     <lastmod>2016-05-30T13:33:19.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/05/28/Celery%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97/</loc>
+    <loc>http://ideasintocodes.top/2016/05/28/Celery%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97/</loc>
     <lastmod>2016-05-28T14:54:31.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/05/17/javascript%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/</loc>
+    <loc>http://ideasintocodes.top/2016/05/17/javascript%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/</loc>
     <lastmod>2016-05-17T14:06:19.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/05/16/websocket%E5%8D%8F%E8%AE%AE%E4%BD%BF%E7%94%A8%E5%88%86%E6%9E%90/</loc>
+    <loc>http://ideasintocodes.top/2016/05/16/websocket%E5%8D%8F%E8%AE%AE%E4%BD%BF%E7%94%A8%E5%88%86%E6%9E%90/</loc>
     <lastmod>2016-05-16T14:36:55.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/05/11/%E7%BC%96%E5%86%99systemd_service%E6%96%87%E4%BB%B6/</loc>
+    <loc>http://ideasintocodes.top/2016/05/11/%E7%BC%96%E5%86%99systemd_service%E6%96%87%E4%BB%B6/</loc>
     <lastmod>2016-05-11T12:18:28.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/04/04/python%E6%89%93%E5%8C%85%E4%B8%8E%E5%AE%89%E8%A3%85/</loc>
+    <loc>http://ideasintocodes.top/2016/04/04/python%E6%89%93%E5%8C%85%E4%B8%8E%E5%AE%89%E8%A3%85/</loc>
     <lastmod>2016-05-10T14:10:08.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/05/05/Django%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%80%E7%A7%8D%E5%8A%A0%E8%BD%BD%E6%96%B9%E5%BC%8F/</loc>
+    <loc>http://ideasintocodes.top/2016/05/05/Django%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%80%E7%A7%8D%E5%8A%A0%E8%BD%BD%E6%96%B9%E5%BC%8F/</loc>
     <lastmod>2016-05-05T11:45:30.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/05/04/NGINX%E9%83%A8%E7%BD%B2websocket%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</loc>
+    <loc>http://ideasintocodes.top/2016/05/04/NGINX%E9%83%A8%E7%BD%B2websocket%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</loc>
     <lastmod>2016-05-04T13:40:36.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/04/24/httpd%E9%83%A8%E7%BD%B2wsgi%E5%BA%94%E7%94%A8/</loc>
+    <loc>http://ideasintocodes.top/2016/04/24/httpd%E9%83%A8%E7%BD%B2wsgi%E5%BA%94%E7%94%A8/</loc>
     <lastmod>2016-04-24T13:38:25.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/04/24/Werkzeug%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B/</loc>
+    <loc>http://ideasintocodes.top/2016/04/24/Werkzeug%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2016-04-24T06:44:46.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/04/23/RabbitMQ%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B/</loc>
+    <loc>http://ideasintocodes.top/2016/04/23/RabbitMQ%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2016-04-23T08:31:37.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/04/02/Attemptedrelativeimportinnon-package%E9%94%99%E8%AF%AF/</loc>
+    <loc>http://ideasintocodes.top/2016/04/02/Attemptedrelativeimportinnon-package%E9%94%99%E8%AF%AF/</loc>
     <lastmod>2016-04-02T00:05:05.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/04/01/python%E6%8F%8F%E8%BF%B0%E7%AC%A6%E5%8F%8A%E7%B1%BB%E5%8F%AA%E8%AF%BB%E5%B1%9E%E6%80%A7%E6%9D%82%E8%AE%B0/</loc>
+    <loc>http://ideasintocodes.top/2016/04/01/python%E6%8F%8F%E8%BF%B0%E7%AC%A6%E5%8F%8A%E7%B1%BB%E5%8F%AA%E8%AF%BB%E5%B1%9E%E6%80%A7%E6%9D%82%E8%AE%B0/</loc>
     <lastmod>2016-04-01T14:37:09.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/03/28/Django%E4%B8%AD%E7%9A%84url%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92/</loc>
+    <loc>http://ideasintocodes.top/2016/03/28/Django%E4%B8%AD%E7%9A%84url%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92/</loc>
     <lastmod>2016-03-28T13:55:16.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/03/22/%E9%97%AD%E5%8C%85%E7%9A%84%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A/</loc>
+    <loc>http://ideasintocodes.top/2016/03/22/%E9%97%AD%E5%8C%85%E7%9A%84%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A/</loc>
     <lastmod>2016-03-22T12:53:45.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/reads/index.html</loc>
+    <loc>http://ideasintocodes.top/reads/index.html</loc>
     <lastmod>2016-03-12T06:16:13.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/03/11/%E5%B0%86Python%E8%84%9A%E6%9C%AC%E7%9A%84%E9%94%99%E8%AF%AF%E8%BE%93%E5%87%BA%E5%88%B0stderr/</loc>
+    <loc>http://ideasintocodes.top/2016/03/11/%E5%B0%86Python%E8%84%9A%E6%9C%AC%E7%9A%84%E9%94%99%E8%AF%AF%E8%BE%93%E5%87%BA%E5%88%B0stderr/</loc>
     <lastmod>2016-03-11T11:38:52.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/02/28/%E6%90%AD%E5%BB%BAPostgresql-xl%E9%9B%86%E7%BE%A4/</loc>
+    <loc>http://ideasintocodes.top/2016/02/28/%E6%90%AD%E5%BB%BAPostgresql-xl%E9%9B%86%E7%BE%A4/</loc>
     <lastmod>2016-03-11T11:00:09.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/03/03/Postgresql%E6%8C%81%E7%BB%AD%E5%BD%92%E6%A1%A3%E4%B8%8EPITR/</loc>
+    <loc>http://ideasintocodes.top/2016/03/03/Postgresql%E6%8C%81%E7%BB%AD%E5%BD%92%E6%A1%A3%E4%B8%8EPITR/</loc>
     <lastmod>2016-03-11T10:56:46.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/03/11/JavaScript%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9B%BF%E6%8D%A2/</loc>
+    <loc>http://ideasintocodes.top/2016/03/11/JavaScript%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9B%BF%E6%8D%A2/</loc>
     <lastmod>2016-03-11T10:49:27.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/02/29/Django%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9B%86%E7%BE%A4/</loc>
+    <loc>http://ideasintocodes.top/2016/02/29/Django%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9B%86%E7%BE%A4/</loc>
     <lastmod>2016-02-29T13:50:07.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/02/29/%E9%80%9A%E8%BF%87pstree%E6%9F%A5%E7%9C%8Bpython%E7%BA%BF%E7%A8%8B/</loc>
+    <loc>http://ideasintocodes.top/2016/02/29/%E9%80%9A%E8%BF%87pstree%E6%9F%A5%E7%9C%8Bpython%E7%BA%BF%E7%A8%8B/</loc>
     <lastmod>2016-02-29T12:02:05.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/02/17/%E5%88%A0%E9%99%A4%E6%96%87%E6%9C%AC%E4%B8%AD%E7%9A%84%E7%A9%BA%E7%99%BD%E8%A1%8C/</loc>
+    <loc>http://ideasintocodes.top/2016/02/17/%E5%88%A0%E9%99%A4%E6%96%87%E6%9C%AC%E4%B8%AD%E7%9A%84%E7%A9%BA%E7%99%BD%E8%A1%8C/</loc>
     <lastmod>2016-02-17T14:23:48.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/02/05/%E9%80%9A%E8%BF%87Fabric%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2web%E5%B7%A5%E7%A8%8B/</loc>
+    <loc>http://ideasintocodes.top/2016/02/05/%E9%80%9A%E8%BF%87Fabric%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2web%E5%B7%A5%E7%A8%8B/</loc>
     <lastmod>2016-02-05T08:24:35.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/30/awk%E6%89%A7%E8%A1%8Cshell%E5%91%BD%E4%BB%A4/</loc>
+    <loc>http://ideasintocodes.top/2016/01/30/awk%E6%89%A7%E8%A1%8Cshell%E5%91%BD%E4%BB%A4/</loc>
     <lastmod>2016-01-30T02:31:29.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/28/egit%E8%A7%A3%E5%86%B3%E5%86%B2%E7%AA%81/</loc>
+    <loc>http://ideasintocodes.top/2016/01/28/egit%E8%A7%A3%E5%86%B3%E5%86%B2%E7%AA%81/</loc>
     <lastmod>2016-01-28T15:23:37.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/27/Fedora20%E7%BF%BB%E5%A2%99%E5%B0%8F%E8%AE%B0/</loc>
+    <loc>http://ideasintocodes.top/2016/01/27/Fedora20%E7%BF%BB%E5%A2%99%E5%B0%8F%E8%AE%B0/</loc>
     <lastmod>2016-01-28T14:43:49.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/27/%E7%BB%9F%E8%AE%A1%E4%B8%8D%E5%90%8Cip%E5%BB%BA%E7%AB%8B%E7%9A%84tcp%E8%BF%9E%E6%8E%A5%E6%95%B0/</loc>
+    <loc>http://ideasintocodes.top/2016/01/27/%E7%BB%9F%E8%AE%A1%E4%B8%8D%E5%90%8Cip%E5%BB%BA%E7%AB%8B%E7%9A%84tcp%E8%BF%9E%E6%8E%A5%E6%95%B0/</loc>
     <lastmod>2016-01-27T14:45:37.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/about/index.html</loc>
+    <loc>http://ideasintocodes.top/about/index.html</loc>
     <lastmod>2016-01-24T03:36:26.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/23/%E8%80%81%E8%99%8E%E7%BB%95%E6%B9%96%E8%BF%BD%E7%8B%97%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
+    <loc>http://ideasintocodes.top/2016/01/23/%E8%80%81%E8%99%8E%E7%BB%95%E6%B9%96%E8%BF%BD%E7%8B%97%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2016-01-23T08:19:15.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/21/Postgresql%E7%8A%B6%E6%80%81%E7%BB%B4%E6%8A%A4_%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/</loc>
+    <loc>http://ideasintocodes.top/2016/01/21/Postgresql%E7%8A%B6%E6%80%81%E7%BB%B4%E6%8A%A4_%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/</loc>
     <lastmod>2016-01-21T01:53:59.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/21/%E6%9B%B4%E6%94%B9postgresql%E7%9A%84%E6%95%B0%E6%8D%AE%E7%9B%AE%E5%BD%95/</loc>
+    <loc>http://ideasintocodes.top/2016/01/21/%E6%9B%B4%E6%94%B9postgresql%E7%9A%84%E6%95%B0%E6%8D%AE%E7%9B%AE%E5%BD%95/</loc>
     <lastmod>2016-01-21T00:53:45.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/08/31/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%B1%82%E6%AC%A1%E6%93%8D%E4%BD%9C/</loc>
+    <loc>http://ideasintocodes.top/2015/08/31/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%B1%82%E6%AC%A1%E6%93%8D%E4%BD%9C/</loc>
     <lastmod>2016-01-14T13:20:04.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/08/22/Postgresql%E8%A1%A8%E7%9A%84%E7%BB%A7%E6%89%BF%E4%B8%8E%E5%88%86%E5%8C%BA/</loc>
+    <loc>http://ideasintocodes.top/2015/08/22/Postgresql%E8%A1%A8%E7%9A%84%E7%BB%A7%E6%89%BF%E4%B8%8E%E5%88%86%E5%8C%BA/</loc>
     <lastmod>2016-01-14T13:19:14.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/12/09/postgresql%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AD%97%E6%AE%B5%E7%9A%84%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA/</loc>
+    <loc>http://ideasintocodes.top/2015/12/09/postgresql%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AD%97%E6%AE%B5%E7%9A%84%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA/</loc>
     <lastmod>2016-01-14T13:19:02.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/04/Postgresql%E5%87%BD%E6%95%B0%E7%9A%84rowtype%E7%B1%BB%E5%9E%8B%E5%8F%8A%E8%BF%94%E5%9B%9E%E5%80%BC/</loc>
+    <loc>http://ideasintocodes.top/2016/01/04/Postgresql%E5%87%BD%E6%95%B0%E7%9A%84rowtype%E7%B1%BB%E5%9E%8B%E5%8F%8A%E8%BF%94%E5%9B%9E%E5%80%BC/</loc>
     <lastmod>2016-01-14T13:18:54.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/12/29/spyne%E7%AE%80%E4%BB%8B/</loc>
+    <loc>http://ideasintocodes.top/2015/12/29/spyne%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2016-01-14T13:16:38.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/09/25/django%E6%9D%A1%E4%BB%B6%E7%BB%A7%E6%89%BF%E7%88%B6%E6%A8%A1%E6%9D%BF/</loc>
+    <loc>http://ideasintocodes.top/2015/09/25/django%E6%9D%A1%E4%BB%B6%E7%BB%A7%E6%89%BF%E7%88%B6%E6%A8%A1%E6%9D%BF/</loc>
     <lastmod>2016-01-14T13:12:35.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/10/11/Django%E9%80%9A%E8%BF%87%E4%B8%80%E6%AC%A1%E6%80%A7%E9%93%BE%E6%8E%A5%E6%BF%80%E6%B4%BB%E7%94%A8%E6%88%B7/</loc>
+    <loc>http://ideasintocodes.top/2015/10/11/Django%E9%80%9A%E8%BF%87%E4%B8%80%E6%AC%A1%E6%80%A7%E9%93%BE%E6%8E%A5%E6%BF%80%E6%B4%BB%E7%94%A8%E6%88%B7/</loc>
     <lastmod>2016-01-14T13:12:24.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/05/10/%E7%A9%BA%E9%97%B4%E6%95%B0%E6%8D%AE%E7%9A%84%E6%8F%92%E5%85%A5%E4%B8%8E%E6%9F%A5%E8%AF%A2(Django+Postgis)/</loc>
+    <loc>http://ideasintocodes.top/2015/05/10/%E7%A9%BA%E9%97%B4%E6%95%B0%E6%8D%AE%E7%9A%84%E6%8F%92%E5%85%A5%E4%B8%8E%E6%9F%A5%E8%AF%A2(Django+Postgis)/</loc>
     <lastmod>2016-01-14T13:08:24.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/11/03/%E5%A4%96%E9%83%A8python%E8%84%9A%E6%9C%AC%E8%B0%83%E7%94%A8Django%E4%B8%AD%E7%9A%84%E6%96%B9%E6%B3%95%E6%A8%A1%E5%9E%8B%E7%AD%89/</loc>
+    <loc>http://ideasintocodes.top/2015/11/03/%E5%A4%96%E9%83%A8python%E8%84%9A%E6%9C%AC%E8%B0%83%E7%94%A8Django%E4%B8%AD%E7%9A%84%E6%96%B9%E6%B3%95%E6%A8%A1%E5%9E%8B%E7%AD%89/</loc>
     <lastmod>2016-01-14T13:07:58.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/08/14/Django%E7%94%B1%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%9F%E6%88%90model/</loc>
+    <loc>http://ideasintocodes.top/2015/08/14/Django%E7%94%B1%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%9F%E6%88%90model/</loc>
     <lastmod>2016-01-14T13:07:08.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/07/04/Django%E4%BD%BF%E7%94%A8redis%E7%BC%93%E5%AD%98%E6%9C%8D%E5%8A%A1/</loc>
+    <loc>http://ideasintocodes.top/2015/07/04/Django%E4%BD%BF%E7%94%A8redis%E7%BC%93%E5%AD%98%E6%9C%8D%E5%8A%A1/</loc>
     <lastmod>2016-01-14T13:06:38.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/06/15/Django%E4%B8%ADmodel%E5%AD%97%E6%AE%B5%E7%9A%84%E9%AA%8C%E8%AF%81/</loc>
+    <loc>http://ideasintocodes.top/2015/06/15/Django%E4%B8%ADmodel%E5%AD%97%E6%AE%B5%E7%9A%84%E9%AA%8C%E8%AF%81/</loc>
     <lastmod>2016-01-14T13:06:29.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/09/19/Django%20compressor%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B/</loc>
+    <loc>http://ideasintocodes.top/2015/09/19/Django%20compressor%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2016-01-14T13:06:10.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/11/19/Django%E6%A8%A1%E6%9D%BF%E6%A0%87%E7%AD%BEif%E4%B8%8E%E8%BF%87%E6%BB%A4%E6%A0%87%E7%AD%BEdefault/</loc>
+    <loc>http://ideasintocodes.top/2015/11/19/Django%E6%A8%A1%E6%9D%BF%E6%A0%87%E7%AD%BEif%E4%B8%8E%E8%BF%87%E6%BB%A4%E6%A0%87%E7%AD%BEdefault/</loc>
     <lastmod>2016-01-14T13:05:47.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/04/Django%E4%B8%8EAngularJs%E7%9A%84%E6%A8%A1%E6%9D%BF%E6%A0%87%E7%AD%BE%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98/</loc>
+    <loc>http://ideasintocodes.top/2016/01/04/Django%E4%B8%8EAngularJs%E7%9A%84%E6%A8%A1%E6%9D%BF%E6%A0%87%E7%AD%BE%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2016-01-14T13:01:51.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/06/AngularJs%E5%8A%A8%E6%80%81%E6%B7%BB%E5%8A%A0dom%E5%85%83%E7%B4%A0/</loc>
+    <loc>http://ideasintocodes.top/2016/01/06/AngularJs%E5%8A%A8%E6%80%81%E6%B7%BB%E5%8A%A0dom%E5%85%83%E7%B4%A0/</loc>
     <lastmod>2016-01-14T13:01:39.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/06/AngularJs%E9%80%9A%E8%BF%87service%E5%9C%A8controller%E9%97%B4%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE/</loc>
+    <loc>http://ideasintocodes.top/2016/01/06/AngularJs%E9%80%9A%E8%BF%87service%E5%9C%A8controller%E9%97%B4%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2016-01-14T13:01:29.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/08/AngularJs%E8%B7%AF%E7%94%B1(route)%E7%AE%80%E4%BB%8B/</loc>
+    <loc>http://ideasintocodes.top/2016/01/08/AngularJs%E8%B7%AF%E7%94%B1(route)%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2016-01-14T13:01:16.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/01/AngularJs_orderby%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
+    <loc>http://ideasintocodes.top/2016/01/01/AngularJs_orderby%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
     <lastmod>2016-01-14T13:00:59.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/02/AngularJs%E4%BD%BF%E7%94%A8jsonp/</loc>
+    <loc>http://ideasintocodes.top/2016/01/02/AngularJs%E4%BD%BF%E7%94%A8jsonp/</loc>
     <lastmod>2016-01-14T13:00:45.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/04/JavaScript%E8%AE%BF%E9%97%AEAngularJs%E5%86%85%E9%83%A8%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0/</loc>
+    <loc>http://ideasintocodes.top/2016/01/04/JavaScript%E8%AE%BF%E9%97%AEAngularJs%E5%86%85%E9%83%A8%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0/</loc>
     <lastmod>2016-01-14T13:00:36.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/02/AngularJs%E8%A1%A8%E5%8D%95%E9%AA%8C%E8%AF%81/</loc>
+    <loc>http://ideasintocodes.top/2016/01/02/AngularJs%E8%A1%A8%E5%8D%95%E9%AA%8C%E8%AF%81/</loc>
     <lastmod>2016-01-14T13:00:19.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/12/%E5%9C%A8uwsgi%E7%9A%84%E5%AD%90%E7%BA%BF%E7%A8%8B%E4%B8%AD%E8%AE%BF%E9%97%AErequest.META%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
+    <loc>http://ideasintocodes.top/2016/01/12/%E5%9C%A8uwsgi%E7%9A%84%E5%AD%90%E7%BA%BF%E7%A8%8B%E4%B8%AD%E8%AE%BF%E9%97%AErequest.META%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2016-01-12T11:13:47.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/12/JSON%E6%A0%BC%E5%BC%8F%E6%97%A5%E5%BF%97%E5%AD%97%E6%AE%B5%E6%8F%90%E5%8F%96/</loc>
+    <loc>http://ideasintocodes.top/2016/01/12/JSON%E6%A0%BC%E5%BC%8F%E6%97%A5%E5%BF%97%E5%AD%97%E6%AE%B5%E6%8F%90%E5%8F%96/</loc>
     <lastmod>2016-01-12T10:43:47.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/11/LeetCode%E4%B9%8BCoinChange/</loc>
+    <loc>http://ideasintocodes.top/2016/01/11/LeetCode%E4%B9%8BCoinChange/</loc>
     <lastmod>2016-01-11T13:28:34.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/10/31/greenlet%E7%AE%80%E4%BB%8B/</loc>
+    <loc>http://ideasintocodes.top/2015/10/31/greenlet%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2016-01-09T15:31:15.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2016/01/02/jsonp%E7%AE%80%E4%BB%8B/</loc>
+    <loc>http://ideasintocodes.top/2016/01/02/jsonp%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2016-01-02T01:50:19.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/12/31/%E9%80%9A%E8%BF%87%E8%84%9A%E6%9C%AC%E6%8F%90%E5%8F%96%E4%B8%80%E8%A1%8C%E4%B8%AD%E7%9A%84%E7%AC%ACn%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2/</loc>
+    <loc>http://ideasintocodes.top/2015/12/31/%E9%80%9A%E8%BF%87%E8%84%9A%E6%9C%AC%E6%8F%90%E5%8F%96%E4%B8%80%E8%A1%8C%E4%B8%AD%E7%9A%84%E7%AC%ACn%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2/</loc>
     <lastmod>2015-12-31T11:48:23.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/12/25/LeetCode%E4%B9%8BBest%20Time%20to%20Buy%20and%20Sell%20Stock%20with%20Cooldown/</loc>
+    <loc>http://ideasintocodes.top/2015/12/25/LeetCode%E4%B9%8BBest%20Time%20to%20Buy%20and%20Sell%20Stock%20with%20Cooldown/</loc>
     <lastmod>2015-12-29T13:08:36.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/12/19/%E4%B8%8D%E5%90%8C%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E5%AF%B9%E8%AF%BB%E5%8F%96%E9%80%9F%E7%8E%87%E7%9A%84%E5%BD%B1%E5%93%8D/</loc>
+    <loc>http://ideasintocodes.top/2015/12/19/%E4%B8%8D%E5%90%8C%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E5%AF%B9%E8%AF%BB%E5%8F%96%E9%80%9F%E7%8E%87%E7%9A%84%E5%BD%B1%E5%93%8D/</loc>
     <lastmod>2015-12-19T09:06:57.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/12/15/%E5%9C%B0%E5%9B%BE%E4%B8%8A%E9%BC%A0%E6%A0%87%E6%82%AC%E5%81%9C%E5%8F%8AFeature%E9%80%89%E6%8B%A9%E7%9A%84%E5%AE%9E%E7%8E%B0/</loc>
+    <loc>http://ideasintocodes.top/2015/12/15/%E5%9C%B0%E5%9B%BE%E4%B8%8A%E9%BC%A0%E6%A0%87%E6%82%AC%E5%81%9C%E5%8F%8AFeature%E9%80%89%E6%8B%A9%E7%9A%84%E5%AE%9E%E7%8E%B0/</loc>
     <lastmod>2015-12-15T14:30:15.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/12/15/LeetCode%E4%B9%8BRemove%20Duplicate%20Letters/</loc>
+    <loc>http://ideasintocodes.top/2015/12/15/LeetCode%E4%B9%8BRemove%20Duplicate%20Letters/</loc>
     <lastmod>2015-12-15T13:44:41.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/12/13/%E8%BF%90%E8%A1%8CAPUE%E7%A8%8B%E5%BA%8F/</loc>
+    <loc>http://ideasintocodes.top/2015/12/13/%E8%BF%90%E8%A1%8CAPUE%E7%A8%8B%E5%BA%8F/</loc>
     <lastmod>2015-12-13T03:56:30.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/12/13/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</loc>
+    <loc>http://ideasintocodes.top/2015/12/13/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</loc>
     <lastmod>2015-12-13T00:51:03.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/12/11/Python%E8%A7%A3%E5%86%B3CERTIFICATE_VERIFY_FAILED%E9%97%AE%E9%A2%98/</loc>
+    <loc>http://ideasintocodes.top/2015/12/11/Python%E8%A7%A3%E5%86%B3CERTIFICATE_VERIFY_FAILED%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2015-12-11T14:34:20.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/11/14/nginx%E8%BF%94%E5%9B%9E403%E9%94%99%E8%AF%AF/</loc>
+    <loc>http://ideasintocodes.top/2015/11/14/nginx%E8%BF%94%E5%9B%9E403%E9%94%99%E8%AF%AF/</loc>
     <lastmod>2015-11-14T06:53:03.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/11/06/jquery_validate%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/</loc>
+    <loc>http://ideasintocodes.top/2015/11/06/jquery_validate%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/</loc>
     <lastmod>2015-11-06T15:13:32.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/10/29/python%20iter%E5%87%BD%E6%95%B0/</loc>
+    <loc>http://ideasintocodes.top/2015/10/29/python%20iter%E5%87%BD%E6%95%B0/</loc>
     <lastmod>2015-10-29T10:24:47.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/10/28/subprocess%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B/</loc>
+    <loc>http://ideasintocodes.top/2015/10/28/subprocess%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2015-10-29T10:09:10.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/10/22/python%E8%AF%BB%E5%86%99shp%E6%96%87%E4%BB%B6/</loc>
+    <loc>http://ideasintocodes.top/2015/10/22/python%E8%AF%BB%E5%86%99shp%E6%96%87%E4%BB%B6/</loc>
     <lastmod>2015-10-22T13:12:26.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/10/19/python%E4%B8%ADinit%E5%87%BD%E6%95%B0%E4%B8%8Enew%E5%87%BD%E6%95%B0/</loc>
+    <loc>http://ideasintocodes.top/2015/10/19/python%E4%B8%ADinit%E5%87%BD%E6%95%B0%E4%B8%8Enew%E5%87%BD%E6%95%B0/</loc>
     <lastmod>2015-10-21T13:54:19.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/10/21/LeetCode%E4%B9%8BSingle%20Number%20II/</loc>
+    <loc>http://ideasintocodes.top/2015/10/21/LeetCode%E4%B9%8BSingle%20Number%20II/</loc>
     <lastmod>2015-10-21T13:51:10.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/10/20/LeetCode%E4%B9%8BRepeated%20DNA%20Sequences/</loc>
+    <loc>http://ideasintocodes.top/2015/10/20/LeetCode%E4%B9%8BRepeated%20DNA%20Sequences/</loc>
     <lastmod>2015-10-21T13:29:30.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/09/13/python%E4%B8%AD%E7%9A%84metaclass%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</loc>
+    <loc>http://ideasintocodes.top/2015/09/13/python%E4%B8%AD%E7%9A%84metaclass%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</loc>
     <lastmod>2015-10-19T15:10:56.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2014/06/28/python%E4%B8%AD%E7%9A%84%E7%94%9F%E6%88%90%E5%99%A8/</loc>
+    <loc>http://ideasintocodes.top/2014/06/28/python%E4%B8%AD%E7%9A%84%E7%94%9F%E6%88%90%E5%99%A8/</loc>
     <lastmod>2015-10-13T14:11:33.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/10/11/python%E4%B8%AD%E7%9A%84%E5%8F%8D%E6%96%9C%E6%9D%A0/</loc>
+    <loc>http://ideasintocodes.top/2015/10/11/python%E4%B8%AD%E7%9A%84%E5%8F%8D%E6%96%9C%E6%9D%A0/</loc>
     <lastmod>2015-10-11T01:23:49.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/05/03/python%E4%B8%AD%E7%9A%84%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F/</loc>
+    <loc>http://ideasintocodes.top/2015/05/03/python%E4%B8%AD%E7%9A%84%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F/</loc>
     <lastmod>2015-09-26T09:31:14.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/05/07/python%E4%B8%AD%E7%9A%84%E6%97%A5%E5%BF%97%E6%A8%A1%E5%9D%97logging/</loc>
+    <loc>http://ideasintocodes.top/2015/05/07/python%E4%B8%AD%E7%9A%84%E6%97%A5%E5%BF%97%E6%A8%A1%E5%9D%97logging/</loc>
     <lastmod>2015-09-23T14:09:10.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/09/19/python%E4%B8%AD%E7%9A%84and%E3%80%81or%E8%BF%90%E7%AE%97/</loc>
+    <loc>http://ideasintocodes.top/2015/09/19/python%E4%B8%AD%E7%9A%84and%E3%80%81or%E8%BF%90%E7%AE%97/</loc>
     <lastmod>2015-09-19T04:58:16.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/06/20/python%E4%B8%AD%E7%9A%84%E6%8A%BD%E8%B1%A1%E7%B1%BB%E4%B8%8E%E6%8E%A5%E5%8F%A3/</loc>
+    <loc>http://ideasintocodes.top/2015/06/20/python%E4%B8%AD%E7%9A%84%E6%8A%BD%E8%B1%A1%E7%B1%BB%E4%B8%8E%E6%8E%A5%E5%8F%A3/</loc>
     <lastmod>2015-09-10T12:49:43.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/03/27/%E6%96%87%E6%9C%AC%E5%80%92%E7%BD%AE(sed)/</loc>
+    <loc>http://ideasintocodes.top/2015/03/27/%E6%96%87%E6%9C%AC%E5%80%92%E7%BD%AE(sed)/</loc>
     <lastmod>2015-09-10T12:49:13.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/03/15/sed%E5%92%8Cawk%E8%BE%93%E5%87%BA%E5%81%B6%E6%95%B0%E5%92%8C%E5%A5%87%E6%95%B0%E8%A1%8C/</loc>
+    <loc>http://ideasintocodes.top/2015/03/15/sed%E5%92%8Cawk%E8%BE%93%E5%87%BA%E5%81%B6%E6%95%B0%E5%92%8C%E5%A5%87%E6%95%B0%E8%A1%8C/</loc>
     <lastmod>2015-09-10T12:48:55.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/03/18/awk%E5%A4%84%E7%90%86%E7%A9%BA%E6%A0%BC%E5%88%86%E9%9A%94%E7%AC%A6/</loc>
+    <loc>http://ideasintocodes.top/2015/03/18/awk%E5%A4%84%E7%90%86%E7%A9%BA%E6%A0%BC%E5%88%86%E9%9A%94%E7%AC%A6/</loc>
     <lastmod>2015-09-10T12:48:40.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/04/10/python%E4%B8%AD%E7%9A%84%E7%B1%BB%E5%8F%98%E9%87%8F%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%8F%98%E9%87%8F%E5%8F%8A%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/</loc>
+    <loc>http://ideasintocodes.top/2015/04/10/python%E4%B8%AD%E7%9A%84%E7%B1%BB%E5%8F%98%E9%87%8F%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%8F%98%E9%87%8F%E5%8F%8A%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2015-09-10T12:48:12.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/04/03/Psycopg%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</loc>
+    <loc>http://ideasintocodes.top/2015/04/03/Psycopg%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</loc>
     <lastmod>2015-09-10T12:47:45.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/03/07/javascript%E4%B8%AD%E7%9A%84instanceof%E4%B8%8Etypeof/</loc>
+    <loc>http://ideasintocodes.top/2015/03/07/javascript%E4%B8%AD%E7%9A%84instanceof%E4%B8%8Etypeof/</loc>
     <lastmod>2015-09-10T12:47:10.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/07/10/C%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E5%B8%83%E5%B1%80/</loc>
+    <loc>http://ideasintocodes.top/2015/07/10/C%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E5%B8%83%E5%B1%80/</loc>
     <lastmod>2015-09-10T12:30:42.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/06/17/MediaQueries%E5%AE%9E%E7%8E%B0CSS%E5%8A%A8%E6%80%81%E8%B0%83%E6%95%B4/</loc>
+    <loc>http://ideasintocodes.top/2015/06/17/MediaQueries%E5%AE%9E%E7%8E%B0CSS%E5%8A%A8%E6%80%81%E8%B0%83%E6%95%B4/</loc>
     <lastmod>2015-09-10T12:30:07.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/06/17/javascript%E4%BC%A0%E9%80%92%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0/</loc>
+    <loc>http://ideasintocodes.top/2015/06/17/javascript%E4%BC%A0%E9%80%92%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0/</loc>
     <lastmod>2015-09-10T12:29:25.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2014/12/06/Python%E4%B8%AD%E7%9A%84%E5%B8%B8%E9%87%8F/</loc>
+    <loc>http://ideasintocodes.top/2014/12/06/Python%E4%B8%AD%E7%9A%84%E5%B8%B8%E9%87%8F/</loc>
     <lastmod>2015-09-10T12:28:35.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/05/09/fedora%E9%80%9A%E8%BF%87logrotate%E7%AE%A1%E7%90%86%E6%97%A5%E5%BF%97/</loc>
+    <loc>http://ideasintocodes.top/2015/05/09/fedora%E9%80%9A%E8%BF%87logrotate%E7%AE%A1%E7%90%86%E6%97%A5%E5%BF%97/</loc>
     <lastmod>2015-09-10T12:21:19.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/05/03/Python%E4%B8%ADsocket%E7%BC%96%E7%A8%8B%E7%AE%80%E4%BB%8B/</loc>
+    <loc>http://ideasintocodes.top/2015/05/03/Python%E4%B8%ADsocket%E7%BC%96%E7%A8%8B%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2015-09-10T12:10:28.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/09/03/python%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E6%95%B0%E7%BB%84%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E7%9A%84%E9%99%B7%E9%98%B1/</loc>
+    <loc>http://ideasintocodes.top/2015/09/03/python%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E6%95%B0%E7%BB%84%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E7%9A%84%E9%99%B7%E9%98%B1/</loc>
     <lastmod>2015-09-03T01:20:24.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/09/01/try_finally%E4%B8%AD%E7%9A%84return/</loc>
+    <loc>http://ideasintocodes.top/2015/09/01/try_finally%E4%B8%AD%E7%9A%84return/</loc>
     <lastmod>2015-09-01T13:53:31.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/08/31/%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E8%A7%A3%E6%9E%90QueryDict/</loc>
+    <loc>http://ideasintocodes.top/2015/08/31/%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E8%A7%A3%E6%9E%90QueryDict/</loc>
     <lastmod>2015-08-31T11:44:35.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/search/index.html</loc>
+    <loc>http://ideasintocodes.top/search/index.html</loc>
     <lastmod>2015-08-29T05:43:01.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/08/24/python%E4%B8%AD%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    <loc>http://ideasintocodes.top/2015/08/24/python%E4%B8%AD%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2015-08-24T12:17:21.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/08/22/%E5%AF%BB%E6%89%BE%E7%AC%ACn%E4%B8%AA%E4%B8%91%E6%95%B0/</loc>
+    <loc>http://ideasintocodes.top/2015/08/22/%E5%AF%BB%E6%89%BE%E7%AC%ACn%E4%B8%AA%E4%B8%91%E6%95%B0/</loc>
     <lastmod>2015-08-22T12:46:33.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/08/06/slots%E7%9A%84%E7%94%A8%E6%B3%95%E5%8F%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</loc>
+    <loc>http://ideasintocodes.top/2015/08/06/slots%E7%9A%84%E7%94%A8%E6%B3%95%E5%8F%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</loc>
     <lastmod>2015-08-15T02:39:31.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/08/10/%E5%87%A0%E4%B8%AA%E6%B6%88%E9%99%A4%E6%9C%89%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97%E7%9A%84%E9%80%92%E5%BD%92%E7%9A%84%E4%BE%8B%E5%AD%90/</loc>
+    <loc>http://ideasintocodes.top/2015/08/10/%E5%87%A0%E4%B8%AA%E6%B6%88%E9%99%A4%E6%9C%89%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97%E7%9A%84%E9%80%92%E5%BD%92%E7%9A%84%E4%BE%8B%E5%AD%90/</loc>
     <lastmod>2015-08-13T14:04:43.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/2015/08/09/%E5%AF%BB%E6%89%BE%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E6%9C%80%E8%BF%91%E7%9A%84%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/</loc>
+    <loc>http://ideasintocodes.top/2015/08/09/%E5%AF%BB%E6%89%BE%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E6%9C%80%E8%BF%91%E7%9A%84%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/</loc>
     <lastmod>2015-08-09T05:58:54.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/404.html</loc>
+    <loc>http://ideasintocodes.top/404.html</loc>
     <lastmod>2015-08-02T02:24:04.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/categories/index.html</loc>
+    <loc>http://ideasintocodes.top/categories/index.html</loc>
     <lastmod>2015-08-01T07:49:13.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://1988zxh.com/tags/index.html</loc>
+    <loc>http://ideasintocodes.top/tags/index.html</loc>
     <lastmod>2015-08-01T07:48:45.000Z</lastmod>
   </url>
   

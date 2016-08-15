@@ -17,7 +17,7 @@
 The mod_wsgi package provides an Apache module that implements a WSGI compliant interface for hosting Python based web applications on top of the Apache web server.【引自：MOD_WSGI overview】">
 <meta property="og:type" content="article">
 <meta property="og:title" content="httpd部署wsgi应用">
-<meta property="og:url" content="http://1988zxh.com/2016/04/24/httpd部署wsgi应用/index.html">
+<meta property="og:url" content="http://ideasintocodes.top/2016/04/24/httpd部署wsgi应用/index.html">
 <meta property="og:site_name" content="ideas into codes">
 <meta property="og:description" content="1、安装mod_wsgi
 
@@ -103,7 +103,7 @@ The mod_wsgi package provides an Apache module that implements a WSGI compliant 
 <p>The mod_wsgi package provides an Apache module that implements a WSGI compliant interface for hosting Python based web applications on top of the Apache web server.【引自：<a href="https://github.com/GrahamDumpleton/mod_wsgi" target="_blank" rel="external">MOD_WSGI overview</a>】</p>
 </blockquote>
 <p>安装可以通过官网提供的方法。在Fedora系统上，可直接通过yum安装。</p>
-<p><strong>2、编写wsgi脚本</strong><br>通过<a href="http://1988zxh.com/2016/04/24/Werkzeug%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B/">werkzeug</a>编写一个简单的脚本，可以取名为<code>myapp.wsgi</code>，放在<code>/var/local/wsgi/scripts</code>目录下。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> werkzeug.wrappers <span class="keyword">import</span> Request, Response</span><br><span class="line"></span><br><span class="line"><span class="decorator">@Request.application</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">application</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> Response(<span class="string">'Hello World!'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><strong>2、编写wsgi脚本</strong><br>通过<a href="http://1988zxh.com/2016/04/24/Werkzeug%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B/" target="_blank" rel="external">werkzeug</a>编写一个简单的脚本，可以取名为<code>myapp.wsgi</code>，放在<code>/var/local/wsgi/scripts</code>目录下。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> werkzeug.wrappers <span class="keyword">import</span> Request, Response</span><br><span class="line"></span><br><span class="line"><span class="decorator">@Request.application</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">application</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> Response(<span class="string">'Hello World!'</span>)</span><br></pre></td></tr></table></figure></p>
 <p><strong>3、配置httpd</strong><br>在<code>/etc/httpd/conf.d</code>中新建一个配置文件，可以取名为<code>wsgi.conf</code>：<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">LoadModule wsgi_module modules/mod_wsgi<span class="built_in">.</span>so</span><br><span class="line"></span><br><span class="line">&lt;Directory /<span class="built_in">var</span>/<span class="built_in">local</span>/wsgi/scripts&gt;</span><br><span class="line">    AllowOverride <span class="literal">All</span></span><br><span class="line">    <span class="keyword">Require</span> <span class="literal">all</span> granted</span><br><span class="line">&lt;/Directory&gt;</span><br><span class="line"></span><br><span class="line">WSGIScriptAlias /myapp /<span class="built_in">var</span>/<span class="built_in">local</span>/wsgi/scripts/myapp<span class="built_in">.</span>wsgi</span><br></pre></td></tr></table></figure></p>
 <p>保存该文件，重启即可。</p>
 <p><code>mod_wsgi.so</code>是一个DSO(Dynamic Shared Objects)文件</p>
@@ -131,7 +131,7 @@ The mod_wsgi package provides an Apache module that implements a WSGI compliant 
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://1988zxh.com/2016/04/24/httpd部署wsgi应用/" data-title="httpd部署wsgi应用 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://ideasintocodes.top/2016/04/24/httpd部署wsgi应用/" data-title="httpd部署wsgi应用 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -165,7 +165,7 @@ The mod_wsgi package provides an Apache module that implements a WSGI compliant 
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/04/24/httpd部署wsgi应用/" data-title="httpd部署wsgi应用" data-url="http://1988zxh.com/2016/04/24/httpd部署wsgi应用/"></div>
+	<div class="ds-thread" data-thread-key="2016/04/24/httpd部署wsgi应用/" data-title="httpd部署wsgi应用" data-url="http://ideasintocodes.top/2016/04/24/httpd部署wsgi应用/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -222,7 +222,7 @@ The mod_wsgi package provides an Apache module that implements a WSGI compliant 
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>37</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>38</sup></a></li>
 		  
 		
 		  

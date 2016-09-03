@@ -22,7 +22,7 @@
 <meta property="og:description" content="在celery中提交任务就是将任务名称、执行参数以及其他任务属性以消息的形式发送到消息中间件(broker)，然后等待部署于其它节点的worker来提取执行。
 有一点需要注意，因为是异步执行，中间需要跨越网络，可能出现延迟过大等问题，由此引入了幂等的问题，为了解决这个问题，celery采取的策略是任务接受之后就立马回复确认，告诉用户该任务已经执行了。
 如果采用rabbitMQ作为celery的消息">
-<meta property="og:updated_time" content="2016-05-28T14:54:31.000Z">
+<meta property="og:updated_time" content="2016-09-03T10:56:14.288Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Celery自定义任务队列">
 <meta name="twitter:description" content="在celery中提交任务就是将任务名称、执行参数以及其他任务属性以消息的形式发送到消息中间件(broker)，然后等待部署于其它节点的worker来提取执行。
@@ -114,7 +114,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/python/">python</a>
+  <a class="article-category-link" href="/categories/celery/">celery</a>
 </div>
 
 
@@ -195,6 +195,10 @@
 		  
 		
 		  
+			<li><a href="/categories/celery/" title="celery">celery<sup>3</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/django/" title="django">django<sup>13</sup></a></li>
 		  
 		
@@ -215,7 +219,7 @@
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>38</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>36</sup></a></li>
 		  
 		
 		  

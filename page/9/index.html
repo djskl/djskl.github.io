@@ -77,6 +77,28 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2015/10/28/subprocess使用简介/" title="subprocess使用简介" itemprop="url">
+  
+    <h1 itemprop="name">subprocess使用简介</h1>
+    
+     
+           <p itemprop="description" >subprocess，顾名思义，就是说可以产生一个子进程，该子进程不但可以异步执行，还可以同步执行(父进程阻塞，等子进程执行完了，父进程再继续），父子进程可以通过匿名管道通信，在子进程执行结束后，父进程还能获取子进程的退出状态(0:正常退出，其他值：异常退出)。
+
+在linux下</p>
+        
+    
+    <time datetime="2015-10-27T16:00:00.000Z" itemprop="datePublished">2015-10-28</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2015/10/22/python读写shp文件/" title="python读写shp文件" itemprop="url">
   
     <h1 itemprop="name">python读写shp文件</h1>
@@ -164,14 +186,13 @@ object.__new__(cls[, …])Called to create a new instance of class cls. __new__(
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/10/11/python中的反斜杠/" title="python中的反斜杠" itemprop="url">
+    <a href="/2015/10/11/Django通过一次性链接激活用户/" title="Django通过一次性链接激活用户" itemprop="url">
   
-    <h1 itemprop="name">python中的反斜杠</h1>
+    <h1 itemprop="name">Django通过一次性链接激活用户</h1>
     
      
-           <p itemprop="description" >以下引自：Lexical analysis / String literals
-
-When an ‘r’ or ‘R’ prefix is present, a character following a backslash is included in the string w</p>
+           <p itemprop="description" >以下代码改编自Django中的PasswordResetTokenGenerator。PasswordResetTokenGenerator用于生成一个重置密码的token，默认3天过期，且仅允许用户点击一次。本文在此基础上做了些修改，生成了可用于激活用户的token。
+生成to</p>
         
     
     <time datetime="2015-10-10T16:00:00.000Z" itemprop="datePublished">2015-10-11</time>
@@ -186,13 +207,14 @@ When an ‘r’ or ‘R’ prefix is present, a character following a backslash 
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/10/11/Django通过一次性链接激活用户/" title="Django通过一次性链接激活用户" itemprop="url">
+    <a href="/2015/10/11/python中的反斜杠/" title="python中的反斜杠" itemprop="url">
   
-    <h1 itemprop="name">Django通过一次性链接激活用户</h1>
+    <h1 itemprop="name">python中的反斜杠</h1>
     
      
-           <p itemprop="description" >以下代码改编自Django中的PasswordResetTokenGenerator。PasswordResetTokenGenerator用于生成一个重置密码的token，默认3天过期，且仅允许用户点击一次。本文在此基础上做了些修改，生成了可用于激活用户的token。
-生成to</p>
+           <p itemprop="description" >以下引自：Lexical analysis / String literals
+
+When an ‘r’ or ‘R’ prefix is present, a character following a backslash is included in the string w</p>
         
     
     <time datetime="2015-10-10T16:00:00.000Z" itemprop="datePublished">2015-10-11</time>
@@ -216,27 +238,6 @@ When an ‘r’ or ‘R’ prefix is present, a character following a backslash 
         
     
     <time datetime="2015-09-24T16:00:00.000Z" itemprop="datePublished">2015-09-25</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/09/19/Django compressor使用简介/" title="Django compressor使用简介" itemprop="url">
-  
-    <h1 itemprop="name">Django compressor使用简介</h1>
-    
-     
-           <p itemprop="description" >Django-compressor是一个可以自动收集HTML页面中的js/css代码，然后进行压缩的插件，以模板标签的方式使用。
-平时写Django前台页面的时候，经常使用include标签来把相对独立的页面片段分离出去单独维护，分离出来的页面片段中除html代码外，还有js/c</p>
-        
-    
-    <time datetime="2015-09-18T16:00:00.000Z" itemprop="datePublished">2015-09-19</time>
   </a>
 </section>
 
@@ -274,18 +275,16 @@ and运算：无假值则返回最后一个真值，有假值返回第一个假�
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/09/13/python中的metaclass及其应用/" title="python中的metaclass及其应用" itemprop="url">
+    <a href="/2015/09/19/Django compressor使用简介/" title="Django compressor使用简介" itemprop="url">
   
-    <h1 itemprop="name">python中的metaclass及其应用</h1>
+    <h1 itemprop="name">Django compressor使用简介</h1>
     
      
-           <p itemprop="description" >在python中，类也是对象，一种可以创建其他对象的对象。类的定义本身就是一个对象的创建过程，默认情况下，普通的类由type类创建，从用户的角度来看，普通对象的创建通过__init__函数初始化，而类的创建则是通过__new__函数初始化。
-看type的构造函数：
-
-type(类</p>
+           <p itemprop="description" >Django-compressor是一个可以自动收集HTML页面中的js/css代码，然后进行压缩的插件，以模板标签的方式使用。
+平时写Django前台页面的时候，经常使用include标签来把相对独立的页面片段分离出去单独维护，分离出来的页面片段中除html代码外，还有js/c</p>
         
     
-    <time datetime="2015-09-12T16:00:00.000Z" itemprop="datePublished">2015-09-13</time>
+    <time datetime="2015-09-18T16:00:00.000Z" itemprop="datePublished">2015-09-19</time>
   </a>
 </section>
 
@@ -296,7 +295,7 @@ type(类</p>
 
 
   <nav id="page-nav" class="clearfix unexpand">
-    <a class="extend prev" rel="prev" href="/page/8/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/10/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/10/">Next<span></span></a>
   </nav>
 
 </div>
@@ -313,6 +312,10 @@ type(类</p>
 		
 		  
 			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/celery/" title="celery">celery<sup>3</sup></a></li>
 		  
 		
 		  
@@ -336,7 +339,7 @@ type(类</p>
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>38</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>36</sup></a></li>
 		  
 		
 		  

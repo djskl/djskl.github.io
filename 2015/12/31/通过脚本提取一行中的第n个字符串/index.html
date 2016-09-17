@@ -1,0 +1,546 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>通过脚本提取一行中的第n个字符串 | ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="问题：提取以下文本(/tmp/demo.txt)中的被双引号引起来的字符串
+
+“0” : [ “未执行”, “正在等待系统处理” ],“1” : [ “收集中”, “系统正在收集数据” ],“2” : [ “成功”,   “任务成功，用户可以下载数据” ],“10”: [ “解析中”, “解析订单中，等待响应中” ],“11”: [ “待收集”, “订单解析完成，等待系统收集数据”],“-1”:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过脚本提取一行中的第n个字符串">
+<meta property="og:url" content="http://ideasintocodes.top/2015/12/31/通过脚本提取一行中的第n个字符串/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="问题：提取以下文本(/tmp/demo.txt)中的被双引号引起来的字符串
+
+“0” : [ “未执行”, “正在等待系统处理” ],“1” : [ “收集中”, “系统正在收集数据” ],“2” : [ “成功”,   “任务成功，用户可以下载数据” ],“10”: [ “解析中”, “解析订单中，等待响应中” ],“11”: [ “待收集”, “订单解析完成，等待系统收集数据”],“-1”:">
+<meta property="og:updated_time" content="2015-12-31T11:48:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="通过脚本提取一行中的第n个字符串">
+<meta name="twitter:description" content="问题：提取以下文本(/tmp/demo.txt)中的被双引号引起来的字符串
+
+“0” : [ “未执行”, “正在等待系统处理” ],“1” : [ “收集中”, “系统正在收集数据” ],“2” : [ “成功”,   “任务成功，用户可以下载数据” ],“10”: [ “解析中”, “解析订单中，等待响应中” ],“11”: [ “待收集”, “订单解析完成，等待系统收集数据”],“-1”:">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">知也者，以其知过物而能貌之</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/reads">读书</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/31/通过脚本提取一行中的第n个字符串/" title="通过脚本提取一行中的第n个字符串" itemprop="url">通过脚本提取一行中的第n个字符串</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-30T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-12-31</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<p><strong>问题</strong>：<br>提取以下文本(/tmp/demo.txt)中的被双引号引起来的字符串</p>
+<blockquote>
+<p>“0” : [ “未执行”, “正在等待系统处理” ],<br>“1” : [ “收集中”, “系统正在收集数据” ],<br>“2” : [ “成功”,   “任务成功，用户可以下载数据” ],<br>“10”: [ “解析中”, “解析订单中，等待响应中” ],<br>“11”: [ “待收集”, “订单解析完成，等待系统收集数据”],<br>“-1”: [ “无数据”, “抱歉，互联网上没有数据” ],<br>“-2”: [ “失败”,   “抱歉，未知原因导致失败” ],<br>“-3”: [ “错误”,   “抱歉，本地缓存数据丢失” ]</p>
+</blockquote>
+<p>如果用<strong>python</strong>的话易如反掌：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">import</span> re</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>f=open(<span class="string">'/tmp/demo.txt'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>[re.findall(<span class="string">r'(?&lt;=")[^"]*(?=")'</span>, line)[<span class="number">0</span>::<span class="number">2</span>] <span class="keyword">for</span> line <span class="keyword">in</span> f]</span><br></pre></td></tr></table></figure></p>
+<p>需要注意：<strong>是否使用<a href="http://www.regular-expressions.info/lookaround.html" target="_blank" rel="external">零宽断言</a>导致的匹配结果是不一样的</strong>。使用<a href="http://www.regular-expressions.info/lookaround.html" target="_blank" rel="external">零宽断言</a>时双引号只是参与了匹配并没有被提取，所以类似于<code>&quot;abc&quot;def&quot;hij&quot;</code>会被匹配成<code>abc, def, hij</code>，如果不使用的话，双引号也会被提取，匹配结果会变成<code>abc, hij</code>。</p>
+<p>如果用<strong>sed</strong>的话就有点麻烦了:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &#39;s/&#34;\([^&#34;]*\)&#34;[^&#34;]*&#34;\([^&#34;]*\)&#34;[^&#34;]*&#34;\([^&#34;]*\)&#34;.*/(\1) (\2) (\3)/g&#39; /tmp/demo.txt</span><br></pre></td></tr></table></figure></p>
+<p>sed不像python里的findall，它并<strong>不能直接提取某行中第n个符合某个规则的字符串</strong>。类似于以下代码是行不通的：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &#39;s/&#34;\([^&#34;]*\)&#34;/\2/g&#39; /tmp/demo.txt</span><br></pre></td></tr></table></figure></p>
+<p>其实，以上都是有点<strong>故意找事</strong>了，最简单的办法还是用双引号当作分隔符，然后间隔输出:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#34;\&#34;&#34; &#39;&#123;print $2, $4, $6&#125;&#39; /tmp/demo.txt</span><br></pre></td></tr></table></figure></p>
+<p>关于awk的用法，看到了一哥们的总结，非常好，<a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html" target="_blank" rel="external">摘抄</a>如下：</p>
+<blockquote>
+<blockquote>
+<p>awk ‘{pattern + action}’ {filenames}</p>
+</blockquote>
+<p>尽管操作可能会很复杂，但语法总是这样，其中 pattern 表示 AWK 在数据中查找的内容，而 action 是在找到匹配内容时所执行的一系列命令。花括号（{}）不需要在程序中始终出现，但它们用于根据特定的模式对一系列指令进行分组。 pattern就是要表示的正则表达式，用斜杠括起来。</p>
+<p>awk语言的最基本功能是在文件或者字符串中基于指定规则浏览和抽取信息，awk抽取信息后，才能进行其他文本操作。完整的awk脚本通常用来格式化文本文件中的信息。</p>
+<p>通常，awk是以文件的一行为处理单位的。awk每接收文件的一行，然后执行相应的命令，来处理文本。</p>
+</blockquote>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ideasintocodes.top/2015/12/31/通过脚本提取一行中的第n个字符串/" data-title="通过脚本提取一行中的第n个字符串 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/01/01/AngularJs_orderby使用方法/" title="AngularJs orderby/filter使用方法">
+  <strong>上一篇：</strong><br/>
+  <span>
+  AngularJs orderby/filter使用方法</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/12/29/spyne简介/"  title="spyne简介">
+ <strong>下一篇：</strong><br/> 
+ <span>spyne简介
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/12/31/通过脚本提取一行中的第n个字符串/" data-title="通过脚本提取一行中的第n个字符串" data-url="http://ideasintocodes.top/2015/12/31/通过脚本提取一行中的第n个字符串/"></div>
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"djskl"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/celery/" title="celery">celery<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/django/" title="django">django<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/openlayers/" title="openlayers">openlayers<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>36</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spyne/" title="spyne">spyne<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/装饰器/" title="装饰器">装饰器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+<script type="text/javascript">
+(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+_st('install','RFzyQ_eKhxpGo1Snfgpj','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"djskl"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

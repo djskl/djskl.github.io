@@ -1,0 +1,582 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ideas into codes">
+<meta property="og:url" content="http://ideasintocodes.top/page/3/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ideas into codes">
+<meta name="twitter:description">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">知也者，以其知过物而能貌之</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/reads">读书</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main">
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/05/31/rsync文件过滤/" title="rsync文件过滤" itemprop="url">
+  
+    <h1 itemprop="name">rsync文件过滤</h1>
+    
+     
+           <p itemprop="description" >rsync可以通过定义过滤规则来指定需要传输的文件(文件夹)列表
+
+As the list of files/directories to transfer is built, rsync checks each name to be transferred against th</p>
+        
+    
+    <time datetime="2016-05-30T16:00:00.000Z" itemprop="datePublished">2016-05-31</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/05/30/后台运行celery worker/" title="后台运行celery worker" itemprop="url">
+  
+    <h1 itemprop="name">后台运行celery worker</h1>
+    
+     
+           <p itemprop="description" >官网上给出了两种后台运行celery worker方法，第一种通过celeryd命令，结果运行的时候提示：
+
+The ‘celeryd’ command is deprecated, please use ‘celery worker’ instead: $ celery wor</p>
+        
+    
+    <time datetime="2016-05-29T16:00:00.000Z" itemprop="datePublished">2016-05-30</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/05/28/Celery自定义任务队列/" title="Celery自定义任务队列" itemprop="url">
+  
+    <h1 itemprop="name">Celery自定义任务队列</h1>
+    
+     
+           <p itemprop="description" >在celery中提交任务就是将任务名称、执行参数以及其他任务属性以消息的形式发送到消息中间件(broker)，然后等待部署于其它节点的worker来提取执行。
+有一点需要注意，因为是异步执行，中间需要跨越网络，可能出现延迟过大等问题，由此引入了幂等的问题，为了解决这个问题，cel</p>
+        
+    
+    <time datetime="2016-05-27T16:00:00.000Z" itemprop="datePublished">2016-05-28</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/05/17/javascript加载优化/" title="javascript加载优化" itemprop="url">
+  
+    <h1 itemprop="name">javascript加载优化</h1>
+    
+     
+           <p itemprop="description" >浏览器在加载渲染一个网页的时候一般分为以下几个步骤：
+
+1、从服务器获取html/javascript代码，这一阶段时间比较长，主要受服务器以及网络的影响；
+2、解析HTML，构造DOM树；
+3、遇到&amp;lt;img&amp;gt;或&amp;lt;link&amp;gt;，则立即下载，同时继续向下解析渲</p>
+        
+    
+    <time datetime="2016-05-16T16:00:00.000Z" itemprop="datePublished">2016-05-17</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/05/16/websocket协议使用分析/" title="websocket协议使用分析" itemprop="url">
+  
+    <h1 itemprop="name">websocket协议使用分析</h1>
+    
+     
+           <p itemprop="description" >1、协议简介websocket类似于TCP，是一种应用层的双向通信协议，任何一方都可以随时向对方发送信息(message, 最长为2^64个字节)，在实际传输时还可能被分片(Framing)，消息帧(frame)分为两种类型：控制帧、数据帧。数据帧又可进一步分为文本类型与二进制类</p>
+        
+    
+    <time datetime="2016-05-15T16:00:00.000Z" itemprop="datePublished">2016-05-16</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/05/11/编写systemd_service文件/" title="编写systemd service文件" itemprop="url">
+  
+    <h1 itemprop="name">编写systemd service文件</h1>
+    
+     
+           <p itemprop="description" >1、systemd简介
+
+systemd is a suite of basic building blocks for a Linux system. It provides a system and service manager that runs as PID 1 and</p>
+        
+    
+    <time datetime="2016-05-10T16:00:00.000Z" itemprop="datePublished">2016-05-11</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/05/05/Django静态文件的一种加载方式/" title="Django静态文件的一种加载方式" itemprop="url">
+  
+    <h1 itemprop="name">Django静态文件的一种加载方式</h1>
+    
+     
+           <p itemprop="description" >django官方static的加载方式是：12&amp;#123;% load staticfiles %&amp;#125;&amp;lt;script src=&quot;&amp;#123;% static &quot;jquery.min.js&quot;%&amp;#125;&quot;&amp;gt;&amp;lt;/script&amp;gt;
+写起来挺麻烦，而且看上</p>
+        
+    
+    <time datetime="2016-05-04T16:00:00.000Z" itemprop="datePublished">2016-05-05</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/05/04/NGINX部署websocket反向代理/" title="NGINX部署websocket反向代理" itemprop="url">
+  
+    <h1 itemprop="name">NGINX部署websocket反向代理</h1>
+    
+     
+           <p itemprop="description" >1、简介websocket树与HTML5，是一种有别于HTTP的新协议，允许client/server的双向通信，特别适合开发实时交互的web应用(聊天室、直播室等等)。
+2、安装
+
+安装或更新nodejs：
+
+yum install nodejs npm -y  #安装npm </p>
+        
+    
+    <time datetime="2016-05-03T16:00:00.000Z" itemprop="datePublished">2016-05-04</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/04/24/Werkzeug使用简介/" title="Werkzeug使用简介" itemprop="url">
+  
+    <h1 itemprop="name">Werkzeug使用简介</h1>
+    
+     
+           <p itemprop="description" >1、简介WSGI(Web Server Gateway Interface)是Python对外提供web服务的规范，其中规定了服务器以及应用程序为了进行交互应该各自遵守的约定。python内置的WSGI工具库为wsgiref，Werkzeug是一个第三方的WSGI的工具库，相对于</p>
+        
+    
+    <time datetime="2016-04-23T16:00:00.000Z" itemprop="datePublished">2016-04-24</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/04/24/httpd部署wsgi应用/" title="httpd部署wsgi应用" itemprop="url">
+  
+    <h1 itemprop="name">httpd部署wsgi应用</h1>
+    
+     
+           <p itemprop="description" >1、安装mod_wsgi
+
+The mod_wsgi package provides an Apache module that implements a WSGI compliant interface for hosting Python based web applica</p>
+        
+    
+    <time datetime="2016-04-23T16:00:00.000Z" itemprop="datePublished">2016-04-24</time>
+  </a>
+</section>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix unexpand">
+    <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/celery/" title="celery">celery<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/django/" title="django">django<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/openlayers/" title="openlayers">openlayers<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>36</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spyne/" title="spyne">spyne<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/装饰器/" title="装饰器">装饰器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+<script type="text/javascript">
+(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+_st('install','RFzyQ_eKhxpGo1Snfgpj','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"djskl"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>

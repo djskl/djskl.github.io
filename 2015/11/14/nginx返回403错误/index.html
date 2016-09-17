@@ -1,0 +1,537 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>nginx返回403错误 | ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="在一台虚拟机上用nginx部署系统的时候遇到了一个很棘手的问题：所有的静态文件均因403错误加载失败。之前一直以为是文件与用户权限不匹配导致的，经过一番检查，发现问题不在这里。
+有问题的配置文件(为了方便调试，把error_log的级别定位debug)：1234567891011121314151617181920212223242526272829303132333435user  root;w">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx返回403错误">
+<meta property="og:url" content="http://ideasintocodes.top/2015/11/14/nginx返回403错误/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="在一台虚拟机上用nginx部署系统的时候遇到了一个很棘手的问题：所有的静态文件均因403错误加载失败。之前一直以为是文件与用户权限不匹配导致的，经过一番检查，发现问题不在这里。
+有问题的配置文件(为了方便调试，把error_log的级别定位debug)：1234567891011121314151617181920212223242526272829303132333435user  root;w">
+<meta property="og:updated_time" content="2015-11-14T06:53:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nginx返回403错误">
+<meta name="twitter:description" content="在一台虚拟机上用nginx部署系统的时候遇到了一个很棘手的问题：所有的静态文件均因403错误加载失败。之前一直以为是文件与用户权限不匹配导致的，经过一番检查，发现问题不在这里。
+有问题的配置文件(为了方便调试，把error_log的级别定位debug)：1234567891011121314151617181920212223242526272829303132333435user  root;w">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">知也者，以其知过物而能貌之</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/reads">读书</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/14/nginx返回403错误/" title="nginx返回403错误" itemprop="url">nginx返回403错误</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-13T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-11-14</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<p>在一台虚拟机上用nginx部署系统的时候遇到了一个很棘手的问题：所有的静态文件均因403错误加载失败。之前一直以为是文件与用户权限不匹配导致的，经过一番检查，发现问题不在这里。</p>
+<p>有问题的配置文件(为了方便调试，把<code>error_log</code>的级别定位<code>debug</code>)：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">user</span>  root;</span><br><span class="line"><span class="title">worker_processes</span>  <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="title">error_log</span>  logs/error.log  <span class="built_in">debug</span>;</span><br><span class="line"></span><br><span class="line"><span class="title">events</span> &#123;</span><br><span class="line">    <span class="title">worker_connections</span>  <span class="number">1024</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="title">http</span> &#123;</span><br><span class="line">    <span class="title">include</span>       mime.types;</span><br><span class="line">    <span class="title">default_type</span>  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    <span class="title">sendfile</span>        <span class="built_in">on</span>;</span><br><span class="line">    <span class="title">keepalive_timeout</span>  <span class="number">65</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="title">server</span> &#123;</span><br><span class="line">        <span class="title">listen</span>       <span class="number">80</span>;</span><br><span class="line">        <span class="title">server_name</span>  localhost;</span><br><span class="line">        </span><br><span class="line">        <span class="title">location</span> / &#123;</span><br><span class="line">            <span class="title">root</span>   html;</span><br><span class="line">            <span class="title">index</span>  index.html index.htm;	</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">	    <span class="title">location</span> <span class="regexp">~ /static/</span> &#123;</span><br><span class="line">	        <span class="title">alias</span> /www/data/static/;</span><br><span class="line">	    &#125;</span><br><span class="line">        <span class="title">error_page</span>   <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span>  /50x.html;</span><br><span class="line">        <span class="title">location</span> = /50x.html &#123;</span><br><span class="line">            <span class="title">root</span>   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>静态文件的存放目录为<code>/www/data/static/</code>，其中有两个文件<code>0.png</code> <code>1.png</code>。</p>
+<p>尝试访问<code>http://127.0.0.1/static/0.png</code>，此时页面返回<code>403</code>错误，查看<code>error_log</code>中的记录，如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2015/11/14 13:14:11 [error] 30742#0: *25 directory index of &#34;/www/data/static/&#34; is forbidden, client: 127.0.0.1, server: localhost, request: &#34;GET /static/0.png/ HTTP/1.1&#34;, host: &#34;127.0.0.1&#34;</span><br></pre></td></tr></table></figure></p>
+<p>由这条记录可以发现，nginx进程没有权限访问目录<code>/www/data/static</code>，由于nginx是root的进程，所以不可能是用户权限的问题，此处的问题应该出在nginx上，nginx默认不允许访问文件列表，如果需要访问，需要在相应的加上server或location中加入<code>autoindex on</code>指令。</p>
+<p>加上这条指令后再次访问<code>http://127.0.0.1/static/0.png</code>，发现url后面多了一个斜杠，变成了<code>http://127.0.0.1/static/0.png/</code>，而且页面上不是0.png图片，而是<code>/www/data/static</code>目录下的文件列表，也就是说nginx把<code>0.png</code>也当成了一个目录。</p>
+<p>此处的问题出在<code>~</code>和<code>alias</code>上。<code>~</code>是正则表达式匹配，相当于执行search/contains函数，只要url包含<code>~</code>后的字符串就算匹配成功，也就是说，按这种写法，访问<code>http://127.0.0.1/static/0.png</code>，效果等同于访问<code>http://127.0.0.1/static/</code>，当然也等同于访问<code>http://127.0.0.1/dfafafa/static/dfafa/dafafa</code>，这样匹配成功之后，发现location中是alias，于是nginx尝试去把alias指定的目录中的文件都列出来，就出现了上述的页面。</p>
+<p>如果此处不是<code>alias</code>而是<code>root</code>的话，会发现页面出现<code>404</code>错误，日志如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2015</span>/<span class="number">11</span>/<span class="number">14</span> <span class="number">14</span>:<span class="number">31</span>:<span class="number">27</span> [error] <span class="number">21526</span><span class="preprocessor">#<span class="number">0</span>: *<span class="number">46</span> <span class="string">"/www/data/static/static/0.png/index.html"</span> is not found (<span class="number">2</span>: No such file or directory), client: <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>, server: localhost, request: <span class="string">"GET /static/0.png/ HTTP/1.1"</span>, host: <span class="string">"127.0.0.1</span></span></span><br></pre></td></tr></table></figure></p>
+<p>此时nginx没有能从url中提取到<code>0.png</code>，转而去请求默认的<code>index.html</code>，发现也没有，于是报错<code>404</code>。这也算是<code>alias</code>与<code>root</code>行为的不同吧。</p>
+<p>综上，在nginx中，如果不是要求完全匹配(相当于match函数)，最好别用<code>~</code>(正则表达式的url头部匹配应该用<code>^~</code>，注意是<code>^~</code>不是<code>~^</code>)。除了<code>=</code>与<code>^~</code>外，所有url的匹配优先最长选择最长匹配的url，如果有个location写的是<code>~ /</code>，那几乎所有的url都会与它匹配成功，这样就乱了。</p>
+<p>另外还有一点需要注意，nginx中所有斜杠都会参与匹配(除首页)，也就是说在静态文件的location后的url与其中的<code>alias</code>或<code>root</code>在斜杠上一定保持一致，最后的斜杠有就都有，没有就都没有。</p>
+<p><strong>参考：</strong><br>关于匹配规则：<a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" target="_blank" rel="external">nginx配置location总结及rewrite规则写法</a><br>关于nginx中的403错误：<a href="http://www.nginxtips.com/403-forbidden-nginx/" target="_blank" rel="external">403 forbidden error at Nginx</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/运维/">运维</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ideasintocodes.top/2015/11/14/nginx返回403错误/" data-title="nginx返回403错误 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/11/19/Django模板标签if与过滤标签default/" title="Django模板标签if与过滤标签default">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Django模板标签if与过滤标签default</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/11/06/jquery_validate插件使用示例/"  title="jquery validate插件使用示例">
+ <strong>下一篇：</strong><br/> 
+ <span>jquery validate插件使用示例
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/11/14/nginx返回403错误/" data-title="nginx返回403错误" data-url="http://ideasintocodes.top/2015/11/14/nginx返回403错误/"></div>
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"djskl"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/celery/" title="celery">celery<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/django/" title="django">django<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/openlayers/" title="openlayers">openlayers<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>36</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spyne/" title="spyne">spyne<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/装饰器/" title="装饰器">装饰器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+<script type="text/javascript">
+(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+_st('install','RFzyQ_eKhxpGo1Snfgpj','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"djskl"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

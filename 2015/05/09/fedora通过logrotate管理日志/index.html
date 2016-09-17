@@ -1,0 +1,544 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>fedora通过logrotate管理日志 | ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="logrotate  is  designed to ease administration of systems that generate large numbers of log files.  It allows automatic rotation, compression, removal, and mailing of log files.  Each log file may  b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fedora通过logrotate管理日志">
+<meta property="og:url" content="http://ideasintocodes.top/2015/05/09/fedora通过logrotate管理日志/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="logrotate  is  designed to ease administration of systems that generate large numbers of log files.  It allows automatic rotation, compression, removal, and mailing of log files.  Each log file may  b">
+<meta property="og:updated_time" content="2015-09-10T12:21:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="fedora通过logrotate管理日志">
+<meta name="twitter:description" content="logrotate  is  designed to ease administration of systems that generate large numbers of log files.  It allows automatic rotation, compression, removal, and mailing of log files.  Each log file may  b">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">知也者，以其知过物而能貌之</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/reads">读书</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/05/09/fedora通过logrotate管理日志/" title="fedora通过logrotate管理日志" itemprop="url">fedora通过logrotate管理日志</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-08T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-05-09</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<blockquote>
+<p><strong>logrotate</strong>  is  designed to ease administration of systems that generate large numbers of log files.  It allows automatic rotation, compression, removal, and mailing of log files.  Each log file may  be  handled daily, weekly, monthly, or when it grows too large.</p>
+</blockquote>
+<p>logrotate可以用来简化系统的日志管理。通过logrotate可以自动地将日志进行转储、压缩、删除或着通过邮件发送出去。每个日志日志文件都可以按天、周、或月进行进行处理，除此之外也可以按文件大小进行处理（日志文件不会再超过指定大小时立即被切割，而是等到logrotate下次执行的检查并切割，比如说设定的是10K，可能到转储的时候已经超过100M了）。</p>
+<p><strong>语法</strong></p>
+<blockquote>
+<p>logrotate [-dv] [-f|–force] [-s|–state file] config_file</p>
+</blockquote>
+<p>-dv：调试模式。输出如下所示：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reading config file demo&#10;&#10;Handling 1 logs&#10;&#10;rotating pattern: /var/log/demo.log after 1 days (7 rotations)&#10;empty log files are rotated, old logs are removed&#10;considering log /var/log/demo.log&#10;  log /var/log/demo.log does not exist -- skipping</span><br></pre></td></tr></table></figure></p>
+<p>输出信息中包括了：当前操作的是哪个日志文件，操作周期(1天)，保留最近的几个文件(7个)，以及本次具体操作(日志文件demo.log，不进行任何操作，直接跳过)</p>
+<p>-f：强制进行logrotate操作，即使未满足条件。</p>
+<p>-s：指定logrotate的状态文件，默认为/var/lib/logrotate.status，这个主要方便隔离多用户的日志转储记录，内容如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logrotate state -- version 2&#10;&#34;/var/log/nginx/error.log&#34; 2015-6-28-7:17:2&#10;&#34;/var/log/dpkg.log&#34; 2015-1-16-18:0:0&#10;&#34;/var/log/yum.log&#34; 2015-2-10-21:23:2&#10;&#34;/var/log/cups/page_log&#34; 2015-1-15-20:0:0&#10;&#34;/var/log/cups/error_log&#34; 2015-1-15-20:0:0&#10;&#34;/var/log/glusterfs/glusterfs.log&#34; 2015-1-15-20:0:0&#10;&#34;/var/log/sssd/*.log&#34; 2015-1-15-20:0:0&#10;&#34;/var/log/glusterfs/*glusterfsd.log&#34; 2015-1-15-20:0:0&#10;&#34;/var/log/glusterfs/*.log&#34; 2015-2-10-21:0:0&#10;&#34;/var/log/cups/access_log&#34; 2015-6-28-7:17:2&#10;&#34;/var/log/libvirt/lxc/*.log&#34; 2015-1-15-20:0:0</span><br></pre></td></tr></table></figure></p>
+<p>其中主要记录了logroate的历史操作。</p>
+<p>config_file：配置文件，可以跟多个，后面的优先级大于前面的。</p>
+<p><strong>使用</strong>:<br>logrotate的执行是基于crontab的。且看：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@zxh ~]# cat /etc/anacrontab &#10;# /etc/anacrontab: configuration file for anacron&#10;&#10;# See anacron(8) and anacrontab(5) for details.&#10;&#10;SHELL=/bin/sh&#10;PATH=/sbin:/bin:/usr/sbin:/usr/bin&#10;MAILTO=root&#10;# the maximal random delay added to the base delay of the jobs&#10;RANDOM_DELAY=45&#10;# the jobs will be started during the following hours only&#10;START_HOURS_RANGE=3-22&#10;&#10;#period in days   delay in minutes   job-identifier   command&#10;1&#9;5&#9;cron.daily&#9;&#9;nice run-parts /etc/cron.daily&#10;7&#9;25&#9;cron.weekly&#9;&#9;nice run-parts /etc/cron.weekly&#10;@monthly 45&#9;cron.monthly&#9;&#9;nice run-parts /etc/cron.monthly</span><br></pre></td></tr></table></figure></p>
+<p>crontab会每天都去执行cron.daily中的脚本，每周都去执行cron.weekly中的脚本，每月都去执行cron.monthly中的脚本。</p>
+<p>再看一下/etc/cron.daily中的文件：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@zxh ~]# ll /etc/cron.daily/&#10;total 16&#10;-rwxr-xr-x. 1 root root  180 Aug  1  2012 logrotate&#10;-rwxr-xr-x. 1 root root  618 Nov 13  2014 man-db.cron&#10;-rwxr-x---. 1 root root  192 Aug  3  2013 mlocate&#10;-rwxr-xr-x. 1 root root 2126 May  3  2013 prelink</span><br></pre></td></tr></table></figure></p>
+<p>第一个脚本就是logrotate，打开看一下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh&#10;&#10;/usr/sbin/logrotate /etc/logrotate.conf&#10;EXITVALUE=$?&#10;if [ $EXITVALUE != 0 ]; then&#10;    /usr/bin/logger -t logrotate &#34;ALERT exited abnormally with [$EXITVALUE]&#34;&#10;fi&#10;exit 0</span><br></pre></td></tr></table></figure></p>
+<p>logrotate被执行的时的默认配置文件是/etc/logrotate.conf，执行结果由EXITVALUE记录，如果不为0，说明出错了，然后会输出错误信息，并退出。</p>
+<p>再看一下/etc/logrotate.conf的内容：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># see &#34;man logrotate&#34; for details&#10;# rotate log files weekly&#10;weekly&#10;&#10;# keep 4 weeks worth of backlogs&#10;rotate 4&#10;&#10;# create new (empty) log files after rotating old ones&#10;create&#10;&#10;# use date as a suffix of the rotated file&#10;dateext&#10;&#10;# uncomment this if you want your log files compressed&#10;#compress&#10;&#10;# RPM packages drop log rotation information into this directory&#10;include /etc/logrotate.d&#10;&#10;# no packages own wtmp and btmp -- we&#39;ll rotate them here&#10;/var/log/wtmp &#123;&#10;    monthly&#10;    create 0664 root utmp&#10;&#9;minsize 1M&#10;    rotate 1&#10;&#125;&#10;&#10;/var/log/btmp &#123;&#10;    missingok&#10;    monthly&#10;    create 0600 root utmp&#10;    rotate 1&#10;&#125;&#10;&#10;# system-specific logs may be also be configured here.</span><br></pre></td></tr></table></figure></p>
+<p>由该配置文件可以发现，默认情况下，logrotate每周执行一次(weekly)，同时只保留4个历史文件(rotate)，历史的文件会被压缩(compress)，且命名以日期为后缀(datetext)，在转储的时候会自动创建新的日志文件(create)，以上为全局设置项，用户自定义的配置文件放在/etc/logrotate.d目录中，用户自定义的设置会覆盖全局设置(优先级更高)。</p>
+<p><strong>参考</strong>:<br><a href="http://linuxconfig.org/logrotate-8-manual-page" target="_blank" rel="external">logrotate-(8) manual page </a><br><a href="http://www.pythondev.org/post/8.html" target="_blank" rel="external">使用Logrotate分割Nginx日志</a><br><a href="http://www.rackspace.com/knowledge_center/article/understanding-logrotate-utility" target="_blank" rel="external">Understanding logrotate utility</a><br><a href="http://huoding.com/2013/04/21/246" target="_blank" rel="external">被遗忘的Logrotate（火丁笔记）</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/运维/">运维</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ideasintocodes.top/2015/05/09/fedora通过logrotate管理日志/" data-title="fedora通过logrotate管理日志 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/05/10/空间数据的插入与查询(Django+Postgis)/" title="空间数据的插入与查询(Django+Postgis)">
+  <strong>上一篇：</strong><br/>
+  <span>
+  空间数据的插入与查询(Django+Postgis)</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/05/07/python中的日志模块logging/"  title="python中的日志模块logging">
+ <strong>下一篇：</strong><br/> 
+ <span>python中的日志模块logging
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/05/09/fedora通过logrotate管理日志/" data-title="fedora通过logrotate管理日志" data-url="http://ideasintocodes.top/2015/05/09/fedora通过logrotate管理日志/"></div>
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"djskl"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/celery/" title="celery">celery<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/django/" title="django">django<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/openlayers/" title="openlayers">openlayers<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>36</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spyne/" title="spyne">spyne<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/装饰器/" title="装饰器">装饰器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+<script type="text/javascript">
+(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+_st('install','RFzyQ_eKhxpGo1Snfgpj','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"djskl"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

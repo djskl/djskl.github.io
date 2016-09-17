@@ -1,0 +1,559 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>javascript加载优化 | ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="浏览器在加载渲染一个网页的时候一般分为以下几个步骤：
+
+1、从服务器获取html/javascript代码，这一阶段时间比较长，主要受服务器以及网络的影响；
+2、解析HTML，构造DOM树；
+3、遇到&amp;lt;img&amp;gt;或&amp;lt;link&amp;gt;，则立即下载，同时继续向下解析渲染，此处不会阻塞；
+4、遇到&amp;lt;script&amp;gt;标签，则下载src指定的文件，下载结束后立即执行，此时会阻塞，直">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript加载优化">
+<meta property="og:url" content="http://ideasintocodes.top/2016/05/17/javascript加载优化/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="浏览器在加载渲染一个网页的时候一般分为以下几个步骤：
+
+1、从服务器获取html/javascript代码，这一阶段时间比较长，主要受服务器以及网络的影响；
+2、解析HTML，构造DOM树；
+3、遇到&amp;lt;img&amp;gt;或&amp;lt;link&amp;gt;，则立即下载，同时继续向下解析渲染，此处不会阻塞；
+4、遇到&amp;lt;script&amp;gt;标签，则下载src指定的文件，下载结束后立即执行，此时会阻塞，直">
+<meta property="og:updated_time" content="2016-05-17T14:06:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript加载优化">
+<meta name="twitter:description" content="浏览器在加载渲染一个网页的时候一般分为以下几个步骤：
+
+1、从服务器获取html/javascript代码，这一阶段时间比较长，主要受服务器以及网络的影响；
+2、解析HTML，构造DOM树；
+3、遇到&amp;lt;img&amp;gt;或&amp;lt;link&amp;gt;，则立即下载，同时继续向下解析渲染，此处不会阻塞；
+4、遇到&amp;lt;script&amp;gt;标签，则下载src指定的文件，下载结束后立即执行，此时会阻塞，直">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">知也者，以其知过物而能貌之</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/reads">读书</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/17/javascript加载优化/" title="javascript加载优化" itemprop="url">javascript加载优化</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-16T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-05-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<p>浏览器在加载渲染一个网页的时候一般分为以下几个步骤：</p>
+<blockquote>
+<p>1、从服务器获取html/javascript代码，这一阶段时间比较长，主要受服务器以及网络的影响；</p>
+<p>2、解析HTML，构造DOM树；</p>
+<p>3、遇到<code>&lt;img&gt;</code>或<code>&lt;link&gt;</code>，则立即下载，同时继续向下解析渲染，此处不会阻塞；</p>
+<p>4、遇到<code>&lt;script&gt;</code>标签，则下载src指定的文件，下载结束后立即执行，此时会阻塞，直到javascript文件完全下载并执行结束；</p>
+<p>5、继续解析接下来的HTML代码。</p>
+</blockquote>
+<p>步骤4是关键，此处会让浏览器停止渲染，转去执行js代码，在页面上用户看到还是白白的一片，如果js代码较多，且执行时间较长会严重影响用户体验。</p>
+<p>比较老派一点的做法是把javascript代码放到页面最下面（<code>&lt;/body&gt;</code>标签前面），或者说<code>just before you need it and no sooner</code>，这样对用户自定义的js代码来说是没问题的，但还是有问题：有些js文件可能比较大，等HTML显示完了再去下载的话，整个页面的加载时间还是太长，最好的办法是在HTML渲染显示的同时并行下载js文件(异步加载)。</p>
+<p>目前异步加载的方式主要有三种：<br>1、<strong>async</strong>属性，如下所示：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"path/to/script1.js"</span> <span class="attribute">async</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"path/to/script2.js"</span> <span class="attribute">async</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这样script1.js与script2.js完全可以放在head标签里面了，因为它不会阻塞浏览器，同时还能尽快下载，但因为完全异步，所以script2有可能在script1之前下载完并先一步执行。需要注意的一点是：虽然下载不阻塞了，但下载完后，js代码还是会立即执行(执行时机不好控制)，仍然会阻塞浏览器。</p>
+<p>目前浏览器的支持情况：<a href="http://caniuse.com/#feat=script-async" target="_blank" rel="external">http://caniuse.com/#feat=script-async</a></p>
+<p>2、<strong>defer</strong>属性<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"path/to/script1.js"</span> <span class="attribute">defer</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"path/to/script2.js"</span> <span class="attribute">defer</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>defer属性与async属性不同，这个会等整个文档都加载完了才去下载并执行。</p>
+<p>目前浏览器的支持情况：<a href="http://caniuse.com/#feat=script-defer" target="_blank" rel="external">http://caniuse.com/#feat=script-defer</a></p>
+<p>3、自己写异步加载的代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadjs</span>(<span class="params">script_filename</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">    script.setAttribute(<span class="string">'type'</span>, <span class="string">'text/javascript'</span>);</span><br><span class="line">    script.setAttribute(<span class="string">'src'</span>, script_filename);</span><br><span class="line">    script.setAttribute(<span class="string">'id'</span>, <span class="string">'coolshell_script_id'</span>);</span><br><span class="line"></span><br><span class="line">    script_id = <span class="built_in">document</span>.getElementById(<span class="string">'coolshell_script_id'</span>);</span><br><span class="line">    <span class="keyword">if</span>(script_id)&#123;</span><br><span class="line">        <span class="built_in">document</span>.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>].removeChild(script_id);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">document</span>.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>].appendChild(script);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> script = <span class="string">'http://coolshell.cn/asyncjs/alert.js'</span>;</span><br><span class="line">loadjs(script);</span><br></pre></td></tr></table></figure></p>
+<p>以上三种方法均实现了js文件的异步下载，但执行时机均不可控，可根据实际需求自行选择加载方式。</p>
+<p>——后记<br>减少连接数也是加快页面显示的一种方法，比如把多个小图标都放在一张图片，通过坐标来控制显示哪一个。js也可以合并。Django就提供了很方便的<a href="http://1988zxh.com/2015/09/19/Django%20compressor%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B/" target="_blank" rel="external">compressor</a>。<br>比如以下示例：<br><figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- _base.html --&gt;</span></span><br><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line"></span><span class="template_tag">&#123;% <span class="keyword">load</span> compress %&#125;</span><span class="xml"></span><br><span class="line"></span><span class="template_tag">&#123;% compress css %&#125;</span><span class="xml"></span><br><span class="line"></span><span class="template_tag">&#123;% <span class="keyword">block</span> css_panel %&#125;</span><span class="xml"></span><span class="template_tag">&#123;% <span class="keyword">endblock</span> %&#125;</span><span class="xml"></span><br><span class="line"></span><span class="template_tag">&#123;% endcompress %&#125;</span><span class="xml"></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line"></span><span class="template_tag">&#123;% <span class="keyword">block</span> content %&#125;</span><span class="xml"></span><span class="template_tag">&#123;% <span class="keyword">endblock</span> %&#125;</span><span class="xml"></span><br><span class="line"></span><span class="template_tag">&#123;% compress js %&#125;</span><span class="xml"></span><br><span class="line"></span><span class="template_tag">&#123;% <span class="keyword">block</span> js_panel %&#125;</span><span class="xml"></span><span class="template_tag">&#123;% <span class="keyword">endblock</span> %&#125;</span><span class="xml"></span><br><span class="line"></span><span class="template_tag">&#123;% endcompress %&#125;</span><span class="xml"></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"></span><span class="template_tag">&#123;% <span class="keyword">extends</span> "_base.html" %&#125;</span><span class="xml"></span><br><span class="line"></span><span class="template_tag">&#123;% <span class="keyword">block</span> css_panel %&#125;</span><span class="xml"></span><br><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">href</span>=<span class="value">"</span></span></span><span class="variable">&#123;&#123;STATIC_URL&#125;&#125;</span><span class="xml"><span class="tag"><span class="value">bootstrap/css/bootstrap.css"</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css"></span><br><span class="line">	<span class="class">.aa</span><span class="rules">&#123;</span><br><span class="line">		<span class="rule"><span class="attribute">color</span>:<span class="value"> red</span></span>;</span><br><span class="line">	&#125;</span></span><br><span class="line"></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line"></span><span class="template_tag">&#123;% <span class="keyword">endblock</span> %&#125;</span><span class="xml"></span><br><span class="line"></span><span class="template_tag">&#123;% <span class="keyword">block</span> js_panel %&#125;</span><span class="xml"></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"</span></span></span><span class="variable">&#123;&#123;STATIC_URL&#125;&#125;</span><span class="xml"><span class="tag"><span class="value">jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"</span></span></span><span class="variable">&#123;&#123;STATIC_URL&#125;&#125;</span><span class="xml"><span class="tag"><span class="value">bootstrap/js/bootstrap.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"></span><br><span class="line">	<span class="keyword">var</span> x = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">var</span> ff = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">"hello"</span>);</span><br><span class="line">	&#125;;</span><br><span class="line">	$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		$(<span class="string">"#who"</span>).text(<span class="string">"zxh"</span>);</span><br><span class="line">	&#125;);</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"></span><span class="template_tag">&#123;% <span class="keyword">endblock</span> %&#125;</span><span class="xml"></span><br><span class="line"></span><span class="template_tag">&#123;% <span class="keyword">block</span> content %&#125;</span><span class="xml"></span><br><span class="line"><span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"aa"</span>&gt;</span>hello, <span class="tag">&lt;<span class="title">span</span> <span class="attribute">id</span>=<span class="value">"who"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"></span><span class="template_tag">&#123;% <span class="keyword">endblock</span> %&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure></p>
+<p>这样实际加载的时候，js/css都会分别合成一个，如下所示：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">"GET /static/<span class="operator"><span class="keyword">CACHE</span>/css/<span class="number">1</span>d419c5be633.css <span class="keyword">HTTP</span>/<span class="number">1.1</span><span class="string">" 200 136336</span><br><span class="line">"</span><span class="keyword">GET</span> /<span class="keyword">static</span>/<span class="keyword">CACHE</span>/js/af6d501bc663.js <span class="keyword">HTTP</span>/<span class="number">1.1</span><span class="string">" 200 1947106</span></span></span><br></pre></td></tr></table></figure></p>
+<p>当然也不能把所有的js或css都合并一个文件里，如果单个文件太大的话，加载速度还是远不及分成几个小点的文件分别加载的。</p>
+<p><strong>参考</strong><br><a href="http://coolshell.cn/articles/9749.html" target="_blank" rel="external">Javascript 装载和执行</a><br><a href="http://stackoverflow.com/questions/436411/where-is-the-best-place-to-put-script-tags-in-html-markup" target="_blank" rel="external">Where is the best place to put <script> tags in HTML markup?</a><br><a href="http://stackoverflow.com/questions/196702/where-to-place-javascript-in-a-html-file">Where to place Javascript in a HTML file?</a></p>
+</script></a></p>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/前端/">前端</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ideasintocodes.top/2016/05/17/javascript加载优化/" data-title="javascript加载优化 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/05/28/Celery自定义任务队列/" title="Celery自定义任务队列">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Celery自定义任务队列</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/05/16/websocket协议使用分析/"  title="websocket协议使用分析">
+ <strong>下一篇：</strong><br/> 
+ <span>websocket协议使用分析
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/05/17/javascript加载优化/" data-title="javascript加载优化" data-url="http://ideasintocodes.top/2016/05/17/javascript加载优化/"></div>
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"djskl"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/celery/" title="celery">celery<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/django/" title="django">django<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/openlayers/" title="openlayers">openlayers<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>36</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spyne/" title="spyne">spyne<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/装饰器/" title="装饰器">装饰器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+<script type="text/javascript">
+(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+_st('install','RFzyQ_eKhxpGo1Snfgpj','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"djskl"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -1,0 +1,573 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>搭建Postgresql-xl集群 | ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="1、简介
+Postgres-XL is an all-purpose fully ACID open source scale-out SQL database solution.
+
+Postgres-XL是一种基于postgres的支持ACID的易扩展的开源数据库，其功能与接口并没有因为其易扩展的特性而受到太多的影响。框架如下图所示：
+主要分为3部分：GTM, coordinator, data">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建Postgresql-xl集群">
+<meta property="og:url" content="http://ideasintocodes.top/2016/02/28/搭建Postgresql-xl集群/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="1、简介
+Postgres-XL is an all-purpose fully ACID open source scale-out SQL database solution.
+
+Postgres-XL是一种基于postgres的支持ACID的易扩展的开源数据库，其功能与接口并没有因为其易扩展的特性而受到太多的影响。框架如下图所示：
+主要分为3部分：GTM, coordinator, data">
+<meta property="og:image" content="http://www.postgres-xl.org/wp-content/uploads/2014/04/xl_cluster_architecture1.jpg">
+<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/xl_ceshi.png">
+<meta property="og:updated_time" content="2016-03-11T11:00:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="搭建Postgresql-xl集群">
+<meta name="twitter:description" content="1、简介
+Postgres-XL is an all-purpose fully ACID open source scale-out SQL database solution.
+
+Postgres-XL是一种基于postgres的支持ACID的易扩展的开源数据库，其功能与接口并没有因为其易扩展的特性而受到太多的影响。框架如下图所示：
+主要分为3部分：GTM, coordinator, data">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">知也者，以其知过物而能貌之</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/reads">读书</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/02/28/搭建Postgresql-xl集群/" title="搭建Postgresql-xl集群" itemprop="url">搭建Postgresql-xl集群</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-27T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-02-28</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<h3 id="1、简介">1、简介</h3><blockquote>
+<p>Postgres-XL is an all-purpose fully ACID open source scale-out SQL database solution.</p>
+</blockquote>
+<p>Postgres-XL是一种基于postgres的<strong>支持ACID</strong>的<strong>易扩展</strong>的开源数据库，其功能与接口并没有因为其易扩展的特性而受到太多的影响。<br>框架如下图所示：<br><img src="http://www.postgres-xl.org/wp-content/uploads/2014/04/xl_cluster_architecture1.jpg" alt=""></p>
+<p>主要分为3部分：<strong>GTM</strong>, <strong>coordinator</strong>, <strong>datanode</strong>。</p>
+<ul>
+<li>gtm是全局管理器，主要是对事务的管理来保证全局数据的ACID；</li>
+<li>coordinator是协调器(中介)，介于gtm与datanode之间，主要负责SQL语句的解析与规划；</li>
+<li>datanode具体存储数据的节点。</li>
+</ul>
+<h3 id="2、环境搭建">2、环境搭建</h3><p>版本：<a href="http://files.postgres-xl.org/postgres-xl95r1beta1.tar.gz" target="_blank" rel="external">Postgres-XL 9.5 R1 (Beta 1)</a><br>机器：4台机器 ( Fedora22-64位，2核CPU，4G内存 )<br>部署方案：node1部署gtm，node2~node4每台机器部署一个coordnator，一个datanode;<br>用户：postgres(可以是其他普通用户，尽量避免使用root用户)</p>
+<h4 id="2-1_无密码访问">2.1 无密码访问</h4><p>在各个机器上运行一下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure></p>
+<p>将各个机器上的.ssh文件夹下的id_rsa.pub的内容都复制到node1的.ssh下的authorized_keys文件中，然后把这个文件复制到各个机器的.ssh目录下即可。</p>
+<h4 id="2-2_安装Postgres-XL">2.2 安装Postgres-XL</h4><p>这个挺简单的，如果机器上原先装有postgresql，要先关掉(最好删掉),然后下载postgres-xl95r1beta1.tar.gz到本地，解压，执行<code>./configure &amp; make &amp; make install</code>，中间如果提示缺少什么库，通过<code>yum search/install</code>安装即可。</p>
+<p>安装完之后，需要在node1上再安装<code>pgxc_ctl</code>：<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd <span class="variable">$XLSRC</span>/contrib/pgxc_ctl</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></p>
+<p>配置一下环境变量：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim .bashrc&#10;export PATH=&#34;/usr/local/pgsql/bin:$PATH&#34;    #&#21482;&#22312;node1&#19978;&#37197;&#10;export dataDirRoot=$HOME/DATA/pgxl/nodes    #node1~node4&#37117;&#38656;&#35201;&#65292;&#36825;&#20010;&#19981;&#37197;&#20063;&#34892;&#65292;&#37197;&#20102;&#25805;&#20316;&#26041;&#20415;&#10;source .bashrc</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-3_创建集群">2.3 创建集群</h4><blockquote>
+<p>以下命令均在node1上执行</p>
+</blockquote>
+<p><strong>(1)</strong> 运行pgxc_ctl，首次运行可能会提示没有配置文件的错误，此时可先执行以下命令：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PGXC$  prepare config empty&#10;PGXC$  exit</span><br></pre></td></tr></table></figure></p>
+<p><strong>(2)</strong> 添加gtm<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pgxc_ctl&#10;PGXC$  add gtm master gtm node1 20001 $dataDirRoot/gtm  #&#30830;&#20445;20001&#31471;&#21475;&#23545;&#20854;&#23427;&#25152;&#26377;&#26426;&#22120;&#26159;&#24320;&#25918;&#30340;</span><br></pre></td></tr></table></figure></p>
+<p>结束后，运行<code>monitor all</code><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pgxc_ctl&#10;PGXC$  monitor all&#10;Running: gtm master</span><br></pre></td></tr></table></figure></p>
+<p>会发现gtm已经在运行了，而且在/home/postgres目录下还会看到<code>pgxc_ctl</code>，该目录下主要放了一些配置文件，还有用户的操作日志，另外也可以把自己的配置文件也放在这里，比如我放了my_conf/pgHbaConfig，这样就省了去各个节点配置pg_hba.conf文件了。</p>
+<p><strong>(3)</strong> 添加coordinator&amp;datanode<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#node2&#10;add coordinator master coord1 node2 30001 30011 $dataDirRoot/coord_master.1 none my_conf/pgHbaConfig&#10;add datanode master dn1 node2 40001 40011 $dataDirRoot/dn_master.1 none none my_conf/pgHbaConfig&#10;&#10;#node3&#10;add coordinator master coord2 node3 30001 30011 $dataDirRoot/coord_master.2 none my_conf/pgHbaConfig&#10;add datanode master dn2 node3 40001 40011 $dataDirRoot/dn_master.2 none none my_conf/pgHbaConfig&#10;&#10;#node4&#10;add coordinator master coord3 node4 30001 30011 $dataDirRoot/coord_master.3 none my_conf/pgHbaConfig&#10;add datanode master dn3 node4 40001 40011 $dataDirRoot/dn_master.3 none none my_conf/pgHbaConfig</span><br></pre></td></tr></table></figure></p>
+<p>这样之后，再运行<code>monitor all</code>，就会看到所有的节点了。</p>
+<h3 id="3、基本操作">3、基本操作</h3><p>此处只简单介绍一下，详细SQL例子可参考：<a href="http://files.postgres-xl.org/documentation/tutorial-createcluster.html" target="_blank" rel="external">http://files.postgres-xl.org/documentation/tutorial-createcluster.html</a></p>
+<p>要查看当前有哪些节点已注册，可执行<code>SELECT * FROM pgxc_node;</code>。</p>
+<p>postgresql-xl支持创建两种表，一种是分布表(distribute)，另一种是复制表(replication)。</p>
+<p>分布表的数据会将近乎均匀的将表里的数据以行为单位分布到各个节点上，可以通过<code>SELECT xc_node_id, count(*) FROM disttab GROUP BY xc_node_id;</code>来查看。</p>
+<p>复制表会将数据在每个节点上都保留一份，此时如果执行<code>SELECT xc_node_id, count(*) FROM repltab GROUP BY xc_node_id;</code>会看到数据只存在一个节点上，实际上这只是一中假象，如果你通过端口40001连接到数据库，你就会发现每个节点都保留了一份。</p>
+<p>这两个表的主要区别是：分布表是写扩展(writing scale)的，可以通过一个节点的coordiantor读到所有的数据，但写的时候可以在各个节点上分别写，所以这种形式的表比较适合存储更新频繁的数据，复制表是读扩展(reading scale)的，可以通过一个coordinator写入，在各个节点上都可以读到全部数据，比较适合存储静态数据。</p>
+<p>还有一点需要说明：如果有任何一个节点意外退出，那么所有的数据都不能通过coordinator访问了，不过分布表还可以通过datanode的端口(40001)访问。</p>
+<h3 id="4、其他">4、其他</h3><p>pgxc_ctl只是一个管理工具，其详细用法可参考：<a href="http://postgres-xc.sourceforge.net/docs/1_2/pgxc-ctl.html，其中包括了节点的增删启停等，用起来还是挺方便的。不借助它也可以配置，不过就是麻烦点，可以参考：http://files.postgres-xl.org/documentation/runtime-config.html" target="_blank" rel="external">http://postgres-xc.sourceforge.net/docs/1_2/pgxc-ctl.html，其中包括了节点的增删启停等，用起来还是挺方便的。不借助它也可以配置，不过就是麻烦点，可以参考：http://files.postgres-xl.org/documentation/runtime-config.html</a></p>
+<p>另外，可以看看pgxl_ctl目录下的<code>pgxc_ctl.conf</code>，里面有较详细的节点配置信息。调试的时候可以看看各个节点的pg_log下的日志文件。</p>
+<p>另外也可以添加slavenode，别忘了在pgHba.conf配置好replication相关项。</p>
+<p>最后通过pgbench测试了一下对比了一下单机(部署与node2)postgresql与当前集群的性能差异,结果大跌眼镜：单机postgresql的TPS完爆集群(分别测试了连接数为1，10，30，80的情况，每种连接数都重复执行了数次)，对比曲线如下图所示：<br><img src="http://7xktxu.com1.z0.glb.clouddn.com/xl_ceshi.png" alt=""></p>
+<h3 id="参考">参考</h3><p>【1】<a href="http://files.postgres-xl.org/documentation/install-procedure.html" target="_blank" rel="external">15.4. Installation Procedure</a><br>【2】<a href="http://files.postgres-xl.org/documentation/tutorial-createcluster.html" target="_blank" rel="external">1.3. Creating a Postgres-XL cluster</a><br>【3】<a href="http://blog.jelly-king.com/prog/2015/03/22/Install%20pgxl%20on%20cluster.html" target="_blank" rel="external">Install Postgres-XL on a cluster</a><br>【4】<a href="http://stackoverflow.com/questions/31266057/what-is-the-difference-between-distribute-by-replicate-and-hash-in-postgres-xc" target="_blank" rel="external">What is the difference between DISTRIBUTE BY REPLICATE and HASH in Postgres XC?</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/postgresql/">postgresql</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ideasintocodes.top/2016/02/28/搭建Postgresql-xl集群/" data-title="搭建Postgresql-xl集群 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/02/29/Django访问数据库集群/" title="Django访问数据库集群">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Django访问数据库集群</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/02/17/删除文本中的空白行/"  title="删除文本中的空白行">
+ <strong>下一篇：</strong><br/> 
+ <span>删除文本中的空白行
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/02/28/搭建Postgresql-xl集群/" data-title="搭建Postgresql-xl集群" data-url="http://ideasintocodes.top/2016/02/28/搭建Postgresql-xl集群/"></div>
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"djskl"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/celery/" title="celery">celery<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/django/" title="django">django<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/openlayers/" title="openlayers">openlayers<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>36</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spyne/" title="spyne">spyne<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/装饰器/" title="装饰器">装饰器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+<script type="text/javascript">
+(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+_st('install','RFzyQ_eKhxpGo1Snfgpj','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"djskl"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

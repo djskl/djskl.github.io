@@ -1,0 +1,551 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>C程序的存储空间布局 | ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="一个C程序在编译成目标文件，会分为代码段(text)、数据段(data)、BSS段(Block Started by Symbol)。程序加载到内存后，除text、data、BSS段外还有堆、栈以及环境变量段。如下图所示：在上图中右侧运行时区域的最上方还应该有程序运行的环境变量的信息。看下面代码：123456789101112131415161718192021222324char* str1 =">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C程序的存储空间布局">
+<meta property="og:url" content="http://ideasintocodes.top/2015/07/10/C程序的存储空间布局/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="一个C程序在编译成目标文件，会分为代码段(text)、数据段(data)、BSS段(Block Started by Symbol)。程序加载到内存后，除text、data、BSS段外还有堆、栈以及环境变量段。如下图所示：在上图中右侧运行时区域的最上方还应该有程序运行的环境变量的信息。看下面代码：123456789101112131415161718192021222324char* str1 =">
+<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/cmemory.jpg">
+<meta property="og:updated_time" content="2015-09-10T12:30:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C程序的存储空间布局">
+<meta name="twitter:description" content="一个C程序在编译成目标文件，会分为代码段(text)、数据段(data)、BSS段(Block Started by Symbol)。程序加载到内存后，除text、data、BSS段外还有堆、栈以及环境变量段。如下图所示：在上图中右侧运行时区域的最上方还应该有程序运行的环境变量的信息。看下面代码：123456789101112131415161718192021222324char* str1 =">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">知也者，以其知过物而能貌之</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/reads">读书</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/07/10/C程序的存储空间布局/" title="C程序的存储空间布局" itemprop="url">C程序的存储空间布局</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2015-07-09T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-07-10</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<p>一个C程序在编译成目标文件，会分为<strong>代码段(text)</strong>、<strong>数据段(data)</strong>、<strong>BSS段(Block Started by Symbol)</strong>。程序加载到内存后，除text、data、BSS段外还有<strong>堆</strong>、<strong>栈</strong>以及<strong>环境变量段</strong>。如下图所示：<br><img src="http://7xktxu.com1.z0.glb.clouddn.com/cmemory.jpg" alt="[图片来源](http://myswirl.blog.163.com/blog/static/5131864220120303460461)"><br>在上图中右侧运行时区域的最上方还应该有程序运行的环境变量的信息。<br>看下面代码：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span>* str1 = <span class="string">"global string"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> global_init_var = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> global_uninit_var;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(x)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> *str3 = <span class="string">"local string"</span>;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">char</span>* str4 = <span class="string">"local const string"</span>;</span><br><span class="line">	<span class="keyword">char</span> str5[] = <span class="string">"local string array"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> static_init_var = <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">static</span> static_uninit_var;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, x);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">3</span>;</span><br><span class="line">	<span class="keyword">int</span> b;</span><br><span class="line">	func(a);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行：</p>
+<blockquote>
+<p>gcc -c demo.c -o demo</p>
+</blockquote>
+<p>看一下目标文件的代码段、数据段以及BSS段的大小。</p>
+<blockquote>
+<p>[root@zxh src]# size demo<br>   text       data        bss        dec        hex    filename<br>    253         12          4        269        10d    demo</p>
+</blockquote>
+<p>接下来借助<code>objdump</code>命令详细看一下各变量在内存中的分布区域：<br>运行：</p>
+<blockquote>
+<p>objdump -s -d demo</p>
+</blockquote>
+<p>先看一下<code>data</code>：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Contents of section .data:</span><br><span class="line"> <span class="number">0000</span> <span class="number">00000000</span> <span class="number">01000000</span> <span class="number">02000000</span>           ............</span><br></pre></td></tr></table></figure></p>
+<p>这个比较清晰了，我的机器采用的是小端模式，低字节在底地址，所以我们看到的<code>01000000</code>实际上是<code>00000001</code>，即十进制<code>1</code>，那<code>02000000</code>就是我们程序中的<code>static static_init_var = 2</code>。<br>再看一下<code>rodata</code>:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Contents of section .rodata:</span><br><span class="line"> <span class="number">0000</span> <span class="number">676</span>c6f62 <span class="number">616</span>c2073 <span class="number">7472696</span>e <span class="number">67006</span>c6f  global <span class="built_in">string</span>.lo</span><br><span class="line"> <span class="number">0010</span> <span class="number">63616</span>c20 <span class="number">73747269</span> <span class="number">6e67006</span>c <span class="number">6f</span>63616c  cal <span class="built_in">string</span>.local</span><br><span class="line"> <span class="number">0020</span> <span class="number">20636f</span>6e <span class="number">73742073</span> <span class="number">7472696</span>e <span class="number">67002564</span>   <span class="keyword">const</span> <span class="built_in">string</span>.%d</span><br><span class="line"> <span class="number">0030</span> <span class="number">0</span>a00                                 ..</span><br></pre></td></tr></table></figure></p>
+<p>可见，其中包含了我们在程序中定义的<strong>字符串</strong>常量以及静态变量，整型常量直接被编译进代码段了。值得注意的是此段不包括局部变量<code>char str5[] = &quot;local string array&quot;</code>，在这里str5数据局部临时变量，会存储在属于函数<code>func</code>的栈帧中，在func执行结束退出后，该内存被os自动回收，这时如果<code>return str5</code>，很有可能出现引用错误。</p>
+<p>以上<code>data</code>与<code>rodata</code>就是apue中所说的数据段，其中存储的是：</p>
+<blockquote>
+<p>被明确初始化的全局变量、静态变量（包括全局静态变量和局部静态变量）和常量数据（如字符串常量）</p>
+</blockquote>
+<p>下面是代码段：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">Contents of section .text:</span><br><span class="line"> <span class="number">0000</span> <span class="number">5589e583</span> ec38c745 f40e0000 <span class="number">00</span>c745f0  U...<span class="number">.8</span>.E......E.</span><br><span class="line"> <span class="number">0010</span> <span class="number">1</span>b000000 c745d96c <span class="number">6f</span>6361c7 <span class="number">45</span>dd6c20  .....E.loca.E.l </span><br><span class="line"> <span class="number">0020</span> <span class="number">7374</span>c745 e172696e <span class="number">67</span>c745e5 <span class="number">20617272</span>  st.E.ring.E. arr</span><br><span class="line"> <span class="number">0030</span> <span class="number">66</span>c745e9 <span class="number">6179</span>c645 eb00c745 ec030000  f.E.ay.E...E....</span><br><span class="line"> <span class="number">0040</span> <span class="number">008</span>b4508 <span class="number">89442404</span> c704242e <span class="number">000000e8</span>  ..E..D$...$.....</span><br><span class="line"> <span class="number">0050</span> fcffffff c9c35589 e583e4f0 <span class="number">83</span>ec20c7  ......U....... .</span><br><span class="line"> <span class="number">0060</span> <span class="number">44241</span>c03 <span class="number">0000008</span>b <span class="number">44241</span>c89 <span class="number">0424e8</span>fc  D$......D$...$..</span><br><span class="line"> <span class="number">0070</span> ffffffb8 <span class="number">00000000</span> c9c3               ..........      </span><br><span class="line"> </span><br><span class="line">Disassembly of section .text:</span><br><span class="line"><span class="number">00000000</span> &lt;func&gt;:</span><br><span class="line">   <span class="number">0</span>:	<span class="number">55</span>                   	push   %ebp</span><br><span class="line">   <span class="number">1</span>:	<span class="number">89</span> e5                	mov    %esp,%ebp</span><br><span class="line">   <span class="number">3</span>:	<span class="number">83</span> ec <span class="number">38</span>             	sub    $<span class="number">0x38</span>,%esp</span><br><span class="line">   <span class="number">6</span>:	c7 <span class="number">45</span> f4 <span class="number">0</span>e <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> 	movl   $<span class="number">0xe</span>,-<span class="number">0xc</span>(%ebp)</span><br><span class="line">   d:	c7 <span class="number">45</span> f0 <span class="number">1</span>b <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> 	movl   $<span class="number">0x1b</span>,-<span class="number">0x10</span>(%ebp)</span><br><span class="line">  <span class="number">14</span>:	c7 <span class="number">45</span> d9 <span class="number">6</span>c <span class="number">6f</span> <span class="number">63</span> <span class="number">61</span> 	movl   $<span class="number">0x61636f6c</span>,-<span class="number">0x27</span>(%ebp)</span><br><span class="line">  <span class="number">1</span>b:	c7 <span class="number">45</span> dd <span class="number">6</span>c <span class="number">20</span> <span class="number">73</span> <span class="number">74</span> 	movl   $<span class="number">0x7473206c</span>,-<span class="number">0x23</span>(%ebp)</span><br><span class="line">  <span class="number">22</span>:	c7 <span class="number">45</span> e1 <span class="number">72</span> <span class="number">69</span> <span class="number">6</span>e <span class="number">67</span> 	movl   $<span class="number">0x676e6972</span>,-<span class="number">0x1f</span>(%ebp)</span><br><span class="line">  <span class="number">29</span>:	c7 <span class="number">45</span> e5 <span class="number">20</span> <span class="number">61</span> <span class="number">72</span> <span class="number">72</span> 	movl   $<span class="number">0x72726120</span>,-<span class="number">0x1b</span>(%ebp)</span><br><span class="line">  <span class="number">30</span>:	<span class="number">66</span> c7 <span class="number">45</span> e9 <span class="number">61</span> <span class="number">79</span>    	movw   $<span class="number">0x7961</span>,-<span class="number">0x17</span>(%ebp)</span><br><span class="line">  <span class="number">36</span>:	c6 <span class="number">45</span> eb <span class="number">00</span>          	movb   $<span class="number">0x0</span>,-<span class="number">0x15</span>(%ebp)</span><br><span class="line">  <span class="number">3</span>a:	c7 <span class="number">45</span> ec <span class="number">03</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> 	movl   $<span class="number">0x3</span>,-<span class="number">0x14</span>(%ebp)</span><br><span class="line">  <span class="number">41</span>:	<span class="number">8</span>b <span class="number">45</span> <span class="number">08</span>             	mov    <span class="number">0x8</span>(%ebp),%eax</span><br><span class="line">  <span class="number">44</span>:	<span class="number">89</span> <span class="number">44</span> <span class="number">24</span> <span class="number">04</span>          	mov    %eax,<span class="number">0x4</span>(%esp)</span><br><span class="line">  <span class="number">48</span>:	c7 <span class="number">04</span> <span class="number">24</span> <span class="number">2</span>e <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> 	movl   $<span class="number">0x2e</span>,(%esp)</span><br><span class="line">  <span class="number">4f</span>:	e8 fc ff ff ff       	call   <span class="number">50</span> &lt;func+<span class="number">0x50</span>&gt;</span><br><span class="line">  <span class="number">54</span>:	c9                   	leave  </span><br><span class="line">  <span class="number">55</span>:	c3                   	ret    </span><br><span class="line"></span><br><span class="line"><span class="number">00000056</span> &lt;main&gt;:</span><br><span class="line">  <span class="number">56</span>:	<span class="number">55</span>                   	push   %ebp</span><br><span class="line">  <span class="number">57</span>:	<span class="number">89</span> e5                	mov    %esp,%ebp</span><br><span class="line">  <span class="number">59</span>:	<span class="number">83</span> e4 f0             	and    $<span class="number">0xfffffff0</span>,%esp</span><br><span class="line">  <span class="number">5</span>c:	<span class="number">83</span> ec <span class="number">20</span>             	sub    $<span class="number">0x20</span>,%esp</span><br><span class="line">  <span class="number">5f</span>:	c7 <span class="number">44</span> <span class="number">24</span> <span class="number">1</span>c <span class="number">03</span> <span class="number">00</span> <span class="number">00</span> 	movl   $<span class="number">0x3</span>,<span class="number">0x1c</span>(%esp)</span><br><span class="line">  <span class="number">66</span>:	<span class="number">00</span> </span><br><span class="line">  <span class="number">67</span>:	<span class="number">8</span>b <span class="number">44</span> <span class="number">24</span> <span class="number">1</span>c          	mov    <span class="number">0x1c</span>(%esp),%eax</span><br><span class="line">  <span class="number">6</span>b:	<span class="number">89</span> <span class="number">04</span> <span class="number">24</span>             	mov    %eax,(%esp)</span><br><span class="line">  <span class="number">6</span>e:	e8 fc ff ff ff       	call   <span class="number">6f</span> &lt;main+<span class="number">0x19</span>&gt;</span><br><span class="line">  <span class="number">73</span>:	b8 <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>       	mov    $<span class="number">0x0</span>,%eax</span><br><span class="line">  <span class="number">78</span>:	c9                   	leave  </span><br><span class="line">  <span class="number">79</span>:	c3                   	ret</span><br></pre></td></tr></table></figure></p>
+<p>这个没说好说的(主要是我没全看懂⊙﹏⊙b)。</p>
+<p>BSS段就不再详细说了，其中存储了：</p>
+<blockquote>
+<p>未被初始化或被初始化为0/NULL的全局变量</p>
+</blockquote>
+<p>BSS段不会占用目标文件的存储空间。</p>
+<p><strong>参考</strong>:<br><a href="http://blog.chinaunix.net/uid-27018250-id-3867588.html" target="_blank" rel="external">LINUX下目标文件的BSS段、数据段、代码段</a><br><a href="http://blog.csdn.net/youoran/article/details/10990815" target="_blank" rel="external">C语言中内存分配</a><br><a href="http://blog.csdn.net/laiqun_ai/article/details/8528366" target="_blank" rel="external">bss、data和rodata区别与联系</a><br><a href="http://myswirl.blog.163.com/blog/static/5131864220120303460461/" target="_blank" rel="external">C程序内存区域分配(5个段作用) </a><br><a href="http://blog.sina.com.cn/s/blog_4a1648c50100sugm.html" target="_blank" rel="external">由return语句不可返回指向“堆栈内存”的“指针”或者“引用”得出的知识点</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/linux-c/">linux/c</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ideasintocodes.top/2015/07/10/C程序的存储空间布局/" data-title="C程序的存储空间布局 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/08/06/slots的用法及注意事项/" title="slots的用法及注意事项">
+  <strong>上一篇：</strong><br/>
+  <span>
+  slots的用法及注意事项</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/07/04/Django使用redis缓存服务/"  title="Django使用redis缓存服务">
+ <strong>下一篇：</strong><br/> 
+ <span>Django使用redis缓存服务
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/07/10/C程序的存储空间布局/" data-title="C程序的存储空间布局" data-url="http://ideasintocodes.top/2015/07/10/C程序的存储空间布局/"></div>
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"djskl"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/celery/" title="celery">celery<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/django/" title="django">django<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/openlayers/" title="openlayers">openlayers<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>36</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spyne/" title="spyne">spyne<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/装饰器/" title="装饰器">装饰器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+<script type="text/javascript">
+(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+_st('install','RFzyQ_eKhxpGo1Snfgpj','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"djskl"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

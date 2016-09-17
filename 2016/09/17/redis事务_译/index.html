@@ -1,0 +1,585 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="title:[译]redis事务categories:redisdate:2016-09-17
+toc:false原文:Transactions
+Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。这些命令可以保证一组命令一步执行完，在此过程中可以保证：
+
+事务中的所有命令都是串行的，且按序执行在某个事务的执行过程中，redis服务器不再处理其他客户端发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ideas into codes">
+<meta property="og:url" content="http://ideasintocodes.top/2016/09/17/redis事务_译/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="title:[译]redis事务categories:redisdate:2016-09-17
+toc:false原文:Transactions
+Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。这些命令可以保证一组命令一步执行完，在此过程中可以保证：
+
+事务中的所有命令都是串行的，且按序执行在某个事务的执行过程中，redis服务器不再处理其他客户端发">
+<meta property="og:updated_time" content="2016-09-17T13:00:48.019Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ideas into codes">
+<meta name="twitter:description" content="title:[译]redis事务categories:redisdate:2016-09-17
+toc:false原文:Transactions
+Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。这些命令可以保证一组命令一步执行完，在此过程中可以保证：
+
+事务中的所有命令都是串行的，且按序执行在某个事务的执行过程中，redis服务器不再处理其他客户端发">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">知也者，以其知过物而能貌之</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/reads">读书</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/09/17/redis事务_译/" title="" itemprop="url"></a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2016-09-17T13:00:48.137Z" itemprop="datePublished"> 发表于 2016-09-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#toc:false"><span class="toc-number">1.</span> <span class="toc-text">toc:false</span></a></li></ol>
+		
+		</div>
+		
+		<p>title:[译]redis事务<br>categories:redis<br>date:2016-09-17</p>
+<h2 id="toc:false">toc:false</h2><p><strong>原文:<a href="http://redis.io/topics/transactions" target="_blank" rel="external">Transactions</a></strong></p>
+<p>Redis中的事务通过4个命令实现：<a href="http://redis.io/commands/multi" target="_blank" rel="external">MULTI</a>, <a href="http://redis.io/commands/exec" target="_blank" rel="external">EXEC</a>, <a href="http://redis.io/commands/discard" target="_blank" rel="external">DISCARD</a> 以及 <a href="http://redis.io/commands/watch" target="_blank" rel="external">WATCH</a>。这些命令可以保证一组命令一步执行完，在此过程中可以保证：</p>
+<ul>
+<li>事务中的所有命令都是串行的，且按序执行<br>在某个事务的执行过程中，redis服务器不再处理其他客户端发送过来的请求，这可以使一个事务中的多条命令像一条命令一样不被打断地执行。<code>这一特性是在说事务的隔离性，对应关系数据库中4个隔离级别中的最高级别:SERIALIZABLE</code></li>
+<li>事务中的命令要么全部执行要么一条也不执行，所以说redis中的事务也是具有原子性的<br><a href="http://redis.io/commands/exec" target="_blank" rel="external">EXEC</a>命令让一个事务中的所有命令开始真正执行，因此，如果客户端在执行<a href="http://redis.io/commands/exec" target="_blank" rel="external">EXEC</a>(<code>原文中此处是MULTI命令，结合上下文，笔者觉得EXEC更恰当</code>)命令前就断开了与服务器的连接，那么事务中的所有命令都不会执行，相反如果已经调用了<a href="http://redis.io/commands/exec" target="_blank" rel="external">EXEC</a>命令那么所有的命令都会被执行。如果采用的是<a href="http://redis.io/topics/persistence#append-only-file" target="_blank" rel="external">append-only file</a>，那么redis会通过系统函数<code>write(2)</code>将事务写到硬盘上。如果redis服务突然崩溃或者被系统管理员强制杀死的话，那可能redis只记录了事务的一部分命令，在下次重启的时候，redis会直接报错并退出，此时可以尝试使用<code>redis-check-aof</code>命令来移除不完整的事务然后重启redis服务。</li>
+</ul>
+<p>从2.2版开始，除了以上操作外，redis还提供了类似CAS(check-and-set)操作的乐观锁，这一个特性将在本文的后半部分说明。</p>
+<p><strong>使用</strong><br>Redis中的事务起始于命令<code>MULTI</code>命令，<code>MULTI</code>之后总是返回<em>OK</em>，然后用户就可以输入要执行的命令，Redis不会立即执行这些命令，而是先把它们暂存到一个队列里，直到执行<code>EXEC</code>命令才开始逐条执行这个事务队列中的所有命令。</p>
+<p>调用<a href="http://redis.io/commands/discard" target="_blank" rel="external">DISCARD</a>可以清空事务队列中的所有命令，并退出该事务。</p>
+<p>下面这个例子展示了如果通过事务将<code>foo</code>, <code>bar</code>加1。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; MULTI</span><br><span class="line">OK</span><br><span class="line">&gt; INCR foo</span><br><span class="line">QUEUED</span><br><span class="line">&gt; INCR bar</span><br><span class="line">QUEUED</span><br><span class="line">&gt; EXEC</span><br><span class="line"><span class="number">1</span>) (integer) <span class="number">1</span></span><br><span class="line"><span class="number">2</span>) (integer) <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p><code>EXEC</code>命令执行后会得到一组返回值，其中的每个值都对应事务中一条命令的返回值，且顺序与命令的添加顺序相同。</p>
+<p>如果一个redis连接处于<code>MULTI</code>命令的上下文中，所有命令添加的命令都会返回<code>QUEUED</code>，在调用<code>EXEC</code>命令之后，暂存入队列的命令会按序执行。</p>
+<p><strong>在事务执行过程中报错</strong><br>在事务的执行过程中可能会遇到两种错误：</p>
+<ul>
+<li>命令无法被缓存到命令队列，也就是说在调用<code>EXEC</code>命令前已经报错<br>比如说语法错误(参数错误、命令拼写错误…)，或者一些类似于内存溢出的严重错误(redis服务器通过<code>maxmemory</code>指令对内存的使用容量进行了限制)。</li>
+<li>调用<code>EXEC</code>后，命令在执行时报错<br>比如我们在某个类型的key上执行了它不支持的操作(在String类型的key执行了list的操作)</li>
+</ul>
+<p>redis客户端可以在调用<code>EXEC</code>之前通过检查缓存命令的返回值(缓存成功返回<code>QUEUED</code>，其他返回值说明缓存失败)发现第一种错误。大部分redis客户端在检测到这种错误后，会自动<code>discard</code>当前事务。</p>
+<p>在2.6.5之前，调用<code>EXEC</code>时，redis会忽略缓存失败的命令，仅去执行缓存成功的命令。现在这种策略(出错即discard)可以使事务与pipeline的结合更容易，这样事务可以作为一个整体一次性发送出去，然后再将结果一次性读出来。</p>
+<p>然而，redis并不会对<code>EXEC</code>调用之后才发现的错误作特殊处理：即使有些命令执行失败了，redis还是会正常执行事务中的其他命令。</p>
+<p>这样在协议层就变得更加清晰了，看下面的例子：<br><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Trying 127.0.0.1...</span><br><span class="line">Connected to localhost.</span><br><span class="line">Escape character <span class="keyword">is</span> '^]'.</span><br><span class="line">MULTI</span><br><span class="line">+OK</span><br><span class="line">SET a 3</span><br><span class="line">abc</span><br><span class="line">+QUEUED</span><br><span class="line">LPOP a</span><br><span class="line">+QUEUED</span><br><span class="line">EXEC</span><br><span class="line">*2</span><br><span class="line">+OK</span><br><span class="line">-ERR Operation against a key holding the wrong <span class="keyword">kind</span> <span class="keyword">of</span> value</span><br></pre></td></tr></table></figure></p>
+<p>在执行了<code>EXEC</code>后，得到了一个包含两个元素的<a href="http://redis.io/topics/protocol#bulk-string-reply" target="_blank" rel="external"> Bulk string reply</a>，其中一个成功表示成功(<code>OK</code>)，另一个表示失败(<code>ERR</code>)。这些结果由客户端负责解析并以某种方式呈现给用户。</p>
+<p>需要注意的是：<strong>即使某条命令执行失败了，redis还是会去执行其他缓存成功的命令</strong>，redis不会因为某条命令的执行失败而停止整个事务。</p>
+<p>下面是另外一个使用<code>telnet</code>的例子，展示了语法错误如何被尽快的发现：<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MULTI</span><br><span class="line">+OK</span><br><span class="line">INCR <span class="operator">a</span> b c</span><br><span class="line">-ERR wrong <span class="built_in">number</span> <span class="operator">of</span> arguments <span class="keyword">for</span> <span class="string">'incr'</span> <span class="command"><span class="keyword">command</span></span></span><br></pre></td></tr></table></figure></p>
+<p>这次因为语法错误，出错的<code>INCR</code>命令不会被缓存到事务的命令队列中了。</p>
+<p><strong>redis的事务为什么不支持回滚操作?</strong><br>如果你有关系数据库的背景，你可能会觉得奇怪：为什么即使事务执行过程中出错了，redis还是会去执行剩余的命令而不是执行回滚操作?</p>
+<p>然而，不执行回滚操作也是有好处的：</p>
+<ul>
+<li>Redis命令的失败一般是由语法错误引起的(这类错误在缓存命令时无法被检测到)，或者在某类key上执行了它不支持的操作。这意味着：在实际应用中，失败的命令是编程错误引起的，而这类错误一般在开发过程中就可以被发现，且不因该出现在生产环境中。</li>
+<li>redis之所以简单快速，一部分原因就是因为它不需要回滚这一特性。</li>
+</ul>
+<p>反对这一特性观点认为：不管怎么着，不能回滚就是一个bug。但是需要注意的是，即使加上了回滚的特性，依然不能保证你不会出现编程错误。比如说，你把一个本该计数增加1的key增加了2，或在其他key上执行了这一操作，这一类错误即使有回滚机制也是无能为力的。考虑到没人可以保证程序员不会出错，并且导致redis命令执行失败的错误也不应该进入到生产环境，所以我们选择不在redis中添加回滚这一特性来让redis更加简洁快速。</p>
+<p><strong>清空(discard)命令队列</strong><br><a href="http://redis.io/commands/discard" target="_blank" rel="external">DISCARD</a>可以用来放弃一个事务。在这种情况下，事务的命令不会被执行，且建立的连接也会从事务中回归到普通状态。<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="blockquote">&gt; SET foo 1</span></span><br><span class="line">OK</span><br><span class="line"><span class="blockquote">&gt; MULTI</span></span><br><span class="line">OK</span><br><span class="line"><span class="blockquote">&gt; INCR foo</span></span><br><span class="line">QUEUED</span><br><span class="line"><span class="blockquote">&gt; DISCARD</span></span><br><span class="line">OK</span><br><span class="line"><span class="blockquote">&gt; GET foo</span></span><br><span class="line">"1"</span><br></pre></td></tr></table></figure></p>
+<p><strong>基于CAS的乐观锁</strong><br><a href="http://redis.io/commands/watch" target="_blank" rel="external">WATCH</a>命令为redis事务提供了CAS(check-and-set)特性。<br>被<code>WATCH</code>的key会被监视以发现针对这个key的修改。如果有任何一个被<code>WATCH</code>的key在调用<code>EXEC</code>命令之前被修改了，那么整个事务都将自动退出，并返回一个<a href="http://redis.io/topics/protocol#nil-reply" target="_blank" rel="external">Null reply</a>来通知用户事务执行失败了。</p>
+<p>举个例子，假如redis没有<code>INCR</code>指令，我们通过其他命令来模仿一下：<br>首先代码可能像这样子：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">val</span></span> = GET mykey</span><br><span class="line"><span class="variable"><span class="keyword">val</span></span> = <span class="variable"><span class="keyword">val</span> + 1</span><br><span class="line">SET mykey</span> $<span class="variable"><span class="keyword">val</span></span></span><br></pre></td></tr></table></figure></p>
+<p>如果在某个时间点上只有一个客户端在执行这个操作，那是没有问题的，如果有多个客户端同时尝试去执行这个操作就会出现竞争(race condition)。比如客户端A和B，都读到<code>mykey</code>的值(假如是10)，那接下来这个值会被A和B都增加到11，最终该值会变成11而不是12。</p>
+<p>多亏了<a href="http://redis.io/commands/watch" target="_blank" rel="external">WATCH</a>命令，我们可以很好的解决这个问题：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">WATCH</span> mykey</span><br><span class="line"><span class="function"><span class="keyword">val</span> =</span> <span class="type">GET</span> mykey</span><br><span class="line"><span class="function"><span class="keyword">val</span> =</span> <span class="function"><span class="keyword">val</span> <span class="title">+</span> 1</span><br><span class="line"></span><span class="type">MULTI</span></span><br><span class="line"><span class="type">SET</span> mykey $<span class="function"><span class="keyword">val</span></span><br><span class="line"></span><span class="type">EXEC</span></span><br></pre></td></tr></table></figure></p>
+<p>在上述代码中，如果出现了竞争条件(race condition)，且在我们调用了<code>WATCH</code>之后，调用<code>EXEC</code>之前另外一个客户端修改了<code>mykey</code>的值，那么这个事务将会失败。</p>
+<p>此时，我们必须重复执行这个事务，并寄希望于不会再出现新的竞争条件(race condition)。这种形式的锁称为乐观锁(optimistic locking)，其作用非常强大。在很多应用场景中，不同的客户端一般会访问不同的key，因此出现冲突的概率很小，也就是说一般我们不需要重复执行一个事务。</p>
+<p><strong><a href="http://redis.io/commands/watch" target="_blank" rel="external">WATCH</a>机制说明</strong><br>那么<a href="http://redis.io/commands/watch" target="_blank" rel="external">WATCH</a>的出现到底是为了什么？<code>WATCH</code>命令让<code>EXEC</code>的执行结果变成了<code>条件性(conditional)</code>的：<code>仅当没有其他客户端修改我们正在WATCH的key时，redis才能执行当前这个事务</code>。否则这个事务完全不会被执行(注意，如果被<code>WATCH</code>的key过期了，<code>EXEC</code>仍会正常执行，相关说明见<a href="http://code.google.com/p/redis/issues/detail?id=270" target="_blank" rel="external">这里</a>)。</p>
+<p><code>WATCH</code>命令可以被调用多次。在调用<code>EXEC</code>命令之前的所有<code>WATCH</code>命令都会生效。你也可以让<code>WATCH</code>命令同时监控多个key。</p>
+<p>无论事务执行成功与否，调用<code>EXEC</code>后，所有的key都会变为<code>UNWATCH</code>状态。另外，如果某个连接断开，所有与之关联的key也会自动变为<code>UNWATCH</code>状态。</p>
+<p>当然也可以通过<a href="http://redis.io/commands/unwatch" target="_blank" rel="external">UNWATCH</a>（不带任何参数）命令来重置所有被<code>WATCH</code>的key。假如我们在某个事务中用<code>WATCH</code>“锁”住了几个Key，但当我们读取了它们的值后发现，我们并不需要它们，这时我们就可以用<code>UNWATCH</code>命令将它们”释放”，以便其他事务可以自由的使用它们。</p>
+<p><strong>使用WATCH实现ZPOP操作</strong><br>一个比较好的例子就是展示如何用<code>WATCH</code>命令来实现redis不支持的原子性的<code>ZPOP</code>操作，该操作可以根据元素的权重，自动的从一个有序的集合中弹出权重低的元素。下面是一个简易的实现方式：<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">WATCH zset</span><br><span class="line">element = ZRANGE zset <span class="number">0</span> <span class="number">0</span></span><br><span class="line">MULTI</span><br><span class="line">Z<span class="comment">REM zset element</span></span><br><span class="line">EXEC</span><br></pre></td></tr></table></figure></p>
+<p>如果<code>EXEC</code>失败(即返回<a href="http://redis.io/topics/protocol#nil-reply" target="_blank" rel="external">Null reply</a>)了，我们只需要再次重复这一操作即可。</p>
+<p><strong>Redis脚本与事务</strong><br>一个<a href="http://redis.io/commands/eval" target="_blank" rel="external">Redis脚本</a>本身就是一个事务，因此所有你可以针对redis事务的操作都可以用在脚本上，通常脚本更加简单快速。</p>
+<p>之所以出现脚本与事务的重复，是因为脚本是在2.6以后的版本中引入的，而在这之前事务早就存在redis中了。然而，我们也不可能在短时间内从redis中去掉事务，因为即使不考虑脚本因素，事务仍然是避免竞争条件(race condition)的一个有力工具，而且另一方面redis事务的实现复杂度也很小。<br>然而，在不远的将来，也不是没有可能，我们将会看到所有的用户都将基于脚本来使用redis。如果真变成了这样，我们最终也会移除事务这一特性。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ideasintocodes.top/2016/09/17/redis事务_译/" data-title="ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/09/03/查看celery任务的详细信息/"  title="查看celery任务的详细信息">
+ <strong>下一篇：</strong><br/> 
+ <span>查看celery任务的详细信息
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/09/17/redis事务_译/" data-title="" data-url="http://ideasintocodes.top/2016/09/17/redis事务_译/"></div>
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"djskl"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#toc:false"><span class="toc-number">1.</span> <span class="toc-text">toc:false</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/celery/" title="celery">celery<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/django/" title="django">django<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/openlayers/" title="openlayers">openlayers<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>36</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spyne/" title="spyne">spyne<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/装饰器/" title="装饰器">装饰器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+<script type="text/javascript">
+(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+_st('install','RFzyQ_eKhxpGo1Snfgpj','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"djskl"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

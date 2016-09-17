@@ -1,0 +1,545 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>通过dockerfile构建docker镜像 | ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="docker的镜像除了从镜像库中拉取之外，也可以自己编写。Dockerfile就是构建镜像的脚本程序，docker通过逐条执行Dockerfile中的指令来生成镜像(image)。
+
+Docker can build images automatically by reading the instructions from a Dockerfile. A Dockerfile is a text">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过dockerfile构建docker镜像">
+<meta property="og:url" content="http://ideasintocodes.top/2016/06/25/dockerfile构建docker镜像/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="docker的镜像除了从镜像库中拉取之外，也可以自己编写。Dockerfile就是构建镜像的脚本程序，docker通过逐条执行Dockerfile中的指令来生成镜像(image)。
+
+Docker can build images automatically by reading the instructions from a Dockerfile. A Dockerfile is a text">
+<meta property="og:updated_time" content="2016-07-13T13:45:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="通过dockerfile构建docker镜像">
+<meta name="twitter:description" content="docker的镜像除了从镜像库中拉取之外，也可以自己编写。Dockerfile就是构建镜像的脚本程序，docker通过逐条执行Dockerfile中的指令来生成镜像(image)。
+
+Docker can build images automatically by reading the instructions from a Dockerfile. A Dockerfile is a text">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">知也者，以其知过物而能貌之</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/reads">读书</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/25/dockerfile构建docker镜像/" title="通过dockerfile构建docker镜像" itemprop="url">通过dockerfile构建docker镜像</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-24T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-06-25</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<p>docker的镜像除了从镜像库中拉取之外，也可以自己编写。<code>Dockerfile</code>就是构建镜像的脚本程序，docker通过逐条执行<code>Dockerfile</code>中的<code>指令</code>来生成镜像(image)。</p>
+<blockquote>
+<p>Docker can build images automatically by reading the instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image. Using docker build users can create an automated build that executes several command-line instructions in succession.</p>
+</blockquote>
+<p><code>Dockerfile</code>中的<code>指令</code>分为<code>构建指令</code>与<code>设置指令</code>。<code>构建指令</code>在镜像生成的时候执行，<code>设置指令</code>在容器运行的时候执行。</p>
+<p><strong>构建指令</strong><br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#指定基础镜像</span></span><br><span class="line"><span class="built_in">FROM</span> &lt;base-image&gt;:&lt;tag&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">#镜像维护者</span></span><br><span class="line"><span class="built_in">MAINTAINER</span> &lt;name&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置环境变量(相当于source .bash_profile这一类命令，不过source在dockerfile无效)</span></span><br><span class="line"><span class="built_in">ENV</span> &lt;key&gt; &lt;value&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">#复制文件</span></span><br><span class="line"><span class="built_in">ADD</span> <span class="bash">&lt;src&gt; &lt;dest&gt;  </span><br><span class="line"></span></span><br><span class="line"><span class="comment">#复制文件</span></span><br><span class="line"><span class="built_in">COPY</span> <span class="bash">&lt;src&gt; &lt;dest&gt;</span><br><span class="line"></span></span><br><span class="line"><span class="comment">#执行base-image中的命令</span></span><br><span class="line"><span class="built_in">RUN</span> <span class="bash">&lt;<span class="built_in">command</span>&gt; (the <span class="built_in">command</span> is run <span class="keyword">in</span> a shell - `/bin/sh -c`)</span><br><span class="line"></span><span class="built_in">RUN</span> <span class="bash">[<span class="string">"executable"</span>, <span class="string">"param1"</span>, <span class="string">"param2"</span> ... ]  (<span class="built_in">exec</span> form)</span></span><br></pre></td></tr></table></figure></p>
+<p>其中，<code>ADD</code>与<code>COPY</code>拷贝都是dockerfile所在的目录中的文件，<strong>不支持绝对路径</strong>，其区别在前者会将拷贝到镜像的压缩文件自动解压，后者则不会。</p>
+<p><strong>设置命令</strong><br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#container启动时执行的命令(只能有一条)</span></span><br><span class="line"><span class="built_in">CMD</span> <span class="bash">[<span class="string">"executable"</span>,<span class="string">"param1"</span>,<span class="string">"param2"</span>] (like an <span class="built_in">exec</span>, this is the preferred form)  </span><br><span class="line"></span><span class="built_in">CMD</span> <span class="bash"><span class="built_in">command</span> param1 param2 (as a shell)</span><br><span class="line"></span></span><br><span class="line"><span class="comment">#container启动时执行的命令(只能有一条)</span></span><br><span class="line"><span class="built_in">ENTRYPOINT</span> <span class="bash">[<span class="string">"executable"</span>, <span class="string">"param1"</span>, <span class="string">"param2"</span>] (like an <span class="built_in">exec</span>, the preferred form)  </span><br><span class="line"></span><span class="built_in">ENTRYPOINT</span> <span class="bash"><span class="built_in">command</span> param1 param2 (as a shell)  </span><br><span class="line"></span></span><br><span class="line"><span class="comment">#设置挂载点</span></span><br><span class="line"><span class="built_in">VOLUME</span> <span class="bash">[<span class="string">"&lt;mountpoint&gt;"</span>]</span><br><span class="line"></span></span><br><span class="line"><span class="comment">#指定当前工作目录(针对RUN,CMD,ENTRYPOINT)</span></span><br><span class="line"><span class="built_in">WORKDIR</span> <span class="bash">/path/to/workdir</span></span><br></pre></td></tr></table></figure></p>
+<p>说明：<br>1、<code>ENTRYPOINT</code>与<code>CMD</code>都只能写一条，写多了，最后一条生效，不过<code>ENTRYPOINT</code>可以与<code>CMD</code>结合使用，比如：<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CMD</span> <span class="bash">[<span class="string">"-l"</span>]  </span><br><span class="line"></span><span class="built_in">ENTRYPOINT</span> <span class="bash">[<span class="string">"/usr/bin/ls"</span>]</span></span><br></pre></td></tr></table></figure></p>
+<p>另外，<code>CMD</code>指定的命令会被<code>docker run</code>指定的命令覆盖，而<code>ENTRYPOINT</code>则不会，<code>ENTRYPOINT</code>会覆盖<code>docker run</code>中指定的命令。</p>
+<p>2、<code>VOLUME</code>可以指定多个挂载点，每个挂载点都会对应诉诸机的某个目录，但不能<strong>指定</strong>本地的挂载点。</p>
+<p><strong>例子</strong><br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> docker-examples</span><br><span class="line"><span class="keyword">vim</span> Dockerfile</span><br></pre></td></tr></table></figure></p>
+<p><code>Dockerfile</code>内容如下：<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Firefox over VNC</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># VERSION               0.3</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">FROM</span> ubuntu</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install vnc, xvfb in order to create a 'fake' display and firefox</span></span><br><span class="line"><span class="built_in">RUN</span> <span class="bash">apt-get update &amp;&amp; apt-get install -y x11vnc xvfb firefox</span><br><span class="line"></span><span class="built_in">RUN</span> <span class="bash">mkdir ~/.vnc</span><br><span class="line"></span><span class="comment"># Setup a password</span></span><br><span class="line"><span class="built_in">RUN</span> <span class="bash">x11vnc -storepasswd <span class="number">1234</span> ~/.vnc/passwd</span><br><span class="line"></span><span class="comment"># Autostart firefox (might not be the best way, but it does the trick)</span></span><br><span class="line"><span class="built_in">RUN</span> <span class="bash">bash -c <span class="string">'echo "firefox" &gt;&gt; /.bashrc'</span></span><br><span class="line"></span></span><br><span class="line"><span class="built_in">EXPOSE</span> <span class="number">5900</span></span><br><span class="line">CMD    [<span class="string">"x11vnc"</span>, <span class="string">"-forever"</span>, <span class="string">"-usepw"</span>, <span class="string">"-create"</span>]</span><br></pre></td></tr></table></figure></p>
+<p>构建：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">docker</span> <span class="keyword">build </span>-t ces .</span><br></pre></td></tr></table></figure></p>
+<p>查看：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@zxh ~]<span class="preprocessor"># docker images</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE</span><br><span class="line">ces                 latest              d0d335baca46        <span class="number">48</span> minutes ago      <span class="number">214.3</span> MB</span><br></pre></td></tr></table></figure></p>
+<p><strong>后记</strong><br>经测试，容器中的<code>/etc/hosts</code>是没法通过dockerfile中的指令设置的，而且也没法修改之后再保存(docker commit)，不过可以在容器启动之后设置(比如docker run中指定)。</p>
+<p><strong>参考</strong><br><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="external">Dockerfile reference</a><br><a href="http://blog.csdn.net/we_shell/article/details/38445979" target="_blank" rel="external">Docker学习笔记（3）– 如何使用Dockerfile构建镜像</a><br><a href="http://blog.163.com/digoal@126/blog/static/163877040201410411715832/" target="_blank" rel="external">Dockerfile RUN, CMD &amp; ENTRYPOINT</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/docker/">docker</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ideasintocodes.top/2016/06/25/dockerfile构建docker镜像/" data-title="通过dockerfile构建docker镜像 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/06/29/docker容器的内存与CPU资源管理/" title="docker容器的内存与CPU资源管理">
+  <strong>上一篇：</strong><br/>
+  <span>
+  docker容器的内存与CPU资源管理</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/06/21/通过docker_gen动态配置nginx代理/"  title="通过docker-gen动态配置nginx代理">
+ <strong>下一篇：</strong><br/> 
+ <span>通过docker-gen动态配置nginx代理
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/06/25/dockerfile构建docker镜像/" data-title="通过dockerfile构建docker镜像" data-url="http://ideasintocodes.top/2016/06/25/dockerfile构建docker镜像/"></div>
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"djskl"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/celery/" title="celery">celery<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/django/" title="django">django<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/openlayers/" title="openlayers">openlayers<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>36</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spyne/" title="spyne">spyne<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/装饰器/" title="装饰器">装饰器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+<script type="text/javascript">
+(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+_st('install','RFzyQ_eKhxpGo1Snfgpj','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"djskl"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

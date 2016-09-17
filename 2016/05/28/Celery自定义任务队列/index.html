@@ -1,0 +1,537 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>Celery自定义任务队列 | ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="在celery中提交任务就是将任务名称、执行参数以及其他任务属性以消息的形式发送到消息中间件(broker)，然后等待部署于其它节点的worker来提取执行。
+有一点需要注意，因为是异步执行，中间需要跨越网络，可能出现延迟过大等问题，由此引入了幂等的问题，为了解决这个问题，celery采取的策略是任务接受之后就立马回复确认，告诉用户该任务已经执行了。
+如果采用rabbitMQ作为celery的消息">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Celery自定义任务队列">
+<meta property="og:url" content="http://ideasintocodes.top/2016/05/28/Celery自定义任务队列/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="在celery中提交任务就是将任务名称、执行参数以及其他任务属性以消息的形式发送到消息中间件(broker)，然后等待部署于其它节点的worker来提取执行。
+有一点需要注意，因为是异步执行，中间需要跨越网络，可能出现延迟过大等问题，由此引入了幂等的问题，为了解决这个问题，celery采取的策略是任务接受之后就立马回复确认，告诉用户该任务已经执行了。
+如果采用rabbitMQ作为celery的消息">
+<meta property="og:updated_time" content="2016-09-03T10:56:14.288Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Celery自定义任务队列">
+<meta name="twitter:description" content="在celery中提交任务就是将任务名称、执行参数以及其他任务属性以消息的形式发送到消息中间件(broker)，然后等待部署于其它节点的worker来提取执行。
+有一点需要注意，因为是异步执行，中间需要跨越网络，可能出现延迟过大等问题，由此引入了幂等的问题，为了解决这个问题，celery采取的策略是任务接受之后就立马回复确认，告诉用户该任务已经执行了。
+如果采用rabbitMQ作为celery的消息">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">知也者，以其知过物而能貌之</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/reads">读书</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/28/Celery自定义任务队列/" title="Celery自定义任务队列" itemprop="url">Celery自定义任务队列</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-27T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-05-28</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<p>在celery中提交任务就是将任务名称、执行参数以及其他任务属性以消息的形式发送到消息中间件(broker)，然后等待部署于其它节点的worker来提取执行。</p>
+<p>有一点需要注意，因为是异步执行，中间需要跨越网络，可能出现延迟过大等问题，由此引入了<a href="http://coolshell.cn/articles/4787.html" target="_blank" rel="external">幂等</a>的问题，为了解决这个问题，celery采取的策略是任务接受之后就立马回复确认，告诉用户该任务已经执行了。</p>
+<p>如果采用rabbitMQ作为celery的消息中间件，那么worker与队列是直接绑定的，也就说用户可以具体指定哪些worker处理那些队列中任务，但任务消息还是通过<code>exchange/routing_key</code>来发送到指定队列(当然也可以通过参数<code>queue</code>直接指定当前任务放到哪个队列)。</p>
+<p>默认情况下，所有的任务都会发送一个叫<code>celery</code>的队列中，该队列绑定的<code>exchange</code>为<code>direct</code>类型。不过我们完全可以自定义，具体例子如下：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#配置文件</span><br><span class="line">from kombu import Queue, Exchange</span><br><span class="line"></span><br><span class="line">compute_exchange = <span class="function"><span class="title">Exchange</span><span class="params">(<span class="string">'compute'</span>, type=<span class="string">'topic'</span>)</span></span></span><br><span class="line"></span><br><span class="line">CELERY_QUEUES = (</span><br><span class="line">    <span class="function"><span class="title">Queue</span><span class="params">(<span class="string">'celery'</span>, Exchange(<span class="string">"default"</span>)</span></span>, routing_key=<span class="string">'default'</span>),</span><br><span class="line">    <span class="function"><span class="title">Queue</span><span class="params">(<span class="string">'other'</span> , Exchange(<span class="string">"default"</span>)</span></span>, routing_key=<span class="string">'other'</span>),</span><br><span class="line">    <span class="function"><span class="title">Queue</span><span class="params">(<span class="string">'x_task'</span>, compute_exchange, routing_key=<span class="string">'x.#'</span>)</span></span>,</span><br><span class="line">    <span class="function"><span class="title">Queue</span><span class="params">(<span class="string">'y_task'</span>, compute_exchange, routing_key=<span class="string">'y.#'</span>)</span></span>,</span><br><span class="line">    <span class="function"><span class="title">Queue</span><span class="params">(<span class="string">'z_task'</span>, compute_exchange, routing_key=<span class="string">'z.#'</span>)</span></span>,</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>以上定义了5个queue，引入了2个exchange，对应的worker一旦启动，这些queue/exchange就会出现在rabbitmq里了。</p>
+<p>其中<code>celery</code>和<code>other</code>都为”直接”队列，<code>celery</code>绑定的routing_key为<code>default</code>，意思是要放到这个队列的任务，不需要指定routing_key，直接调用delay/apply_async即可，但other就不行了，要放到<code>other</code>队列，需要同时指定<code>exchange=default; routing_key=other</code>，或着直接指定<code>queue=other</code>。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="variable">@lijie</span> celery]<span class="comment"># celery -A capps shell</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; rst = add.apply_async((<span class="number">2</span>,<span class="number">5</span>), exchange=<span class="string">'default'</span>, routing_key=<span class="string">'other'</span>)    <span class="comment">#放到othre队列</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; rst = add.apply_async((<span class="number">2</span>,<span class="number">5</span>), queue=<span class="string">'other'</span>) <span class="comment">#同上</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; rst = add.apply_async((<span class="number">2</span>,<span class="number">3</span>))    <span class="comment">#放到celery队列</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; rst = add.apply_async((<span class="number">2</span>,<span class="number">5</span>), routing_key=<span class="string">'other'</span>)   <span class="comment">#放不到任何队列</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; rst.status</span><br><span class="line"><span class="string">'PENDING'</span></span><br></pre></td></tr></table></figure></p>
+<p><code>x_task, y_task, z_task</code>这三个队列绑定的是<code>topic</code>类型exchange，不同队列对应的routing_key不同：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;</span>&gt; rst = add.apply_async((<span class="number">2</span>,<span class="number">5</span>), exchange=<span class="string">'compute'</span>, routing_key=<span class="string">'x.add'</span>)    <span class="comment">#x_task队列</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; rst = add.apply_async((<span class="number">3</span>,<span class="number">5</span>), exchange=<span class="string">'compute'</span>, routing_key=<span class="string">'y.add'</span>)    <span class="comment">#y_task队列</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; rst = add.apply_async((<span class="number">2</span>,<span class="number">4</span>), exchange=<span class="string">'compute'</span>, routing_key=<span class="string">'z.add'</span>)    <span class="comment">#z_task队列</span></span><br></pre></td></tr></table></figure></p>
+<p>以上都是针对具体任务，在调用的时候明确指定路由到哪个队列，celery也支持直接将路由规则写到配置文件里，如下：<br><figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">CELERY_ROUTES</span> = &#123;</span><br><span class="line">    <span class="symbol">'capps</span>.tasks.add': <span class="symbol">'celery'</span>,</span><br><span class="line">    <span class="symbol">'capps</span>.tasks.mul': &#123;</span><br><span class="line">        <span class="symbol">'exchange'</span>: <span class="symbol">'compute'</span>,</span><br><span class="line">        <span class="symbol">'routing_key'</span>: <span class="symbol">'z</span>.mul'</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>参考</strong><br><a href="http://docs.celeryproject.org/en/latest/userguide/routing.html" target="_blank" rel="external">Routing Tasks</a><br><a href="http://docs.celeryproject.org/en/latest/reference/celery.app.task.html#celery.app.task.Task.apply_async" target="_blank" rel="external">Task.apply_async</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/celery/">celery</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ideasintocodes.top/2016/05/28/Celery自定义任务队列/" data-title="Celery自定义任务队列 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/05/30/后台运行celery worker/" title="后台运行celery worker">
+  <strong>上一篇：</strong><br/>
+  <span>
+  后台运行celery worker</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/05/17/javascript加载优化/"  title="javascript加载优化">
+ <strong>下一篇：</strong><br/> 
+ <span>javascript加载优化
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/05/28/Celery自定义任务队列/" data-title="Celery自定义任务队列" data-url="http://ideasintocodes.top/2016/05/28/Celery自定义任务队列/"></div>
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"djskl"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/celery/" title="celery">celery<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/django/" title="django">django<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/openlayers/" title="openlayers">openlayers<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>36</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spyne/" title="spyne">spyne<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/装饰器/" title="装饰器">装饰器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+<script type="text/javascript">
+(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+_st('install','RFzyQ_eKhxpGo1Snfgpj','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"djskl"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -1,0 +1,549 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>docker容器的内存与CPU资源管理 | ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="1、内存限制memory=inf, memory-swap=inf [default]这是docker容器的默认情况，即不限制内存的使用。
+memory=x, memory-swap=inf实际物理内存不能超过x字节，但swap可以随便用。
+memory=x, memory-swap=2*x只指定memery参数，而不指定memory-swap,则默认memory-swap为两倍的memory。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker容器的内存与CPU资源管理">
+<meta property="og:url" content="http://ideasintocodes.top/2016/06/29/docker容器的内存与CPU资源管理/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="1、内存限制memory=inf, memory-swap=inf [default]这是docker容器的默认情况，即不限制内存的使用。
+memory=x, memory-swap=inf实际物理内存不能超过x字节，但swap可以随便用。
+memory=x, memory-swap=2*x只指定memery参数，而不指定memory-swap,则默认memory-swap为两倍的memory。">
+<meta property="og:updated_time" content="2016-06-29T12:52:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="docker容器的内存与CPU资源管理">
+<meta name="twitter:description" content="1、内存限制memory=inf, memory-swap=inf [default]这是docker容器的默认情况，即不限制内存的使用。
+memory=x, memory-swap=inf实际物理内存不能超过x字节，但swap可以随便用。
+memory=x, memory-swap=2*x只指定memery参数，而不指定memory-swap,则默认memory-swap为两倍的memory。">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">知也者，以其知过物而能貌之</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/reads">读书</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/29/docker容器的内存与CPU资源管理/" title="docker容器的内存与CPU资源管理" itemprop="url">docker容器的内存与CPU资源管理</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-06-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<p><strong>1、内存限制</strong><br><strong>memory=inf, memory-swap=inf</strong> [default]<br>这是docker容器的默认情况，即不限制内存的使用。</p>
+<p><strong>memory=x, memory-swap=inf</strong><br>实际物理内存不能超过x字节，但swap可以随便用。</p>
+<p><strong>memory=x, memory-swap=2*x</strong><br>只指定<code>memery</code>参数，而不指定<code>memory-swap</code>,则默认<code>memory-swap</code>为两倍的<code>memory</code>。</p>
+<p><strong>memory=x, memory-swap=y</strong><br>物理内存最多用x字节，物理内存(rss)+swap最多用y字节。</p>
+<p>例子：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it -m <span class="number">300</span>M --memory-swap -<span class="number">1</span> fedora /bin/bash</span><br><span class="line"><span class="preprocessor">#容器可用物理内存为<span class="number">300</span>M，swap不限量随便用</span></span><br><span class="line"></span><br><span class="line">$ docker run -it -m <span class="number">300</span>M fedora /bin/bash</span><br><span class="line"><span class="preprocessor">#按照官网的说法，这应该属于内存限制的第<span class="number">3</span>种情况，即物理内存的限制与swap一样，但实际测试发现：此时并不会限制swap的使用(测试环境：fedora23/docker-<span class="number">1.11</span>/stress)</span></span><br><span class="line"></span><br><span class="line">$ docker run -it -m <span class="number">300</span>M --memory-swap <span class="number">1</span>G fedora /bin/bash</span><br><span class="line"><span class="preprocessor">#限制物理内存为<span class="number">300</span>M，swap限制为<span class="number">700</span>M(<span class="number">1</span>G-<span class="number">300</span>M)</span></span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是，如果用stress工具进行测试，当内存超出限制时相关进程会被杀死，此时物理内存立马释放至5M左右，但swap不会释放。</p>
+<p><code>memory reservation</code>是一种对内存的软限制，也就说即使内存超出了限制，也不会杀死进程。这样可以提高内存的共享程度，进而提升内存的使用效率。当对某个容器设置了一个软限制后，系统会在内存紧张的时候尽可能的压缩该容器的内存，使其内存占用量回到设置的<code>reservation</code>值之下，这样可以防止某个容器长时间的独自占用大量内存。该选项可以与<code>memory/memory-swap</code>搭配使用，但其值不能大于<code>memory</code>的值，毕竟<code>memory</code>是硬线。</p>
+<p>例子：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="command">run</span> -<span class="keyword">it</span> -m <span class="number">500</span>M <span class="comment">--memory-reservation 200M fedora /bin/bash</span></span><br><span class="line"><span class="comment">#该容器最多使用500M的物理内存，但200M是其警戒值，达到这个值的时候，系统就会试图去回收该容器占用的内存</span></span><br><span class="line"></span><br><span class="line">$ docker <span class="command">run</span> -<span class="keyword">it</span> <span class="comment">--memory-reservation 1G fedora /bin/bash</span></span><br><span class="line"><span class="comment">#该容器可以尽可能占用内存，但不能长期占用1G以上</span></span><br></pre></td></tr></table></figure></p>
+<p>默认情况下，系统会杀死内存溢出[OOM, out-of-memory]的容器中进程，不过我们可以通过<code>--oom-kill-disable</code>选项来改变这种行为。这个选项需要与<code>-m</code>搭配使用，否则的话，容器可能耗尽主机内存，导致必须杀死系统进程才能释放内存。</p>
+<p><strong>2、CPU限制</strong><br>默认情况下，所有的容器占用CPU的时间是相同的，相关的设置选项为<code>-c或--cpu-shares</code>，默认值为1024，有效值不能低于2，如果设置成0的话，系统会忽略此值，并用1024代替。</p>
+<p>这个值不是CPU的绝对占有时间值，即使一个容器的权重值很低，如果此时只有它一个在运行，也会占用100%的CPU。</p>
+<p>假如有3个容器，其中A容器是1024，B，C都是512，当这3个容器同时去争取CPU的时候，那么A会占用50%的使用时间，而B，C只能分别占用25%的使用时间，如果此时再启动一个同样是1024的容器，那么A容器的占用比例将跌至33%。</p>
+<p>在多核CPU上，占用率会综合考虑各个核。如果某个容器的cpu使用比率低于100%，那它也有可能占用某个核的全部运行时间。比如有个容器<code>{c1}</code>权重为<code>512</code>，而另一个容器<code>{c2}</code>的权重为<code>1024</code>，那cpu的分布情况可能如下所示：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PID    container    CPU CPU share</span><br><span class="line"><span class="number">100</span>    &#123;C0&#125;     <span class="number">0</span>   <span class="number">100</span>% of CPU0</span><br><span class="line"><span class="number">101</span>    &#123;C1&#125;     <span class="number">1</span>   <span class="number">100</span>% of CPU1</span><br><span class="line"><span class="number">102</span>    &#123;C1&#125;     <span class="number">2</span>   <span class="number">100</span>% of CPU2</span><br></pre></td></tr></table></figure></p>
+<p>除了限制cpu的使用时间外，还可以将某个容器的运行限制具体的核上，比如：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="command">run</span> -<span class="keyword">it</span> <span class="comment">--cpuset-cpus="1,3" fedora /bin/bash</span></span><br><span class="line"><span class="comment">#当前容器只能运行在核1与核3上</span></span><br></pre></td></tr></table></figure></p>
+<p>除了内存与CPU外，也可以对硬盘I/O进行限制(可以限制读写速度，不能限制硬盘占用容量)。</p>
+<p><strong>3、资源占用监视</strong><br>docker提供了类似linux中<code>top</code>的工具，可以实时监视各容器的资源占用情况：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ docker stats</span><br><span class="line"></span><br><span class="line">CONTAINER           CPU %               MEM USAGE / LIMIT     MEM %               NET I/O               BLOCK I/O             PIDS</span><br><span class="line"><span class="number">17f</span>e993597b4        <span class="number">5.32</span>%               <span class="number">2.629</span> GB / <span class="number">33.69</span> GB   <span class="number">7.80</span>%               <span class="number">39.08</span> GB / <span class="number">13.4</span> GB    <span class="number">84.63</span> MB / <span class="number">12.6</span> MB    <span class="number">59</span></span><br><span class="line">ea971facc42f        <span class="number">2.31</span>%               <span class="number">3.836</span> GB / <span class="number">33.69</span> GB   <span class="number">11.39</span>%              <span class="number">41.03</span> GB / <span class="number">13.98</span> GB   <span class="number">87.69</span> MB / <span class="number">12.75</span> MB   <span class="number">59</span></span><br></pre></td></tr></table></figure></p>
+<p>其中：<br><code>CPU %</code>：占用cpu的时间比例；<br><code>MEM USAGE / LIMIT</code>：物理内存的使用量以及允许使用的最大限制，在这个例子中没有对内存进行限制。另外需要注意的是，此时并没有给出swap的使用量，比如限制了容器最多能用50M物理内存，而在容器里申请了80M的内存，此时运行该命令，会发现内存被全部占用，”消失”了的30M内存就是swap，可以到<code>cat /sys/fs/cgroup/memory/docker/&lt;docker-id&gt;/memory.stat | grep swap</code>查看。<br><code>MEM %</code>：已用内存占限制使用内存(不是宿主机的内存)的比例。<br><code>NET I/O</code>：该容器已通过网络收发的字节总数。<br><code>BLOCK I/O</code>：已在本地读写的字节总数(这个貌似是只统计了direct io，并没有统计普通文件I/O(buffered i/o))<br><code>PIDS</code>：当前容器正在运行的进程个数(<a href="https://www.kernel.org/doc/Documentation/cgroup-v1/pids.txt" target="_blank" rel="external">The<br>number of processes currently in the cgroup is given by pids.current</a>)</p>
+<p>考虑到docker毕竟是基于cgroup实现的，除了通过<code>docker stats</code>查看已外，还可以直接到<code>/sys/fs/cgroup</code>目录下查看自己感兴趣的指标。</p>
+<p>在支持<code>systemd</code>的系统还可以通过<code>systemd-cgtop</code>(相当于查看cgroup的top命令)，通过该命令也可以在线修改docker容器的资源配额：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="keyword">set</span>-<span class="keyword">property</span> &lt;docker-cgid.scope&gt; CPUShares=<span class="number">512</span></span><br></pre></td></tr></table></figure></p>
+<p>其中<code>docker-cgid</code>可以通过<code>systemd-cgls</code>查看：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@primary ~]<span class="preprocessor"># systemd-cgls</span></span><br><span class="line">├─<span class="number">1</span> /usr/lib/systemd/systemd --switched-root --system --deserialize <span class="number">21</span></span><br><span class="line">├─docker</span><br><span class="line">│ ├─ea971facc42fe96518803ecce1fd2d7763aceca7f5c95f1bd09731d2f10b4466</span><br><span class="line">│ │ ├─<span class="number">2985</span> sh /start.sh</span><br><span class="line">│ │ ├─<span class="number">3000</span> /usr/bin/bash</span><br><span class="line">│ └─<span class="number">17f</span>e993597b4f84a97ddf624812a7108bd858b2980871532c9fccb49cef9f45c</span><br><span class="line">│   ├─<span class="number">3202</span> sh /start.sh</span><br><span class="line">│   ├─<span class="number">3218</span> /usr/bin/bash</span><br><span class="line">......</span><br></pre></td></tr></table></figure></p>
+<p><strong>参考</strong><br><a href="http://docs.master.dockerproject.org/engine/reference/run/#runtime-constraints-on-resources" target="_blank" rel="external">Runtime constraints on resources</a><br><a href="http://www.open-open.com/lib/view/open1425565035056.html" target="_blank" rel="external">Docker容器资源管理</a><br><a href="http://www.infoq.com/cn/articles/docker-kernel-knowledge-cgroups-resource-isolation/" target="_blank" rel="external">Docker背后的内核知识——cgroups资源限制</a><br><a href="https://www.datadoghq.com/blog/the-docker-monitoring-problem/" target="_blank" rel="external">The Docker monitoring problem</a><br><a href="https://docs.docker.com/v1.8/articles/runmetrics/" target="_blank" rel="external">Docker Runtime metrics</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/docker/">docker</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ideasintocodes.top/2016/06/29/docker容器的内存与CPU资源管理/" data-title="docker容器的内存与CPU资源管理 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/07/01/Docker Overview_译/" title="Docker Overview [译]">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Docker Overview [译]</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/06/25/dockerfile构建docker镜像/"  title="通过dockerfile构建docker镜像">
+ <strong>下一篇：</strong><br/> 
+ <span>通过dockerfile构建docker镜像
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/06/29/docker容器的内存与CPU资源管理/" data-title="docker容器的内存与CPU资源管理" data-url="http://ideasintocodes.top/2016/06/29/docker容器的内存与CPU资源管理/"></div>
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"djskl"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/celery/" title="celery">celery<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/django/" title="django">django<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/openlayers/" title="openlayers">openlayers<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>36</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spyne/" title="spyne">spyne<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/装饰器/" title="装饰器">装饰器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+<script type="text/javascript">
+(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+_st('install','RFzyQ_eKhxpGo1Snfgpj','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"djskl"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

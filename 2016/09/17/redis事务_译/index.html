@@ -5,35 +5,32 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>ideas into codes</title>
+    <title>redis事务 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="title:[译]redis事务categories:redisdate:2016-09-17
-toc:false原文:Transactions
+    <meta name="description" content="原文:Transactions
 Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。这些命令可以保证一组命令一步执行完，在此过程中可以保证：
 
-事务中的所有命令都是串行的，且按序执行在某个事务的执行过程中，redis服务器不再处理其他客户端发">
+事务中的所有命令都是串行的，且按序执行在某个事务的执行过程中，redis服务器不再处理其他客户端发送过来的请求，这可以使一个事务中的多条命令像一条命令一样不被打断地执行。这一特性是在说事务的隔离性，对应关系数据库">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ideas into codes">
+<meta property="og:title" content="redis事务">
 <meta property="og:url" content="http://ideasintocodes.top/2016/09/17/redis事务_译/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="title:[译]redis事务categories:redisdate:2016-09-17
-toc:false原文:Transactions
+<meta property="og:description" content="原文:Transactions
 Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。这些命令可以保证一组命令一步执行完，在此过程中可以保证：
 
-事务中的所有命令都是串行的，且按序执行在某个事务的执行过程中，redis服务器不再处理其他客户端发">
-<meta property="og:updated_time" content="2016-09-17T13:00:48.019Z">
+事务中的所有命令都是串行的，且按序执行在某个事务的执行过程中，redis服务器不再处理其他客户端发送过来的请求，这可以使一个事务中的多条命令像一条命令一样不被打断地执行。这一特性是在说事务的隔离性，对应关系数据库">
+<meta property="og:updated_time" content="2016-09-17T13:02:28.711Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ideas into codes">
-<meta name="twitter:description" content="title:[译]redis事务categories:redisdate:2016-09-17
-toc:false原文:Transactions
+<meta name="twitter:title" content="redis事务">
+<meta name="twitter:description" content="原文:Transactions
 Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。这些命令可以保证一组命令一步执行完，在此过程中可以保证：
 
-事务中的所有命令都是串行的，且按序执行在某个事务的执行过程中，redis服务器不再处理其他客户端发">
+事务中的所有命令都是串行的，且按序执行在某个事务的执行过程中，redis服务器不再处理其他客户端发送过来的请求，这可以使一个事务中的多条命令像一条命令一样不被打断地执行。这一特性是在说事务的隔离性，对应关系数据库">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -91,28 +88,20 @@ Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/09/17/redis事务_译/" title="" itemprop="url"></a>
+      <a href="/2016/09/17/redis事务_译/" title="redis事务" itemprop="url">redis事务</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2016-09-17T13:00:48.137Z" itemprop="datePublished"> 发表于 2016-09-17</time>
+    <time datetime="2016-09-16T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-09-17</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#toc:false"><span class="toc-number">1.</span> <span class="toc-text">toc:false</span></a></li></ol>
-		
-		</div>
-		
-		<p>title:[译]redis事务<br>categories:redis<br>date:2016-09-17</p>
-<h2 id="toc:false">toc:false</h2><p><strong>原文:<a href="http://redis.io/topics/transactions" target="_blank" rel="external">Transactions</a></strong></p>
+		<p><strong>原文:<a href="http://redis.io/topics/transactions" target="_blank" rel="external">Transactions</a></strong></p>
 <p>Redis中的事务通过4个命令实现：<a href="http://redis.io/commands/multi" target="_blank" rel="external">MULTI</a>, <a href="http://redis.io/commands/exec" target="_blank" rel="external">EXEC</a>, <a href="http://redis.io/commands/discard" target="_blank" rel="external">DISCARD</a> 以及 <a href="http://redis.io/commands/watch" target="_blank" rel="external">WATCH</a>。这些命令可以保证一组命令一步执行完，在此过程中可以保证：</p>
 <ul>
 <li>事务中的所有命令都是串行的，且按序执行<br>在某个事务的执行过程中，redis服务器不再处理其他客户端发送过来的请求，这可以使一个事务中的多条命令像一条命令一样不被打断地执行。<code>这一特性是在说事务的隔离性，对应关系数据库中4个隔离级别中的最高级别:SERIALIZABLE</code></li>
@@ -164,6 +153,11 @@ Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。�
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/redis/">redis</a>
+</div>
+
 
 </div>
 
@@ -171,7 +165,7 @@ Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://ideasintocodes.top/2016/09/17/redis事务_译/" data-title="ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://ideasintocodes.top/2016/09/17/redis事务_译/" data-title="redis事务 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -197,7 +191,7 @@ Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。�
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/09/17/redis事务_译/" data-title="" data-url="http://ideasintocodes.top/2016/09/17/redis事务_译/"></div>
+	<div class="ds-thread" data-thread-key="2016/09/17/redis事务_译/" data-title="redis事务" data-url="http://ideasintocodes.top/2016/09/17/redis事务_译/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -219,13 +213,6 @@ Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。�
 
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
- 
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#toc:false"><span class="toc-number">1.</span> <span class="toc-text">toc:false</span></a></li></ol>
- 
-  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -266,6 +253,10 @@ Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。�
 		
 		  
 			<li><a href="/categories/python/" title="python">python<sup>36</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>1</sup></a></li>
 		  
 		
 		  
@@ -427,8 +418,6 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
         
     }
   });

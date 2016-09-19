@@ -1,0 +1,543 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="baidu-site-verification" content="9vpyr9VH4h" />
+  
+    <title>redis数据存储 | ideas into codes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="djskl">
+    
+
+    
+    <meta name="description" content="Redis是内存数据库，数据的读写都是在内存中进行的，但为了防止数据在程序退出时丢失，redis提供了两种持久化(persistence)方案：RDB &amp;amp; AOF。这两种方案并不冲突，相反，按照redis的官方建议，最好将二者同时启用。
+RDBRDB(估计全称是Redis-Data-Base吧)是一个经过压缩了的数据库快照(snapshot)文件，有且仅有一个，位于/var/lib/red">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis数据存储">
+<meta property="og:url" content="http://ideasintocodes.top/2016/09/19/redis数据存储/index.html">
+<meta property="og:site_name" content="ideas into codes">
+<meta property="og:description" content="Redis是内存数据库，数据的读写都是在内存中进行的，但为了防止数据在程序退出时丢失，redis提供了两种持久化(persistence)方案：RDB &amp;amp; AOF。这两种方案并不冲突，相反，按照redis的官方建议，最好将二者同时启用。
+RDBRDB(估计全称是Redis-Data-Base吧)是一个经过压缩了的数据库快照(snapshot)文件，有且仅有一个，位于/var/lib/red">
+<meta property="og:updated_time" content="2016-09-19T13:58:07.817Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redis数据存储">
+<meta name="twitter:description" content="Redis是内存数据库，数据的读写都是在内存中进行的，但为了防止数据在程序退出时丢失，redis提供了两种持久化(persistence)方案：RDB &amp;amp; AOF。这两种方案并不冲突，相反，按照redis的官方建议，最好将二者同时启用。
+RDBRDB(估计全称是Redis-Data-Base吧)是一个经过压缩了的数据库快照(snapshot)文件，有且仅有一个，位于/var/lib/red">
+
+    
+    <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="ideas into codes">ideas into codes</a></h1>
+				<h2 class="blog-motto">知也者，以其知过物而能貌之</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/reads">读书</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-input" class="st-default-search-input" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/09/19/redis数据存储/" title="redis数据存储" itemprop="url">redis数据存储</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
+		
+  <p class="article-time">
+    <time datetime="2016-09-18T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-09-19</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<p>Redis是内存数据库，数据的读写都是在内存中进行的，但为了防止数据在程序退出时丢失，redis提供了两种持久化(persistence)方案：<code>RDB</code> &amp; <code>AOF</code>。这两种方案并不冲突，相反，按照redis的官方建议，最好将二者同时启用。</p>
+<p><strong>RDB</strong><br>RDB(估计全称是Redis-Data-Base吧)是一个经过压缩了的<code>数据库快照(snapshot)</code>文件，有且仅有一个，位于<code>/var/lib/redis</code>目录下，默认名字为<code>dump.rdb</code>，针对RDB，redis采取的默认策略如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">save <span class="number">900</span> <span class="number">1</span>      <span class="preprocessor">#在<span class="number">900</span>秒内至少有<span class="number">1</span>个key发生了变化</span></span><br><span class="line">save <span class="number">300</span> <span class="number">10</span>     <span class="preprocessor">#在<span class="number">300</span>秒内至少有<span class="number">10</span>个key发生了变化</span></span><br><span class="line">save <span class="number">60</span> <span class="number">10000</span>   <span class="preprocessor">#在<span class="number">60</span>秒内至少有<span class="number">10000</span>个key发生了变化</span></span><br></pre></td></tr></table></figure></p>
+<p>只要上述3个条件中的1个满足了，redis就会fork出一个子进程来将当前数据库中数据写到硬盘上(反过来说，如果900秒内没有key发生变化，那也就不会触发这个过程)。</p>
+<p>数据持久化并不是在原文件上直接增删，而是先新建一个临时文件(比如<code>temp-4545.rdb</code>)，在新文件上写完之后再替换旧的rdb文件(从这个角度看，每个RDB文件都是数据库在每个时间点上的一个<code>快照</code>，会随着数据库中数据的增减而变大或变小)。</p>
+<p>相关命令有<code>SAVE</code>,<code>BGSAVE</code>，前者会阻塞redis服务器，使其不能再处理新的请求，直到数据已全部刷到硬盘；后者通过fork一个后台子进程来干这事，可以通过<code>LASTSAVE</code>来查看备份是否完成(这个命令返回的是浮点数的时间值，比较一下时间是否变了即可)。</p>
+<p><strong>AOF</strong><br>AOF(Append-Only-File)是基于<strong>日志记录</strong>的数据持久化方式，与RDB一样，也位于<code>/var/lib/redis</code>目录下，它的默认名称是<code>appendonly.aof</code>，与RDB不同的是，AOF文件中的内容是数据库的操作记录，而不是数据本身，也就说AOF不像RDB一样，它不会随着数据库中数据量的减小而减少，相反它会因为操作记录的累积而一直变大。</p>
+<p>相对RDB的一大优势是在不牺牲redis性能的前提下，可以进行<strong>更短时间间隔</strong>的数据持久化操作，缺点就是文件较大。</p>
+<p>redis在重启时会<strong>优先</strong>根据AOF文件加载数据</p>
+<p>针对该种策略，redis提供了3种选择：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">appendfsync</span> always      <span class="comment">#每次操作都要写到aof文件里，最可靠也最慢</span></span><br><span class="line">appendfsync everysec    <span class="comment">#每秒执行一次，性能接近RDB，推荐</span></span><br><span class="line">appendfsync <span class="built_in">no</span>          <span class="comment">#由操作系统负责将数据刷到文件里，最快但不太靠谱</span></span><br></pre></td></tr></table></figure></p>
+<p>相关命令有：<code>BGREWRITEAOF</code>。该命令除了可以将操作刷到硬盘上的aof文件外，还可以重构部分命令来压缩文件(比如针对一个key，连续执行了100次加1的命令，<code>BGREWRITEAOF</code>可以将其变为1条加100的命令)。</p>
+<p><strong>数据备份与恢复</strong><br>Redis的数据备份很简单，把rdb文件或aof文件拷出来就是备份了，恢复的时候拷回来重启redis即可。</p>
+<p>官方推荐的备份的策略是：启动一个定时任务，每小时备份产成一个RDB文件，然后把同一天的文件放到同一个目录里，并至少一天一次把备份数据拷贝到更安全的数据中心上。为了节约空间，可以定时删除老文件。</p>
+<p><strong>实验</strong></p>
+<blockquote>
+<p>以下命令均基于 <strong>redis2.8.18 / fedora20</strong> 环境，且持久化策略采用redis默认方式</p>
+</blockquote>
+<p>代码：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import random</span><br><span class="line">import redis</span><br><span class="line">import string</span><br><span class="line">from multiprocessing import Process</span><br><span class="line">import uuid</span><br><span class="line"></span><br><span class="line">chars = string<span class="class">.letters</span> + string<span class="class">.digits</span> + string<span class="class">.printable</span></span><br><span class="line"></span><br><span class="line">def <span class="function"><span class="title">f</span><span class="params">()</span></span>:</span><br><span class="line">    conn = redis.<span class="function"><span class="title">from_url</span><span class="params">(<span class="string">"redis://127.0.0.1"</span>)</span></span></span><br><span class="line">    size = random.<span class="function"><span class="title">randint</span><span class="params">(<span class="number">1</span>, <span class="number">2048</span>)</span></span></span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="function"><span class="title">range</span><span class="params">(<span class="number">10000</span>)</span></span>:</span><br><span class="line">        key = <span class="function"><span class="title">str</span><span class="params">(uuid.uuid4()</span></span>)</span><br><span class="line">        val = <span class="string">""</span>.<span class="function"><span class="title">join</span><span class="params">([random.choice(chars)</span></span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="function"><span class="title">range</span><span class="params">(size)</span></span>])</span><br><span class="line">        conn.<span class="function"><span class="title">set</span><span class="params">(key, val)</span></span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="function"><span class="title">range</span><span class="params">(<span class="number">100</span>)</span></span>:</span><br><span class="line">    <span class="tag">p</span> = <span class="function"><span class="title">Process</span><span class="params">(target=f)</span></span></span><br><span class="line">    <span class="tag">p</span>.<span class="function"><span class="title">start</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<p>这样通过100个进程向redis中插入1000000条数据，产生的rdb文件与aof文件如下所示：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r-- <span class="number">1</span> redis redis <span class="number">134245069</span> Sep <span class="number">19</span> <span class="number">18</span>:<span class="number">24</span> appendonly.aof</span><br><span class="line">-rw-r--r-- <span class="number">1</span> redis redis <span class="number">131537020</span> Sep <span class="number">19</span> <span class="number">18</span>:<span class="number">24</span> dump.rdb</span><br></pre></td></tr></table></figure></p>
+<p>相对来说aof文件要大一点。</p>
+<p>当前redis占用的内存：<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">used_memory:</span><span class="number">149071376</span></span><br><span class="line"><span class="label">used_memory_human:</span><span class="number">142.17</span>M</span><br><span class="line"><span class="label">used_memory_rss:</span><span class="number">156725248</span>       <span class="preprocessor">#操作系统分配的内存(top/ps看到的内存量)</span></span><br><span class="line"><span class="label">used_memory_peak:</span><span class="number">149071376</span></span><br><span class="line"><span class="label">used_memory_peak_human:</span><span class="number">142.17</span>M</span><br><span class="line"><span class="label">used_memory_lua:</span><span class="number">35840</span></span><br><span class="line"><span class="label">mem_fragmentation_ratio:</span><span class="number">1.05</span>    <span class="preprocessor">#used_memory_rss/used_memory</span></span><br></pre></td></tr></table></figure></p>
+<p>redis占用的内存仅比所存储的数据量大一点点。</p>
+<p><strong>参考</strong><br><a href="http://redis.io/topics/persistence" target="_blank" rel="external">http://redis.io/topics/persistence</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/redis/">redis</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ideasintocodes.top/2016/09/19/redis数据存储/" data-title="redis数据存储 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/09/17/redis事务_译/"  title="redis事务_译">
+ <strong>下一篇：</strong><br/> 
+ <span>redis事务_译
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/09/19/redis数据存储/" data-title="redis数据存储" data-url="http://ideasintocodes.top/2016/09/19/redis数据存储/"></div>
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+	var duoshuoQuery = {short_name:"djskl"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/angular/" title="angular">angular<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/celery/" title="celery">celery<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/django/" title="django">django<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/docker/" title="docker">docker<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/openlayers/" title="openlayers">openlayers<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/postgresql/" title="postgresql">postgresql<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>36</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spyne/" title="spyne">spyne<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/其他/" title="其他">其他<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端/" title="前端">前端<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/运维/" title="运维">运维<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/awk/" title="awk">awk<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/递归/" title="递归">递归<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/sed/" title="sed">sed<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/装饰器/" title="装饰器">装饰器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/作用域/" title="作用域">作用域<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/oop/" title="oop">oop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分区表/" title="分区表">分区表<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/inspectdb/" title="inspectdb">inspectdb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/validation/" title="validation">validation<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="djskl">djskl</a>
+		
+		
+		</p>
+<script type="text/javascript">
+(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+_st('install','RFzyQ_eKhxpGo1Snfgpj','2.0.0');
+</script>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"djskl"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

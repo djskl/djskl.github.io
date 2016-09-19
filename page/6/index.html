@@ -77,17 +77,15 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/21/Postgresql状态维护_持续更新/" title="Postgresql状态维护(持续更新)" itemprop="url">
+    <a href="/2016/01/21/Postgresql配置主从流复制/" title="Postgresql配置主从流复制" itemprop="url">
   
-    <h1 itemprop="name">Postgresql状态维护(持续更新)</h1>
+    <h1 itemprop="name">Postgresql配置主从流复制</h1>
     
      
-           <p itemprop="description" >查看当前的数据库连接及正在执行的语句/命令1select * from pg_stat_activity;
+           <p itemprop="description" >假设主机器的ip地址是:192.168.16.10；从机器的ip地址是：192.168.16.11
+1、主数据库配置首先修改pg_hba.conf，在最后增加一条：
 
-
-如果某个操作卡住了的话，其中waiting字段的值为t。
-
-查看当前数据库的连接数1SELECT count(*) FROM (SELECT pg_stat_get_b</p>
+host    replication     postgres        192.168.16.11/32</p>
         
     
     <time datetime="2016-01-20T16:00:00.000Z" itemprop="datePublished">2016-01-21</time>
@@ -109,6 +107,31 @@
      
            <p itemprop="description" >生产环境的postgresql数据出了问题，于是就想把整个数据库拷到本地来调试一下。
 1、找到生产环境的postgresql的data目录，在命令行下连接上数据库，然后执行show data_directory就可以看到了，在fedora20上是/var/lib/pgsql/da</p>
+        
+    
+    <time datetime="2016-01-20T16:00:00.000Z" itemprop="datePublished">2016-01-21</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/01/21/Postgresql状态维护_持续更新/" title="Postgresql状态维护(持续更新)" itemprop="url">
+  
+    <h1 itemprop="name">Postgresql状态维护(持续更新)</h1>
+    
+     
+           <p itemprop="description" >查看当前的数据库连接及正在执行的语句/命令1select * from pg_stat_activity;
+
+
+如果某个操作卡住了的话，其中waiting字段的值为t。
+
+查看当前数据库的连接数1SELECT count(*) FROM (SELECT pg_stat_get_b</p>
         
     
     <time datetime="2016-01-20T16:00:00.000Z" itemprop="datePublished">2016-01-21</time>
@@ -252,35 +275,12 @@ index.html
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/04/JavaScript访问AngularJs内部变量函数/" title="JavaScript访问AngularJs内部变量/函数" itemprop="url">
+    <a href="/2016/01/04/Django与AngularJs的模板标签冲突问题/" title="Django与AngularJs的模板标签冲突问题" itemprop="url">
   
-    <h1 itemprop="name">JavaScript访问AngularJs内部变量/函数</h1>
+    <h1 itemprop="name">Django与AngularJs的模板标签冲突问题</h1>
     
      
-           <p itemprop="description" >1234567891011var element = angular.element($document.getElementById(&quot;app&quot;));var controller = element.controller();var scope = element.scope(</p>
-        
-    
-    <time datetime="2016-01-03T16:00:00.000Z" itemprop="datePublished">2016-01-04</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/01/04/Postgresql函数的rowtype类型及返回值/" title="Postgresql函数的rowtype类型及返回值" itemprop="url">
-  
-    <h1 itemprop="name">Postgresql函数的rowtype类型及返回值</h1>
-    
-     
-           <p itemprop="description" >今天想写触发器来根据表A里的数据变化更新表B的状态，A表的更新及删除都会触发这个操作。
-于是想到写一个普通函数在触发器函数里调用，结果尝试了一下指定参数类型为tablename%rowtype，结果居然报错，后来找到另一个比较勉强的解释：
-
-Since every table h</p>
+           <p itemprop="description" >Django与AngularJs的模板标签是一样的，目前官方的解决冲突的办法有两个：1、借助$interpolateProvider相关api重新定义angularjs的标签1234myModule.config(function($interpolateProvider) &amp;#</p>
         
     
     <time datetime="2016-01-03T16:00:00.000Z" itemprop="datePublished">2016-01-04</time>
@@ -342,7 +342,7 @@ Since every table h</p>
 		  
 		
 		  
-			<li><a href="/categories/redis/" title="redis">redis<sup>1</sup></a></li>
+			<li><a href="/categories/redis/" title="redis">redis<sup>2</sup></a></li>
 		  
 		
 		  

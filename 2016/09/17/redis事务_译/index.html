@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>redis事务_译 | ideas into codes</title>
+    <title>redis事务【译】 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
@@ -17,16 +17,16 @@ Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。�
 
 事务中的所有命令都是串行的，且按序执行在某个事务的执行过程中，redis服务器不再处理其他客户端发送过来的请求，这可以使一个事务中的多条命令像一条命令一样不被打断地执行。这一特性是在说事务的隔离性，对应关系数据库">
 <meta property="og:type" content="article">
-<meta property="og:title" content="redis事务_译">
+<meta property="og:title" content="redis事务【译】">
 <meta property="og:url" content="http://ideasintocodes.top/2016/09/17/redis事务_译/index.html">
 <meta property="og:site_name" content="ideas into codes">
 <meta property="og:description" content="原文:Transactions
 Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。这些命令可以保证一组命令一步执行完，在此过程中可以保证：
 
 事务中的所有命令都是串行的，且按序执行在某个事务的执行过程中，redis服务器不再处理其他客户端发送过来的请求，这可以使一个事务中的多条命令像一条命令一样不被打断地执行。这一特性是在说事务的隔离性，对应关系数据库">
-<meta property="og:updated_time" content="2016-09-17T13:03:14.436Z">
+<meta property="og:updated_time" content="2016-09-25T13:30:05.874Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="redis事务_译">
+<meta name="twitter:title" content="redis事务【译】">
 <meta name="twitter:description" content="原文:Transactions
 Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。这些命令可以保证一组命令一步执行完，在此过程中可以保证：
 
@@ -88,7 +88,7 @@ Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/09/17/redis事务_译/" title="redis事务_译" itemprop="url">redis事务_译</a>
+      <a href="/2016/09/17/redis事务_译/" title="redis事务【译】" itemprop="url">redis事务【译】</a>
   </h1>
   <p class="article-author">By
        
@@ -148,6 +148,9 @@ Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。�
 <p>如果<code>EXEC</code>失败(即返回<a href="http://redis.io/topics/protocol#nil-reply" target="_blank" rel="external">Null reply</a>)了，我们只需要再次重复这一操作即可。</p>
 <p><strong>Redis脚本与事务</strong><br>一个<a href="http://redis.io/commands/eval" target="_blank" rel="external">Redis脚本</a>本身就是一个事务，因此所有你可以针对redis事务的操作都可以用在脚本上，通常脚本更加简单快速。</p>
 <p>之所以出现脚本与事务的重复，是因为脚本是在2.6以后的版本中引入的，而在这之前事务早就存在redis中了。然而，我们也不可能在短时间内从redis中去掉事务，因为即使不考虑脚本因素，事务仍然是避免竞争条件(race condition)的一个有力工具，而且另一方面redis事务的实现复杂度也很小。<br>然而，在不远的将来，也不是没有可能，我们将会看到所有的用户都将基于脚本来使用redis。如果真变成了这样，我们最终也会移除事务这一特性。</p>
+<hr>
+<p>update 2016/09/25</p>
+<p>关系型数据库的事务具有4个特性：原子性、一致性、隔离性、持久性。redis的事务可以保证原子性与隔离性。尤其是隔离性，redis的事务是串行的，事物之间是不可能相互影响的。关于原子性，虽然redis不支持回滚，但如果事务执行过程中redis意外退出了，AOF便是无效文件了，需要修复之后才能用，这个修复过程也相当于回滚了。redis<br>没有什么主键外键等约束，很难说它能保证什么一致性吧。如果把AOF的级别提高到<code>always</code>倒是可以保证持久性，不过一般不会这么干。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -165,7 +168,7 @@ Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://ideasintocodes.top/2016/09/17/redis事务_译/" data-title="redis事务_译 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://ideasintocodes.top/2016/09/17/redis事务_译/" data-title="redis事务【译】 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -199,7 +202,7 @@ Redis中的事务通过4个命令实现：MULTI, EXEC, DISCARD 以及 WATCH。�
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/09/17/redis事务_译/" data-title="redis事务_译" data-url="http://ideasintocodes.top/2016/09/17/redis事务_译/"></div>
+	<div class="ds-thread" data-thread-key="2016/09/17/redis事务_译/" data-title="redis事务【译】" data-url="http://ideasintocodes.top/2016/09/17/redis事务_译/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

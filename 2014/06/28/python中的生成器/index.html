@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>python中的生成器 | ideas into codes</title>
+    <title>浅析python中的生成器与迭代器 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
@@ -14,13 +14,13 @@
     
     <meta name="description" content="假设有一个列表list，其元素有可能是基本数据类型(如int)，也有可能是另一个列表，如果要这个list中的元素全部打印出来，应该怎么办？最简单直接的方法就是递归：123456def traverse(lst):    for val in lst:        if not isinstance(val,list):            print val        else:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python中的生成器">
+<meta property="og:title" content="浅析python中的生成器与迭代器">
 <meta property="og:url" content="http://ideasintocodes.top/2014/06/28/python中的生成器/index.html">
 <meta property="og:site_name" content="ideas into codes">
 <meta property="og:description" content="假设有一个列表list，其元素有可能是基本数据类型(如int)，也有可能是另一个列表，如果要这个list中的元素全部打印出来，应该怎么办？最简单直接的方法就是递归：123456def traverse(lst):    for val in lst:        if not isinstance(val,list):            print val        else:">
-<meta property="og:updated_time" content="2015-10-13T14:11:33.000Z">
+<meta property="og:updated_time" content="2016-09-27T13:35:26.899Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python中的生成器">
+<meta name="twitter:title" content="浅析python中的生成器与迭代器">
 <meta name="twitter:description" content="假设有一个列表list，其元素有可能是基本数据类型(如int)，也有可能是另一个列表，如果要这个list中的元素全部打印出来，应该怎么办？最简单直接的方法就是递归：123456def traverse(lst):    for val in lst:        if not isinstance(val,list):            print val        else:">
 
     
@@ -79,7 +79,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/06/28/python中的生成器/" title="python中的生成器" itemprop="url">python中的生成器</a>
+      <a href="/2014/06/28/python中的生成器/" title="浅析python中的生成器与迭代器" itemprop="url">浅析python中的生成器与迭代器</a>
   </h1>
   <p class="article-author">By
        
@@ -98,6 +98,12 @@
 <p>这个yield很关键，它的存在表明这是一个生成器，比如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ff</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">False</span>:</span><br><span class="line">        <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">print</span> list(ff())</span><br><span class="line">    </span><br><span class="line"><span class="comment">#输出</span></span><br><span class="line">[]</span><br></pre></td></tr></table></figure></p>
 <p>如果没有yield关键字就会报错。与之类似的是迭代器，通过在类中声明一个<code>__iter__</code>方法即可定义一个迭代器，如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fib</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.a = <span class="number">0</span></span><br><span class="line">        self.b = <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">next</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.a, self.b = self.a+self.b, self.a</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> self.a &gt; <span class="number">50</span>:</span><br><span class="line">            <span class="keyword">raise</span> StopIteration()</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> self.a</span><br></pre></td></tr></table></figure></p>
 <p>本问题来自于《python基础教程》P155页的递归调用遍历嵌套列表。</p>
+<hr>
+<p>迭代器与生成器的在使用方式上很相似，很多时候不需要区分(比如<code>for...in</code>遍历的时候，比如<code>list</code>穷举的时候)，但它们还是有点区别的，比如生成器一般是包含yield语句的函数(当然也可以这样定义：<code>(x for x in mylist)</code>，这里说的是一般情况)，迭代器一般是包含<code>__iter__</code><strong>与</strong><code>next</code>(python3里变成了<code>__next__</code>)的class。官方将<code>__iter__</code>与<code>next</code>的组合称为<em>迭代器协议(iterator protocol)</em>。其实，这不过是定义方式的区别，好像并没有看出来为什么有了迭代器还需要生成器，官方的说法是：</p>
+<blockquote>
+<p>Python’s generators provide a convenient way to implement the iterator protocol. If a container object’s <strong>iter</strong>() method is implemented as a generator, it will automatically return an iterator object (technically, a generator object) supplying the <strong>iter</strong>() and next() methods.</p>
+</blockquote>
+<p>第一句话很好理解，生成器是迭代器的一种简便实现方式(语法糖)，第二句有点意思了：正常情况下，自定义的迭代器是必须同时实现<code>__iter__</code>与<code>next</code>函数的，且<code>__iter__</code>返回的对象自身(self)，由<code>next</code>负责遍历元素，然而如果<code>__iter__</code>被定义成了<strong>生成器</strong>，那么就不需要再定义<code>next</code>函数了, 比如下面这种使用方式：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Records</span><span class="params">(object)</span>:</span></span><br><span class="line">    </span><br><span class="line">    nums1 = range(<span class="number">1</span>, <span class="number">100</span>)</span><br><span class="line">    nums2 = iter(xrange(<span class="number">100</span>, <span class="number">10000</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""Iterate over all rows, consuming the underlying generator</span><br><span class="line">        only when necessary."""</span></span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            <span class="keyword">if</span> i &lt; len(self.nums1):</span><br><span class="line">                <span class="keyword">yield</span> self.nums1[i]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">yield</span> next(self.nums2)</span><br><span class="line">            i += <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -115,7 +121,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://ideasintocodes.top/2014/06/28/python中的生成器/" data-title="python中的生成器 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://ideasintocodes.top/2014/06/28/python中的生成器/" data-title="浅析python中的生成器与迭代器 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -141,7 +147,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2014/06/28/python中的生成器/" data-title="python中的生成器" data-url="http://ideasintocodes.top/2014/06/28/python中的生成器/"></div>
+	<div class="ds-thread" data-thread-key="2014/06/28/python中的生成器/" data-title="浅析python中的生成器与迭代器" data-url="http://ideasintocodes.top/2014/06/28/python中的生成器/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

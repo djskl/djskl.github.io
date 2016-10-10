@@ -5,26 +5,35 @@
   <meta charset="UTF-8">
   <meta name="baidu-site-verification" content="9vpyr9VH4h" />
   
-    <title>Django静态文件的一种加载方式 | ideas into codes</title>
+    <title>修改Android中toolbar与statusbar的样式 | ideas into codes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="djskl">
     
 
     
-    <meta name="description" content="django官方static的加载方式是：12&amp;#123;% load staticfiles %&amp;#125;&amp;lt;script src=&quot;&amp;#123;% static &quot;jquery.min.js&quot;%&amp;#125;&quot;&amp;gt;&amp;lt;/script&amp;gt;
-写起来挺麻烦，而且看上去怪怪的，如果在context_processors中加入这么一条:1django.template.context_p">
+    <meta name="description" content="修改之前的样式：
+修改之后的样式：
+所作修改：1、将toolbar, statusbar设为相同颜色2、删除statusbar下边框的阴影3、将toolbar上边框的宽度设为04、设置toolbar的高度5、设置toolbar标题的大小
+相关代码：1234567891011121314151617181920212223242526272829303132333435363738394041424">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Django静态文件的一种加载方式">
-<meta property="og:url" content="http://ideasintocodes.top/2016/05/05/Django静态文件的一种加载方式/index.html">
+<meta property="og:title" content="修改Android中toolbar与statusbar的样式">
+<meta property="og:url" content="http://ideasintocodes.top/2016/10/10/修改Android中toolbar与statusbar的样式/index.html">
 <meta property="og:site_name" content="ideas into codes">
-<meta property="og:description" content="django官方static的加载方式是：12&amp;#123;% load staticfiles %&amp;#125;&amp;lt;script src=&quot;&amp;#123;% static &quot;jquery.min.js&quot;%&amp;#125;&quot;&amp;gt;&amp;lt;/script&amp;gt;
-写起来挺麻烦，而且看上去怪怪的，如果在context_processors中加入这么一条:1django.template.context_p">
-<meta property="og:updated_time" content="2016-05-05T11:45:30.000Z">
+<meta property="og:description" content="修改之前的样式：
+修改之后的样式：
+所作修改：1、将toolbar, statusbar设为相同颜色2、删除statusbar下边框的阴影3、将toolbar上边框的宽度设为04、设置toolbar的高度5、设置toolbar标题的大小
+相关代码：1234567891011121314151617181920212223242526272829303132333435363738394041424">
+<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/pre_cnic.sdc.toolbardemo_crop_small.png">
+<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/after_cnic.sdc.toolbardemo_small.png">
+<meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/00217BUbzy6OBTaWfG39b&690.jpg">
+<meta property="og:updated_time" content="2016-10-10T10:47:54.659Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Django静态文件的一种加载方式">
-<meta name="twitter:description" content="django官方static的加载方式是：12&amp;#123;% load staticfiles %&amp;#125;&amp;lt;script src=&quot;&amp;#123;% static &quot;jquery.min.js&quot;%&amp;#125;&quot;&amp;gt;&amp;lt;/script&amp;gt;
-写起来挺麻烦，而且看上去怪怪的，如果在context_processors中加入这么一条:1django.template.context_p">
+<meta name="twitter:title" content="修改Android中toolbar与statusbar的样式">
+<meta name="twitter:description" content="修改之前的样式：
+修改之后的样式：
+所作修改：1、将toolbar, statusbar设为相同颜色2、删除statusbar下边框的阴影3、将toolbar上边框的宽度设为04、设置toolbar的高度5、设置toolbar标题的大小
+相关代码：1234567891011121314151617181920212223242526272829303132333435363738394041424">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -82,26 +91,25 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/05/05/Django静态文件的一种加载方式/" title="Django静态文件的一种加载方式" itemprop="url">Django静态文件的一种加载方式</a>
+      <a href="/2016/10/10/修改Android中toolbar与statusbar的样式/" title="修改Android中toolbar与statusbar的样式" itemprop="url">修改Android中toolbar与statusbar的样式</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="djskl" target="_blank" itemprop="author">djskl</a>
 		
   <p class="article-time">
-    <time datetime="2016-05-04T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-05-05</time>
+    <time datetime="2016-10-09T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-10-10</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>django官方static的加载方式是：<br><figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span><span class="template_tag">&#123;% <span class="keyword">load</span> staticfiles %&#125;</span><span class="xml"></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"</span></span></span><span class="template_tag">&#123;% <span class="keyword">static</span> "jquery.min.js"%&#125;</span><span class="xml"><span class="tag"><span class="value">"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
-<p>写起来挺麻烦，而且看上去怪怪的，如果在<code>context_processors</code>中加入这么一条:<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django.<span class="keyword">template</span>.context_processors.<span class="keyword">static</span></span><br></pre></td></tr></table></figure></p>
-<p>在模板html文件中就可以这么使用了：<br><figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"</span></span></span><span class="expression">&#123;&#123;<span class="variable">STATIC</span>_<span class="variable">URL</span>&#125;&#125;</span><span class="xml"><span class="tag"><span class="value">jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
-<p>这样就简单很多了。</p>
-<p>这一条在<code>global_settings.py</code>中的<code>TEMPLATE_CONTEXT_PROCESSORS</code>是有的：<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TEMPLATE_CONTEXT_PROCESSORS</span> = [</span><br><span class="line">    'django.contrib.auth.context_processors.auth',</span><br><span class="line">    'django.<span class="keyword">template</span>.context_processors.debug',</span><br><span class="line">    'django.<span class="keyword">template</span>.context_processors.i18n',</span><br><span class="line">    'django.<span class="keyword">template</span>.context_processors.media',</span><br><span class="line">    **'django.<span class="keyword">template</span>.context_processors.<span class="keyword">static</span>',**</span><br><span class="line">    'django.<span class="keyword">template</span>.context_processors.tz',</span><br><span class="line">    'django.contrib.messages.context_processors.messages',</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
-<p>可以直接在<code>settings.py</code>直接引入：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from django<span class="class">.conf</span><span class="class">.global_settings</span> import TEMPLATE_CONTEXT_PROCESSORS</span><br></pre></td></tr></table></figure></p>
-<p>这样不用自己显式指定，也可以直接在html中使用了。</p>
+		<p><strong>修改之前的样式：</strong><br><img src="http://7xktxu.com1.z0.glb.clouddn.com/pre_cnic.sdc.toolbardemo_crop_small.png" alt="修改之前的样式"></p>
+<p><strong>修改之后的样式：</strong><br><img src="http://7xktxu.com1.z0.glb.clouddn.com/after_cnic.sdc.toolbardemo_small.png" alt="修改之后的样式"></p>
+<p><strong>所作修改：</strong><br>1、将toolbar, statusbar设为相同颜色<br>2、删除statusbar下边框的阴影<br>3、将toolbar上边框的宽度设为0<br>4、设置toolbar的高度<br>5、设置toolbar标题的大小</p>
+<p><strong>相关代码：</strong><br><figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!--values/styles.xml--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">resources</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Base application theme. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">style</span> <span class="attribute">name</span>=<span class="value">"AppTheme"</span> <span class="attribute">parent</span>=<span class="value">"Theme.AppCompat.Light.DarkActionBar"</span>&gt;</span><span class="css"></span><br><span class="line">        &lt;!<span class="tag">--</span> <span class="tag">toolbar</span>的颜色(<span class="id">#b1b1b1</span>) <span class="tag">--</span>&gt;</span><br><span class="line">        &lt;<span class="tag">item</span> <span class="tag">name</span>="<span class="tag">colorPrimary</span>"&gt;<span class="at_rule">@<span class="keyword">color/colorPrimary&lt;/item&gt;</span></span><br><span class="line">        </span><br><span class="line">        &lt;!-- statusbar的颜色(#b1b1b1) --&gt;</span><br><span class="line">        &lt;item name=<span class="string">"colorPrimaryDark"</span>&gt;@color/colorPrimaryDark&lt;/item&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 输入框光标等的颜色(#FF4081) --&gt;</span><br><span class="line">        &lt;item name=<span class="string">"colorAccent"</span>&gt;@color/colorAccent&lt;/item&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 设置toolbar的高度 --&gt;</span><br><span class="line">        &lt;item name=<span class="string">"actionBarSize"</span>&gt;<span class="number">35</span>dp&lt;/item&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 删除toolbar上方的边框线 --&gt;</span><br><span class="line">        &lt;item name=<span class="string">"elevation"</span>&gt;<span class="number">0</span>dp&lt;/item&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;!-- 删除statusbar下边框的阴影 --&gt;</span><br><span class="line">        &lt;item name=<span class="string">"android:windowContentOverlay"</span>&gt;@null&lt;/item&gt;</span><br><span class="line">    </span></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">style</span> <span class="attribute">name</span>=<span class="value">"AppTheme.NoActionBar"</span>&gt;</span><span class="css"><span class="at_rule"></span><br><span class="line">        &lt;item name=<span class="string">"windowActionBar"</span>&gt;false&lt;/item&gt;</span><br><span class="line">        &lt;item name=<span class="string">"windowNoTitle"</span>&gt;true&lt;/item&gt;</span><br><span class="line">    </span></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">style</span> <span class="attribute">name</span>=<span class="value">"AppTheme.AppBarOverlay"</span> <span class="attribute">parent</span>=<span class="value">"ThemeOverlay.AppCompat.Dark.ActionBar"</span> /&gt;</span><span class="css"><span class="at_rule"></span><br><span class="line"></span><br><span class="line">    &lt;style name=<span class="string">"AppTheme.PopupOverlay"</span> parent=<span class="string">"ThemeOverlay.AppCompat.Light"</span> /&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- toolbar标题样式 --&gt;</span><br><span class="line">    &lt;style name=<span class="string">"ToolbarTitle"</span> parent=<span class="string">"@style/TextAppearance.Widget.AppCompat.Toolbar.Title"</span>&gt;</span><br><span class="line">        &lt;item name=<span class="string">"android:textSize"</span>&gt;<span class="number">18s</span>p&lt;/item&gt;</span><br><span class="line">    </span></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="title">resources</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--layout/activiy_main.xml--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">android.support.v7.widget.Toolbar</span></span><br><span class="line">    <span class="attribute">android:id</span>=<span class="value">"@+id/toolbar"</span></span><br><span class="line">    </span><br><span class="line">    &lt;!<span class="attribute">--</span>其他代码<span class="attribute">--</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    app:titleTextAppearance="@style/ToolbarTitle" <span class="comment">&lt;!--标题样式--&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!--其他代码--&gt;</span></span><br><span class="line">    </span><br><span class="line">    /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>附一张android颜色分布图：</strong><br><img src="http://7xktxu.com1.z0.glb.clouddn.com/00217BUbzy6OBTaWfG39b&amp;690.jpg" alt=""></p>
+<p>就这么几行代码，搞了大半天，真是服了android了，参考的文章/帖子实在太多太杂，就不一一列举了，在此一并感谢这些无名英雄。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -109,7 +117,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/django/">django</a>
+  <a class="article-category-link" href="/categories/android/">android</a>
 </div>
 
 
@@ -119,7 +127,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://ideasintocodes.top/2016/05/05/Django静态文件的一种加载方式/" data-title="Django静态文件的一种加载方式 | ideas into codes" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://ideasintocodes.top/2016/10/10/修改Android中toolbar与statusbar的样式/" data-title="修改Android中toolbar与statusbar的样式 | ideas into codes" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -132,19 +140,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/05/11/编写systemd_service文件/" title="编写systemd service文件">
-  <strong>上一篇：</strong><br/>
-  <span>
-  编写systemd service文件</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/05/04/NGINX部署websocket反向代理/"  title="NGINX部署websocket反向代理">
+<a href="/2016/10/09/subprocess设置timeout/"  title="subprocess设置timeout">
  <strong>下一篇：</strong><br/> 
- <span>NGINX部署websocket反向代理
+ <span>subprocess设置timeout
 </span>
 </a>
 </div>
@@ -153,7 +153,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/05/05/Django静态文件的一种加载方式/" data-title="Django静态文件的一种加载方式" data-url="http://ideasintocodes.top/2016/05/05/Django静态文件的一种加载方式/"></div>
+	<div class="ds-thread" data-thread-key="2016/10/10/修改Android中toolbar与statusbar的样式/" data-title="修改Android中toolbar与statusbar的样式" data-url="http://ideasintocodes.top/2016/10/10/修改Android中toolbar与statusbar的样式/"></div>
 
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

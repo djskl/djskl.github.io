@@ -16,9 +16,9 @@
 
 Fedora24/64bit, mapserver-7.0.2, mapcache-1.4.0
 
-依赖：
+依赖：以下均可以通过dnf直接安装
 
-gcc-c++, gdal, gdal-libs, gdal-devel, libpng-devel, libjpeg-turbo-devel, libcurl-devel, apr-devel, apr-util-devel, pixman-devel, sqlite-deve">
+gcc-c++, gdal, gdal-libs, gdal-devel, libpng-devel, libjpeg-turbo-devel, libcurl-devel, apr-devel, apr-util-devel, pixman-deve">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mapserver+Mapcache+Aapache的使用介绍">
 <meta property="og:url" content="http://ideasintocodes.top/2016/10/15/Mapserver+Mapcache+Aapache的使用介绍/index.html">
@@ -27,23 +27,23 @@ gcc-c++, gdal, gdal-libs, gdal-devel, libpng-devel, libjpeg-turbo-devel, libcurl
 
 Fedora24/64bit, mapserver-7.0.2, mapcache-1.4.0
 
-依赖：
+依赖：以下均可以通过dnf直接安装
 
-gcc-c++, gdal, gdal-libs, gdal-devel, libpng-devel, libjpeg-turbo-devel, libcurl-devel, apr-devel, apr-util-devel, pixman-devel, sqlite-deve">
+gcc-c++, gdal, gdal-libs, gdal-devel, libpng-devel, libjpeg-turbo-devel, libcurl-devel, apr-devel, apr-util-devel, pixman-deve">
 <meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/map_demo.png">
 <meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/1.png">
 <meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/2.png">
 <meta property="og:image" content="http://7xktxu.com1.z0.glb.clouddn.com/3.png">
-<meta property="og:updated_time" content="2016-10-15T09:14:24.721Z">
+<meta property="og:updated_time" content="2016-10-15T09:18:08.716Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mapserver+Mapcache+Aapache的使用介绍">
 <meta name="twitter:description" content="版本： 
 
 Fedora24/64bit, mapserver-7.0.2, mapcache-1.4.0
 
-依赖：
+依赖：以下均可以通过dnf直接安装
 
-gcc-c++, gdal, gdal-libs, gdal-devel, libpng-devel, libjpeg-turbo-devel, libcurl-devel, apr-devel, apr-util-devel, pixman-devel, sqlite-deve">
+gcc-c++, gdal, gdal-libs, gdal-devel, libpng-devel, libjpeg-turbo-devel, libcurl-devel, apr-devel, apr-util-devel, pixman-deve">
 
     
     <link rel="alternative" href="/atom.xml" title="ideas into codes" type="application/atom+xml">
@@ -118,7 +118,7 @@ gcc-c++, gdal, gdal-libs, gdal-devel, libpng-devel, libjpeg-turbo-devel, libcurl
 <blockquote>
 <p>Fedora24/64bit, mapserver-7.0.2, mapcache-1.4.0</p>
 </blockquote>
-<p><strong>依赖：</strong></p>
+<p><strong>依赖：</strong>以下均可以通过dnf直接安装</p>
 <blockquote>
 <p>gcc-c++, gdal, gdal-libs, gdal-devel, libpng-devel, libjpeg-turbo-devel, libcurl-devel, apr-devel, apr-util-devel, pixman-devel, sqlite-devel, geos-devel, fcgi-devel, httpd-devel, freetype-devel, proj-devel, proj-epsg, fribidi-devel, harfbuzz-devel, cairo-devel, postgresql,  postgresql-devel, postgis, postgis-devel, giflib-devel, libxml2-devel</p>
 </blockquote>
@@ -126,7 +126,7 @@ gcc-c++, gdal, gdal-libs, gdal-devel, libpng-devel, libjpeg-turbo-devel, libcurl
 <p>在Feodra的系统上，mapserver与mapcache都会在<code>/usr/local/lib</code>目录里安装一些共享库(so文件)，所以需要把这个目录也放到系统的共享库的搜索路径里:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="string">'/usr/local/lib'</span> &gt; /etc/ld<span class="class">.so</span><span class="class">.conf</span><span class="class">.d</span>/usr-local<span class="class">.conf</span></span><br><span class="line">ldconfig</span><br></pre></td></tr></table></figure></p>
 <p>网上搜了一下，据说设置<code>LD_LIBRARY_PATH</code>也可以，但在Fedora24上并没有生效。</p>
 <p>安装完成之后，将<code>mapserv</code>拷到<code>/var/www/cgi-bin</code>目录下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp $(which mapserv) /<span class="keyword">var</span>/www/cgi-bin</span><br></pre></td></tr></table></figure></p>
-<p>然后通过浏览器访问：<a href="http://localhost/cgi-bin/mapserv，正常的话，页面会显示：" target="_blank" rel="external">http://localhost/cgi-bin/mapserv，正常的话，页面会显示：</a></p>
+<p>然后通过浏览器访问：<code>http://localhost/cgi-bin/mapserv</code>，正常的话，页面会显示：</p>
 <blockquote>
 <p>No query information to decode. QUERY_STRING is set, but empty.</p>
 </blockquote>

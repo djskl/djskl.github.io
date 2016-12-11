@@ -77,6 +77,46 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2016/01/12/在uwsgi的子线程中访问request.META的问题/" title="在uwsgi的子线程中访问request.META的问题" itemprop="url">
+  
+    <h1 itemprop="name">在uwsgi的子线程中访问request.META的问题</h1>
+    
+     
+           <p itemprop="description" >今天发现用户的ip地址有的能记录成功，有的记录为空。刚开始以为是nginx的问题，看了看nginx的配置，proxy的配置都是正确的，然后仔细看了一下调试日志，发现还是代码的问题：在子线程中通过request.META读取用户ip时，request.META为空了。调试代码如下：</p>
+        
+    
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished">2016-01-12</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/01/12/JSON格式日志字段提取/" title="JSON格式日志字段提取" itemprop="url">
+  
+    <h1 itemprop="name">JSON格式日志字段提取</h1>
+    
+     
+           <p itemprop="description" >今天生产环境的系统出了问题，在本地没法重现，只能通过日志判断，但其他请求的日志一直在滚，实在不便于查看，于是在可疑位置增加了一条日志，来输出http的所有头部信息：12print &#39;HEADER：%s&#39;%http_header#输出：HEADER:&amp;#123;&quot;field1&quot;: </p>
+        
+    
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished">2016-01-12</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2016/01/11/LeetCode之CoinChange/" title="LeetCode之Coin Change" itemprop="url">
   
     <h1 itemprop="name">LeetCode之Coin Change</h1>
@@ -247,46 +287,6 @@ Since every table h</p>
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/01/02/AngularJs使用jsonp/" title="AngularJs使用jsonp" itemprop="url">
-  
-    <h1 itemprop="name">AngularJs使用jsonp</h1>
-    
-     
-           <p itemprop="description" >今天学习AngularJs看到$http就顺带试了一下昨天看的jsonp，踩到了几个坑也学会了新的写法，现记录如下：12345678#Django代码from django.http.response import HttpResponseimport jsondef datas</p>
-        
-    
-    <time datetime="2016-01-01T16:00:00.000Z" itemprop="datePublished">2016-01-02</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/01/02/AngularJs表单验证/" title="AngularJs表单验证" itemprop="url">
-  
-    <h1 itemprop="name">AngularJs表单验证</h1>
-    
-     
-           <p itemprop="description" >今天看了一下AngularJs中的表单验证，不得不说，用起来还是有点不习惯，主要是没有选择器，相似的规则得逐个field添加，略麻烦。代码如下：1234567891011&amp;lt;div class=&quot;sign-up-wrapper&quot; ng-app&amp;gt;	&amp;lt;form nam</p>
-        
-    
-    <time datetime="2016-01-01T16:00:00.000Z" itemprop="datePublished">2016-01-02</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/page/6/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/8/">Next<span></span></a>
@@ -325,7 +325,7 @@ Since every table h</p>
 		  
 		
 		  
-			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>3</sup></a></li>
+			<li><a href="/categories/linux-c/" title="linux/c">linux/c<sup>4</sup></a></li>
 		  
 		
 		  
@@ -341,7 +341,7 @@ Since every table h</p>
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>37</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>38</sup></a></li>
 		  
 		
 		  

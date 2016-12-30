@@ -77,15 +77,16 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/12/在uwsgi的子线程中访问request.META的问题/" title="在uwsgi的子线程中访问request.META的问题" itemprop="url">
+    <a href="/2016/01/21/更改postgresql的数据目录/" title="更改postgresql的数据目录" itemprop="url">
   
-    <h1 itemprop="name">在uwsgi的子线程中访问request.META的问题</h1>
+    <h1 itemprop="name">更改postgresql的数据目录</h1>
     
      
-           <p itemprop="description" >今天发现用户的ip地址有的能记录成功，有的记录为空。刚开始以为是nginx的问题，看了看nginx的配置，proxy的配置都是正确的，然后仔细看了一下调试日志，发现还是代码的问题：在子线程中通过request.META读取用户ip时，request.META为空了。调试代码如下：</p>
+           <p itemprop="description" >生产环境的postgresql数据出了问题，于是就想把整个数据库拷到本地来调试一下。
+1、找到生产环境的postgresql的data目录，在命令行下连接上数据库，然后执行show data_directory就可以看到了，在fedora20上是/var/lib/pgsql/da</p>
         
     
-    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished">2016-01-12</time>
+    <time datetime="2016-01-20T16:00:00.000Z" itemprop="datePublished">2016-01-21</time>
   </a>
 </section>
 
@@ -103,6 +104,26 @@
     
      
            <p itemprop="description" >今天生产环境的系统出了问题，在本地没法重现，只能通过日志判断，但其他请求的日志一直在滚，实在不便于查看，于是在可疑位置增加了一条日志，来输出http的所有头部信息：12print &#39;HEADER：%s&#39;%http_header#输出：HEADER:&amp;#123;&quot;field1&quot;: </p>
+        
+    
+    <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished">2016-01-12</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/01/12/在uwsgi的子线程中访问request.META的问题/" title="在uwsgi的子线程中访问request.META的问题" itemprop="url">
+  
+    <h1 itemprop="name">在uwsgi的子线程中访问request.META的问题</h1>
+    
+     
+           <p itemprop="description" >今天发现用户的ip地址有的能记录成功，有的记录为空。刚开始以为是nginx的问题，看了看nginx的配置，proxy的配置都是正确的，然后仔细看了一下调试日志，发现还是代码的问题：在子线程中通过request.META读取用户ip时，request.META为空了。调试代码如下：</p>
         
     
     <time datetime="2016-01-11T16:00:00.000Z" itemprop="datePublished">2016-01-12</time>
@@ -166,26 +187,6 @@ index.html
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/06/AngularJs通过service在controller间共享数据/" title="AngularJs通过service在controller间共享数据" itemprop="url">
-  
-    <h1 itemprop="name">AngularJs通过service在controller间共享数据</h1>
-    
-     
-           <p itemprop="description" >123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;    &amp;lt;head&amp;g</p>
-        
-    
-    <time datetime="2016-01-05T16:00:00.000Z" itemprop="datePublished">2016-01-06</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
     <a href="/2016/01/06/AngularJs动态添加dom元素/" title="AngularJs动态添加dom元素" itemprop="url">
   
     <h1 itemprop="name">AngularJs动态添加dom元素</h1>
@@ -206,15 +207,15 @@ index.html
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/04/JavaScript访问AngularJs内部变量函数/" title="JavaScript访问AngularJs内部变量/函数" itemprop="url">
+    <a href="/2016/01/06/AngularJs通过service在controller间共享数据/" title="AngularJs通过service在controller间共享数据" itemprop="url">
   
-    <h1 itemprop="name">JavaScript访问AngularJs内部变量/函数</h1>
+    <h1 itemprop="name">AngularJs通过service在controller间共享数据</h1>
     
      
-           <p itemprop="description" >1234567891011var element = angular.element($document.getElementById(&quot;app&quot;));var controller = element.controller();var scope = element.scope(</p>
+           <p itemprop="description" >123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;    &amp;lt;head&amp;g</p>
         
     
-    <time datetime="2016-01-03T16:00:00.000Z" itemprop="datePublished">2016-01-04</time>
+    <time datetime="2016-01-05T16:00:00.000Z" itemprop="datePublished">2016-01-06</time>
   </a>
 </section>
 
@@ -269,16 +270,15 @@ Since every table h</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/01/02/jsonp简介/" title="jsonp简介" itemprop="url">
+    <a href="/2016/01/04/JavaScript访问AngularJs内部变量函数/" title="JavaScript访问AngularJs内部变量/函数" itemprop="url">
   
-    <h1 itemprop="name">jsonp简介</h1>
+    <h1 itemprop="name">JavaScript访问AngularJs内部变量/函数</h1>
     
      
-           <p itemprop="description" >jsonp不同于json，json是一种数据交换格式，jsonp则是为了跨域获取json数据的一种方式。
-默认情况下，由于浏览器的限制，当前网站上的任何内容都不允许其他网站直接调用访问(除非服务器进行一些设置)，而script标签自带跨域功能，jsonp就是通过动态加载scrip</p>
+           <p itemprop="description" >1234567891011var element = angular.element($document.getElementById(&quot;app&quot;));var controller = element.controller();var scope = element.scope(</p>
         
     
-    <time datetime="2016-01-01T16:00:00.000Z" itemprop="datePublished">2016-01-02</time>
+    <time datetime="2016-01-03T16:00:00.000Z" itemprop="datePublished">2016-01-04</time>
   </a>
 </section>
 
@@ -289,7 +289,7 @@ Since every table h</p>
 
 
   <nav id="page-nav" class="clearfix unexpand">
-    <a class="extend prev" rel="prev" href="/page/6/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/8/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/8/">Next<span></span></a>
   </nav>
 
 </div>
@@ -341,7 +341,7 @@ Since every table h</p>
 		  
 		
 		  
-			<li><a href="/categories/python/" title="python">python<sup>38</sup></a></li>
+			<li><a href="/categories/python/" title="python">python<sup>39</sup></a></li>
 		  
 		
 		  
